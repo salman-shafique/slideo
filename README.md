@@ -2,63 +2,51 @@
 
 ### Get project
 ```shell script
-git clone git@github.com:alperendurmus/hybridcore-symfony.git hybridcore-symfony
+git clone git@github.com:alperendurmus/slideo-symfony.git slideo-symfony
 ```
 
 ## 1. Development with Docker
 
-### Build & start the container
+### a. Build & start the container
 ```shell script
-cd hybridcore-symfony
+cd slideo-symfony
 docker-compose up -d --build
 ```
 
-### a. Setup the symfony
+### b. Setup the symfony
 ```shell script
-docker exec -ti hybridcore-symfony_php_1 composer install
-docker exec -ti hybridcore-symfony_php_1 php bin/console doctrine:database:create --if-not-exists
-docker exec -ti hybridcore-symfony_php_1 php bin/console doctrine:migrations:migrate -n 
+docker exec -ti slideo-symfony_php_1 composer install
+docker exec -ti slideo-symfony_php_1 php bin/console doctrine:database:create --if-not-exists
+docker exec -ti slideo-symfony_php_1 php bin/console doctrine:migrations:migrate -n 
+docker exec -ti slideo-symfony_php_1 php bin/console doctrine:fixtures:load -q
 ```
 
-### b. Setup the CKeditor
+### c. Connection with the local database:
 ```shell script
-docker exec -ti hybridcore-symfony_php_1 php bin/console ckeditor:install
-docker exec -ti hybridcore-symfony_php_1 php bin/console ckfinder:download
-docker exec -ti hybridcore-symfony_php_1 php bin/console assets:install
+DATABASE_URL=mysql://user:pass@host.docker.internal/slideo?serverVersion=5.7
 ```
 
-### Connection with the local database:
-```shell script
-DATABASE_URL=mysql://user:pass@host.docker.internal/hybridcore?serverVersion=5.7
-```
-
-[Login Page](http://localhost:3200/login)
+[Login Page](http://localhost:8000/login)
 
 ## 2. Local development
 
 ### a. Setup the symfony
 ```shell script
-cd hybridcore-symfony
+cd slideo-symfony
 comsoper install
 php bin/console doctrine:database:create --if-not-exists
 php bin/console doctrine:migrations:migrate -n 
+php bin/console doctrine:fixtures:load -q
 ```
 
-### b. Setup the CKeditor
-```shell script
-php bin/console ckeditor:install
-php bin/console ckfinder:download
-php bin/console assets:install
-```
-
-### c. Start the server
+### b. Start the server
 ```shell script
 symfony serve
 ```
 
-### Connection with the local database:
+### c. Connection with the local database:
 ```shell script
-DATABASE_URL=mysql://user:pass@localhost/hybridcore?serverVersion=5.7
+DATABASE_URL=mysql://user:pass@localhost/slideo?serverVersion=5.7
 ```
 
 [Login Page](http://localhost:8000/login)

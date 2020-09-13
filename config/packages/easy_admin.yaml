@@ -1,47 +1,20 @@
 easy_admin:
-  site_name: 'Hybridcore'
+  site_name: 'Slideo Dashboard'
   design:
-    assets:
-      js:
-        - '/bundles/cksourceckfinder/ckfinder/ckfinder.js'
-        - '/js/setup-ckfinder.js'
     brand_color: 'rgb(44,44,44)'
     form_theme:
       - '@EasyAdmin/form/bootstrap_4.html.twig'
-      - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
     menu:
-      Hybridcore:
+      Slideo:
         label: 'Go to website'
         url: "/"
-      PostManagement:
-        label: 'Blog Management'
-        entity: Post
-        default: true
       UserManagement:
         label: 'User Management'
         entity: User
 
         
   entities:
-    Post:
-      class: 'App\Entity\Post'
-      list:
-        fields:
-          - 'id'
-          - 'owner'
-          - 'title'
-          - 'abstract'
-          - 'active'
-          - 'createdAt'
-          - 'updatedAt'
-      form:
-        fields:
-          - 'owner'
-          - { property: 'title', type: 'text', type_options: { attr: { maxlength: 255,required: true }}}
-          - { property: 'abstract', type: 'textarea', type_options: { attr: { maxlength: 255,required: true }}}
-          - { property: 'content', type: 'fos_ckeditor'}
-          - 'active'
-    
+
     User:
       class: 'App\Entity\User'
       disabled_actions: ['new']

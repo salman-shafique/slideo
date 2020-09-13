@@ -36,11 +36,6 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="owner")
-     */
-    private $posts;
-
-    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -49,12 +44,6 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $fullname;
-
-
-    public function __construct()
-    {
-        $this->posts = new ArrayCollection();
-    }
 
     public function __toString()
     {
@@ -86,37 +75,6 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Post[]
-     */
-    public function getPosts(): Collection
-    {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): self
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts[] = $post;
-            $post->setOwner($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): self
-    {
-        if ($this->posts->contains($post)) {
-            $this->posts->removeElement($post);
-            // set the owning side to null (unless already changed)
-            if ($post->getOwner() === $this) {
-                $post->setOwner(null);
-            }
-        }
 
         return $this;
     }
