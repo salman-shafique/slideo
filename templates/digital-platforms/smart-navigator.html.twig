@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block title %}Smart Navigator
+{% endblock %}
+
+
+{% block body %}
+
+    <!-- bradcam_area  -->
+    <div class="bradcam_area slider_bg_2" style="padding-top: 150px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <div class="d-inline-block p-5" style="border-radius:50%; background-color:rgba(255,255,255,0.7)">
+                            <img src="/img/solutions/nav.png" alt="" width="200px">
+                        </div>
+                        <h2 class="text-white pt-5">Transform big data into actionable business intelligence and bespoke intelligent threat & risk analysis. </h2>
+                        <p onclick='$("#intro_video").modal("show")' style="cursor:pointer;display:inline"><i class="fas fa-play-circle"></i> See the trailer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+
+    <h1 class="text-center py-5 my-5">Features</h1>
+    <div class="about_wrap_area py-5" style="background-color: gray;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-md-6 col-lg-4">
+                    <div class="single_service_wrap text-center py-3" style="height: 100%">
+                        <i class="fas fa-chart-bar text-white" style="font-size: 3rem;"></i>
+                        <h3>Graphs</h3>
+                        <p>Visualized semantic relationships among data (Predictive risk ratings, real-time status info)</p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-lg-4">
+                    <div class="single_service_wrap text-center py-3" style="height: 100%">
+                        <i class="fas fa-map-marked-alt text-white" style="font-size: 3rem;"></i>
+                        <h3>Maps</h3>
+                        <p>Tracking geo-located objects/incidents; interactive maps, heatmaps</p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 col-lg-4">
+                    <div class="single_service_wrap text-center py-3" style="height: 100%">
+                        <i class="fas fa-search text-white" style="font-size: 3rem;"></i>
+                        <h3>Explorer</h3>
+                        <p>Query of objects/events/actors/factors and receive results in max 5 seconds</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6 col-lg-4">
+                    <div class="single_service_wrap text-center py-3" style="height: 100%">
+                        <i class="fas fa-chart-line text-white" style="font-size: 3rem;"></i>
+                        <h3>Predictive and Prescriptive Analytics</h3>
+                        <ul class="unordered-list text-white text-left" style="font-size: 14px">
+                            <li style="color: #D5D5D5">Threat & risk assessment and rating updates & periodic forecasts (Weekly and monthly)</li>
+                            <li style="color: #D5D5D5">Automated alerts, early detections for pre-emptive responses to crisis and business driven situations </li>
+                            <li style="color: #D5D5D5">Reasoning for expected outcomes (customer trends, lowering cost-to-serve via automation)</li>
+                            <li style="color: #D5D5D5">Accuracy of occurrence (risk, crisis, conflict, negotiation, resolution, financial gains and losses, targeted investment, trade recommendations)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-md-6 col-lg-4">
+                    <div class="single_service_wrap text-center py-3" style="height: 100%">
+                        <i class="fas fa-tasks text-white" style="font-size: 3rem;"></i>
+                        <h3>Case Management</h3>
+                        <ul class="unordered-list text-white text-left" style="font-size: 14px">
+                            <li style="color: #D5D5D5">Decision-making support to handle specific risks & threats and opportunities defined by customers</li>
+                            <li style="color: #D5D5D5">Behavioural pattern analyses and cognitive perspective of non-state, sate, and business actors</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Video Area -->
+    <div class="modal fade" id="intro_video" tabindex="-1" role="dialog" aria-labelledby="intro_video" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" data-target="#intro_video">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <iframe id="youtube_video" width="720" height="420" src="https://www.youtube.com/embed/J080ad0jsxo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- End Video Area -->
+
+{% endblock %}

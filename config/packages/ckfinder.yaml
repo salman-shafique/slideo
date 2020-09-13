@@ -1,0 +1,8 @@
+ckfinder:
+  connector:
+    authenticationClass: App\Security\CustomCKFinderAuth
+    resourceTypes:
+      Hybridcore:
+        name: Hybridcore
+        backend: default
+        directory: Hybridcore

@@ -1,0 +1,139 @@
+.fa-conv{
+    content:url("../img/demos/icons/conversion_path.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+}
+.fa-traffic{
+    content:url("../img/demos/icons/customer_traffic_data.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+}
+.fa-products-category{
+    content:url("../img/demos/icons/top_10_products_category.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+}
+.fa-future-trends{
+    content:url("../img/demos/icons/future_trends.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+}
+.fa-customer-flow{
+    content:url("../img/demos/icons/customer_flow.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+}
+.fa-channels-lead-cost{
+    content:url("../img/demos/icons/channels_of_lead_cost.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+}
+.fa-abandonments{
+    content:url("../img/demos/icons/abandonments.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+}
+
+/* ******************** */
+
+.fa-purchasing-patterns{
+    content:url("../img/demos/icons/purchasing_patterns.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+.fa-effective-value{
+    content:url("../img/demos/icons/effective_value_marketing_campaigns.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+.fa-effective-key{
+    content:url("../img/demos/icons/effective_key_marketing_campaigns.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+.fa-frequently-bought{
+    content:url("../img/demos/icons/frequently_bought.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+.fa-frequently-visited{
+    content:url("../img/demos/icons/frequently_visited.png");
+    display:inline-block;
+    width:64px;
+    height:64px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+
+
+.links line {
+    stroke: #999;
+    stroke-opacity: 0.6;
+  }
+  
+  .nodes circle {
+    stroke: #fff;
+    stroke-width: 1.5px;
+  }
+  
+  text {
+    font-family: sans-serif;
+    font-size: 10px;
+  }
+
+  .top-ten-info{
+    width:250px;
+    height:200px; 
+    border: solid 1px;
+    z-index:9999; 
+    margin-top:-550px; 
+    margin-left: 450px;
+    background-color: whitesmoke;
+    padding: 10px;
+  }
+  .dot {
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align:middle;
+
+  }
+  .dot-detail {
+    display: inline-block;
+    margin-left: 15px;
+    vertical-align:middle;
+    margin-top: 15px;
+  }
+  .outer-div{
+      max-width: 250px;
+      max-height: 40px;
+  }
+  .top-ten-info-box{
+    height: 15px;
+    background-color: blue;
+    margin-top: 5px;
+  }
+  svg:not(:root) {
+    overflow: visible;
+}

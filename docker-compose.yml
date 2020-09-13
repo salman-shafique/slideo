@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  php:
+    build: ./
+    volumes:
+      - ./:/var/www/app
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "3200:8000"
+    command: ["symfony", "serve"]

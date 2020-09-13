@@ -1,0 +1,1346 @@
+{% extends 'base.html.twig' %}
+{% block title %} Smart Sonar Demo
+{% endblock %}
+{% block style %}
+    {{parent()}}
+    
+    <link rel="stylesheet" href="/css/demos.css">
+{% endblock %}
+
+{% block body %}
+    <!-- bradcam_area  -->
+    <div class="bradcam_area slider_bg_2" style="padding-top: 150px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="bradcam_text text-center">
+                        <div class="d-inline-block p-5" style="border-radius:50%; background-color:rgba(255,255,255,0.7);cursor:pointer;">
+                            <img src="/img/solutions/son.png" alt="" width="200px" for="smart_sonar_demo" onclick="scroll_to(this)">
+                        </div>
+                        <h2 class="text-white pt-5">DEMOS</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ bradcam_area  -->
+
+    <h1 id="smart_sonar_demo" class="text-center py-5">How Does Smart Sonar Work?</h1>
+
+    <div class="testmonial_area p-5" style="background-color: #2C2C2C">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-10 offset-xl-1">
+                    <div class="testmonial_active2 owl-carousel">
+                        <div class="single_slider text-center" data-dot='<img src="/img/demos/1.png" alt="#" '>
+                            <p class="text-white" style="text-decoration: none;font-size:20px">Intelligent marketing & sales is dynamically developing and aims at optimizing the effort of sales and marketing departments. An excellent tool for that is Smart Sonar. Big Data is employed in designing customer journey. Hybrid intelligence allows to collect, process and utilize Big Data. They consist of the in-built mechanisms and algorithms that let us predict potential interest, future patterns, and more importantly cognitive architecture of customers.</p>
+                        </div>
+                        <div class="single_slider text-center" data-dot='<img src="/img/demos/2.png" alt="#" '>
+                            <p class="text-white" style="text-decoration: none;font-size:20px">Smart Sonar focuses on analysing the data of customers, finds interconnectivity and correlations between all their interactions leading to the customer journey. It delivers dynamic personalized content and offers all channels; in other words, it optimizes customer acquisition and maximizes marketing campaigns.</p>
+                        </div>
+                        <div class="single_slider text-center" data-dot='<img src="/img/demos/3.png" alt="#" '>
+                            <p class="text-white" style="text-decoration: none;font-size:20px">This cutting-edge tool provides insight into customer purchase history, buyer’s journey, personalized product recommendations according to what the algorithm deems most likely to be bought, and analyses the way products correlate in categories, allowing for highly engaging and eye-catching offers to be delivered to targeted clients.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="single_service_wrap text-center py-3" style="height: 100%">
+                        <h3>Data Collected by Smart Sonar from Online Retailers, Social Media Channels, Google/Bing Search, Ranking and Customer Services Data, Companies’ Raw Data, and Our Own Data Bases</h3>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="single_service_wrap text-center py-3" style="height: 100%">
+                        <ul class="unordered-list">
+                            <li style="display:inline">Website visits</li>
+                            <li style="display:inline">Products bought</li>
+                            <li style="display:inline">Products added to cart</li>
+                            <li style="display:inline">Conversion paths</li>
+                            <li style="display:inline">Conversion sources</li>
+                            <li style="display:inline">Buyers’ trends data</li>
+                            <li style="display:inline">Purchase transactions</li>
+                            <li style="display:inline">Price history</li>
+                            <li style="display:inline">Trend seasons</li>
+                            <li style="display:inline">Reactions to direct marketing</li>
+                            <li style="display:inline">Search terms used</li>
+                            <li style="display:inline">Chat conversations</li>
+                            <li style="display:inline">Products displayed</li>
+                            <li style="display:inline">Cart value</li>
+                            <li style="display:inline">Ranking value</li>
+                            <li style="display:inline">Customers’ opinions (Sentiment analysis, social media interactions)</li>
+                            <li style="display:inline">Offline behaviours</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 border border-dark"></div>
+    <h1 class="text-center py-5">TARGETED MARKETING & SALES DATA ANALYTICS SAMPLES</h1>
+    <div class="about_wrap_area py-5" style="background-color: #2C2C2C;">
+        <div class="container">
+
+            <div class="row gallery-item justify-content-center">
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#top_ten").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-products-category text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Top 10 Products Category</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#conversion").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fa fa-conv" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Conversion Path</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#cus_tra").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-traffic text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Customer Traffic Data</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#abandonments").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-abandonments text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Abandonments</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#customer_flow").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-customer-flow text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Customer Flow</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#future_trends").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-future-trends text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Future Trends</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#lead_cost").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-channels-lead-cost text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Channels of Lead Cost</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <h1 class="text-center py-5">TARGETED MARKETING & SALES AI-POWERED RECOMMENDATION SAMPLES</h1>
+    <div class="about_wrap_area py-5" style="background-color: #2C2C2C;">
+        <div class="container">
+
+            <div class="row gallery-item justify-content-center">
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#bou_tog").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-frequently-bought text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Most Frequently Bought Together</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#vis_tog").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-frequently-visited text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Most Frequently Visits Together</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#key_wor").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-effective-key text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Most Effective Key Words for Marketing Campaigns</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#cha_mar").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-effective-value text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Most Effective Channels for Marketing Campaigns</h3>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 col-lg-4 mb-4" onclick='$("#pur_pat").modal("show")' style="cursor: pointer;height:160px;">
+                    <div class="single_service_wrap text-center pb-1 pt-4 m-0 px-1" style="height: 100%">
+                        <i class="fas fa-purchasing-patterns text-white" style="font-size: 3rem;"></i>
+                        <h3 class="my-1">Hidden Purchasing Patterns</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="top_ten" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Top 10 Products Category</h3>
+                        </div>
+                        <svg id="top_ten_svg" width="960" height="600" class="col-12"></svg>
+                        <div class="top-ten-info">
+                            <span class="dot"></span>
+                            <p class="dot-detail">PRODUCT DETAILS</p>
+                            <div class="outer-div row">
+                                <p class="col-5" style="font-size:x-small">NAME</p>
+                            </div>
+                            <div class="outer-div row">
+                                <p class="col-5" style="font-size:x-small">PRODUCT ID</p>
+                                <div class="top-ten-info-box col-7"></div>
+                            </div>
+                            <div class="outer-div row">
+                                <p class="col-5" style="font-size:x-small">PRICE</p>
+                                <div class="top-ten-info-box col-7"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="conversion" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Conversion Path</h3>
+                        </div>
+                        <canvas id="conversion-chart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cus_tra" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Customer Traffic Data</h3>
+                        </div>
+                        <div style="width:100%; height: 500px; padding:40px">
+                            <canvas id="traffic-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="abandonments" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Abandonments</h3>
+                        </div>
+                        <strong class="col-12">Cost</strong>
+                        <div id="abandonments_cost" class="col-12"></div>
+                        <strong class="col-12">Website</strong>
+                        <div id="abandonments_website" class="col-12"></div>
+                        <strong class="col-12">Customer service</strong>
+                        <div id="abandonments_customer" class="col-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="customer_flow" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Customer Flow</h3>
+                        </div>
+                        <div id="customer_flow_chart" class="col-12"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="future_trends" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Future trends</h3>
+                        </div>
+                        <div id="future_trends_chart" class="col-12"></div>
+                        <div class="col-12 row">
+                            <strong class="col-4 d-inline-block text-center">2020</strong>
+                            <strong class="col-4 d-inline-block text-center">2021</strong>
+                            <strong class="col-4 d-inline-block text-center">2023</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="lead_cost" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Channels of Lead Cost</h3>
+                        </div>
+                        <div class="col-12" style="overflow-x: scroll;">
+                            <table class="table table-bordered text-center">
+                                <thead class="thead-dark">
+                                    <tr class="">
+                                        <th></th>
+                                        <th>Media Placement/ Distribution</th>
+                                        <th>List(s)</th>
+                                        <th>Labor/Agency</th>
+                                        <th>Campaign Creative</th>
+                                        <th>Incentive(s)</th>
+                                        <th>Other</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Company X</td>
+                                        <td>853.25</td>
+                                        <td>319.082</td>
+                                        <td>120</td>
+                                        <td>21.765</td>
+                                        <td>1,500,000</td>
+                                        <td>43.064</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Company Y</td>
+                                        <td>743.12</td>
+                                        <td>420.04</td>
+                                        <td>126.234</td>
+                                        <td>34.123</td>
+                                        <td>1,200,350</td>
+                                        <td>35.23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Company Z</td>
+                                        <td>910.345</td>
+                                        <td>400.234</td>
+                                        <td>134</td>
+                                        <td>26.567</td>
+                                        <td>1,450,900</td>
+                                        <td>42.45</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-bordered text-center">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Lead Provider</th>
+                                        <th>Lead Count-Total</th>
+                                        <th>Race-Bad</th>
+                                        <th>Rate-Converted</th>
+                                        <th>Lead Cost</th>
+                                        <th>Lead Cost Avarage</th>
+                                        <th>Lead Cost Per Coversion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>A</td>
+                                        <td>2, 954</td>
+                                        <td>13.10%</td>
+                                        <td>4.40%</td>
+                                        <td>45,960.00</td>
+                                        <td>18.11</td>
+                                        <td>450.59</td>
+                                    </tr>
+                                    <tr>
+                                        <td>B</td>
+                                        <td>4.275</td>
+                                        <td>11.90%</td>
+                                        <td>5.20%</td>
+                                        <td>47,020.00</td>
+                                        <td>12.28</td>
+                                        <td>265.65</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C</td>
+                                        <td>2.055</td>
+                                        <td>11.80%</td>
+                                        <td>6.40%</td>
+                                        <td>31,980.00</td>
+                                        <td>18.13</td>
+                                        <td>313.53</td>
+                                    </tr>
+                                    <tr>
+                                        <td>D</td>
+                                        <td>2.28</td>
+                                        <td>16.20%</td>
+                                        <td>6.40%</td>
+                                        <td>35,520.00</td>
+                                        <td>17.65</td>
+                                        <td>311.58</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E</td>
+                                        <td>1.791</td>
+                                        <td>12.60%</td>
+                                        <td>5.00%</td>
+                                        <td>27,720.00</td>
+                                        <td>16.62</td>
+                                        <td>401.74</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="bou_tog" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Most Frequently Bought Together</h3>
+                            <h4 class="m-0 text-center text-danger">(in Million)</h4>
+                        </div>
+                        <div class="col-12" id="bou_tog_chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="vis_tog" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="text-center">Most Frequently Visits Together</h3>
+                            <h4 class="m-0 text-center text-danger">(% of Responses)</h4>
+                        </div>
+                        <div class="col-12" id="vis_tog_pro_chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="key_wor" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Most Effective Key Words for Marketing Campaigns</h3>
+                        </div>
+                        <div class="col-12" id="key_wor_chart"></div>
+                        <h5 class="m-0">Key Words (Prooduct X)</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cha_mar" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Most Effective Channels for Marketing Campaigns</h3>
+                            <h4 class="m-0 text-center text-danger">(Channels, 2021 Q2)</h4>
+                        </div>
+                        <div class="col-12" id="cha_mar_chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="pur_pat" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="p-2 rounded-top">
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h3 class="m-0 text-center">Hidden Purchasing Patterns</h3>
+                            <h4 class="m-0 text-center text-danger">(Presicion Probability, 2021 Q2)</h4>
+                        </div>
+                        <div class="col-12" id="pur_pat_chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    {{parent()}}
+       <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+        window.Promise ||
+            document.write(
+                '<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"><\/script>'
+            )
+        window.Promise ||
+            document.write(
+                '<script src="https://cdn.jsdelivr.net/npm/eligrey-classlist-js-polyfill@1.2.20171210/classList.min.js"><\/script>'
+            )
+        window.Promise ||
+            document.write(
+                '<script src="https://cdn.jsdelivr.net/npm/findindex_polyfill_mdn"><\/script>'
+            )
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        function scroll_to(e) {
+            target = e.getAttribute("for");
+            document.documentElement.scroll(0, $("#" + target).offset().top - 90);
+        }
+
+        $(document).ready(function() {
+            $('#intro_video').on('hidden.bs.modal', function(e) {
+                let iframeDiv = document.getElementById('youtube_video');
+                let video_url = iframeDiv.src;
+                iframeDiv.src = "";
+                iframeDiv.src = video_url;
+            })
+        });
+
+        // Make the footer background white
+        $("footer .footer_top").addClass("bg-white");
+    </script>
+    <script>
+        // Smart sonar abandonments
+        options = {
+            series: [{
+                data: ["60", "23"],
+                name: "Cost"
+            }],
+            chart: {
+                type: 'bar',
+                height: 120,
+                toolbar: {
+                    show: false,
+                },
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            colors: ["#28AE60"],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: ["Extra Cost Too High (Tax, Fees, Shipping)", "I couldn't Calculate Total Cost Up-Front"],
+                max: 100
+            }
+        };
+        chart = new ApexCharts(document.querySelector("#abandonments_cost"), options);
+        chart.render();
+        options = {
+            series: [{
+                data: ["37", "28", "12", "27", "8", "4"],
+                name: "Website"
+            }],
+            chart: {
+                type: 'bar',
+                height: 220,
+                toolbar: {
+                    show: false,
+                },
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            colors: ["#28AE60"],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: ["The Site Wanted Me to Generate an Account", "Too Long/Complicated Checkout Process", "Website Had Errors", "I didn't Trust the Site", "There Were Not Enough Payment Mothods", "The Credit Card Was Declined"],
+                max: 100
+            }
+        };
+        chart = new ApexCharts(document.querySelector("#abandonments_website"), options);
+        chart.render();
+        options = {
+            series: [{
+                data: ["18", "11"],
+                name: "Customer Service"
+            }],
+            chart: {
+                type: 'bar',
+                height: 120,
+                toolbar: {
+                    show: false,
+                },
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            colors: ["#28AE60"],
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: ["Delivery Was Too Slow", "Return Policy Was Not Satisfactory"],
+                max: 100
+            }
+        };
+        chart = new ApexCharts(document.querySelector("#abandonments_customer"), options);
+        chart.render();
+    </script>
+    <script>
+        var options = {
+            series: [{
+                    name: "Product A(Mobile)",
+                    data: [4500, 589, 213, 26, 19]
+                },
+                {
+                    name: "Product A(Web Search)",
+                    data: [5200, 768, 578, 39, 36]
+                },
+                {
+                    name: "Product B(Mobile)",
+                    data: [8900, 980, 768, 67, 54]
+                },
+                {
+                    name: "Product B(Web Search)",
+                    data: [12400, 2589, 1789, 126, 113]
+                },
+
+                {
+                    name: "Product C(Mobile)",
+                    data: [1200, 345, 267, 14, 11]
+                },
+
+                {
+                    name: "Product C(Web Search)",
+                    data: [1650, 567, 450, 23, 20]
+                }
+            ],
+            colors: ['#060160', '#92a8d1', '#cc0033', '#f26052', '#007239', '#a0db8e'],
+            chart: {
+                height: 350,
+                type: 'line',
+                toolbar: {
+                    show: false,
+                },
+                zoom: {
+                    enabled: false
+                },
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                width: [1, 1, 1, 1, 1, 1],
+                curve: 'straight',
+                dashArray: [0]
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: ["Start", "Request Offer", "Receive Offer", "Submit Request", "Request Processed"],
+            },
+            tooltip: {
+                y: [{
+                    title: {
+                        formatter: function(val) {
+                            return val;
+                        }
+                    }
+                }]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#customer_flow_chart"), options);
+        chart.render();
+    </script>
+    <script>
+        var options = {
+            series: [{
+                    name: "Banner",
+                    data: [18, 22, 20, 24, , 16, 15, 16, 24, , 14, 15, 16, 22]
+                },
+                {
+                    name: "Social Media",
+                    data: [42, 32, 36, 34, , 44, 35, 40, 34, , 45, 37, 44, 36]
+                },
+                {
+                    name: "Search",
+                    data: [26, 35, 28, 16, , 28, 40, 25, 16, , 30, 40, 26, 19]
+                },
+                {
+                    name: "Video",
+                    data: [14, 11, 16, 26, , 12, 10, 21, 26, , 11, 8, 22, 23]
+                }
+            ],
+            colors: ['#060160', '#92a8d1', '#cc0033', '#a0db8e'],
+            chart: {
+                height: 350,
+                type: 'bar',
+                toolbar: {
+                    show: false,
+                },
+                zoom: {
+                    enabled: false
+                },
+                stacked: true,
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            yaxis: {
+                max: 100
+            },
+            xaxis: {
+                categories: ["Energy", "Defence", "Banking", "Insurance", "", "Energy", "Defence", "Banking", "Insurance", "", "Energy", "Defence", "Banking", "Insurance"],
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#future_trends_chart"), options);
+        chart.render();
+    </script>
+    <script>
+        var options = {
+            series: [{
+                name: "Germany",
+                data: [14, 12, 9, 8, 12, 11.4]
+            }, {
+                name: "Netherlands",
+
+                data: [7, 6, 6, 5, 5, 4.8]
+            }, {
+                name: "France",
+
+                data: [9, 7.8, 8, 7.3, 2, 1.2]
+            }],
+            chart: {
+                type: 'bar',
+                height: 430,
+                toolbar: false
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: false,
+                width: 1,
+                colors: ['#fff']
+            },
+            legend: {
+                show: true
+            },
+            xaxis: {
+                categories: ["Smart Phone A", "Product B", "Tablet C", "Product D", "Headphone E", "Product F"],
+            },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#bou_tog_chart"), options);
+        chart.render();
+    </script>
+    <script>
+        var options = {
+            series: [{
+                data: [15, 17, 40, 26],
+                name: "% of Responses",
+            }, {
+                data: [5, 7, 22, 36],
+                name: "% of Responses",
+            }, ],
+            chart: {
+                type: 'bar',
+                height: 430,
+                toolbar: false,
+            },
+            tooltip: {
+                enabled: true,
+                style: {
+                    fontSize: '16px',
+                },
+                x: {
+                    show: false,
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: false,
+                width: 1,
+                colors: ['#fff']
+            },
+            legend: {
+                show: false
+            },
+            xaxis: {
+                categories: ["Product A", "Product B", "Product C", "Product D", "Website A", "Website B", "Website C", "Website D"]
+            },
+        };
+        var chart = new ApexCharts(document.querySelector("#vis_tog_pro_chart"), options);
+        chart.render();
+    </script>
+    <script>
+        var options = {
+            series: [{
+                    name: "0-5 Seconds",
+                    data: [0.6, 0.7, 0.9, 0.8, 0.9, 1, 0.8, 0.9, 0.6]
+                },
+                {
+                    name: "05-10 Seconds",
+                    data: [0.8, 0.9, 1, 0.6, 0.8, 0.6, 0.7, 0.9, 0.8]
+                },
+                {
+                    name: "10-15 Seconds",
+                    data: [0.7, 0.8, 0.8, 0.6, 0.6, 0.5, 0.6, 0.8, 0.7]
+                }
+            ],
+            chart: {
+                height: 400,
+                type: 'line',
+                toolbar: false,
+                dropShadow: {
+                    enabled: true,
+                    color: '#000',
+                    top: 18,
+                    left: 7,
+                    blur: 10,
+                    opacity: 0.2
+                },
+                toolbar: {
+                    show: false
+                }
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            colors: ['#77B6EA', '#545454', '#0000FF'],
+            dataLabels: {
+                enabled: true,
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            grid: {
+                borderColor: '#e7e7e7',
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                },
+            },
+            markers: {
+                size: 1
+            },
+            xaxis: {
+                categories: [
+                    ['User', 'Friendly'],
+                    ['Integrated', 'Apps'], 'Hybrid', 'Lower Cost', '5G', 'Hybrid', 'Personalized', 'Privacy', 'Hybrid'
+                ],
+                labels: {
+                    rotate: 30
+                },
+            },
+            yaxis: {
+                title: {
+                    text: 'Time'
+                },
+                min: 0.4,
+                max: 1
+            },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#key_wor_chart"), options);
+        chart.render();
+    </script>
+    <script>
+        var options = {
+            series: [{
+                name: 'Product X',
+                data: [74, 51, 35, 29, 24, 3]
+            }, {
+                name: 'Product Y',
+                data: [52, 67, 70, 13, 22, 5]
+            }, {
+                name: 'Product Z',
+                data: [65, 71, 57, 45, 5, 6]
+            }],
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: false,
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            yaxis: {
+                title: {
+                    text: '% (percent)'
+                }
+            },
+            xaxis: {
+                categories: ['LinkedIn',
+                    'Facebook',
+                    'Twitter',
+                    'Instagram',
+                    'Youtube',
+                    'Pinterest'
+                ],
+
+            },
+            fill: {
+                opacity: 1
+            },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#cha_mar_chart"), options);
+        chart.render();
+    </script>
+    <script>
+        var options = {
+            series: [{
+                name: 'Product A',
+                data: [0.6, 0.65, 0.7, 0.72, 0.88, 1, 0.1]
+            }, {
+                name: 'Product B',
+                data: [0.6, 0.7, 0.74, 0.79, 0.82, 0.94, 0.25]
+            }, {
+                name: 'Product C',
+                data: [0.46, 0.54, 0.67, 0.45, 0.78, 0.87, 0.98]
+            }],
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: false,
+            },
+            tooltip: {
+                style: {
+                    fontSize: '16px',
+                    fontFamily: undefined
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            yaxis: {
+                max: 1
+            },
+            xaxis: {
+                categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            },
+            fill: {
+                opacity: 1
+            },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#pur_pat_chart"), options);
+        chart.render();
+    </script>
+    <script>
+        var svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height");
+
+        var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+        var simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(function(d) {
+                return d.id;
+            }))
+
+            .force("charge", d3.forceManyBody())
+            .force("center", d3.forceCenter(width / 3, height / 2));
+
+        d3.json("/data/miserables.json", function(error, graph) {
+
+            if (error) throw error;
+
+            var link = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(graph.links)
+                .enter().append("line")
+                .attr("stroke-width", function(d) {
+                    return Math.sqrt(d.value);
+                });
+
+            var node = svg.append("g")
+                .attr("class", "nodes")
+                .selectAll("g")
+                .data(graph.nodes)
+                .enter().append("g")
+
+            var circles = node.append("circle")
+                .attr("r", 5)
+                .attr("fill", function(d) {
+                    return color(d.group);
+                })
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+
+
+            simulation
+                .nodes(graph.nodes)
+                .on("tick", ticked);
+
+            simulation.force("link")
+                .links(graph.links);
+
+            function ticked() {
+                link
+                    .attr("x1", function(d) {
+                        return d.source.x;
+                    })
+                    .attr("y1", function(d) {
+                        return d.source.y;
+                    })
+                    .attr("x2", function(d) {
+                        return d.target.x;
+                    })
+                    .attr("y2", function(d) {
+                        return d.target.y;
+                    });
+
+                node
+                    .attr("transform", function(d) {
+                        return "translate(" + d.x + "," + d.y + ")";
+                    })
+            }
+        });
+
+        function dragstarted(d) {
+            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
+
+        function dragended(d) {
+            if (!d3.event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+    </script>
+    <script>
+        // conversion chart
+        var ctx = document.getElementById("conversion-chart");
+        var conversion_chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Cart', 'Billing and Shipping', 'Payment', 'Review', 'Purchase Completed'],
+                datasets: [{
+                    label: '# of Tomatoes',
+                    data: [40, 25, 20, 10, 5],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                //cutoutPercentage: 40,
+                responsive: false,
+            },
+            animation: {
+                animateRotate: true
+            },
+            tooltips: {
+                titleFontSize: 18,
+                bodyFontSize: 16
+            }
+        });
+    </script>
+    <script>
+        var config = {
+            type: 'line',
+            data: {
+                labels: ['Twitter', 'Facebook', 'Linkedin', 'Google', 'Bing', '****/ referral'],
+                datasets: [{
+                    label: 'Sessions',
+                    backgroundColor: 'rgba(255, 0, 0, 0.8)',
+                    borderColor: 'rgba(255, 0, 0, 0.8)',
+                    data: [19.16, 14.72, 12.67, 17.12, 29.44, 8.7, 12.87],
+                    fill: false,
+                }, {
+                    label: '% New Sessions',
+                    fill: false,
+                    backgroundColor: 'rgba(0, 0, 255, 0.8)',
+                    borderColor: 'rgba(0, 0, 255, 0.5)',
+                    data: [68.41, 88.84, 59.54, 73.87, 84.85, 76.90, 23.08]
+                }, {
+                    label: 'New Users',
+                    fill: false,
+                    backgroundColor: 'rgba(255, 255, 0, 0.8)',
+                    borderColor: 'rgba(255, 255, 0, 0.8)',
+                    data: [23.82, 23.50, 10.05, 5.4, 24.8, 3.97, 7.79],
+                }, {
+                    label: 'Bounce Rate',
+                    fill: false,
+                    backgroundColor: 'rgba(128, 0, 128, 0.8)',
+                    borderColor: 'rgba(128, 0, 128, 0.8)',
+                    data: [49.32, 63.87, 92.21, 50.79, 78.60, 76.36, 19.96],
+                }, {
+                    label: 'Page / Session',
+                    fill: false,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    borderColor: 'rgba(0, 0, 0, 0.8)',
+                    data: [23.2, 17.7, 12.1, 20.0, 14.2, 8.17, 6.99],
+                }, {
+                    label: 'Avg. Session Duration (sec)',
+                    fill: false,
+                    backgroundColor: 'rgba(0, 255, 255, 0.8)',
+                    borderColor: 'rgba(0, 255, 255, 0.8)',
+                    data: [120, 124, 53, 191, 112, 240, 227],
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Customer Traffic Data'
+                },
+                scales: {
+                    y: {
+                        gridLines: {
+                            drawBorder: false,
+                            color: ['pink', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'purple']
+                        },
+                        min: 0,
+                        max: 100,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    }
+                },
+                tooltips: {
+                    titleFontSize: 18,
+                    bodyFontSize: 16
+                }
+            }
+        }
+
+        var ctx = document.getElementById('traffic-chart').getContext('2d');
+        var traffic_chart = new Chart(ctx, config);
+    </script>
+{% endblock %}
