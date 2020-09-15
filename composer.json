@@ -11,6 +11,9 @@
         "friendsofsymfony/jsrouting-bundle": "^2.6",
         "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^2.4",
+        "knpuniversity/oauth2-client-bundle": "^2.3",
+        "league/oauth2-facebook": "^2.0",
+        "league/oauth2-google": "^3.0",
         "nesbot/carbon": "^2.36",
         "sensio/framework-extra-bundle": "^5.1",
         "stof/doctrine-extensions-bundle": "^1.4",
@@ -94,7 +97,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.1.*"
         }
     }
