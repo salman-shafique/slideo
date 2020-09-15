@@ -89,11 +89,11 @@
   </div>
 
   {% for error in app.flashes('error') %}
-    <div class="alert alert-danger text-center ml-auto mr-5" role="alert">{{ error }}</div>
+    <div class="alert alert-danger text-center ml-auto mr-5" style="width:300px" role="alert">{{ error }}</div>
     <div class="col-12"></div>
   {% endfor %}
   {% for success in app.flashes('success') %}
-    <div class="alert alert-success text-center ml-auto mr-5" role="alert">{{ success }}</div>
+    <div class="alert alert-success text-center ml-auto mr-5" style="width:300px" role="alert">{{ success }}</div>
     <div class="col-12"></div>
   {% endfor %}
 
