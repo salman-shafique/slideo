@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
+use App\Service\TraitAware\EntityManagerAware;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
+
     private $emailVerifier;
 
     public function __construct(EmailVerifier $emailVerifier)
@@ -30,11 +32,32 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        if ($this->getUser()) {
+            return $this->redirectToRoute("index");
+        }
+
+        $form = $this->createForm(RegistrationFormType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $checkEmail = $entityManager
+                ->createQueryBuilder()
+                ->from('App\Entity\User', 'u')
+                ->select('u')
+                ->where("u.email = :email")
+                ->setParameter('email', $form->get('email')->getData())
+                ->getQuery()
+                ->execute();
+
+            if ($checkEmail) {
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView()
+                ]);
+            }
+            $user = new User();
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -43,7 +66,7 @@ class RegistrationController extends AbstractController
                 )
             );
             $user->setFullname($form->get("fullname")->getData());
-            $entityManager = $this->getDoctrine()->getManager();
+            $user->setEmail($form->get("email")->getData());
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -56,7 +79,7 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $form->createView()
         ]);
     }
 

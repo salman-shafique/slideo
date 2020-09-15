@@ -4,7 +4,9 @@
       <div
         class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+        <a class="navbar-brand logo_h" href="{{path('index')}}">
+          <span>Slideo</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -12,9 +14,12 @@
         </button>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-          <ul class="nav navbar-nav menu_nav ml-auto">
+          <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link" href="{{path('index')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Editor</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="feature.html">Features</a>
@@ -22,49 +27,64 @@
             <li class="nav-item">
               <a class="nav-link" href="price.html">Price</a>
             </li>
-            <li class="nav-item submenu dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="feature.html">Features</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="price.html">Price</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="element.html">Element</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item submenu dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="blog.html">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="single-blog.html">Blog Details</a>
-                </li>
-              </ul>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
+            <li class="nav-item"></li>
+            {% if app.user %}
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>Welcome
+                    {{app.user.fullname}}
+                  </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="feature.html">Acount</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{path('app_logout')}}">Logout</a>
+                  </li>
+                </ul>
+              </li>
+            {% else %}
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>Login
+                  </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <form method="post" action="{{path('app_login')}}" class="col-12 py-3">
+                    <input class="form-control mb-1" type="email" name="email" value="" placeholder="Email" required autofocus/>
+                    <input class="form-control mb-1" type="password" name="password" placeholder="Password" required/>
+                    <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button type="submit" class="btn alazea-btn">Login</button>
+                  </form>
+                </ul>
+              </li>
+              <li class="nav-item submenu dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span>Sign up
+                  </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <form name="registration_form" action="{{path('app_register')}}" method="post" class="col-12 py-3">
+                    <div><input type="text" id="registration_form_fullname" name="registration_form[fullname]" required="required" maxlength="255" placeholder="Full name" class="form-control mb-1"></div>
+                    <div><input type="text" id="registration_form_email" name="registration_form[email]" required="required" maxlength="255" placeholder="Email" class="form-control mb-1"></div>
+                    <div><input type="password" id="registration_form_plainPassword" name="registration_form[plainPassword]" required="required" placeholder="Password" class="form-control mb-1"></div>
+                    <button type="submit" class="btn alazea-btn">Sign up</button>
+                    <input type="hidden" id="registration_form__token" name="registration_form[_token]" value="{{ csrf_token('authenticate') }}">
+                  </form>
+                </ul>
+              </li>
+            {% endif %}
+
+
           </ul>
         </div>
-        <div class="right-button">
-          <ul>
-            <li class="shop-icon">
-              <a href="#">
-                <i class="ti-shopping-cart-full"></i>
-                <span>0</span>
-              </a>
-            </li>
-            <li>
-              <a class="sign_up" href="">Sign Up</a>
-            </li>
-          </ul>
-        </div>
+
       </div>
     </nav>
   </div>
