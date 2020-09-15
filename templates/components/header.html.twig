@@ -60,7 +60,7 @@
                     <input class="form-control mb-1" type="email" name="email" value="" placeholder="Email" required autofocus/>
                     <input class="form-control mb-1" type="password" name="password" placeholder="Password" required/>
                     <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <button type="submit" class="btn alazea-btn">Login</button>
+                    <button type="submit" class="genric-btn info">Login</button>
                   </form>
                 </ul>
               </li>
@@ -74,7 +74,7 @@
                     <div><input type="text" id="registration_form_fullname" name="registration_form[fullname]" required="required" maxlength="255" placeholder="Full name" class="form-control mb-1"></div>
                     <div><input type="text" id="registration_form_email" name="registration_form[email]" required="required" maxlength="255" placeholder="Email" class="form-control mb-1"></div>
                     <div><input type="password" id="registration_form_plainPassword" name="registration_form[plainPassword]" required="required" placeholder="Password" class="form-control mb-1"></div>
-                    <button type="submit" class="btn alazea-btn">Sign up</button>
+                    <button type="submit" class="genric-btn info">Sign up</button>
                     <input type="hidden" id="registration_form__token" name="registration_form[_token]" value="{{ csrf_token('authenticate') }}">
                   </form>
                 </ul>

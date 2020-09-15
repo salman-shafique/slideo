@@ -12,11 +12,11 @@
         <div class="row justify-content-center gallery-item">
           <div class="col-12 p-5">
 
-            <p
-              style="text-align:center">{# <img src="/img/logo.png" alt="/img/logo.png" style="max-width:100px"> #}
+            <p style="text-align:center">
+              <img src="/favicon/favicon-196x196.png" alt="Logo" style="max-width:100px">
             </p>
-            <h1 class="text-center text-white">Register</h1>
-            <h6 class="text-center text-white">or
+            <h1 class="text-center">Register</h1>
+            <h6 class="text-center">or
               <a href="/login">Log in</a>
             </h6>
 
@@ -35,7 +35,7 @@
           {{ form_row(registrationForm.fullname, {'attr': {'class': 'form-control mb-1'}})}}
           {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-1'}})}}
           {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control mb-1'} }) }}
-          <button type="submit" class="btn alazea-btn">Register</button>
+          <button type="submit" class="genric-btn info">Register</button>
           {{ form_end(registrationForm) }}
 
 
