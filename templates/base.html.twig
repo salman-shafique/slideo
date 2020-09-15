@@ -36,7 +36,6 @@
     <meta name="msapplication-wide310x150logo" content="{{ asset('favicon/mstile-310x150.png')}}"/>
     <meta name="msapplication-square310x310logo" content="{{ asset('favicon/mstile-310x310.png')}}"/>
 
-
     <title>
       {% block title %}Slideo
       {% endblock %}
@@ -52,13 +51,16 @@
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}"> {% block style %}{% endblock %}
     </head>
     <body>
-      {% block navbar %}{% endblock %}
+      {% block header %}
+        {% include "components/header.html.twig" %}
+      {% endblock %}
 
       {% block body %}{% endblock %}
 
 
-      {% block footer %}{% endblock %}
-
+      {% block footer %}
+        {% include "components/footer.html.twig" %}
+      {% endblock %}
 
       <script src="{{asset('js/jquery-2.2.4.min.js')}}"></script>
       <script src="{{asset('js/popper.js')}}"></script>
@@ -66,7 +68,6 @@
       <script src="{{asset('vendors/owl-carousel/owl.carousel.min.js')}}"></script>
       <script src="{{asset('js/jquery.ajaxchimp.min.js')}}"></script>
       <script src="{{asset('js/waypoints.min.js')}}"></script>
-      <script src="{{asset('js/mail-script.js')}}"></script>
       <script src="{{asset('js/contact.js')}}"></script>
       <script src="{{asset('js/jquery.form.js')}}"></script>
       <script src="{{asset('js/jquery.validate.min.js')}}"></script>
