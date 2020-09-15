@@ -23,14 +23,6 @@
             </h6>
 
           </div>
-          {% for error in app.flashes('error') %}
-            <div class="alert alert-danger" role="alert">{{ error }}</div>
-            <div class="col-12"></div>
-          {% endfor %}
-          {% for success in app.flashes('success') %}
-            <div class="alert alert-success" role="alert">{{ success }}</div>
-            <div class="col-12"></div>
-          {% endfor %}
 
 
           {{ form_start(registrationForm, {'attr': {'class': 'col-10 col-sm-6 col-lg-4 text-center'}}) }}

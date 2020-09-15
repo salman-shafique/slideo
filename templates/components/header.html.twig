@@ -1,9 +1,8 @@
 <header class="header_area">
   <div class="main_menu">
     <nav class="navbar navbar-expand-lg navbar-light">
-      <div
-        class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="container">
+
         <a class="navbar-brand logo_h" href="{{path('index')}}">
           <span>Slideo</span>
         </a>
@@ -12,7 +11,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <!-- Collect the nav links, forms, and other content for toggling -->
+
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
             <li class="nav-item">
@@ -88,4 +87,15 @@
       </div>
     </nav>
   </div>
+
+  {% for error in app.flashes('error') %}
+    <div class="alert alert-danger text-center ml-auto mr-5" role="alert">{{ error }}</div>
+    <div class="col-12"></div>
+  {% endfor %}
+  {% for success in app.flashes('success') %}
+    <div class="alert alert-success text-center ml-auto mr-5" role="alert">{{ success }}</div>
+    <div class="col-12"></div>
+  {% endfor %}
+
+
 </header>
