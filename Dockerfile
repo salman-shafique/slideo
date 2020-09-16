@@ -16,9 +16,9 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 # # PHP extensions
-# ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
-# RUN chmod uga+x /usr/local/bin/install-php-extensions && sync
-# RUN install-php-extensions pdo_mysql zip
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+RUN chmod uga+x /usr/local/bin/install-php-extensions && sync
+RUN install-php-extensions pdo_mysql zip
 
 # Certificate verify - CA file - cURL
 COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
