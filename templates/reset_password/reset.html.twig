@@ -1,12 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Reset your password
+{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
+  <footer class="footer mt-0">
+    <div class="footer_top py-5 px-0 mt-0">
+      <div class="container py-5">
+        <div class="row justify-content-center gallery-item">
+          <div class="col-12 p-5">
+            <p style="text-align:center">
+              <a href="/">
+                <img src="/favicon/favicon-196x196.png" alt="Logo" style="max-width:100px">
+              </a>
+            </p>
+            <h1 class="text-center">Reset your password</h1>
+          </div>
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+
+          {{ form_start(resetForm, {'attr': {'class': 'col-10 col-sm-6 col-lg-4 text-center'}})  }}
+          {{ form_row(resetForm.plainPassword.first, {'attr': {'class': 'form-control mb-1'}}) }}
+          {{ form_row(resetForm.plainPassword.second, {'attr': {'class': 'form-control mb-1'}}) }}
+
+          <button type="submit" class="genric-btn info col-12 mt-2">Reset password</button>
+
+          {{ form_end(resetForm) }}
+
+        </div>
+      </div>
+    </div>
+  </footer>
 {% endblock %}

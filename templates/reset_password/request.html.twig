@@ -1,22 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Reset your password
+{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
+  <footer class="footer mt-0">
+    <div class="footer_top py-5 px-0 mt-0">
+      <div class="container py-5">
+        <div class="row justify-content-center gallery-item">
+          <div class="col-12 p-5">
+            <p style="text-align:center">
+              <a href="/">
+                <img src="/favicon/favicon-196x196.png" alt="Logo" style="max-width:100px">
+              </a>
+            </p>
+            <h1 class="text-center">Reset your password</h1>
+          </div>
+          {% for flashError in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+          {% endfor %}
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
+          {{ form_start(requestForm, {'attr': {'class': 'col-10 col-sm-6 col-lg-4 text-center'}})  }}
+          {{ form_row(requestForm.email, {'attr': {'class': 'form-control mb-1'}}) }}
+          <div>
             <small>
-                Enter your email address and we we will send you a
-                link to reset your password.
+              Enter your email address and we we will send you a link to reset your password.
             </small>
-        </div>
+          </div>
+          <button type="submit" class="genric-btn info col-12 mt-2">Send password reset email</button>
 
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+          {{ form_end(requestForm) }}
+
+        </div>
+      </div>
+    </div>
+  </footer>
 {% endblock %}

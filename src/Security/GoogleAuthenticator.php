@@ -63,8 +63,7 @@ class GoogleAuthenticator extends SocialAuthenticator
                 ->getResult();
             if (!$anyRelatedUser) {
                 $user = new User();
-                // encode the plain password
-                $user->setPassword("");
+                $user->setPassword(md5(time()));
                 $user->setEmail($googleUser->getEmail());
                 $user->setFullname($googleUser->getFirstName() . " " . $googleUser->getLastName());
                 $user->setIsVerified(true);
