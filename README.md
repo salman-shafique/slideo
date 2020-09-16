@@ -7,13 +7,21 @@ git clone https://github.com/alperendurmus/slideo-symfony.git slideo-symfony
 
 ## 1. Development with Docker
 
-### a. Build & start the container
+### a. Add ipv4 as host.docker.internal
+
+
+```shell script
+hostname -I | awk '{print $1}' # ipv4
+# to
+/etc/hosts
+```
+### b. Build & start the container
 ```shell script
 cd slideo-symfony
 docker-compose up -d --build
 ```
 
-### b. Setup the symfony
+### c. Setup the symfony
 ```shell script
 docker exec -ti slideo_symfony composer install
 docker exec -ti slideo_symfony php bin/console doctrine:database:create --if-not-exists
@@ -21,7 +29,7 @@ docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n
 docker exec -ti slideo_symfony php bin/console doctrine:fixtures:load -q
 ```
 
-### c. Connection with the local database:
+### d. Connection with the local database:
 ```shell script
 DATABASE_URL=mysql://user:pass@host.docker.internal/slideo?serverVersion=5.7
 ```
