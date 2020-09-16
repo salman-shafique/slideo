@@ -1,12 +1,11 @@
 version: '3'
 
 services:
-  php:
+  slideo:
     container_name: slideo_symfony
     build: ./
     volumes:
       - ./:/var/www/app
       - ./docker/php.ini:/usr/local/etc/php/php.ini
     ports:
-      - "5500:8000"
-    command: ["symfony", "serve"]
+      - "5500:80"
