@@ -11,7 +11,6 @@
       <div class="container py-5">
         <div class="row justify-content-center gallery-item">
           <div class="col-12 p-5">
-
             <p style="text-align:center">
               <a href="/">
                 <img src="/favicon/favicon-196x196.png" alt="Logo" style="max-width:100px">
@@ -21,9 +20,7 @@
             <h6 class="text-center">or
               <a href="/login">Log in</a>
             </h6>
-
           </div>
-
 
           {{ form_start(registrationForm, {'attr': {'class': 'col-10 col-sm-6 col-lg-4 text-center'}}) }}
           {{ form_row(registrationForm.fullname, {'attr': {'class': 'form-control mb-1'}})}}
@@ -31,7 +28,6 @@
           {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control mb-1'} }) }}
           <button type="submit" class="genric-btn info">Register</button>
           {{ form_end(registrationForm) }}
-
 
         </div>
       </div>

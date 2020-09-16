@@ -24,8 +24,10 @@ security:
                 login_path: login
                 check_path: login
             guard:
+                entry_point: App\Security\LoginFormAuthenticator
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+                    - App\Security\GoogleAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout

@@ -78,7 +78,7 @@ class RegistrationController extends AbstractController
                     ->from(new Address('alperenberatdurmus@gmail.com', 'Slideo'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('emails/registration/confirmation_email.html.twig')
             );
 
             return $guardHandler->authenticateUserAndHandleSuccess(
