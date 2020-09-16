@@ -57,12 +57,17 @@ class RegistrationController extends AbstractController
                     'registrationForm' => $form->createView()
                 ]);
             }
+            if ($form->get('plainPassword')->get('first')->getData() != $form->get('plainPassword')->get('second')->getData())
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView()
+                ]);
+
             $user = new User();
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('plainPassword')->get('first')->getData()
                 )
             );
             $user->setFullname($form->get("fullname")->getData());

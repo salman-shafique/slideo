@@ -73,10 +73,12 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu">
+                  {% include "components/social-logins.html.twig" with {'class':'col-12 mb-0 mt-2'} %}
                   <form name="registration_form" action="{{path('app_register')}}" method="post" class="col-12 py-3">
                     <div><input type="text" id="registration_form_fullname" name="registration_form[fullname]" required="required" maxlength="255" placeholder="Full name" class="form-control mb-1"></div>
                     <div><input type="text" id="registration_form_email" name="registration_form[email]" required="required" maxlength="255" placeholder="Email" class="form-control mb-1"></div>
-                    <div><input type="password" id="registration_form_plainPassword" name="registration_form[plainPassword]" required="required" placeholder="Password" class="form-control mb-1"></div>
+                    <div><input type="password" id="registration_form_plainPassword_first" name="registration_form[plainPassword][first]" required="required" placeholder="Password" class="form-control mb-1"></div>
+                    <div><input type="password" id="registration_form_plainPassword_second" name="registration_form[plainPassword][second]" required="required" placeholder="Password again" class="form-control mb-1"></div>
                     <button type="submit" class="genric-btn info col-12">Sign up</button>
                     <input type="hidden" id="registration_form__token" name="registration_form[_token]" value="{{ csrf_token('authenticate') }}">
                   </form>
