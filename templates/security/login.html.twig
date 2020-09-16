@@ -16,9 +16,6 @@
               </a>
             </p>
             <h1 class="text-center">Login</h1>
-            <h6 class="text-center">or
-              <a href="/register">Register</a>
-            </h6>
           </div>
 
           {% if error %}
@@ -26,11 +23,19 @@
             <div class="col-12"></div>
           {% endif %}
 
+          {% include "components/social-logins.html.twig" with {'class':'col-10 col-sm-6 col-lg-4 mb-2'} %}
+          <div class="col-12"></div>
           <form method="post" class="col-10 col-sm-6 col-lg-4 text-center">
             <input class="form-control mb-1" type="email" name="email" value="{{last_username}}" placeholder="Email" required autofocus/>
             <input class="form-control mb-1" type="password" name="password" placeholder="Password" required/>
             <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <button type="submit" class="genric-btn info">Login</button>
+            <button type="submit" class="genric-btn info col-12">Login</button>
+            <a href="{{path('app_forgot_password_request')}}">
+              <p class="text-danger my-2" style="font-size:0.7rem">Forgot password?</p>
+            </a>
+            <p class=" my-2">Don’t have an account?
+              <a href="{{path('app_register')}}">Sign up</a>
+            </p>
           </form>
           <div class="col-12"></div>
         </div>
