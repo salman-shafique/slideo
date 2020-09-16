@@ -2,7 +2,7 @@
 
 ### Get project
 ```shell script
-git clone git@github.com:alperendurmus/slideo-symfony.git slideo-symfony
+git clone https://github.com/alperendurmus/slideo-symfony.git slideo-symfony
 ```
 
 ## 1. Development with Docker
