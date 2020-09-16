@@ -9,7 +9,6 @@ git clone https://github.com/alperendurmus/slideo-symfony.git slideo-symfony
 
 ### a. Add ipv4 as host.docker.internal
 
-
 ```shell script
 hostname -I | awk '{print $1}' # ipv4
 # to
@@ -35,7 +34,7 @@ docker exec -ti slideo_symfony symfony server:ca:install # Https
 DATABASE_URL=mysql://user:pass@host.docker.internal/slideo?serverVersion=5.7
 ```
 
-[Login Page](http://localhost:8000/login)
+[Login Page](https://localhost:8000/login)
 
 ## 2. Local development
 
@@ -59,4 +58,4 @@ symfony serve
 DATABASE_URL=mysql://user:pass@localhost/slideo?serverVersion=5.7
 ```
 
-[Login Page](http://localhost:8000/login)
+[Login Page](https://localhost:8000/login)
