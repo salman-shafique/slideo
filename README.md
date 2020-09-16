@@ -15,10 +15,10 @@ docker-compose up -d --build
 
 ### b. Setup the symfony
 ```shell script
-docker exec -ti slideo-symfony_php_1 composer install
-docker exec -ti slideo-symfony_php_1 php bin/console doctrine:database:create --if-not-exists
-docker exec -ti slideo-symfony_php_1 php bin/console doctrine:migrations:migrate -n 
-docker exec -ti slideo-symfony_php_1 php bin/console doctrine:fixtures:load -q
+docker exec -ti slideo_symfony composer install
+docker exec -ti slideo_symfony php bin/console doctrine:database:create --if-not-exists
+docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n 
+docker exec -ti slideo_symfony php bin/console doctrine:fixtures:load -q
 ```
 
 ### c. Connection with the local database:

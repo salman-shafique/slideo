@@ -2,6 +2,7 @@ version: '3'
 
 services:
   php:
+    container_name: slideo_symfony
     build: ./
     volumes:
       - ./:/var/www/app
