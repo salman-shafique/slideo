@@ -7,5 +7,7 @@ services:
     volumes:
       - ./:/var/www/app
       - ./docker/php.ini:/usr/local/etc/php/php.ini
+      - ./docker/default:/etc/nginx/sites-enabled/default
+      - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     ports:
       - "5500:80"
