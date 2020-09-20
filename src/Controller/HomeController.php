@@ -15,14 +15,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/")
      */
-    public function index()
+    public function index(\Swift_Mailer $mailer)
     {
-//         var_dump(openssl_get_cert_locations());
-//         echo "openssl.cafile: ", ini_get('openssl.cafile'), "\n";
-// echo "curl.cainfo: ", ini_get('curl.cainfo'), "\n";
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('alperenberatdurmus@gmail.com')
+            ->setTo('alperenberatdurmus@gmail.com')
+            ->setBody("Hello alp");
+        $mailer->send($message);
+
         return $this->render('index.html.twig');
     }
-
-
-
 }
