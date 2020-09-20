@@ -22,22 +22,14 @@ class EmailVerifier
         $this->mailer = $mailer;
         $this->entityManager = $manager;
     }
-
-    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
+    
+    public function getSignatureComponents(string $verifyEmailRouteName, UserInterface $user)
     {
-        $signatureComponents = $this->verifyEmailHelper->generateSignature(
+        return $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
             $user->getId(),
             $user->getEmail()
-        );
-
-        $context = $email->getContext();
-        $context['signedUrl'] = $signatureComponents->getSignedUrl();
-        $context['expiresAt'] = $signatureComponents->getExpiresAt();
-
-        $email->context($context);
-
-        $this->mailer->send($email);
+        );;
     }
 
     /**
