@@ -15,11 +15,6 @@ class HomeController extends AbstractController
      */
     public function index(\Swift_Mailer $mailer)
     {
-        $message = (new \Swift_Message('Hello Email'))
-            ->setFrom('alperenberatdurmus@gmail.com')
-            ->setTo('alperenberatdurmus@gmail.com')
-            ->setBody("Alp");
-        $mailer->send($message);
         return $this->render('index.html.twig');
     }
 }
