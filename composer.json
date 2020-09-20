@@ -12,6 +12,7 @@
         "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^2.4",
         "knpuniversity/oauth2-client-bundle": "^2.3",
+        "laminas/laminas-code": "^3.4",
         "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^3.0",
         "nesbot/carbon": "^2.36",
@@ -27,7 +28,6 @@
         "symfony/google-mailer": "5.1.*",
         "symfony/http-client": "5.1.*",
         "symfony/intl": "5.1.*",
-        "symfony/mailer": "5.1.*",
         "symfony/mime": "5.1.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.1.*",
@@ -48,7 +48,6 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "forxer/languages-list": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",

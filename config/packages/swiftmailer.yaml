@@ -3,7 +3,9 @@ swiftmailer:
     transport: gmail
     username:  alperenberatdurmus@gmail.com
     password:  alperen4277
-    spool: { type: 'memory' }
+    spool:
+        type: file
+        path: '%kernel.project_dir%/var/spool'
     encryption:	tls
     auth_mode:	login
     host:	smtp.gmail.com
