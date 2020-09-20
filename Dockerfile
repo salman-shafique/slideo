@@ -4,8 +4,8 @@ FROM  php:7.2-fpm
 RUN apt-get update && \
     apt-get upgrade -y
 
-# Nginx Git Mysql
-RUN apt install -y nginx git mariadb-server
+# Git
+RUN apt install -y git 
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
@@ -27,8 +27,5 @@ COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
 
 # Update
 RUN apt-get update
-
-CMD ["nginx", "-g", "daemon off;"]
-CMD ["php-fpm", "--nodaemonize"]
 
 WORKDIR /var/www/app
