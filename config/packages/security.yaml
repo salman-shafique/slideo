@@ -27,7 +27,8 @@ security:
                 entry_point: App\Security\LoginFormAuthenticator
                 authenticators:
                     - App\Security\LoginFormAuthenticator
-                    - App\Security\GoogleAuthenticator
+                    - App\Security\SocialLogins\GoogleAuthenticator
+                    - App\Security\SocialLogins\FacebookAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout

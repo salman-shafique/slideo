@@ -4,35 +4,34 @@ namespace App\Controller\SocialLogins;
 
 use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use League\OAuth2\Client\Provider\GoogleUser;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class GoogleController extends AbstractController
+class FacebookController extends AbstractController
 {
-
     /**
-     * @Route("/connect/google", name="connect_google_start")
+     * @Route("/connect/facebook", name="connect_facebook_start")
      */
     public function connectAction(ClientRegistry $clientRegistry)
     {
-        return $clientRegistry
-            ->getClient('google')
+        return $clientRegistry->getClient('facebook_main')
             ->redirect([
-                'profile', 'email'
+                'public_profile', 'email'
             ]);
     }
 
     /**
-     * @Route("/connect/google/check", name="connect_google_check")
+     * @Route("/connect/facebook/check", name="connect_facebook_check")
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {
-        $client = $clientRegistry->getClient('google');
+        /** @var \KnpU\OAuth2ClientBundle\Client\Provider\FacebookClient $client */
+        $client = $clientRegistry->getClient('facebook_main');
+
         try {
-            /** @var \League\OAuth2\Client\Provider\GoogleUser $user */
+            /** @var \League\OAuth2\Client\Provider\FacebookUser $user */
             $client->fetchUser();
             return $this->redirectToRoute("index");
         } catch (Exception $e) {

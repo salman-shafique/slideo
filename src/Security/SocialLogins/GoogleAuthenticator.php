@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Security;
+namespace App\Security\SocialLogins;
 
-use App\Entity\User; // your user entity
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient;
@@ -68,6 +68,7 @@ class GoogleAuthenticator extends SocialAuthenticator
                 $user->setFullname($googleUser->getFirstName() . " " . $googleUser->getLastName());
                 $user->setIsVerified(true);
                 $user->setGoogleId($googleUser->getId());
+                $user->setPicture($googleUser->getAvatar());
 
                 $this->em->persist($user);
                 $this->em->flush();
@@ -81,18 +82,13 @@ class GoogleAuthenticator extends SocialAuthenticator
      */
     private function getGoogleClient()
     {
-        return $this->clientRegistry
-            // "google" is the key used in config/packages/knpu_oauth2_client.yaml
-            ->getClient('google');
+        return $this->clientRegistry->getClient('google');
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         $targetUrl = $this->router->generate('index');
         return new RedirectResponse($targetUrl);
-
-        // or, on success, let the request continue to be handled by the controller
-        //return null;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
@@ -100,14 +96,10 @@ class GoogleAuthenticator extends SocialAuthenticator
         return null;
     }
 
-    /**
-     * Called when authentication is needed, but it's not sent.
-     * This redirects to the 'login'.
-     */
     public function start(Request $request, AuthenticationException $authException = null)
     {
         return new RedirectResponse(
-            '/connect/', // might be the site, where users choose their oauth provider
+            '/connect/',
             Response::HTTP_TEMPORARY_REDIRECT
         );
     }
