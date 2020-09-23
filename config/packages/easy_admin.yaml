@@ -24,8 +24,10 @@ easy_admin:
           - 'email'
           - 'fullname'
           - 'roles'
-          - 'posts'
           - 'createdAt'
+          - 'isVerified'
+          - 'userType'
+          - { property: 'picture', type: 'url'}
       form:
         actions: ["-delete"]
         fields:
@@ -38,6 +40,9 @@ easy_admin:
               expanded: true
               multiple: true
               choices: 
+                - ROLE_OWNER: ROLE_OWNER
                 - ROLE_ADMIN: ROLE_ADMIN
+                - ROLE_USER: ROLE_USER
+          - 'isVerified'
 
     

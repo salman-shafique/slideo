@@ -70,6 +70,7 @@ class RegistrationController extends AbstractController
             );
             $user->setFullname($form->get("fullname")->getData());
             $user->setEmail($form->get("email")->getData());
+            $user->addRole("ROLE_USER");
             $entityManager->persist($user);
             $entityManager->flush();
 
