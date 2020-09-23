@@ -21,6 +21,7 @@ docker exec -ti slideo_symfony php bin/console doctrine:database:create --if-not
 docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n 
 docker exec -ti slideo_symfony php bin/console doctrine:fixtures:load -q
 docker exec -ti slideo_symfony symfony server:ca:install # Https
+docker exec -ti slideo_symfony yarn install
 ```
 
 ### c. Connection with the local database:
