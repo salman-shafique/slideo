@@ -1,15 +1,12 @@
 FROM  php:7.2-fpm
 
-# Yarn repo
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt remove cmdtest
 # apt
 RUN apt-get update && \
     apt-get upgrade -y
 
-# Git Yarn
-RUN apt install -y git yarn
+# git npm yarn
+RUN apt install -y git npm yarn
+RUN apt remove cmdtest -y
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
@@ -31,5 +28,6 @@ COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
 
 # Update
 RUN apt-get update
+RUN apt autoremove
 
 WORKDIR /var/www/app
