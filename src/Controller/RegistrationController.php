@@ -85,8 +85,10 @@ class RegistrationController extends AbstractController
                 ->setBody(
                     $this->renderView(
                         'emails/registration/confirmation_email.html.twig',
-                        ['signedUrl' => $signatureComponents->getSignedUrl()],
-                        ['expiresAt' => $signatureComponents->getExpiresAt()]
+                        [
+                            'signedUrl' => $signatureComponents->getSignedUrl(),
+                            'expiresAt' => $signatureComponents->getExpiresAt()
+                        ]
                     ),
                     'text/html'
                 );
