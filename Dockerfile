@@ -4,9 +4,8 @@ FROM  php:7.2-fpm
 RUN apt-get update && \
     apt-get upgrade -y
 
-# git npm yarn
-RUN apt install -y git npm yarn
-RUN apt remove cmdtest -y
+# git etc
+RUN apt install -y git nano
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
