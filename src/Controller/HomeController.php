@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/")
      */
-    public function index(\Swift_Mailer $mailer)
+    public function index()
     {
         return $this->render('index.html.twig');
     }

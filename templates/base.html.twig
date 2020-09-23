@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="{{asset('vendors/animate-css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}"> {% block style %}{% endblock %}
+      {{ encore_entry_link_tags('app') }}
     </head>
     <body>
       {% block header %}
