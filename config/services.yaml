@@ -6,7 +6,7 @@
 parameters:
     container.dumper.inline_factories: true
     container.dumper.inline_class_loader: true
-    enabled_locales: [en, he, tr]
+            
     
 services:
     # default configuration for services in *this* file

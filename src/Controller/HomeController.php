@@ -7,18 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use App\Enum\LanguagesEnum;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/")
      */
-    public function index(Request $request)
+    public function index()
     {
-
-        $locale = $request->getLocale();
-        //$request->setLocale('en');
-        // $request->getSession()->set('_locale', 'he');
         return $this->render('index.html.twig');
     }
     /**
@@ -27,10 +24,10 @@ class HomeController extends AbstractController
      */
     public function locale(Request $request, String $lang)
     {
-        $locales = $this->container->get('twig')->getGlobals()['enabled_locales'];
-        $referer = $request->headers->get('referer');
 
-        if (in_array($lang, $locales)) {
+        if (in_array($lang, LanguagesEnum::CONSTANTS)) {
+            $referer = $request->headers->get('referer');
+
             $request->setLocale($lang);
             $request->getSession()->set('_locale', $lang);
             

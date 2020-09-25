@@ -32,6 +32,24 @@
 
       <div class="col-lg-3 col-md-8 mb-4 mb-xl-0 single-footer-widget">
         <h4>Newsletter</h4>
+        <div class="btn-group dropup">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {% trans %}Language{% endtrans %}
+          </button>
+          <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -165px, 0px); top: 0px; left: 0px; will-change: transform;">
+            {% for locale,language in constant('App\\Enum\\LanguagesEnum::AVAILABLE_TYPES') %}
+              {%  if locale == app.request.locale  %}
+                <a class="dropdown-item bg-secondary" href="/locale/{{ locale }}">
+                  {{ language}}
+                </a>
+              {% else %}
+                <a class="dropdown-item" href="/locale/{{ locale }}">
+                  {{ language}}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
         <p>Heaven fruitful doesn't over lesser in days. Appear creeping seasons deve behold bearing days open</p>
 
         <div class="form-wrap" id="mc_embed_signup">
