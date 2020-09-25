@@ -6,6 +6,7 @@
 parameters:
     container.dumper.inline_factories: true
     container.dumper.inline_class_loader: true
+    enabled_locales: [en, he, tr]
     
 services:
     # default configuration for services in *this* file
@@ -22,14 +23,18 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
-        tags: ['container.preload']
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
         resource: '../src/Controller/'
-        tags: ['controller.service_arguments','container.preload']
+        tags: 
+            # - { name: 'container.preload', class: 'App\Controller\HomeController' }
+            # - { name: 'container.preload', class: 'App\Controller\RegistrationController' }
+            # - { name: 'container.preload', class: 'App\Controller\SecurityController' }
+            - 'controller.service_arguments'
 
-
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ['%kernel.default_locale%']
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
