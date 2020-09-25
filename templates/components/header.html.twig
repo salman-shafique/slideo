@@ -15,19 +15,13 @@
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{{path('index')}}">Home</a>
+              <a class="nav-link" href="{{path('index')}}">{% trans %}Home{% endtrans %}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/">Editor</a>
+              <a class="nav-link" href="/">{% trans %}Editor{% endtrans %}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/">Price</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/">Contact</a>
+              <a class="nav-link" href="mailto:elad.darmon@gmail.com">{% trans %}Contact{% endtrans %}</a>
             </li>
             <li class="nav-item"></li>
             {% if app.user %}
@@ -38,18 +32,18 @@
                   {% else %}
                     <i class="fa fa-user" aria-hidden="true"></i>
                   {% endif %}
-                  <span>Welcome
+                  <span>{% trans %}Welcome{% endtrans %}
                     {{app.user.fullname}}
                   </span>
                 </a>
                 <ul class="dropdown-menu">
                   {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ path('easyadmin') }}">Dashboard</a>
+                      <a class="nav-link" href="{{ path('easyadmin') }}">{% trans %}Dashboard{% endtrans %}</a>
                     </li>
                   {% endif %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_logout')}}">Logout</a>
+                    <a class="nav-link" href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
                   </li>
                 </ul>
               </li>
@@ -63,29 +57,29 @@
                 <ul class="dropdown-menu">
                   {% include "components/social-logins.html.twig" with {'class':'col-12 mb-0 mt-2'} %}
                   <form method="post" action="{{path('app_login')}}" class="col-12 py-3">
-                    <input class="form-control mb-1" type="email" name="email" value="" placeholder="Email" required autofocus/>
-                    <input class="form-control mb-1" type="password" name="password" placeholder="Password" required/>
+                    <input class="form-control mb-1" type="email" name="email" value="" placeholder="{% trans %}Email{% endtrans %}" required autofocus/>
+                    <input class="form-control mb-1" type="password" name="password" placeholder="{% trans %}Password{% endtrans %}" required/>
                     <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <button type="submit" class="genric-btn info col-12">Login</button>
+                    <button type="submit" class="genric-btn info col-12">{% trans %}Login{% endtrans %}</button>
                     <a href="{{path('app_forgot_password_request')}}">
-                      <p class="text-danger text-center m-0" style="font-size:0.7rem">Forgot password?</p>
+                      <p class="text-danger text-center m-0" style="font-size:0.7rem">{% trans %}Forgot password?{% endtrans %}</p>
                     </a>
                   </form>
                 </ul>
               </li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span>Sign up
+                  <span>{% trans %}Sign up{% endtrans %}
                   </span>
                 </a>
                 <ul class="dropdown-menu">
                   {% include "components/social-logins.html.twig" with {'class':'col-12 mb-0 mt-2'} %}
                   <form name="registration_form" action="{{path('app_register')}}" method="post" class="col-12 py-3">
-                    <div><input type="text" id="registration_form_fullname" name="registration_form[fullname]" required="required" maxlength="255" placeholder="Full name" class="form-control mb-1"></div>
-                    <div><input type="text" id="registration_form_email" name="registration_form[email]" required="required" maxlength="255" placeholder="Email" class="form-control mb-1"></div>
-                    <div><input type="password" id="registration_form_plainPassword_first" name="registration_form[plainPassword][first]" required="required" placeholder="Password" class="form-control mb-1"></div>
-                    <div><input type="password" id="registration_form_plainPassword_second" name="registration_form[plainPassword][second]" required="required" placeholder="Password again" class="form-control mb-1"></div>
-                    <button type="submit" class="genric-btn info col-12">Sign up</button>
+                    <div><input type="text" id="registration_form_fullname" name="registration_form[fullname]" required="required" maxlength="255" placeholder="{% trans %}Full name{% endtrans %}" class="form-control mb-1"></div>
+                    <div><input type="text" id="registration_form_email" name="registration_form[email]" required="required" maxlength="255" placeholder="{% trans %}Email{% endtrans %}" class="form-control mb-1"></div>
+                    <div><input type="password" id="registration_form_plainPassword_first" name="registration_form[plainPassword][first]" required="required" placeholder="{% trans %}Password{% endtrans %}" class="form-control mb-1"></div>
+                    <div><input type="password" id="registration_form_plainPassword_second" name="registration_form[plainPassword][second]" required="required" placeholder="{% trans %}Password again{% endtrans %}" class="form-control mb-1"></div>
+                    <button type="submit" class="genric-btn info col-12">{% trans %}Sign up{% endtrans %}</button>
                     <input type="hidden" id="registration_form__token" name="registration_form[_token]" value="{{ csrf_token('authenticate') }}">
                   </form>
                 </ul>

@@ -1,3 +1,18 @@
 # translations/messages.tr.yaml
 Login: Giriş
 Language: Dil
+Home : Ana Sayfa
+Editor : Editör
+Contact : İletişim
+Welcome : Hoşgeldin
+Dashboard : Yönetim
+Logout : Çıkış
+Forgot password? : Şifremi unuttum.
+Sign up : Kayıt
+Continue with Google : Google hesabını kullan
+Continue with Facebook : Facebook hesabını kullan
+OR : VEYA
+Full name : isim
+Email : Email
+Password : Şifre
+Password again : Şifre tekrar
