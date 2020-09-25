@@ -209,4 +209,14 @@ class User implements UserInterface
 
         return $this;
     }
+
+
+    public function getUserType(): ?string
+    {
+        if ($this->getGoogleId() != null)
+            return "Google";
+        else if ($this->getFacebookId() != null)
+            return "Facebook";
+        else  return "Email";
+    }
 }

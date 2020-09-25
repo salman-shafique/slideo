@@ -43,9 +43,11 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/">Acount</a>
-                  </li>
+                  {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ path('easyadmin') }}">Dashboard</a>
+                    </li>
+                  {% endif %}
                   <li class="nav-item">
                     <a class="nav-link" href="{{path('app_logout')}}">Logout</a>
                   </li>

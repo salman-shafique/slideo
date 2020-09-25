@@ -70,6 +70,7 @@ class RegistrationController extends AbstractController
             );
             $user->setFullname($form->get("fullname")->getData());
             $user->setEmail($form->get("email")->getData());
+            $user->addRole("ROLE_USER");
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -85,8 +86,10 @@ class RegistrationController extends AbstractController
                 ->setBody(
                     $this->renderView(
                         'emails/registration/confirmation_email.html.twig',
-                        ['signedUrl' => $signatureComponents->getSignedUrl()],
-                        ['expiresAt' => $signatureComponents->getExpiresAt()]
+                        [
+                            'signedUrl' => $signatureComponents->getSignedUrl(),
+                            'expiresAt' => $signatureComponents->getExpiresAt()
+                        ]
                     ),
                     'text/html'
                 );

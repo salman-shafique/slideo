@@ -69,6 +69,7 @@ class GoogleAuthenticator extends SocialAuthenticator
                 $user->setIsVerified(true);
                 $user->setGoogleId($googleUser->getId());
                 $user->setPicture($googleUser->getAvatar());
+                $user->addRole("ROLE_USER");
 
                 $this->em->persist($user);
                 $this->em->flush();
