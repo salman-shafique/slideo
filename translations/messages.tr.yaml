@@ -1,18 +1,45 @@
 # translations/messages.tr.yaml
 Login: Giriş
+Log in: Oturum aç
 Language: Dil
 Home : Ana Sayfa
 Editor : Editör
 Contact : İletişim
 Welcome : Hoşgeldin
 Dashboard : Yönetim
+Links : Bağlantılar
 Logout : Çıkış
 Forgot password? : Şifremi unuttum.
-Sign up : Kayıt
+Don't have an account? : Hesabınız yok mu?
+Sign up : Kayıt ol
 Continue with Google : Google hesabını kullan
 Continue with Facebook : Facebook hesabını kullan
 OR : VEYA
-Full name : isim
+Full name : İsim
 Email : Email
 Password : Şifre
 Password again : Şifre tekrar
+Design a presentation automatically... : Hızlı ve etkili sunum oluşturun
+Your text becomes effective design - easily!: Metinlerinizi hemen kaliteli bir sunuma dönüştürün
+Try free : Ücretsiz deneyin
+Auto design : Otomatik tasarım
+This will be the fastest presentation you have built.: Bu, oluşturduğunuz en hızlı sunum olacak.
+Without compromising on a flexible and user-friendly design experience that will take the construction of your presentation to the next level. : Esnek ve kullanıcı dostu bir tasarım deneyiminden ödün vermeden sunumunuzun yapısını bir sonraki seviyeye taşıyacak.
+Unique design templates : Benzersiz tasarım şablonları
+Give your content visual meaning.: İçeriğinize görsel bir anlam verin.
+Your text takes on a new life, with hundreds of images, icons and inspiring colors - that will make your presentation memorable.: Metniniz yüzlerce resim, simge ve ilham verici renklerle yeni bir hayat kazanır - bu da sunumunuzu unutulmaz kılar.
+Your presentations: Sunumlarınız
+Share or save all your presentations.: Tüm sunumlarınızı paylaşın veya kaydedin.
+Everything you do is yours forever. Share your presentation anywhere. Or download them for later use.: Yaptığın her şey sonsuza kadar senin. Sununuzu her yerde paylaşın. Veya daha sonra kullanmak için indirin.
+Flexible design: Esnek tasarımlar
+Upload your photos, icons and designs.: Fotoğraflarınızı, simgelerinizi ve tasarımlarınızı yükleyin.
+Use images, colors and icons of your product or service. Turn them into a winning presentation - with one click.: Ürün veya hizmetinizin resimlerini, renklerini ve simgelerini kullanın. Tek bir tıklama ile onları kazanan bir sunuya dönüştürün.
+Personal customization: Kişiselleştirme
+Integrate your brand into a presentation - with a few clicks.: Birkaç tıklama ile markanızı bir sunuya entegre edin.
+Give each presentation a professional touch, with your (exact) brand logo and colors.: Her sunuya (tam) marka logonuz ve renklerinizle profesyonel bir dokunuş katın.
+Surprise the world with an amazing presentation : Harika bir sunumla dünyayı şaşırtın
+That no one will believe that you designed it yourself. : Senin tasarladığına kimsenin inanmayacağı...
+Shirley Ben Naim: Shirley Ben Naim
+Our organization paid insane amounts, to make relatively simple presentations, until we discovered SLIDEO (and their great templates). : Kuruluşumuz, SLIDEO'yu (ve harika şablonlarını) keşfedene kadar, nispeten basit sunumlar yapmak için çılgınca miktarlar ödedi.
+Ariel Segev : Ariel Segev
+I had no previous experience with building presentations, and I was able to easily create an excellent presentation, which looks like the end of the road - while having my lunch ... : Sunum oluşturma konusunda daha önce hiç deneyimim yoktu ve öğle yemeğimi yerken kolayca yolun sonuna benzeyen mükemmel bir sunum hazırlayabildim ...
