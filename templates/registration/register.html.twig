@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Register
+  {% trans %}Sign up{% endtrans %}
 {% endblock %}
 
 {% block body %}
@@ -16,19 +16,21 @@
                 <img src="/favicon/favicon-196x196.png" alt="Logo" style="max-width:100px">
               </a>
             </p>
-            <h1 class="text-center">Sign up</h1>
+            <h1 class="text-center">{% trans %}Sign up{% endtrans %}</h1>
           </div>
 
           {% include "components/social-logins.html.twig" with {'class':'col-10 col-sm-6 col-lg-4 mb-2'} %}
+
+
           <div class="col-12"></div>
           {{ form_start(registrationForm, {'attr': {'class': 'col-10 col-sm-6 col-lg-4 text-center'}}) }}
-          {{ form_row(registrationForm.fullname, {'attr': {'class': 'form-control mb-1'}})}}
-          {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-1'}})}}
-          {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'form-control mb-1'} }) }}
-          {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'form-control mb-1'} }) }}
-          <button type="submit" class="genric-btn info col-12 mt-2">Register</button>
-          <p class=" my-2">Already have an account?
-            <a href="{{path('app_login')}}">Log in</a>
+          {{ form_row(registrationForm.fullname, {'attr': {'class': 'form-control mb-1' }})}}
+          {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-1' }})}}
+          {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'form-control mb-1' } }) }}
+          {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'form-control mb-1' } }) }}
+          <button type="submit" class="genric-btn info col-12 mt-2">{% trans %}Sign up{% endtrans %}</button>
+          <p class=" my-2">{% trans %}Already have an account?{% endtrans %}
+            <a href="{{path('app_login')}}">{% trans %}Log in{% endtrans %}</a>
           </p>
 
           {{ form_end(registrationForm) }}
