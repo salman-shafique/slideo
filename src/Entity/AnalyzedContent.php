@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\AnalyzedContentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -46,6 +47,22 @@ class AnalyzedContent
      * @ORM\ManyToOne(targetEntity=Slide::class, inversedBy="analyzedContent")
      */
     private $slide;
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     public function getId(): ?int
     {
@@ -122,5 +139,15 @@ class AnalyzedContent
         $this->slide = $slide;
 
         return $this;
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

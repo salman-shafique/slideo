@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,7 +18,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class User implements UserInterface
 {
 
-    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -69,6 +69,22 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Presentation::class, mappedBy="owner")
      */
     private $presentations;
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updated;
 
     public function __construct()
     {
@@ -259,5 +275,15 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

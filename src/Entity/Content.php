@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\ContentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,6 +27,22 @@ class Content
      * @ORM\Column(type="json", nullable=true)
      */
     private $data = [];
+
+    /**
+     * @var \DateTime $created
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var \DateTime $updated
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     public function getId(): ?int
     {
@@ -54,5 +71,15 @@ class Content
         $this->data = $data;
 
         return $this;
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
