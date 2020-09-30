@@ -17,15 +17,6 @@ class HomeController extends AbstractController
      */
     public function index(SessionInterface $session)
     {
-        $session->set('attribute-name', 'attribute-value');
-        $session->set('user', $this->getUser());
-        dump(
-            $session->getId()
-        );
-        dump(
-            $session->get('user')
-        );
-        die;
         return $this->render('index.html.twig');
     }
     /**

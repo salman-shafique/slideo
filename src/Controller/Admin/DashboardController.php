@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Presentation;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -15,18 +17,35 @@ class DashboardController extends AbstractDashboardController
      */
     public function index(): Response
     {
-        return parent::index();
+        $totalPresentations = $this->getDoctrine()->getManager()
+            ->createQueryBuilder()
+            ->from('App\Entity\Presentation', 'p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        $totalUsers = $this->getDoctrine()->getManager()
+            ->createQueryBuilder()
+            ->from('App\Entity\User', 'u')
+            ->select('count(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $this->render('admin/dashboard.html.twig', ['totalPresentations' => $totalPresentations, 'totalUsers' => $totalUsers]);
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('App');
+            ->setTitle('Slideo Admin')
+            ->setTitle('<img src="favicon.ico"> Slideo Admin')
+            ->setFaviconPath('favicon.ico');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'icon class', EntityClass::class);
+        yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
+        yield MenuItem::linkToCrud('Presentations', 'far fa-file-powerpoint', Presentation::class);
+        yield MenuItem::linktoRoute('Go to website', 'fas fa-external-link-alt', 'index');
     }
 }

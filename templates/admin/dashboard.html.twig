@@ -1,0 +1,31 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}
+  Slideo Admin page
+{% endblock %}
+
+{% block page_content %}
+
+
+  <div class="row justify-content-center mt-3 p-3">
+    <div class="col-10">
+      <div class="row justify-content-center mt-3 p-3">
+        <div class="col-md-3 col-6 p-2">
+          <div class="border p-2 h-100 bg-info text-white">
+            <h3 class="text-white">{{totalUsers}}</h3>
+            <p class="text-white">Total Users</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 p-2">
+          <div class="border p-2 h-100 bg-info">
+            <h3 class="text-white">{{totalPresentations}}</h3>
+            <p class="text-white">Total Presentations</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
