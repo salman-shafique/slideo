@@ -16,10 +16,12 @@
             </p>
             <h1 class="text-center">Reset your password</h1>
           </div>
-          {% for flashError in app.flashes('reset_password_error') %}
-            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-          {% endfor %}
 
+          {% if app.request.hasPreviousSession %}
+            {% for flashError in app.flashes('reset_password_error') %}
+              <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+          {% endif %}
           {{ form_start(requestForm, {'attr': {'class': 'col-10 col-sm-6 col-lg-4 text-center'}})  }}
           {{ form_row(requestForm.email, {'attr': {'class': 'form-control mb-1'}}) }}
           <div>

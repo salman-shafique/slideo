@@ -65,6 +65,16 @@ class User implements UserInterface
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Presentation::class, mappedBy="owner")
+     */
+    private $presentations;
+
+    public function __construct()
+    {
+        $this->presentations = new ArrayCollection();
+    }
+
     public function __toString()
     {
         return $this->fullname;
@@ -218,5 +228,36 @@ class User implements UserInterface
         else if ($this->getFacebookId() != null)
             return "Facebook";
         else  return "Email";
+    }
+
+    /**
+     * @return Collection|Presentation[]
+     */
+    public function getPresentations(): Collection
+    {
+        return $this->presentations;
+    }
+
+    public function addPresentation(Presentation $presentation): self
+    {
+        if (!$this->presentations->contains($presentation)) {
+            $this->presentations[] = $presentation;
+            $presentation->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresentation(Presentation $presentation): self
+    {
+        if ($this->presentations->contains($presentation)) {
+            $this->presentations->removeElement($presentation);
+            // set the owning side to null (unless already changed)
+            if ($presentation->getOwner() === $this) {
+                $presentation->setOwner(null);
+            }
+        }
+
+        return $this;
     }
 }

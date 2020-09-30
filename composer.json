@@ -7,7 +7,7 @@
         "ext-iconv": "*",
         "ext-pdo": "*",
         "api-platform/api-pack": "^1.2",
-        "easycorp/easyadmin-bundle": "^2",
+        "easycorp/easyadmin-bundle": "^3.1",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
         "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^2.4",

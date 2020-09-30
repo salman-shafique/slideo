@@ -17,6 +17,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 RUN apt-get install wget
 RUN wget https://get.symfony.com/cli/installer -O - | bash
 RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+# Symfony server ca
+RUN symfony server:ca:install
 
 # PHP extensions
 ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
