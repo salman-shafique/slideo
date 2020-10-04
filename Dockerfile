@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get upgrade -y
 
 # Utils
-RUN apt install -y git nodejs npm nano
+RUN apt install -y git nodejs npm nano procps net-tools
 RUN npm install -g yarn
 
 # Install Composer
@@ -28,8 +28,17 @@ RUN install-php-extensions pdo_mysql zip intl opcache
 # Certificate verify - CA file - cURL
 COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
 
-# Update
+# Python environment
 RUN apt-get update
-RUN apt autoremove
+RUN apt-get install python3.7 -y
+RUN apt-get install python3-pip -y
+COPY pyro/requirements.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN python3.7 -m pip install -U spacy
+RUN python3.7 -m spacy download en_core_web_sm
+
+# Update
+RUN apt-get update -y
+RUN apt-get autoremove -y
 
 WORKDIR /var/www/app

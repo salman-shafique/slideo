@@ -3480,8 +3480,5 @@ h6 {
     margin-top: 35px; } }
 /*---------------------------------------------------- */
 /* Bootstrap dropdown hover */
-.dropdown:hover .dropdown-menu {
-  display: block;
-  margin-top: 0;
-}
+
 /*# sourceMappingURL=style.css.map */

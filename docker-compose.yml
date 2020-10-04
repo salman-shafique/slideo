@@ -8,7 +8,6 @@ services:
       - ./:/var/www/app
       - ./docker/php.ini:/usr/local/etc/php/php.ini
       - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
-      - ./docker/cacert.pem:/usr/local/etc/php/cacert.pem
     ports:
       - "5500:8000"
-    command: ["symfony", "serve"]
+    command: ["/bin/bash", "/var/www/app/docker/start.sh"]

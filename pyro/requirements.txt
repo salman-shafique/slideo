@@ -1,0 +1,11 @@
+Pyro5
+requests
+argparse
+googletrans
+Pillow
+python-pptx
+requests_oauthlib
+webcolors
+mysql-connector-python
+config
+bs4
