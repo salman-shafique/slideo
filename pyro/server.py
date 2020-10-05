@@ -3,12 +3,16 @@ import time
 import threading
 from argparse import ArgumentParser
 from Pyro5 import config, core, server, nameserver
+import Slideo
 
 @server.expose
-class EchoServer(object):
-    def echo(self):
-        return  "hello"
-
+class Server(object):
+    def call(self,**vargs):
+        print(vargs)
+        class_ = getattr(Slideo, vargs['class'])
+        method = getattr(class_, vargs['method'])
+        return method(**vargs)
+    
 class NameServer(threading.Thread):
     def __init__(self, hostname):
         super(NameServer, self).__init__()
@@ -23,23 +27,15 @@ class NameServer(threading.Thread):
             self.bc_server.runInThread()
         self.ns_daemon.requestLoop()
 
-
 ns = NameServer("localhost")
 ns.start()
 ns.started.wait()
+ns = core.locate_ns(ns.uri.host, ns.uri.port)
 
+d = server.Daemon(host="localhost", port=5001)
+uri = d.register(Server(), "Slideo")
 
-d = server.Daemon(host="localhost", port=5400)
-echo = EchoServer()
-objectName = "slideo"
-uri = d.register(echo, objectName)
-
-host, port = ns.uri.host, ns.uri.port
-
-ns = core.locate_ns(host, port)
-ns.register(objectName, uri)
-
-
-print("using name server at %s" % ns._pyroUri)
+ns.register("Slideo", uri)
+print("Slideo object at %s" % uri)
 
 d.requestLoop(loopCondition=lambda:True)

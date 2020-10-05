@@ -10,6 +10,6 @@ fi;
 
 echo "Starting Python servers"
 python3.7 /var/www/app/pyro/src/server.py &
-python3.7 -m Pyro5.utils.httpgateway -e 'slideo' &
+python3.7 -m Pyro5.utils.httpgateway -e 'Slideo' &
 
 symfony server:log 

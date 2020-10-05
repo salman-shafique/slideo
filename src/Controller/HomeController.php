@@ -9,14 +9,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Enum\LanguagesEnum;
+use App\Service\Icon;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/")
      */
-    public function index(SessionInterface $session)
+    public function index(Icon $icon)
     {
+        echo $icon->get();
+        die;
         return $this->render('index.html.twig');
     }
     /**
