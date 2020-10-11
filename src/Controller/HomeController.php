@@ -17,7 +17,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->render('index.html.twig');
+        return $this->render('homepage/index.html.twig');
     }
     /**
      * @Route("/locale/{lang}")

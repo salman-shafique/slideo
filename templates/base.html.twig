@@ -1,79 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Easy way to create efficient presentations!">
-    <link rel="canonical" href="https://www.slideo.co.il"/>
-    <meta name="robots" content="index, follow">
 
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Slideo"/>
-    <meta property="og:description" content="Easy way to create efficient presentations!"/>
-    <meta property="og:image" content="{{ asset('favicon/favicon-196x196.png')}}"/>
-    <meta property="og:url" content="https://www.slideo.co.il"/>
-    <meta property="og:site_name" content="Slideo"/>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="The easiest way to create stunning presentations, add visuals and amaze your audience. Get started now, no account required.">
+  <link rel="canonical" href="https://www.slideo.co.il" />
+  <meta name="robots" content="index, follow">
 
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png')}}"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-196x196.png')}}" sizes="196x196"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-96x96.png')}}" sizes="96x96"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-32x32.png')}}" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-16x16.png')}}" sizes="16x16"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-128.png')}}" sizes="128x128"/>
-    <meta name="application-name" content="&nbsp;"/>
-    <meta name="msapplication-TileColor" content="#018790"/>
-    <meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png')}}"/>
-    <meta name="msapplication-square70x70logo" content="{{ asset('favicon/mstile-70x70.png')}}"/>
-    <meta name="msapplication-square150x150logo" content="{{ asset('favicon/mstile-150x150.png')}}"/>
-    <meta name="msapplication-wide310x150logo" content="{{ asset('favicon/mstile-310x150.png')}}"/>
-    <meta name="msapplication-square310x310logo" content="{{ asset('favicon/mstile-310x310.png')}}"/>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Slideo" />
+  <meta property="og:description"
+    content="The easiest way to create stunning presentations, add visuals and amaze your audience. Get started now, no account required." />
+  <meta property="og:image" content="{{ asset('favicon/favicon-196x196.png')}}" />
+  <meta property="og:url" content="https://www.slideo.co.il" />
+  <meta property="og:site_name" content="Slideo" />
 
-    <title>
-      {% block title %}Slideo
-      {% endblock %}
-    </title>
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png')}}" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png')}}" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png')}}" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png')}}" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png')}}" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png')}}" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png')}}" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png')}}" />
+  <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-196x196.png')}}" sizes="196x196" />
+  <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-96x96.png')}}" sizes="96x96" />
+  <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-32x32.png')}}" sizes="32x32" />
+  <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-16x16.png')}}" sizes="16x16" />
+  <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-128.png')}}" sizes="128x128" />
+  <meta name="application-name" content="&nbsp;" />
+  <meta name="msapplication-TileColor" content="#018790" />
+  <meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png')}}" />
+  <meta name="msapplication-square70x70logo" content="{{ asset('favicon/mstile-70x70.png')}}" />
+  <meta name="msapplication-square150x150logo" content="{{ asset('favicon/mstile-150x150.png')}}" />
+  <meta name="msapplication-wide310x150logo" content="{{ asset('favicon/mstile-310x150.png')}}" />
+  <meta name="msapplication-square310x310logo" content="{{ asset('favicon/mstile-310x310.png')}}" />
+
+  <title>
+    {% block title %}Slideo
+    {% endblock %}
+  </title>
+
+  {% block style %}
+  <link rel="stylesheet" href="{{asset('css/fontawesome.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/common.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/hamburger.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/nav-common.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/landing.css')}}">
+  {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+</head>
+
+<body>
+  {% block header %}
+  {% include "components/header.html.twig" %}
+  {% endblock %}
+
+  {% block body %}{% endblock %}
 
 
-    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{asset('css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{asset('vendors/fontawesome/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendors/owl-carousel/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendors/animate-css/animate.css')}}">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('css/responsive.css')}}"> {% block style %}{% endblock %}
-      {{ encore_entry_link_tags('app') }}
-    </head>
-    <body>
-      {% block header %}
-        {% include "components/header.html.twig" %}
-      {% endblock %}
-
-      {% block body %}{% endblock %}
+  {% block footer %}
+  {% include "components/footer.html.twig" %}
+  {% endblock %}
 
 
-      {% block footer %}
-        {% include "components/footer.html.twig" %}
-      {% endblock %}
+  {% block script %}
+  <script src="{{asset('js/jquery-3.5.1.js')}}"></script>
+  <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('js/sidenav-common.js')}}"></script>
+  {{ encore_entry_script_tags('app') }}
+  {% endblock %}
+</body>
 
-      <script src="{{asset('js/jquery-2.2.4.min.js')}}"></script>
-      <script src="{{asset('js/popper.js')}}"></script>
-      <script src="{{asset('js/bootstrap.min.js')}}"></script>
-      <script src="{{asset('vendors/owl-carousel/owl.carousel.min.js')}}"></script>
-      <script src="{{asset('js/jquery.ajaxchimp.min.js')}}"></script>
-      <script src="{{asset('js/waypoints.min.js')}}"></script>
-      <script src="{{asset('js/contact.js')}}"></script>
-      <script src="{{asset('js/jquery.form.js')}}"></script>
-      <script src="{{asset('js/jquery.validate.min.js')}}"></script>
-      <script src="{{asset('js/mail-script.js')}}"></script>
-      <script src="{{asset('js/theme.js')}}"></script>
-      {% block script %}{% endblock %}
-    </body>
-  </html>
+</html>

@@ -1,0 +1,193 @@
+
+:root {
+	--landing-action: rgb(229, 34, 86);
+    --brand-color: rgb(44, 120, 156);
+    --footer-background: rgb(244, 244, 244);
+}
+
+body {
+	color: black;
+}
+
+#Home_Section {
+    margin-top: 80px;
+}
+
+#Home_Section .btn {
+	padding: 10px 8px;
+    font-size: 15px;
+	margin: 4px 8px;
+}
+
+@media (min-width: 992px) {
+	.main-header {
+		font-weight: bold;
+		font-size: 68px;
+	    line-height: 76px;
+	}
+}
+
+.main-header {
+	font-weight: bold;
+}
+
+#Main_Image {
+	max-width: 100%;
+	max-height: 600px;
+}
+
+.tool-set {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.tool-item {
+	position: relative;
+    width: 170px;
+    padding: 20px;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 20%;
+    box-shadow: 0px 0px 30px 1px grey;
+	cursor: pointer;
+	min-height: 140px;
+	transition: 0.6s;
+}
+
+.feature-image {
+	max-width: 100%;
+	max-height: 450px;
+}
+
+#OnlineDesigner_Main {
+	background-image: url("../img/PDFAnalyserBG.jpg");
+	padding: 40px;
+	border-radius: 25px;
+}
+
+#PPTUpload_Box {
+	padding: 40px 0;
+	border-radius: 25px;
+	border: 1px solid white;
+	border: 1px dashed white;
+}
+
+#PPTUpload_Box img {
+	width: 60px;
+	height: 60px;
+}
+
+#PPTUpload_Box .section-header {
+	font-size: 16px;
+}
+
+#PPTUpload_Box .opening-paragraph {
+	font-size: 12px;
+}
+
+#UploadPresentation {
+	width: 100px;
+	height: 100px;
+	padding: 20px;
+	background-color: gray;
+	border-radius: 15px;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#Section_Footer {
+	background-color: var(--footer-background);
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin-bottom: 0px!important;
+}
+
+#Section_Footer .navbar-brand {
+	font-size: 25px;
+}
+
+#Links_List .list-item {
+	padding: 5px 0;
+	text-decoration: none;
+	font-size: 12px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+#Links_List .list-item:hover {
+	color: var(--brand-color);
+}
+
+#Links_List .list-head {
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+}
+
+#Contact_Points {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#Contact_Points .contact-item {
+	width: 30px;
+	height: 30px;
+	margin: auto;
+    margin-top: 12px;
+    margin-bottom: 12px;
+	cursor: pointer;
+}
+
+.bottom-bordered {
+	border-bottom: 1px solid darkgray;
+}
+
+#Copyright_Statement {
+	color: gray;
+	font-size: 12px;
+}
+
+.tool-icon {
+	position: absolute;
+    bottom: 10px;
+	transition: 0.6s;
+}
+
+.tool-text {
+	margin: 0;
+	max-height: 130px;
+	overflow: hidden;
+	display: -webkit-box;
+	line-clamp: 3;
+	-webkit-line-clamp: 3;
+	-ms-line-clamp: 3;
+	-o-line-clamp: 3;
+	-moz-line-clamp: 3;
+	box-orient: vertical;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-ms-box-orient: vertical;
+	-o-box-orient: vertical;
+	overflow: hidden;
+	transition: 0.6s;
+}
+
+.tool-item:hover {
+	background-color: black;
+}
+
+.tool-item:hover .tool-text {
+	color: white;
+}
+
+.tool-item:hover .tool-icon {
+	color: white;
+}
+
+.container {
+	padding-left: 28px;
+	padding-right: 28px;
+}

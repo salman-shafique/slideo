@@ -1,55 +1,62 @@
-<footer class="footer-area">
+<div id="Section_Footer" class="row no-margin section">
   <div class="container">
-    <div class="row">
-
-      <div class="col-lg-3 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-        <div class="footer-logo">
-          <img src="{{asset('favicon/favicon-196x196.png')}}" alt="" width="120px">
+    <div class="row no-margin">
+      <div class="col-lg-4 col-md-6 col-12 medium-bottom-margin bottom-bordered">
+        <a class="navbar-brand float-left" href="#">
+          Slideo
+        </a>
+        <div id="Contact_Points">
+          <a href="#" target="_blank" class="mx-1">
+            <img class="contact-item" src="/img/instagram_icon.png">
+          </a>
+          <a href="#" target="_blank" class="mx-1">
+            <img class="contact-item" src="/img/twitter_icon.jpg">
+          </a>
+          <a href="mailto:elad@slideo.co.il" target="_blank" class="mx-1">
+            <img class="contact-item" src="/img/mail_icon.png">
+          </a>
         </div>
       </div>
 
-      <div class="col-lg-3 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-        <h4>
-          {% trans %}Contact{% endtrans %}
-        </h4>
-        <div class="footer-address">
-          <span>Email : elad@slideo.co.il</span>
+      <div class="col-lg-4 col-md-6 col-12 medium-bottom-margin bottom-bordered">
+        <div class="row no-margin">
+          <div id="Links_List"
+            class="offset-lg-2 col-lg-8 offset-md-1 col-md-10 col-12 no-padding medium-bottom-margin">
+            <a class="list-item list-head" href="#">Quick Links</a>
+            <a class="list-item" href="{{path('index')}}">Home</a>
+            <a class="list-item" href="{{path('app_login')}}">Login</a>
+            <a class="list-item" href="{{path('app_register')}}">Signup</a>
+            <a class="list-item" href="{{path('editor')}}">Editor</a>
+            <a class="list-item" href="mailto:elad@slideo.co.il">Email us</a>
+          </div>
         </div>
       </div>
-
-      <div class="col-lg-3 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-        <h4>{% trans %}Links{% endtrans %}</h4>
-        <ul>
-          <li><a href="{{path('index')}}">{% trans %}Home{% endtrans %}</a></li>
-          <li><a href="{{path('editor')}}">{% trans %}Editor{% endtrans %}</a></li>
-          <li><a href="mailto:elad.darmon@gmail.com">{% trans %}Contact{% endtrans %}</a></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-3 col-md-8 mb-4 mb-xl-0 single-footer-widget">
+      <div class="col-lg-4 col-md-6 col-12 medium-bottom-margin bottom-bordered">
         <div class="btn-group dropup">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="true">
             {% trans %}Language{% endtrans %}
           </button>
-          <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -165px, 0px); top: 0px; left: 0px; will-change: transform;">
+          <div class="dropdown-menu" x-placement="top-start"
+            style="position: absolute; transform: translate3d(0px, -165px, 0px); top: 0px; left: 0px; will-change: transform;">
             {% for locale,language in constant('App\\Enum\\LanguagesEnum::AVAILABLE_TYPES') %}
-              {%  if locale == app.request.locale  %}
-                <a class="dropdown-item bg-secondary" href="/locale/{{ locale }}">
-                  {{ language}}
-                </a>
-              {% else %}
-                <a class="dropdown-item" href="/locale/{{ locale }}">
-                  {{ language}}
-                </a>
-              {% endif %}
+            {%  if locale == app.request.locale  %}
+            <a class="dropdown-item bg-secondary" href="/locale/{{ locale }}">
+              {{ language}}
+            </a>
+            {% else %}
+            <a class="dropdown-item" href="/locale/{{ locale }}">
+              {{ language}}
+            </a>
+            {% endif %}
             {% endfor %}
           </div>
         </div>
-
+      </div>
+      <div class="col-12">
+        <p id="Copyright_Statement">&copy;Copyright <span id="Copyright_Year">2020</span> Slideo</p>
       </div>
     </div>
-    <div class="footer-bottom row align-items-center text-center text-lg-left no-gutters">
-      <div class="col-lg-4 col-md-12 text-center text-lg-right footer-social"></div>
-    </div>
   </div>
-</footer>
+</div>
+<div id="pageBackdrop" class="backdrop collapse"></div>

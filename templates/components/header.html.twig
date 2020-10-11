@@ -1,107 +1,60 @@
-<header class="header_area">
-  <div class="main_menu">
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <div class="container">
+<button id="mainMenuTrigger" class="hamburger hamburger--slider d-md-none d-block" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+<div id="mainMenu" class="sidenav">
+  <a class="navbar-brand" href="{{path('index')}}">Slideo</a>
+  <a href="#">Pricing</a>
+  <a href="#">Login</a>
+  <a href="#">Sign Up</a>
+</div>
+<nav id="BrandNav" class="navbar navbar-expand-sm container">
+  <a class="navbar-brand d-md-flex d-none" href="{{path('index')}}">
+    Slideo
+  </a>
 
-        <a class="navbar-brand logo_h" href="{{path('index')}}">
-          <span>Slideo</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+  <ul class="navbar-nav d-md-flex ml-auto d-none">
+    {% if app.user %}
+    <li class="nav-item submenu dropdown">
 
-        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-          <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{{path('index')}}">{% trans %}Home{% endtrans %}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{path('editor')}}">{% trans %}Editor{% endtrans %}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="mailto:elad@slideo.co.il">{% trans %}Contact{% endtrans %}</a>
-            </li>
-            <li class="nav-item"></li>
-            {% if app.user %}
-              <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  {% if app.user.picture %}
-                    <img src="{{app.user.picture}}" alt="{{app.user.fullname}}" width="20px">
-                  {% else %}
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                  {% endif %}
-                  <span>{% trans %}Welcome{% endtrans %}
-                    {{app.user.fullname}}
-                  </span>
-                </a>
-                <ul class="dropdown-menu">
-                  {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ path('admin') }}">{% trans %}Dashboard{% endtrans %}</a>
-                    </li>
-                  {% endif %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
-                  </li>
-                </ul>
-              </li>
-            {% else %}
-              <li class="nav-item submenu dropdown">
-                <a href="{{path('app_login')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <span>{% trans %}Login{% endtrans %}
-                  </span>
-                </a>
-                <ul class="dropdown-menu">
-                  {% include "components/social-logins.html.twig" with {'class':'col-12 mb-0 mt-2'} %}
-                  <form method="post" action="{{path('app_login')}}" class="col-12 py-3">
-                    <input class="form-control mb-1" type="email" name="email" value="" placeholder="{% trans %}Email{% endtrans %}" required autofocus/>
-                    <input class="form-control mb-1" type="password" name="password" placeholder="{% trans %}Password{% endtrans %}" required/>
-                    <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    <button type="submit" class="genric-btn info col-12">{% trans %}Login{% endtrans %}</button>
-                    <a href="{{path('app_forgot_password_request')}}">
-                      <p class="text-danger text-center m-0" style="font-size:0.7rem">{% trans %}Forgot password?{% endtrans %}</p>
-                    </a>
-                  </form>
-                </ul>
-              </li>
-              <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <span>{% trans %}Sign up{% endtrans %}
-                  </span>
-                </a>
-                <ul class="dropdown-menu">
-                  {% include "components/social-logins.html.twig" with {'class':'col-12 mb-0 mt-2'} %}
-                  <form name="registration_form" action="{{path('app_register')}}" method="post" class="col-12 py-3">
-                    <div><input type="text" id="registration_form_fullname" name="registration_form[fullname]" required="required" maxlength="255" placeholder="{% trans %}Full name{% endtrans %}" class="form-control mb-1"></div>
-                    <div><input type="text" id="registration_form_email" name="registration_form[email]" required="required" maxlength="255" placeholder="{% trans %}Email{% endtrans %}" class="form-control mb-1"></div>
-                    <div><input type="password" id="registration_form_plainPassword_first" name="registration_form[plainPassword][first]" required="required" placeholder="{% trans %}Password{% endtrans %}" class="form-control mb-1"></div>
-                    <div><input type="password" id="registration_form_plainPassword_second" name="registration_form[plainPassword][second]" required="required" placeholder="{% trans %}Password again{% endtrans %}" class="form-control mb-1"></div>
-                    <button type="submit" class="genric-btn info col-12">{% trans %}Sign up{% endtrans %}</button>
-                    <input type="hidden" id="registration_form__token" name="registration_form[_token]" value="{{ csrf_token('authenticate') }}">
-                  </form>
-                </ul>
-              </li>
-            {% endif %}
+      <button class="btn nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+        aria-expanded="false">{% trans %}Welcome{% endtrans %}
+        {{app.user.fullname}}
+      </button>
 
-
-          </ul>
-        </div>
-
-      </div>
-    </nav>
-  </div>
-  {% if app.request.hasPreviousSession %}
-    {% for error in app.flashes('error') %}
-      <div class="alert alert-danger text-center ml-auto mr-5" style="width:300px" role="alert">{{ error }}</div>
-      <div class="col-12"></div>
-    {% endfor %}
-    {% for success in app.flashes('success') %}
-      <div class="alert alert-success text-center ml-auto mr-5" style="width:300px" role="alert">{{ success }}</div>
-      <div class="col-12"></div>
-    {% endfor %}
-  {% endif %}
-
-</header>
+      <ul class="dropdown-menu">
+        {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('admin') }}">{% trans %}Dashboard{% endtrans %}</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
+        </li>
+      </ul>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-link" href="#">
+        <button class="btn d-md-flex d-none">Pricing</button>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{path('editor')}}">
+        <button class="btn d-md-flex d-none">Editor</button>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{path('app_login')}}">
+        <button class="btn d-md-flex d-none">Login</button>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{path('app_register')}}">
+        <button id="loginBtn" class="btn btn-outline-dark d-md-flex d-none">Sign Up</button>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>

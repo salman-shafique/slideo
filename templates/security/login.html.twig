@@ -7,14 +7,11 @@
 
 {% block body %}
   <footer class="footer mt-0">
-    <div class="footer_top py-5 px-0 mt-0">
-      <div class="container py-5">
+    <div class="footer_top px-0 mt-0">
+      <div class="container">
         <div class="row justify-content-center gallery-item">
           <div class="col-12 p-5">
             <p style="text-align:center">
-              <a href="/">
-                <img src="/favicon/favicon-196x196.png" alt="Logo" style="max-width:100px">
-              </a>
             </p>
             <h1 class="text-center">{% trans %}Log in{% endtrans %}</h1>
           </div>
@@ -30,7 +27,7 @@
             <input class="form-control mb-1" type="email" name="email" value="{{last_username}}" placeholder="{% trans %}Email{% endtrans %}" required autofocus/>
             <input class="form-control mb-1" type="password" name="password" placeholder="{% trans %}Password{% endtrans %}" required/>
             <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <button type="submit" class="genric-btn info col-12 mt-2">{% trans %}Login{% endtrans %}</button>
+            <button type="submit" class="btn btn-info col-12 mt-2">{% trans %}Login{% endtrans %}</button>
             <p class=" my-2">{% trans %}Don't have an account?{% endtrans %}
               <a href="{{path('app_register')}}">{% trans %}Sign up{% endtrans %}</a>
             </p>
