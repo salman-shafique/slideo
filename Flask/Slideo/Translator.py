@@ -2,18 +2,16 @@ from googletrans import Translator as Translator_
 import sys
 import json
 
-
 class Translator(object):
     def __init__(self):
         self.translator = Translator_()
 
-    def translate(self,**vargs):
-        originalSentence = vargs['originalSentence']
+    def translate(self,args):
+        originalSentence = args['originalSentence']
 
-        if 'targetLanguage' in vargs:
-            targetLanguage = vargs['targetLanguage']
-        else:
-            targetLanguage = "en"
+        targetLanguage = "en" 
+        if args['targetLanguage']:
+            targetLanguage = args['targetLanguage']
 
         result = {"targetSentence": "", "originalSentence": originalSentence, "lang":targetLanguage}
 

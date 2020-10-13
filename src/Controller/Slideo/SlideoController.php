@@ -2,32 +2,28 @@
 
 namespace App\Controller\Slideo;
 
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use App\Service\SlideoService;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 
 class SlideoController extends AbstractController
 {
-
-
     /**
-     * @Route("/api/test",methods={"POST"})
+     * @Route("/api/{className}/{methodName}",methods={"POST"})
      */
-    public function test(Request $request, SlideoService $slideo)
+    public function call(Request $request, String $className, String $methodName, HttpClientInterface $client)
     {
-        dump($slideo->getTranslator()->test($request->request->all()));
-        die;
-    }
-    /**
-     * @Route("/api/translate",methods={"POST"})
-     */
-    public function translate(Request $request, SlideoService $slideo)
-    {
-        return $slideo->getTranslator()->translate($request->get("originalSentence"));
-        die;
+        $response = $client->request(
+            'POST',
+            "http://localhost:8080/call/$className/$methodName",
+            [
+                'json' => $request->request->all()
+            ]
+        );
+
+        return new JsonResponse($response->toArray());
     }
 }

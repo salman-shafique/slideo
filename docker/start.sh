@@ -8,12 +8,8 @@ if [ "$start_server" == "" ]; then
     symfony server:start -d; 
 fi;
 
-# To avoid from permission error
-chmod -R 777 /var/www/app/var;
-chmod -R 777 /var/www/app/vendor;
-
-echo "Starting Python servers"
-python3.7 /var/www/app/pyro/server.py &
-python3.7 -m Pyro5.utils.httpgateway -e 'Slideo' &
+echo "Starting Python servers..."
+python3.7 -u /var/www/app/Flask/app.py &
+echo "Starting Python servers... Completed"
 
 symfony server:log 

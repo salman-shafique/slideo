@@ -1,4 +1,5 @@
-Pyro5
+Flask
+gevent
 requests
 argparse
 googletrans
