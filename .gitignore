@@ -81,4 +81,9 @@ yarn-error.log
 
 *.out
 .vscode/
-__pycache__
+__pycache_
+/alp/
+*.pyc
+
+# not found icon
+!/public/icons/nothing-found.png/(0,0,0)/nothing-found.png
