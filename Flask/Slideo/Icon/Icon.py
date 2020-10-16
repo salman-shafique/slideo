@@ -8,11 +8,24 @@ from .. import env
 from requests_oauthlib import OAuth1
 import json
 import requests
+from ..Translator import Translator
 
 
 class Icon(object):
     def __init__(self):
         self.auth = OAuth1(env.THENOUNPROJECT_KEY,env.THENOUNPROJECT_SECRET)
+        self.translator = Translator.Translator()
+
+
+    def thenounproject_call(self,keyword,limit,limit_to_public_domain):
+     
+        endpoint = "http://api.thenounproject.com/icons/{}?limit={}&limit_to_public_domain={}".format(
+            keyword,
+            limit,
+            limit_to_public_domain
+        )
+
+        return requests.get(endpoint, auth=self.auth)
 
 
     def find_icons(self,args):
@@ -21,14 +34,18 @@ class Icon(object):
         if not 'limit_to_public_domain' in args:
             args['limit_to_public_domain'] = 0
         
-        endpoint = "http://api.thenounproject.com/icons/{}?limit={}&limit_to_public_domain={}".format(
-            args['keyword'],
-            args['limit'],
-            args['limit_to_public_domain']
-        )
-
-        return json.loads(requests.get(endpoint, auth=self.auth).text)
-
+        translated_keyword = self.translator.translate({'sentence':args['keyword']})['text']
+        response = self.thenounproject_call(translated_keyword,args['limit'],args['limit_to_public_domain'])
+   
+        if response.status_code == 200:
+            return json.loads(response.text)
+        else:
+            # Translate back
+            response = self.thenounproject_call(args['keyword'],args['limit'],args['limit_to_public_domain'])
+            if response.status_code == 200:
+                return json.loads(response.text)
+            else:
+                return {'error':'Nothing found'}
 
 
     def change_color(self, args):
