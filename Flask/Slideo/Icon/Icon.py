@@ -4,11 +4,33 @@ import numpy as np
 from PIL import Image
 import urllib.request
 import os
-from . import env
+from .. import env
+from requests_oauthlib import OAuth1
+import json
+import requests
 
 
 class Icon(object):
-    
+    def __init__(self):
+        self.auth = OAuth1(env.THENOUNPROJECT_KEY,env.THENOUNPROJECT_SECRET)
+
+
+    def find_icons(self,args):
+        if not 'limit' in args:
+            args['limit'] = 100
+        if not 'limit_to_public_domain' in args:
+            args['limit_to_public_domain'] = 0
+        
+        endpoint = "http://api.thenounproject.com/icons/{}?limit={}&limit_to_public_domain={}".format(
+            args['keyword'],
+            args['limit'],
+            args['limit_to_public_domain']
+        )
+
+        return json.loads(requests.get(endpoint, auth=self.auth).text)
+
+
+
     def change_color(self, args):
         icons = args["icons"]
         rgb = args["rgb"]

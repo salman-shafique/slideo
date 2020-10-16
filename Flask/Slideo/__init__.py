@@ -1,4 +1,7 @@
-from . import Test, NLP, Translator, Icon
+from .Test import Test
+from .NLP import NLP
+from .Translator import Translator
+from .Icon import Icon
 
 
 Test = Test.Test()
