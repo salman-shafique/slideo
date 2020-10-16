@@ -16,7 +16,6 @@ class Icon(object):
         self.auth = OAuth1(env.THENOUNPROJECT_KEY,env.THENOUNPROJECT_SECRET)
         self.translator = Translator.Translator()
 
-
     def thenounproject_call(self,keyword,limit,limit_to_public_domain):
      
         endpoint = "http://api.thenounproject.com/icons/{}?limit={}&limit_to_public_domain={}".format(
@@ -27,10 +26,9 @@ class Icon(object):
 
         return requests.get(endpoint, auth=self.auth)
 
-
     def find_icons(self,args):
         if not 'limit' in args:
-            args['limit'] = 100
+            args['limit'] = 50
         if not 'limit_to_public_domain' in args:
             args['limit_to_public_domain'] = 0
         
@@ -46,7 +44,6 @@ class Icon(object):
                 return json.loads(response.text)
             else:
                 return {'error':'Nothing found'}
-
 
     def change_color(self, args):
         icons = args["icons"]

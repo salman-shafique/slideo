@@ -2,6 +2,7 @@
 import spacy
 from spacy import displacy
 from . import Algorithm
+from . import PrepareSlides
 from ..Translator import Translator
 
 
@@ -52,7 +53,7 @@ class NLP(object):
 
         return {"tokens": all_tokens}
 
-    def algorithm(self, args):
+    def analyze(self, args):
         sentences = args["sentences"]
 
         options = {
@@ -72,50 +73,75 @@ class NLP(object):
         groupped_sentences = []
         for translation in translated_sentences:
             groupped_sentence = {
-                "originalSentence": translation['origin'],
-                "englishSentence": translation['text'],
-                "lang": translation['src'],
-                "tokens": Algorithm.calculate_total(self.get_tokens({"text": translation['text']})["tokens"]),
+                "originalSentence": translation["origin"],
+                "englishSentence": translation["text"],
+                "lang": translation["src"],
+                "tokens": Algorithm.calculate_total(
+                    self.get_tokens({"text": translation["text"]})["tokens"]
+                ),
                 "sentence_dictionary": self.get_sentence_dictionary(
-                    {"text": translation['text'], "options": options}
+                    {"text": translation["text"], "options": options}
                 )["sentence_dictionary"],
             }
             groupped_sentences.append(groupped_sentence)
 
-        analyzed_sentences=Algorithm.analyze(groupped_sentences)
+        analyzed_sentences = Algorithm.analyze(groupped_sentences)
 
         # Translate back h1s
         result = []
         for groupped_sentence in analyzed_sentences:
             # Translation
             if groupped_sentence["englishH1s"]:
-                if groupped_sentence['lang'] != "en":
-                    translations = self.translator.translate({
-                        'sentences':groupped_sentence["englishH1s"],
-                        'target_language':groupped_sentence['lang']
-                        })
+                if groupped_sentence["lang"] != "en":
+                    translations = self.translator.translate(
+                        {
+                            "sentences": groupped_sentence["englishH1s"],
+                            "target_language": groupped_sentence["lang"],
+                        }
+                    )
                     originalH1s = []
                     for translation in translations:
-                        originalH1s.append(translation['text'])
+                        originalH1s.append(translation["text"])
                     groupped_sentence["originalH1s"] = originalH1s
                 else:
                     groupped_sentence["originalH1s"] = groupped_sentence["englishH1s"]
 
             if groupped_sentence["not_ruled_words_english"]:
-                if groupped_sentence['lang'] != "en":
-                    translations = self.translator.translate({
-                        'sentences':groupped_sentence["not_ruled_words_english"],
-                        'target_language':groupped_sentence['lang']
-                        })
+                if groupped_sentence["lang"] != "en":
+                    translations = self.translator.translate(
+                        {
+                            "sentences": groupped_sentence["not_ruled_words_english"],
+                            "target_language": groupped_sentence["lang"],
+                        }
+                    )
                     not_ruled_words_original = []
                     for translation in translations:
-                        not_ruled_words_original.append(translation['text'])
-                    groupped_sentence["not_ruled_words_original"] = not_ruled_words_original
+                        not_ruled_words_original.append(translation["text"])
+                    groupped_sentence[
+                        "not_ruled_words_original"
+                    ] = not_ruled_words_original
                 else:
                     groupped_sentence["not_ruled_words_original"] = groupped_sentence[
                         "not_ruled_words_english"
                     ]
             result.append(groupped_sentence)
 
-
         return result
+
+    def prepare_slides(self, args):
+        # [sentences[],sentences[]...]
+        for i in range(len(args["slides"])):
+            raw_slide = args["slides"][i]
+
+            analyzed_sentences = self.analyze({"sentences": raw_slide["sentences"]})
+
+            # Find icons
+            for analyzed_sentence in analyzed_sentences:
+                analyzed_sentence = PrepareSlides.find_icons(analyzed_sentence)
+
+            args["slides"][i]["analyzed_content"] = analyzed_sentences
+
+            # Simplify
+            args["slides"][i] = PrepareSlides.simplify_content(raw_slide)
+
+        return {"slides": args["slides"]}
