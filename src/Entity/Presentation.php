@@ -61,6 +61,11 @@ class Presentation
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $presentationId;
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
@@ -158,5 +163,17 @@ class Presentation
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    public function getPresentationId(): ?string
+    {
+        return $this->presentationId;
+    }
+
+    public function setPresentationId(string $presentationId): self
+    {
+        $this->presentationId = $presentationId;
+
+        return $this;
     }
 }

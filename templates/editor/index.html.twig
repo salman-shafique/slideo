@@ -7,4 +7,46 @@
 {% block body %}
 
   <h1 class="col-12 text-center py-5 my-5">{% trans %}Coming soon{% endtrans %}</h1>
+  <button onclick="alp()">alp</button>
+	<pre>
+{{ dump(presentation) }}
+	</pre>
+  <script>
+    function alp() {
+      $.ajax({
+        method: "POST",
+        url: "/editor/create/slides",
+        dataType: "json",
+        data: {
+          "slides": [
+            {
+              'subTitle':'I am subtitle',
+              'slideTitle':'I am slide title',
+              'sentences':[
+                'We visited the country park.',
+                'The unnecessary movement of vehicles every day is a major cause of pollution.',
+                'Youth, speed, production ($) are American ideals',
+                'Physical and mental weakness are stigmatized',
+                'feel ashamed or embarrassed when weak, ill, or need help'
+              ]
+            },
+            {
+              'subTitle':'I am subtitle 2',
+              'slideTitle':'I am slide title 2',
+              'sentences':[
+                'Blame the Victim',
+                'Economic barriers: energy, telephne, servers, hardware, software',
+                'Technical barriers: costs of acquisition, use and updating',
+                'Cultural barriers: information illiteracy, biases, domination of English',
+                'The former New York mayor, now Trump"s personal lawyer, lost it during an appearance on the cable news network.'
+              ]
+            }
+          ]
+        },
+        success: function (result) {
+          console.log(result)
+        }
+      })
+    }
+  </script>
 {% endblock %}

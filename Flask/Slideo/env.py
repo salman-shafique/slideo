@@ -4,7 +4,7 @@ PUBLIC_PATH = "/var/www/app/public"
 
 
 
-# parse symfony's .env file
+# parse symfony's .env file 
 if os.path.exists("/var/www/app/.env.local"):
     # First check local env
     env_file = open("/var/www/app/.env.local", "r")
