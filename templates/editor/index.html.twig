@@ -4,91 +4,44 @@
   {% trans %}Editor{% endtrans %}
 {% endblock %}
 
+
+{% block style %}
+  {{parent()}}
+  {{ encore_entry_link_tags('editor') }}
+{% endblock %}
 {% block body %}
 
   <h1 class="col-12 text-center py-5 my-5">{% trans %}Coming soon{% endtrans %}</h1>
   <button onclick="alp()">alp</button>
 
 
-  
-        <div class="modal fade" id="create_slide_modal" tabindex="-1" role="dialog" aria-labelledby="create_slide_modal" aria-hidden="true" style="overflow-y: scroll;">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" id="create_slide_modal_close_btn" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h2 class="modal-title text-center" style="font-size:40px;">הוסף שקף חדש</h2>
-                        <div class="form-group m-0">
-                            <strong><label style="font-size:30px;" class="m-0">כותרת:</label></strong>
-                            <input id="slideTitle" onkeyup="fix_dir(this)" type="text" class="form-control data-hj-whitelist" placeholder=""> <!-- הקלד או הדבק את כותרת השקף שלך -->
-                        </div>
-                        <div class="form-group">
-                            <strong><label style="font-size:30px;" class="m-0">תוכן השקף: (טקסט, בולטים וכו')</label></strong>
-                            <!-- </br>
-                            <label style="font-size:16px;">מומלץ להקפיד על סימני פיסוק, ולהמנע משגיאות כתיב.</label> -->
-                            <div class="border p-1 inline-editor" style="width: 100%;background-color:rgb(241, 241, 241);">
-                                <i class="fas fa-align-left border p-2" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="LTR" onclick="switchDirection('ltr')"></i>
-                                <i class="fas fa-align-right border p-2" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="RTL" onclick="switchDirection('rtl')"></i>
-                                <i class="fas fa-remove-format border p-2" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="הסר את הפורמט" onclick="removeFormat()"></i>
-                                <i class="fas fa-eraser border p-2" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="תוכן ברור" onclick="clearContent()"></i>
-                            </div>
-                            <div id="area" onkeyup="fix_dir(this)" class="col-12 border pt-2" style="height: 300px;overflow-y: scroll;" contenteditable autofocus></div>
-                        </div>
+  <div class="form-group m-0">
 
-                        <div id="create_slide_modal_loading_div" class="row justify-content-center" style="display:none">
-                            <div class="spinner-border" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center">
-                            <button type="button" class="btn btn-success" onclick="analyze_pptx_content()">עיצוב אוטומטי</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-	<pre>
+    <input id="slideTitle" type="text" class="form-control data-hj-whitelist" placeholder="">
+
+  </div>
+  <div class="form-group">
+    <strong>
+      <label style="font-size:30px;" class="m-0">תוכן השקף: (טקסט, בולטים וכו')</label>
+    </strong>
+
+    <div class="border p-1 inline-editor" style="width: 100%;background-color:rgb(241, 241, 241);">
+      <i class="fas fa-align-left border p-2" id="entry_to_ltr" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="LTR"></i>
+      <i class="fas fa-align-right border p-2" id="entry_to_rtl" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="RTL"></i>
+      <i class="fas fa-remove-format border p-2" id="entry_remove_format" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="הסר את הפורמט"></i>
+      <i class="fas fa-eraser border p-2" id="entry_clear_content" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="תוכן ברור" ></i>
+    </div>
+    <div id="area" class="col-12 border pt-2" style="height: 300px;overflow-y: scroll;" contenteditable autofocus></div>
+  </div>
+
+
+  <pre>
 {{ dump(presentation) }}
 	</pre>
-  <script>
-    function alp() {
-      $.ajax({
-        method: "POST",
-        url: "/editor/create/slides",
-        dataType: "json",
-        data: {
-          "slides": [
-            {
-              'subTitle':'I am subtitle',
-              'slideTitle':'I am slide title',
-              'sentences':[
-                'We visited the country park.',
-                'The unnecessary movement of vehicles every day is a major cause of pollution.',
-                'Youth, speed, production ($) are American ideals',
-                'Physical and mental weakness are stigmatized',
-                'feel ashamed or embarrassed when weak, ill, or need help'
-              ],
-              'direction':'ltr'
-            },
-            {
-              'subTitle':'I am subtitle 2',
-              'slideTitle':'I am slide title 2',
-              'sentences':[
-                'Blame the Victim',
-                'Economic barriers: energy, telephne, servers, hardware, software',
-                'Technical barriers: costs of acquisition, use and updating',
-                'Cultural barriers: information illiteracy, biases, domination of English',
-                'The former New York mayor, now Trump"s personal lawyer, lost it during an appearance on the cable news network.'
-              ],
-              'direction':'rtl'
-            }
-          ]
-        },
-        success: function (result) {
-          console.log(result)
-        }
-      })
-    }
-  </script>
+
+{% endblock %}
+
+{% block script %}
+  {{parent()}}
+  {{ encore_entry_script_tags('editor') }}
 {% endblock %}

@@ -60,11 +60,6 @@ body {
 	max-height: 450px;
 }
 
-#OnlineDesigner_Main {
-	background-image: url("../img/PDFAnalyserBG.jpg");
-	padding: 40px;
-	border-radius: 25px;
-}
 
 #PPTUpload_Box {
 	padding: 40px 0;

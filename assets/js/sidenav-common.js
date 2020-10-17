@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(function() {
 	$("#mainMenuTrigger").click(function() {
 		if($(this).hasClass("is-active")) {
 			$(this).removeClass("is-active");
