@@ -41,11 +41,6 @@ class Slide
     private $direction;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $linesDic;
-
-    /**
      * @ORM\OneToOne(targetEntity=Content::class, cascade={"persist", "remove"})
      */
     private $slideTitle;
@@ -91,6 +86,16 @@ class Slide
      * @ORM\Column(type="datetime")
      */
     private $updated;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slideId;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $sentences = [];
 
     public function __construct()
     {
@@ -199,18 +204,6 @@ class Slide
         return $this;
     }
 
-    public function getLinesDic(): ?string
-    {
-        return $this->linesDic;
-    }
-
-    public function setLinesDic(string $linesDic): self
-    {
-        $this->linesDic = $linesDic;
-
-        return $this;
-    }
-
     public function getSlideTitle(): ?Content
     {
         return $this->slideTitle;
@@ -291,5 +284,29 @@ class Slide
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    public function getSlideId(): ?string
+    {
+        return $this->slideId;
+    }
+
+    public function setSlideId(string $slideId): self
+    {
+        $this->slideId = $slideId;
+
+        return $this;
+    }
+
+    public function getSentences(): ?array
+    {
+        return $this->sentences;
+    }
+
+    public function setSentences(array $sentences): self
+    {
+        $this->sentences = $sentences;
+
+        return $this;
     }
 }

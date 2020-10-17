@@ -129,7 +129,7 @@ class NLP(object):
         return result
 
     def prepare_slides(self, args):
-        # [sentences[],sentences[]...]
+        # [sentences[],str slideTitle, str subTitle, str direction]
         for i in range(len(args["slides"])):
             raw_slide = args["slides"][i]
 

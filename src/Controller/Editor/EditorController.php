@@ -14,6 +14,8 @@ use App\Repository\PresentationRepository;
 use App\Repository\SlideRepository;
 use App\Security\PresentationSecurity;
 use App\Service\FlaskService;
+use App\Service\PresentationService;
+use App\Service\SlideService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraints\Json;
 
@@ -25,18 +27,11 @@ class EditorController extends AbstractController
     /**
      * @Route("/",name="editor")
      */
-    public function index(SessionInterface $sessionInterface)
+    public function index(SessionInterface $sessionInterface, PresentationService $presentationService)
     {
         // Create a presentation and redirect the user.
-        $presentation = new Presentation();
-        $presentation->setOwner($this->getUser());
-        $presentation->setSessionId($sessionInterface->getId());
-        $presentationId = hash("md4", time(), false);
-        $presentation->setPresentationId($presentationId);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($presentation);
-        $em->flush();
-        return $this->redirect("/editor/$presentationId");
+        $presentation = $presentationService->create($this->getUser(), $sessionInterface->getId());
+        return $this->redirect("/editor" . "/" . $presentation->getPresentationId());
     }
 
     /**
@@ -58,13 +53,15 @@ class EditorController extends AbstractController
     /**
      * @Route("/create/slides",methods={"POST"})
      */
-    public function createSlides(Request $request, SessionInterface $sessionInterface, FlaskService $flaskService, PresentationSecurity $presentationSecurity,SlideRepository $slideRepository)
+    public function createSlides(Request $request, SessionInterface $sessionInterface, FlaskService $flaskService, PresentationSecurity $presentationSecurity, SlideService $slideService)
     {
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
-        if(!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
         $rawSlides = $flaskService->call("NLP", "prepare_slides", $request->request->all());
-       $slides= $slideRepository->createSlides($rawSlides);
+        
+        $slides = $slideService->createSlides($rawSlides['slides'], $presentation);
+
         return new JsonResponse($slides);
     }
 

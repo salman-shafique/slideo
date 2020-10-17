@@ -119,7 +119,7 @@ def simplify_content(raw_slide):
                     "icon_path": sentence["icon"]["icons"][0],
                     "icons": sentence["icon"]["icons"],
                 },
-                "status": "new",
+                "status": "new"
             }
         )
     raw_slide["analyzed_content"] = simplified_analyzed_content
