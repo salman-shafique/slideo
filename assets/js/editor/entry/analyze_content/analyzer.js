@@ -3,6 +3,44 @@ import session from "Editor/session";
 import add_event from "Editor/utils/add_event";
 import toastr from "toastr";
 import create_slides from "Editor/slides/create_slides";
+import clear_mso_specials from "./clear_mso_specials";
+import reset_next_slide from "Editor/slides/reset_next_slide";
+
+
+function create_next_slides(slides) {
+
+    if (slides.length == 2 && slides[0].children.length == 1)
+        slides = slides.slice(1, 2);
+
+    slides.forEach(function (slide) {
+        // NEXT_SLIDE
+        session.NEXT_SLIDE.slideTitle = clear_text(slide.slideTitle);
+        session.NEXT_SLIDE.subTitle = clear_text(slide.root.innerText);
+        session.NEXT_SLIDE.direction = session.DIRECTION;
+
+        let sentences = [];
+
+        for (let i = 0; i < slide.children.length; i++) {
+            let child = slide.children[i];
+            sentences.push(clear_text(child.innerText));
+        }
+
+        session.NEXT_SLIDE.sentences = sentences;
+        session.NEW_SLIDES.push(session.NEXT_SLIDE);
+        reset_next_slide();
+    });
+}
+
+function create_slide(root, children) {
+    if (!children) return null;
+    if (!children[0]) return null;
+    let slide = {
+        "slideTitle": $("#slideTitle").val(),
+        "root": root,
+        "children": children,
+    };
+    return slide;
+}
 
 
 add_event("#entry_analyze", "click", function () {
@@ -26,7 +64,8 @@ add_event("#entry_analyze", "click", function () {
         create_slides();
         return;
     }
-    return;
+
+    let marginAlignment; 
     session.DIRECTION == "ltr" ? marginAlignment = "marginLeft" : marginAlignment = "marginRight";
 
     let lines = [];
@@ -47,7 +86,7 @@ add_event("#entry_analyze", "click", function () {
                     if (node.classList.length == 0 && !node.getAttribute("style")) {
                         if (node.querySelector("*[style]")) {
                             // Pasted element
-                            for (i = 0; i < node.childNodes.length; i++) {
+                            for (let i = 0; i < node.childNodes.length; i++) {
                                 let inner_node = node.childNodes[i];
                                 if (clear_text(inner_node.innerText))
                                     lines.push(inner_node);
@@ -114,7 +153,7 @@ add_event("#entry_analyze", "click", function () {
     let levels = {};
     // Give them ids
     let id = 1;
-
+    let margin;
     lines.forEach(line => {
         if (clear_text(line.innerText)) {
             switch (line.tagName) {
@@ -167,13 +206,16 @@ add_event("#entry_analyze", "click", function () {
     });
 
     let max = not_classified.length;
+    let line_bottom,level_bottom,siblings;
     for (let i = max - 1; i > 0; i--) {
         line_bottom = not_classified[i];
         level_bottom = parseInt(line_bottom.getAttribute("level"));
         siblings = [];
-        for (j = i - 1; j >= 0; j--) {
-            line_up = not_classified[j];
-            level_up = parseInt(line_up.getAttribute("level"));
+    
+
+        for (let j = i - 1; j >= 0; j--) {
+            let line_up = not_classified[j];
+            let level_up = parseInt(line_up.getAttribute("level"));
             if (level_up < level_bottom) {
                 siblings.push(line_bottom)
                 siblings.forEach(element => {
@@ -205,7 +247,7 @@ add_event("#entry_analyze", "click", function () {
     // Start from 0 and link them
     margins.forEach(function (margin) {
         // copy elements ids
-        elements_at_this_level = [];
+        let elements_at_this_level = [];
 
         levels[String(margin)].forEach(function (id) {
             lines.forEach(line => {
@@ -222,13 +264,13 @@ add_event("#entry_analyze", "click", function () {
                 if (line.getAttribute("level") == level)
                     children.push(line);
         });
-        tmp_slide = create_slide(root, children);
+        let tmp_slide = create_slide(root, children);
 
         if (tmp_slide)
             tmp_slides.push(tmp_slide);
-        for (i = 0; i < elements_at_this_level.length; i++) {
-            current_element = elements_at_this_level[i];
-            id = current_element.id;
+        for (let i = 0; i < elements_at_this_level.length; i++) {
+            let current_element = elements_at_this_level[i];
+            let id = current_element.id;
             children = [];
             lines.forEach(line => {
                 if (line.getAttribute("parent") == id)
@@ -240,6 +282,7 @@ add_event("#entry_analyze", "click", function () {
         }
     });
 
-    create_slides(tmp_slides);
-    fast_prev();
+    create_next_slides(tmp_slides);
+    create_slides();
+
 });

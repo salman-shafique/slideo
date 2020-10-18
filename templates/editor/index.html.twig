@@ -28,19 +28,17 @@
       </div>
       <div class="text-center">
         <button class="btn btn-info" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px;" style="cursor:pointer">
-          <span style="font-size:34px;">עצבו את הטקסט שלי</span>
+          <span style="font-size:34px;">Try</span>
         </button>
       </div>
     </div>
-    <div id="entry_result" class="col-8">
-      Result
-    </div>
+    <pre id="entry_result" class="col-8">
+    </pre>
+    Slide Ids in this presentation:<br>
+    {% for slide in presentation.slides %}
+      {{slide.slideId}}
+    {% endfor %}
   </div>
-
-
-  <pre>
-{{ dump(presentation) }}
-	</pre>
 
 {% endblock %}
 
