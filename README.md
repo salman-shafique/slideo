@@ -15,7 +15,7 @@ docker-compose up -d --build
 ```shell script
 docker exec -ti slideo_symfony composer install
 docker exec -ti slideo_symfony yarn install
-docker exec -ti slideo_symfony yarn run encore dev
+docker exec -ti slideo_symfony yarn encore production
 docker exec -ti slideo_symfony php bin/console doctrine:database:create --if-not-exists
 docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n 
 docker exec -ti slideo_symfony php bin/console doctrine:fixtures:load -q
