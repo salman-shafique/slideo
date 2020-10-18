@@ -24,6 +24,9 @@ for line in env_file.readlines():
         DB=False
         if "unix_socket" in line:
             # Connection with socket
+            #DATABASE_URL=mysql://slideo:xhtpWpZ.47-.YuzLKx@localhost/slideo?unix_socket=/var/run/mysqld/mysqld.sock
+            
+            DB_NAME = line.split("?")[0].split("/")[1]
             UNIX_SOCKET = line.split("unix_socket=")[1]
             DB = mysql.connector.connect( user=DB_USER, passwd=DB_PASSWORD, database=DB_NAME,unix_socket=UNIX_SOCKET)
         else:
