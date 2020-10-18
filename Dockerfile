@@ -34,8 +34,6 @@ RUN apt-get install python3.7 -y
 RUN apt-get install python3-pip -y
 COPY Flask/requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
-# Server
-RUN export FLASK_APP=server.py
 RUN python3.7 -m pip install -U spacy
 RUN python3.7 -m spacy download en_core_web_sm
 
