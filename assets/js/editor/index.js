@@ -1,11 +1,13 @@
 
 // Css
 import "CSS/editor/editor.css";
-
-// Session to store constants
-//import session from "Editor/session";
+// Toastr
+import "CSS/toastr.min.css";
 
 // Entry - Modal and editor functions
-import "Editor/entry/input_field";
-import "Editor/entry/editor_buttons";
-__webpack_nonce__ = 'c29tZSBjb29sIHN0cmluZyB3aWxsIHBvcCB1cCAxMjM=';
+// Analyze users content
+import "Editor/entry";
+
+// Send request to backend in order to analyze sentences and create slides
+// import "Editor/slides";
+

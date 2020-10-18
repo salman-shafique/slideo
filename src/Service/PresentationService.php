@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Entity\AnalyzedContent;
 use App\Entity\Content;
 use App\Entity\Slide;
 use App\Entity\Presentation;

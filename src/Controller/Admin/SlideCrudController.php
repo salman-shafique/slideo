@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Presentation;
+use App\Entity\Slide;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -17,11 +17,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PresentationCrudController extends AbstractCrudController
+class SlideCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Presentation::class;
+        return Slide::class;
     }
 
  
@@ -36,10 +36,7 @@ class PresentationCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            AssociationField::new('owner')->hideOnForm(),
-            TextField::new('presentationId'),
-            TextField::new('title'),
-            AssociationField::new('slides')->hideOnForm(),
+            TextField::new('slideId'),
             BooleanField::new('isActive'),
             DateField::new('created')->hideOnForm(),
             DateField::new('updated')->hideOnForm()

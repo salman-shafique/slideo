@@ -25,16 +25,5 @@ Encore
         Editor: path.resolve(__dirname, 'assets/js/editor'),
     })
     .autoProvidejQuery();
-    ;
 
-
-    module.exports= Encore.getWebpackConfig();
-// // config.watchOptions = { poll: 400, ignored: /node_modules/ };
-// config.externals = {
-//     ...config.resolve.externals,
-//     Alps: 'Alps',
-// };
-// config.resolve.alias['Alps'] = path.resolve(__dirname, 'assets/js');
-// // export the final configuration
-// module.exports = config;
-
+module.exports = Encore.getWebpackConfig();

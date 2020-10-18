@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get upgrade -y
 
 # Utils
-RUN apt install -y git nodejs npm nano procps net-tools
+RUN apt install -y git nodejs npm nano procps net-tools unzip
 RUN npm install -g yarn
 
 # Install Composer

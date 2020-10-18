@@ -48,11 +48,6 @@ class Slide
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $status = "active";
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $style;
 
     /**
@@ -96,6 +91,11 @@ class Slide
      * @ORM\Column(type="array")
      */
     private $sentences = [];
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = true;
 
     public function __construct()
     {
@@ -216,18 +216,6 @@ class Slide
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getStyle(): ?string
     {
         return $this->style;
@@ -306,6 +294,18 @@ class Slide
     public function setSentences(array $sentences): self
     {
         $this->sentences = $sentences;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

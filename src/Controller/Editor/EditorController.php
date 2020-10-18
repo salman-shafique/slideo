@@ -18,6 +18,9 @@ use App\Service\PresentationService;
 use App\Service\SlideService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraints\Json;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/editor")
@@ -64,11 +67,6 @@ class EditorController extends AbstractController
 
         return new JsonResponse($slides);
     }
-
-
-
-
-
 
     /**
      * @Route("/api/{className}/{methodName}",methods={"POST"})

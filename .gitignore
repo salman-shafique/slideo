@@ -84,7 +84,9 @@ yarn-error.log
 __pycache__
 /alp/
 *.pyc
+/jsconfig.json
 
 # not found icon
 /public/icons/*
 !/public/icons/nothing-found.png/(0,0,0)/nothing-found.png
+
