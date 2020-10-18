@@ -1,14 +1,8 @@
 import os
-import mysql.connector
-
 from .. import env
-
-
-
-# DOWNLOAD THE PRESENTATION
 class Test(object):
     def __init__(self):
-        self.db = mysql.connector.connect(host=env.DB_HOST,port=env.DB_PORT, user=env.DB_USER, passwd=env.DB_PASSWORD, database=env.DB_NAME)
+        self.db = env.DB
 
     def test(self, args):
         cur =  self.db.cursor()
