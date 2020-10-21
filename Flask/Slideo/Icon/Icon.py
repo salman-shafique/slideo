@@ -28,18 +28,18 @@ class Icon(object):
 
     def find_icons(self,args):
         if not 'limit' in args:
-            args['limit'] = 50
+            args['limit'] = 20
         if not 'limit_to_public_domain' in args:
             args['limit_to_public_domain'] = 0
         
-        translated_keyword = self.translator.translate({'sentence':args['keyword']})['text']
-        response = self.thenounproject_call(translated_keyword,args['limit'],args['limit_to_public_domain'])
+        response = self.thenounproject_call(args['keyword'],args['limit'],args['limit_to_public_domain'])
    
         if response.status_code == 200:
             return json.loads(response.text)
         else:
             # Translate back
-            response = self.thenounproject_call(args['keyword'],args['limit'],args['limit_to_public_domain'])
+            translated_keyword = self.translator.translate({'sentence':args['keyword']})['text']
+            response = self.thenounproject_call(translated_keyword,args['limit'],args['limit_to_public_domain'])
             if response.status_code == 200:
                 return json.loads(response.text)
             else:

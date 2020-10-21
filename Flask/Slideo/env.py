@@ -41,3 +41,6 @@ for line in env_file.readlines():
     if "THENOUNPROJECT_SECRET" == line[: len("THENOUNPROJECT_SECRET")]:
         THENOUNPROJECT_SECRET = line.split("=")[1].strip()
         continue
+    if "PEXELS_API_KEY" == line[: len("PEXELS_API_KEY")]:
+        PEXELS_API_KEY = line.split("=")[1].strip()
+        continue

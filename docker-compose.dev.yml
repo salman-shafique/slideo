@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  slideo:
+    container_name: slideo_symfony
+    build: ./
+    volumes:
+      - ./:/var/www/app:cached
+      - /var/www/html/app/vendor
+      - /var/www/html/app/node_modules
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+      - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
+    ports:
+      - "5500:8000"
+    command: ["/bin/bash", "/var/www/app/docker/start.sh"]

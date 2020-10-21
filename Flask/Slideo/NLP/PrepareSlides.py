@@ -58,6 +58,12 @@ def simplify_content(raw_slide):
             "slideTitle" : tmp,
             "direction" : check_text_direction(tmp)
         }
+        raw_slide["slideTitleImage"] = {
+            "image_path" : "",
+            "images" : [],
+            "keyword": ""
+        }
+
     # subTitle
     if "subTitle" in raw_slide:
         tmp = raw_slide["subTitle"]
@@ -122,4 +128,5 @@ def simplify_content(raw_slide):
             }
         )
     raw_slide["analyzed_content"] = simplified_analyzed_content
+
     return raw_slide

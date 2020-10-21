@@ -11,6 +11,11 @@ export default function create_slides() {
             "slides": session.NEW_SLIDES
         },
         success: function (result) {
+            // Push them into the session slides
+            result.forEach(slide => {
+                session.DATA.slides.push(slide)
+                session.DATA.slide_order.push(slide.slide_id)
+            });
             console.log(result);
             document.getElementById("entry_result").innerHTML = JSON.stringify(result,null,3);
             document.getElementById("entry_clear_content").click();

@@ -128,6 +128,18 @@ class NLP(object):
 
         return result
 
+    def extract_keyword(self,args):
+        text = args['text']
+        anaylzed_text = self.analyze({'sentences':[text]})
+        if anaylzed_text[0]:
+            if anaylzed_text[0]['keywords'][0]:
+                return {
+                    'keyword':anaylzed_text[0]['keywords'][0][0],
+                    'keywords':anaylzed_text[0]['keywords']
+                    }
+
+        return {'keyword':None}
+
     def prepare_slides(self, args):
         # [sentences[],str slideTitle, str subTitle, str direction]
         for i in range(len(args["slides"])):
@@ -138,10 +150,16 @@ class NLP(object):
             # Find icons
             for analyzed_sentence in analyzed_sentences:
                 analyzed_sentence = PrepareSlides.find_icons(analyzed_sentence)
-
             args["slides"][i]["analyzed_content"] = analyzed_sentences
 
             # Simplify
             args["slides"][i] = PrepareSlides.simplify_content(raw_slide)
+            
+            # Find Slide title image if exist
+            if 'slideTitleImage' in raw_slide:
+                raw_slide['slideTitleImage']['keyword'] = self.extract_keyword({
+                    'text':raw_slide['slideTitle']['slideTitle']
+                })['keyword']
+                
 
         return {"slides": args["slides"]}

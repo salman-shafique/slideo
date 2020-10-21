@@ -45,6 +45,15 @@ class SlideService
                 $this->em->persist($slideTitle);
             }
 
+            // Slide title image
+            if (isset($rawSlide['slideTitleImage'])) {
+                $slideTitleImage = new Content();
+                $slideTitleImage->setData($rawSlide['slideTitleImage']);
+                $slideTitleImage->setKeyword('slideTitleImage');
+                $slide->setSlideTitle($slideTitleImage);
+                $this->em->persist($slideTitleImage);
+            }
+
             // Sub title
             if (isset($rawSlide['subTitle'])) {
                 $subTitle = new Content();

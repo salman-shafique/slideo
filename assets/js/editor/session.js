@@ -10,7 +10,8 @@ let session = {
     },
     NEW_SLIDES:[],
     DATA: {
-        "slides": []
+        "slides": [],
+        'slide_order':[]
     }
 
 }
