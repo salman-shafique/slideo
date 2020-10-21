@@ -19,6 +19,16 @@ class Pexels(object):
         }
         return requests.get(endpoint,headers=headers)
 
+    def simplify_photos(self,photos):
+        tmp = []
+        for photo in photos:
+            del photo['src']
+            del photo['photographer_id']
+            del photo['id']
+            del photo['liked']
+            tmp.append(photo)
+        return tmp
+
     def find_images(self,args):
         if not 'per_page' in args:
             args['per_page'] = 20
@@ -26,13 +36,13 @@ class Pexels(object):
         response = json.loads(self.image_call(args['keyword'],args['per_page']).text)
         
         if response['total_results'] > 0:
-            return response['photos']
+            return self.simplify_photos(response['photos'])
         else:
             # Translate
             translated_keyword = self.translator.translate({'sentence':args['keyword']})['text']
             response = json.loads(self.image_call(translated_keyword,args['per_page']).text)
             if response['total_results'] > 0:
-                return response['photos']
+                return self.simplify_photos(response['photos'])
             else:
                 return {'error':'Nothing found'}
 

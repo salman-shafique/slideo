@@ -4,12 +4,14 @@ from spacy import displacy
 from . import Algorithm
 from . import PrepareSlides
 from ..Translator import Translator
+from ..Pexels import Pexels
 
 
 class NLP(object):
     def __init__(self):
         self.nlp = spacy.load("en_core_web_sm")
         self.translator = Translator.Translator()
+        self.pexels = Pexels.Pexels()
 
     def get_html(self, args):
 
@@ -160,6 +162,11 @@ class NLP(object):
                 raw_slide['slideTitleImage']['keyword'] = self.extract_keyword({
                     'text':raw_slide['slideTitle']['slideTitle']
                 })['keyword']
+                if raw_slide['slideTitleImage']['keyword']:
+                    raw_slide['slideTitleImage']['images'] = self.pexels.find_images(
+                        {'keyword':raw_slide['slideTitleImage']['keyword']}
+                    )
+                
                 
 
         return {"slides": args["slides"]}
