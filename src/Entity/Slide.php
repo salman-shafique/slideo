@@ -26,16 +26,6 @@ class Slide
     private $analyzedContent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="slide")
-     */
-    private $newObjects;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="slide")
-     */
-    private $Objects;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $direction;
@@ -104,8 +94,6 @@ class Slide
 
     public function __construct()
     {
-        $this->analyzedContent = new ArrayCollection();
-        $this->newObjects = new ArrayCollection();
         $this->Objects = new ArrayCollection();
     }
 
@@ -140,58 +128,6 @@ class Slide
             if ($analyzedContent->getSlide() === $this) {
                 $analyzedContent->setSlide(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Content[]
-     */
-    public function getNewObjects(): Collection
-    {
-        return $this->newObjects;
-    }
-
-    public function addNewObject(Content $newObject): self
-    {
-        if (!$this->newObjects->contains($newObject)) {
-            $this->newObjects[] = $newObject;
-        }
-
-        return $this;
-    }
-
-    public function removeNewObject(Content $newObject): self
-    {
-        if ($this->newObjects->contains($newObject)) {
-            $this->newObjects->removeElement($newObject);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Content[]
-     */
-    public function getObjects(): Collection
-    {
-        return $this->Objects;
-    }
-
-    public function addObject(Content $object): self
-    {
-        if (!$this->Objects->contains($object)) {
-            $this->Objects[] = $object;
-        }
-
-        return $this;
-    }
-
-    public function removeObject(Content $object): self
-    {
-        if ($this->Objects->contains($object)) {
-            $this->Objects->removeElement($object);
         }
 
         return $this;
