@@ -71,6 +71,11 @@ class Presentation
      */
     private $colorTemplates;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $slidesOrder = [];
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
@@ -131,6 +136,9 @@ class Presentation
         if (!$this->slides->contains($slide)) {
             $this->slides[] = $slide;
             $slide->setPresentation($this);
+
+            // Order
+            array_push($this->slidesOrder, $slide->getSlideId());
         }
 
         return $this;
@@ -144,6 +152,11 @@ class Presentation
             if ($slide->getPresentation() === $this) {
                 $slide->setPresentation(null);
             }
+
+            // Order
+            $key = array_search($slide->getSlideId(), $this->slidesOrder);
+            if ($key)
+                unset($this->slidesOrder[$key]);
         }
 
         return $this;
@@ -210,6 +223,18 @@ class Presentation
                 $colorTemplate->setPresentation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlidesOrder(): ?array
+    {
+        return $this->slidesOrder;
+    }
+
+    public function setSlidesOrder(?array $slidesOrder): self
+    {
+        $this->slidesOrder = $slidesOrder;
 
         return $this;
     }

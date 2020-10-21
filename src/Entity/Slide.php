@@ -94,7 +94,7 @@ class Slide
 
     public function __construct()
     {
-        $this->Objects = new ArrayCollection();
+        $this->analyzedContent = new ArrayCollection();
     }
 
     public function getId(): ?int

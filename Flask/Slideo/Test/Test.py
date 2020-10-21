@@ -5,9 +5,15 @@ class Test(object):
         self.db = env.DB
 
     def test(self, args):
-        return ["TEST"]
+        #return ["TEST"]
         cur =  self.db.cursor()
-        cur.execute("SELECT * FROM doctrine_migration_versions WHERE 1")
+
+        cur.execute(
+            "SELECT * FROM presentation WHERE presentation_id='{}'"
+            .format(
+                args['presentation_id']
+                )
+            )
         data = cur.fetchall()
         return data
     

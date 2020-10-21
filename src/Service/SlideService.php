@@ -39,8 +39,9 @@ class SlideService
         foreach ($rawSlides as  $key => $rawSlide) {
 
             $slide = new Slide();
-            $presentation->addSlide($slide);
             $slide->setSlideId(hash("md4", time(), false));
+            $presentation->addSlide($slide);
+
             $slide->setDirection($rawSlide['direction']);
             $this->em->persist($slide);
 
@@ -74,7 +75,6 @@ class SlideService
             // Analyzed content
             foreach ($rawSlide['analyzed_content'] as $rawAnalyzedContent) {
                 $analyzedContent = new AnalyzedContent();
-                $slide->addAnalyzedContent($analyzedContent);
 
                 $h1 = new Content();
                 $h1->setData($rawAnalyzedContent['h1']);
@@ -92,6 +92,7 @@ class SlideService
                 $analyzedContent->setIcon($icon);
                 $analyzedContent->setOriginalSentence($originalSentence);
 
+                $slide->addAnalyzedContent($analyzedContent);
 
                 $this->em->persist($analyzedContent);
                 $this->em->persist($h1);
@@ -144,15 +145,6 @@ class SlideService
             $tmp = array_merge($tmp, $contentService->serialize($analyzedContent->getOriginalSentence()));
             $serializedSlide['analyzed_content'][] = $tmp;
         }
-
-        // Check others
-        if ($slide->getNewObjects())
-            foreach ($slide->getNewObjects() as $content)
-                $serializedSlide = array_merge($serializedSlide, $contentService->serialize($content));
-
-        if ($slide->getObjects())
-            foreach ($slide->getObjects() as $content)
-                $serializedSlide = array_merge($serializedSlide, $contentService->serialize($content));
 
         return $serializedSlide;
     }

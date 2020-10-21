@@ -52,7 +52,6 @@ class EditorController extends AbstractController
         }
     }
 
-
     /**
      * @Route("/create/slides",methods={"POST"})
      */

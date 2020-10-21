@@ -2,7 +2,7 @@
 
 namespace App\Controller\Editor;
 
-use App\Entity\ColorTemplate;
+use App\Entity\Presentation;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,22 +22,28 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-
 /**
- * @Route("/editor/colorTemplate")
+ * @Route("/editor/presentation")
  */
-class ColorTemplateController extends AbstractController
+class PresentationController extends AbstractController
 {
+
     /**
-     * @Route("/add",methods={"POST"})
+     * @Route("/download",methods={"POST"})
      */
-    public function addColorTemplate(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
+    public function downloadPresentation(Request $request, SessionInterface $sessionInterface, FlaskService $flaskService, PresentationSecurity $presentationSecurity)
     {
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $r = $presentationService->addColorTemplate($presentation, $request);
+        $request->request->add(['id'=> $presentation->getId()]);
+        
+        $download = $flaskService->call(
+            "Presentation",
+            "download",
+            $request->request->all()
+        );
 
-        return new JsonResponse($r);
+        return new JsonResponse($download);
     }
 }

@@ -8,6 +8,5 @@ import "CSS/toastr.min.css";
 // Analyze users content
 import "Editor/entry";
 
-// Send request to backend in order to analyze sentences and create slides
-// import "Editor/slides";
+import "Editor/presentation";
 

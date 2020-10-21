@@ -16,9 +16,9 @@ export default function create_slides() {
                 session.DATA.slides.push(slide)
                 session.DATA.slide_order.push(slide.slide_id)
             });
-            console.log(result);
+            console.log(session);
             document.getElementById("entry_result").innerHTML = JSON.stringify(result,null,3);
-            document.getElementById("entry_clear_content").click();
+            //document.getElementById("entry_clear_content").click();
         }
     })
 

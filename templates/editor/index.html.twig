@@ -38,6 +38,11 @@
     {% for slide in presentation.slides %}
       {{slide.slideId}}<br>
     {% endfor %}
+    <pre>
+      {{ dump(presentation.slidesOrder) }}
+    </pre>
+    <br>
+    {% include "editor/header/download.html.twig" %}
   </div>
 
 {% endblock %}

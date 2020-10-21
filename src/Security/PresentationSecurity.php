@@ -22,7 +22,7 @@ class PresentationSecurity
     {
         $arr = explode("/", $HTTP_REFERER);
         $latestKey = array_key_last($arr);
-        $presentationId = $arr[$latestKey];;
+        $presentationId = $arr[$latestKey];
         $presentation = $this->presentationRepository->findOneBy(['presentationId' => $presentationId, 'isActive' => True]);
 
         if ($presentation) {
