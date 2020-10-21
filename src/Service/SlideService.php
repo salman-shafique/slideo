@@ -21,6 +21,14 @@ class SlideService
     public function findAndApplyStyle(Slide $slide)
     {
         $slide->setStyle("some style name here");
+
+        $background = new Content();
+        $background->setKeyword('background');
+        $background->setData(['bg'=>'foo','type'=>'bar']);
+        
+        $slide->setBackground($background);
+
+        $this->em->persist($background);
         $this->em->persist($slide);
         $this->em->flush();
     }
@@ -50,7 +58,7 @@ class SlideService
                 $slideTitleImage = new Content();
                 $slideTitleImage->setData($rawSlide['slideTitleImage']);
                 $slideTitleImage->setKeyword('slideTitleImage');
-                $slide->setSlideTitle($slideTitleImage);
+                $slide->setSlideTitleImage($slideTitleImage);
                 $this->em->persist($slideTitleImage);
             }
 
@@ -125,6 +133,7 @@ class SlideService
         $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getSlideTitle()));
         $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getSlideTitleImage()));
         $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getSubTitle()));
+        $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getBackground()));
 
         $serializedSlide['analyzed_content'] = [];
         foreach ( $slide->getAnalyzedContent() as $analyzedContent) {

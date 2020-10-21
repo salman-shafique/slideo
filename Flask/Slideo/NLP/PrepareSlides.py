@@ -67,10 +67,13 @@ def simplify_content(raw_slide):
     # subTitle
     if "subTitle" in raw_slide:
         tmp = raw_slide["subTitle"]
-        raw_slide["subTitle"] = {
-            "subTitle" : tmp,
-            "direction" : check_text_direction(tmp)
-        }
+        if tmp:
+            raw_slide["subTitle"] = {
+                "subTitle" : tmp,
+                "direction" : check_text_direction(tmp)
+            }
+        else:
+            del raw_slide["subTitle"]
 
     # analyzed_content
     simplified_analyzed_content = []

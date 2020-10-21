@@ -97,6 +97,11 @@ class Slide
      */
     private $isActive = true;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Content::class)
+     */
+    private $background;
+
     public function __construct()
     {
         $this->analyzedContent = new ArrayCollection();
@@ -306,6 +311,18 @@ class Slide
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getBackground(): ?Content
+    {
+        return $this->background;
+    }
+
+    public function setBackground(?Content $background): self
+    {
+        $this->background = $background;
 
         return $this;
     }
