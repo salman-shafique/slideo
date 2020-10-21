@@ -11,6 +11,6 @@ class ContentService
     {
         if(!$content) return [];
         
-        return [$content->getKeyword() => $content->getData()];
+        return [$content->getKeyword() => array_merge($content->getData(),['entity_id'=>$content->getId()])];
     }
 }

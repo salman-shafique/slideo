@@ -54,15 +54,19 @@ def simplify_content(raw_slide):
     # slideTitle
     if "slideTitle" in raw_slide:
         tmp = raw_slide["slideTitle"]
-        raw_slide["slideTitle"] = {
-            "slideTitle" : tmp,
-            "direction" : check_text_direction(tmp)
-        }
-        raw_slide["slideTitleImage"] = {
-            "image_path" : "",
-            "images" : [],
-            "keyword": ""
-        }
+        if tmp:
+            raw_slide["slideTitle"] = {
+                "slideTitle" : tmp,
+                "direction" : check_text_direction(tmp)
+            }
+            raw_slide["slideTitleImage"] = {
+                "image_path" : "",
+                "images" : [],
+                "keyword": ""
+            }
+        else:
+            del raw_slide["slideTitle"]
+
 
     # subTitle
     if "subTitle" in raw_slide:
