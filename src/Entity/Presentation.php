@@ -66,9 +66,15 @@ class Presentation
      */
     private $presentationId;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ColorTemplate::class, mappedBy="presentation")
+     */
+    private $colorTemplates;
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
+        $this->colorTemplates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,6 +179,37 @@ class Presentation
     public function setPresentationId(string $presentationId): self
     {
         $this->presentationId = $presentationId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ColorTemplate[]
+     */
+    public function getColorTemplates(): Collection
+    {
+        return $this->colorTemplates;
+    }
+
+    public function addColorTemplate(ColorTemplate $colorTemplate): self
+    {
+        if (!$this->colorTemplates->contains($colorTemplate)) {
+            $this->colorTemplates[] = $colorTemplate;
+            $colorTemplate->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeColorTemplate(ColorTemplate $colorTemplate): self
+    {
+        if ($this->colorTemplates->contains($colorTemplate)) {
+            $this->colorTemplates->removeElement($colorTemplate);
+            // set the owning side to null (unless already changed)
+            if ($colorTemplate->getPresentation() === $this) {
+                $colorTemplate->setPresentation(null);
+            }
+        }
 
         return $this;
     }
