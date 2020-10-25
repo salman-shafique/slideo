@@ -1,0 +1,58 @@
+/* width */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+.custom-scrollbar::-webkit-scrollbar-track {
+	position: fixed;
+	background: transparent;
+	border-radius: 8px;
+}
+
+/* Handle */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.custom-scrollbar {
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+.custom-scrollbar.vertical-scroll:hover {
+	overflow-y: overlay!important;
+}
+
+.custom-scrollbar.horizontal-scroll:hover {
+	overflow-x: overlay!important;
+}
+
+
+.invisible-scrollbar::-webkit-scrollbar {
+	width: 0;
+}
+
+/* Track */
+.invisible-scrollbar::-webkit-scrollbar-track {
+	position: fixed;
+	background: transparent;
+	border-radius: 8px;
+}
+
+/* Handle */
+.invisible-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+.invisible-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}

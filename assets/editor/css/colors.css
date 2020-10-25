@@ -1,0 +1,9 @@
+:root {
+	--landing-action: rgb(229, 34, 86);
+    --brand-color: rgb(44, 120, 156);
+    --footer-background: rgb(244, 244, 244);
+	--active-tool: rgb(39, 44, 49);
+	--control-button: rgb(43, 119, 156);
+	--feedback-button: rgb(82, 38, 234);
+	--default-input: #f1f1f1;
+}

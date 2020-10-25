@@ -1,0 +1,91 @@
+.nav-link {
+	color: black;
+    padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	padding-left: 20px!important;
+	padding-right: 20px!important;
+}
+
+.navbar-brand, .navbar-brand .brand-text {
+	font-size: 28px!important;
+	letter-spacing: 1.2px;
+	font-weight: bold;
+	color: var(--brand-color)!important;
+}
+
+.navbar-brand sup {
+	color: black!important;
+	font-size: 55%;
+	padding-top: 10px;
+}
+
+/* BASIC SIDENAV */
+.sidenav {
+	height: 100%;
+	width: 250px;
+	position: fixed;
+	z-index: 11;
+	top: 0;
+	left: -250px;
+	background-color: white;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 12px;
+    border: 1px solid gray;
+    box-shadow: 1px 1px 10px 1px lightgrey;
+	transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+}
+
+.sidenav.open {
+	left: 0px!important;
+}
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 16px;
+	color: #818181;
+	display: block;
+	transition: 0.3s;
+}
+
+.sidenav a:hover {
+	color: var(--brand-color);
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+#mainMenuTrigger {
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	z-index: 9999;
+	outline: none!important;
+	transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+}
+
+#mainMenuTrigger.is-active {
+	left: 185px;
+}
+
+.hamburger, .hamburger-box {
+	width: 50px!important;
+	padding: 10px!important;
+}
+
+.hamburger.is-active .hamburger-inner, .hamburger.is-active .hamburger-inner::before,
+.hamburger.is-active .hamburger-inner::after, .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+	width: 30px;
+	background-color: black!important;
+}

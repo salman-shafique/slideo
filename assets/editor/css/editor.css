@@ -1,0 +1,715 @@
+/*Get the colors file*/
+@import url("colors.css");
+
+body {
+	color: black;
+}
+
+#BrandNav {
+	border-bottom: 1px solid black;
+	height: 64px;
+}
+
+#ProfilePicture {
+	width: 42px;
+	height: 42px;
+	background-color: skyblue;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+#Initials {
+	font-weight: bold;
+	overflow: hidden;
+}
+
+#UserHolder {
+	width: 320px;
+}
+
+#UserHolder li {
+	margin-left: 15px;
+}
+
+#Name, #ProjectName {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#ProjectName {
+	outline: none;
+    border: none;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	max-width: 320px;
+	min-width: 135px;
+	width: 165px;
+    margin-right: 5px;
+}
+
+.expandable-holder {
+	width: fit-content;
+	border-radius: 5px;
+	text-align: right;
+	display: inline;
+	padding: 5px;
+}
+
+.expandable-holder:focus, .expandable-holder:hover, .expandable-holder:active {
+	border: 1px solid black;
+}
+
+#Email {
+	font-size: 12px;
+}
+
+.navigate-action {
+
+	font-size: 20px;
+	cursor: pointer;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#SlideStatusHolder li {
+	font-size: 16px;
+}
+
+#SlideControlHolder svg {
+	margin: auto;
+}
+
+#SlideControlHolder .btn {
+    margin-right: 12px;
+	max-width: 135px;
+}
+
+#AddLogo, #AddLogo_BG, #UploadCustomBG, #UploadFirstCustomBG {
+	max-width: 100%;
+}
+
+#PreviewBtn, #PreviewBtn:hover, #PreviewBtn:active, #PreviewBtn:focus {
+    background-color: darkgray !important;
+    border-color: darkgray !important;
+	color: white;
+	font-weight: bold;
+}
+
+#Logo {
+	width: 150px;
+}
+
+#MasterContainer {
+	width: 100vw;
+	display: flex;
+	flex-direction: row;
+}
+
+#NoResponsiveSupport {
+	display: none;
+	height: 100vh;
+	width: 100vw;
+}
+
+@media screen and (max-width: 768px) {
+	#MasterContainer {display: none;}
+	#NoResponsiveSupport { display: block; }
+
+}
+
+#ToolsTray {
+	background-color: black;
+	width: 64px;
+	height: calc(100vh - 64px);
+}
+
+.tool {
+	width: 64px;
+	margin: 0;
+	padding: 8px 0;
+	color: white;
+	text-align: center;
+	cursor: pointer;
+}
+
+.tool p {
+	max-width: 96%;
+    margin: auto;
+    font-size: 11px;
+    line-height: 15px;
+}
+
+.tool.active-tool {
+	background-color: var(--active-tool);
+}
+
+#ActionsPanel {
+	width: 270px;
+	background-color: var(--active-tool);
+	height: calc(100vh - 64px);
+	transition: 0.6s;
+	overflow: hidden;
+}
+
+#ActionsPanel.closed  {
+	width: 0!important;
+}
+
+#MainPanel {
+	width: calc(100vw - 524px);
+	height: calc(100vh - 64px);
+	transition: 0.6s;
+	position: relative;
+}
+
+#MainPanel.expanded {
+	width: calc(100vw - 254px);
+}
+
+#SlidesPanel {
+	width: 190px;
+	max-height: calc(100vh - 64px);
+	background-color: var(--active-tool);
+	transition: 0.6s;
+    text-align: center;
+}
+
+#SlidesList {
+	padding: 8px 28px 20px 12px;
+	max-height: calc(100vh - 140px);
+}
+
+.control-section .btn-primary, .control-section .btn-primary:hover,
+.control-section .btn-primary:active, .control-section .btn-primary:focus,
+.default-button, .default-button:hover,.default-button:active,
+.default-button:focus {
+    background-color: var(--control-button) !important;
+    border-color: var(--control-button) !important;
+	color: white;
+}
+
+.search-section {
+	padding: 13px;
+	flex: 0 1 auto;
+	box-shadow: 1px 1px 10px 1px black;
+	z-index: 3;
+	position: relative;
+}
+
+.control-section {
+	box-shadow: 1px -7px 7px 1px black;
+	padding: 15px;
+	flex: 1 0 auto;
+}
+
+.search-section .input-group-text {
+	background: white;
+	border: none;
+	font-size: 12px;
+}
+
+.search-section input {
+	border: none;
+	height: 28px;
+	font-size: 14px;
+}
+
+.search-section .input-group {
+	height: 28px;
+}
+
+.main-section {
+	flex: 1 1 auto;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.action-panel {
+	display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+#SlideContainer {
+	text-align: center;
+}
+
+#Main_Slide {
+	width: 100%;
+	max-width: 750px;
+	margin: auto;
+	height: 480px;
+}
+
+.slide-thumbnail.active-slide, #Images_Panel .images-gallery .image-item.active, .control-overlay-layout .image-item.active {
+	border: 2px solid salmon!important;
+}
+
+.slide-thumbnail {
+	position: relative;
+	cursor: pointer;
+    transition: 0.6s;
+    margin-bottom: 20px;
+	border: 2px solid var(--active-tool);
+}
+
+.slide-thumbnail img {
+	width: 100%;
+    height: 85px;
+}
+
+.slide-thumbnail:hover, .color:hover, .image-item:hover {
+	box-shadow: 0 0 8px 1px white;
+}
+
+.remove-slide {
+	opacity: 0.6;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 3;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 2px 8px;
+    background-color: rgba(0,0,0,0.8);
+	display: none;
+}
+
+.slide-thumbnail:hover .remove-slide {
+	display: inline-block;
+}
+
+.remove-slide:hover {
+	opacity: 1;
+	box-shadow: 0 0 8px 1px lightgrey;
+}
+
+.control-overlay-layout, .backdrop-overlay-layout {
+	position: absolute;
+	width: calc(100% - 2px);
+	top: 0;
+	height: -webkit-fill-available;
+	z-index: 3;
+	background-color: white;
+	transition: 0.4s;
+	padding: 12px;
+	font-size: 14px;
+}
+
+.backdrop-overlay-layout {
+	opacity: 0.6;
+	background-color: black;
+	z-index: 2;
+}
+
+.control-overlay-layout.closed {
+	top: 100%!important;
+}
+
+#FeedbackBtn, #FeedbackBtn:hover, #FeedbackBtn:active, #FeedbackBtn:focus,
+.btn-highlight, .btn-highlight:hover, .btn-highlight:active, .btn-highlight:focus {
+    background-color: var(--feedback-button) !important;
+    border-color: var(--feedback-button) !important;
+	color: white;
+	font-weight: bold;
+}
+
+.colors-container {
+	display: flex;
+	flex-flow: row wrap;
+    margin: auto;
+    width: 94%;
+	justify-content: center;
+}
+
+.color {
+	border-radius: 50%;
+	margin: 4px;
+	flex: 0 1 calc(20% - 8px);
+	height: 39px;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+.color.template-icon-color {
+	margin: 1% 4%;
+    flex: 0 1 calc(25.3%);
+    height: calc(17%);
+}
+
+.color.active {
+	border: 2px solid white;
+}
+
+#SelectedColorTemplate_Name {
+	float: left;
+	margin-top: -2px;
+	font-size: 15px;
+	max-width: calc(100% - 40px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#ColorTemplateSelector_Icon {
+	width: 20px;
+	height: 20px;
+	display: inline-flex;
+	float: left;
+    margin-right: 5px;
+}
+
+#ColorTemplateSelector {
+	background-color: white;
+	width: 100%;
+    height: 30px;
+    position: relative;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.custom-dropdown {
+	position: absolute;
+    width: calc(100% - 26px);
+    height: 190px;
+    z-index: 3;
+    background-color: white;
+    border-radius: 5px;
+    display: none;
+}
+
+#Color_Templates_List {
+	padding-top: 5px;
+	overflow-y: scroll;
+}
+
+#Color_Templates_List .custom-dropdown-item {
+	padding: 8px;
+	cursor: pointer;
+	display: flex;
+
+}
+
+#Color_Templates_List .custom-dropdown-item:hover {
+	background-color: lightgrey;
+}
+
+#Color_Templates_List .custom-dropdown-item.active {
+	background: linear-gradient(45deg, skyblue, transparent);
+}
+
+#Color_Templates_List .colors-container {
+	height: 40px;
+	width: 16%;
+	display: inline-flex;
+}
+
+#Color_Templates_List .color {
+	border: 1px solid grey;
+}
+
+#Color_Templates_List .template-text {
+	width: 80%;
+	margin-left: 4%;
+}
+
+#Color_Templates_List .template-text .template-desc {
+	font-size: 11px;
+	overflow: hidden;
+	line-clamp: 2;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-ms-line-clamp: 2;
+	-o-line-clamp: 2;
+	-moz-line-clamp: 2;
+	box-orient: vertical;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-ms-box-orient: vertical;
+	-o-box-orient: vertical;
+	line-height: 12px;
+}
+
+#Color_Templates_List .template-text .template-header {
+	font-size: 14px;
+	font-weight: bold;
+	overflow: hidden;
+	line-clamp: 1;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-ms-line-clamp: 1;
+	-o-line-clamp: 1;
+	-moz-line-clamp: 1;
+	box-orient: vertical;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-ms-box-orient: vertical;
+	-o-box-orient: vertical;
+	margin-bottom: 4px;
+}
+
+.template-text-container {
+	width: 94%;
+	margin: auto;
+	font-size: 12px;
+	text-align: justify;
+	overflow: hidden;
+	line-clamp: 3;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-ms-line-clamp: 3;
+	-o-line-clamp: 3;
+	-moz-line-clamp: 3;
+	box-orient: vertical;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-ms-box-orient: vertical;
+	-o-box-orient: vertical;
+}
+
+#Colors_Panel .control-overlay-layout {
+	top: 35%;
+    height: 65%;
+}
+
+.control-overlay-layout .control-close-button, .options-dropdown .dropdown-closer {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	cursor: pointer;
+}
+
+#ctdesc {
+	resize: none;
+	width: 100%;
+	line-height: 15px;
+}
+
+.control-overlay-layout .form-control, .control-overlay-layout textarea {
+	font-size: 14px;
+	background-color: var(--default-input);
+}
+
+.char-tracker {
+	font-size: 10px;
+}
+
+.keywords-list {
+	display: flex;
+	flex-direction: row;
+	overflow-x: auto;
+	cursor: grab;
+}
+
+.search-keyword {
+	background-color: white;
+	border-radius: 20px;
+	margin: 5px;
+	padding: 0 10px;
+	display: flex;
+}
+
+.keyword-dismiss, .search-click, .slide-options-menu {
+	cursor: pointer;
+}
+
+.keyword-text {
+	width: max-content;
+}
+
+.no-image-display {
+	position: absolute;
+	width: calc(100% - 24px);
+	font-size: 12px;
+}
+
+.upload-animation {
+	max-height: 120px;
+}
+
+.images-gallery {
+	display: flex;
+	flex-flow: row wrap;
+    margin: auto;
+	background-color: whitesmoke;
+	height: 100%;
+    padding-top: 6px;
+}
+
+.image-item {
+	margin: 4px;
+	flex: 0 1 calc(50% - 8px);
+	max-width: calc(50% - 8px);
+	height: 60px;
+	transition: 0.3s;
+	cursor: pointer;
+}
+
+#Custom_Images_Header {
+	text-align: left!important;
+}
+
+#NavUser {
+    min-width: 165px;
+}
+.linked-user-nav-blocks {
+	margin: -10px;
+	padding: 10px;
+}
+
+.linked-user-nav-blocks:hover {
+	background: linear-gradient(to bottom, whitesmoke, gainsboro, whitesmoke);
+	cursor: pointer;
+}
+
+.linked-user-nav-blocks .fa-chevron-down {
+	color: white;
+	font-size: 18px;
+    font-weight: bold;
+}
+
+.linked-user-nav-blocks:hover .fa-chevron-down {
+	color: black!important;
+}
+
+#CPClose {
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#Designs_Gallery, #Design_Layouts {
+	background-color: transparent;
+	padding: 4px;
+}
+
+#Design_Layouts {
+	max-height: calc(100% - 30px);
+	height: auto;
+}
+
+#Designs_Gallery {
+	max-height: calc(100% - 55px);
+	height: auto;
+}
+
+.options-dropdown, #UserMenuDropdown {
+	padding: 10px;
+    min-height: 225px;
+}
+
+.option-item {
+	width: 100%;
+	display: flex;
+}
+
+.option-item .svg-inline--fa {
+	font-size: 20px;
+	margin-right: 6px;
+	color: dimgray;
+}
+
+.option-item .option-text {
+	margin: 8px;
+	max-width: 148px;
+	overflow: hidden;
+	font-size: 14px;
+	width: 148px;
+}
+
+.switch {
+	margin: auto;
+}
+
+#UserMenuDropdown {
+	min-height: 280px;
+    width: 256px;
+    box-shadow: 1px 1px 10px 1px grey;
+    z-index: 4;
+    left: 5px;
+    top: 55px;
+}
+
+#UserMenuDropdown .option-text {
+	cursor: pointer;
+	max-width: 100%;
+	width: auto;
+}
+
+#AddColor {
+	border: 4px solid white;
+    color: white;
+    font-size: 13px;
+	font-weight: bold;
+}
+
+#Background_Colors {
+	width: 100%!important;
+	justify-content: flex-start!important;
+}
+
+#Background_Colors .color {
+	flex: 0 1 26px;
+    height: 26px;
+}
+
+#Backgrounds_Gallery {
+	max-height: calc(100% - 55px);
+	height: auto;
+	background: transparent;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#Main_BG_Head {
+	margin: 10px;
+}
+
+.custom-image-display {
+	height: 100%;
+	overflow: hidden;
+}
+
+.custom-image-display .images-gallery {
+	max-height: calc(100% - 65px);
+	height: auto;
+}
+
+.custom-image-display .image-item {
+	border: 1px solid black;
+}
+
+#ProjNameHolder {
+	width: 400px;
+	text-align: right;
+	width: 400px;
+	text-align: right;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+}
+
+.image-item.active {
+	border: 2px solid white;
+}
+
+.slide-sl {
+	position: absolute;
+    right: -26px;
+    font-size: 12px;
+}
+
+#Presentations {
+	height: 36px;
+}
+
+#UploadFirstCustomImage, #UploadCustomImage {
+	max-width: 100%;
+}
+
+.footer .btn {
+	max-width: 250px;
+}

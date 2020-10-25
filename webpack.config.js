@@ -9,7 +9,7 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
     .addEntry('app', './assets/js/app.js')
-    .addEntry('editor', './assets/js/editor/index.js')
+    .addEntry('editor', './assets/editor/index.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
@@ -22,7 +22,7 @@ Encore
     }).addAliases({
         JS: path.resolve(__dirname, 'assets/js'),
         CSS: path.resolve(__dirname, 'assets/css'),
-        Editor: path.resolve(__dirname, 'assets/js/editor'),
+        Editor: path.resolve(__dirname, 'assets/editor'),
     })
     .autoProvidejQuery();
 

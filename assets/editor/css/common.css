@@ -1,0 +1,160 @@
+.vertically-centered {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.horizontally-centered {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.fully-centered {
+	position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+.justified-text {
+	text-align: justify!important;
+}
+
+.medium-top-margin {
+	margin-top: 20px;
+}
+
+.medium-bottom-margin {
+	margin-bottom: 20px;
+}
+
+.small-top-margin {
+	margin-top: 10px;
+}
+
+.small-bottom-margin {
+	margin-bottom: 10px;
+}
+
+.image-rounded {
+	border-radius: 50%;
+}
+
+.no-padding {
+	padding: 0!important;
+}
+
+.no-margin {
+	margin: 0px;
+}
+
+.section {
+	margin-top: 80px!important;
+	margin-bottom: 80px!important;
+}
+
+.section-header {
+	font-size: 42px;
+    font-weight: bold;
+    width: 100%;
+    margin: auto;
+    text-align: left;
+}
+
+@media (max-width: 991px) {
+	.section-header {
+		font-size: 32px;
+		text-align: center!important;
+	}
+
+	.opening-paragraph {
+		font-size: 16px;
+		text-align: center!important;
+	}
+}
+
+.opening-paragraph {
+	font-size: 20px;
+	margin: auto;
+	margin-top: 20px;
+	color: dimgray;
+}
+
+.centered-contents {
+	text-align: center;
+}
+
+.btn-landing-action, .btn-landing-action:hover, .btn-landing-action:active, .btn-landing-action:focus {
+    background-color: var(--landing-action) !important;
+    border-color: var(--landing-action) !important;
+	color: white;
+	font-weight: bold;
+}
+
+/* BACKDROP */
+.backdrop {
+	z-index: 10;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.4);
+}
+
+/* BACKDROP */
+
+.text-grey {
+	color: grey;
+}
+
+.btn-full {
+	width: 100%;
+}
+
+.footer {
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	padding: 0 20px;
+}
+
+.footer .tray-btn {
+	position: relative;
+    float: right;
+	margin: 5px;
+}
+
+.bevel-btn {
+	box-shadow: 2px 2px 5px 1px grey;
+}
+
+.no-transition {
+	-webkit-transition-property: none!important;
+	-moz-transition-property: none!important;
+	-ms-transition-property: none!important;
+	-o-transition-property: none!important;
+	transition-property: none!important;
+}
+
+.single-line {
+	overflow: hidden;
+	line-clamp: 1;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-ms-line-clamp: 1;
+	-o-line-clamp: 1;
+	-moz-line-clamp: 1;
+	box-orient: vertical;
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-ms-box-orient: vertical;
+	-o-box-orient: vertical;
+}
+
+/* IMPORTANT: ELEMENT ON WHICH THE FOLLOWING CLASS IS USED, MUST HAVE A MAX-WIDTH DEFINED */
+.horizontal-text-clip {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
