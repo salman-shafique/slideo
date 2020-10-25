@@ -1,3 +1,5 @@
+import {detectClickOutside} from "Editor/js/other/common";
+
 $(document).ready(function() {
 	updateCustomGalleries();
 	// Event Handler that dictates what happens on clicking on a tool, active or otherwise
@@ -306,25 +308,6 @@ $(document).ready(function() {
 			$("#Colors_Panel").find(".main-section").find(".color.active").attr("data-color", currColor);
 			$("#Colors_Panel").find(".main-section").find(".color.active").css("background-color", currColor);
 			colorDrag = false;
-		}
-	});
-});
-
-$( function() {
-    $(".slide-thumbnail").draggable({
-		revert: true,
-		revertDuration: 1,
-		delay: 100,
-		axis: "y",
-		containment: "parent",
-		zIndex: 2
-	});
-    $( ".slide-thumbnail").droppable({
-		drop: function( event, ui ) {
-			var replacedImage = $(this).find("img").attr("src");
-			var replacementImage = $(ui.draggable).find("img").attr("src");
-			$(this).find("img").attr("src", replacementImage);
-			$(ui.draggable).find("img").attr("src", replacedImage);
 		}
 	});
 });
