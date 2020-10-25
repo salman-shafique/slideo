@@ -31,12 +31,12 @@ body {
 	margin-left: 15px;
 }
 
-#Name, #ProjectName {
+#Name, #presentation_name {
 	font-size: 16px;
 	font-weight: bold;
 }
 
-#ProjectName {
+#presentation_name {
 	outline: none;
     border: none;
     text-align: right;

@@ -36,8 +36,8 @@ class PresentationController extends AbstractController
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $request->request->add(['id'=> $presentation->getId()]);
-        
+        $request->request->add(['id' => $presentation->getId()]);
+
         $download = $flaskService->call(
             "Presentation",
             "download",
@@ -45,5 +45,19 @@ class PresentationController extends AbstractController
         );
 
         return new JsonResponse($download);
+    }
+    /**
+     * @Route("/change_name",methods={"POST"})
+     */
+    public function changeName(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $presentation->setTitle($request->request->get("presentation_name"));
+        $this->getDoctrine()->getManager()->persist($presentation);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse(['success' => true]);
     }
 }
