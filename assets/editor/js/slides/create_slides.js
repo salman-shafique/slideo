@@ -1,8 +1,11 @@
 import session from "Editor/js/session";
 import reset_next_slide from "./reset_next_slide";
+import create_slide_modal from "Editor/js/entry/create_slide_modal";
+
 
 export default function create_slides() {
     console.log(session.NEW_SLIDES);
+    create_slide_modal.close();
     $.ajax({
         method: "POST",
         url: "/editor/create/slides",
@@ -17,8 +20,7 @@ export default function create_slides() {
                 session.DATA.slide_order.push(slide.slide_id)
             });
             console.log(session);
-            document.getElementById("entry_result").innerHTML = JSON.stringify(result,null,3);
-            //document.getElementById("entry_clear_content").click();
+            document.getElementById("entry_result").innerHTML = JSON.stringify(result, null, 3);
         }
     })
 

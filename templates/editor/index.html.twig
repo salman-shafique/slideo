@@ -12,14 +12,14 @@
 {% endblock %}
 {% block body %}
 
-  {% include "editor/navbar/index.html.twig" %}
+  {% include "editor/navbar/index.html.twig" with {'presentation':presentation} %}
 
   {% include "editor/components/no_responsive.html.twig" %}
 
   <div id="MasterContainer">
-    {% include "editor/sidebar/index.html.twig" %}
-    {% include "editor/main.html.twig" %}
-    {% include "editor/slides.html.twig" %}
+    {% include "editor/sidebar/index.html.twig" with {'presentation':presentation} %}
+    {% include "editor/main.html.twig" with {'presentation':presentation} %}
+    {% include "editor/slides.html.twig" with {'presentation':presentation} %}
   </div>
   {% include "editor/components/common_image_input.html.twig" %}
   {% include "editor/components/feedback.html.twig" %}

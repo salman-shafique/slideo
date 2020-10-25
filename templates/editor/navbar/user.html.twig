@@ -1,44 +1,58 @@
-<ul id="UserHolder" class="navbar-nav d-md-flex d-none">
-  <div class="linked-user-nav-blocks d-inline-flex">
-    <li class="nav-item">
-      <div id="ProfilePicture">
-        <p id="Initials" class="fully-centered centered-contents no-margin">ED</p>
+{% if app.user %}
+  <ul id="UserHolder" class="navbar-nav d-md-flex d-none">
+    <div class="linked-user-nav-blocks d-inline-flex">
+      <li class="nav-item">
+        <div id="ProfilePicture">
+          <p id="Initials" class="fully-centered centered-contents no-margin">{{app.user.firstLetters}}</p>
+        </div>
+      </li>
+      <li id="NavUser" class="nav-item">
+        <h5 id="Name" class="no-margin">{{app.user.fullname}}</h5>
+        <p id="Email" class="d-inline no-margin">{{app.user.email}}</p>
+        <i class="fas fa-chevron-down float-right vertically-centered"></i>
+      </li>
+    </div>
+    <div id="UserMenuDropdown" class="custom-dropdown d-none small-top-margin">
+      <div class="option-item row m-0 justify-content-center">
+        <button id="Presentations" class="btn btn-highlight single-line col-10">
+          <i class="fas fa-images text-light" style="font-size: 1.5rem;"></i>&nbsp;{% trans %}My Presentations{% endtrans %}</button>
       </div>
-    </li>
-    <li id="NavUser" class="nav-item">
-      <h5 id="Name" class="no-margin">Elad Darmon</h5>
-      <p id="Email" class="d-inline no-margin">elad.darmon@gmail.com</p>
-      <i class="fas fa-chevron-down float-right vertically-centered"></i>
-    </li>
-  </div>
-  <div id="UserMenuDropdown" class="custom-dropdown d-none small-top-margin">
-    <div class="option-item row m-0 justify-content-center">
-      <button id="Presentations" class="btn btn-highlight single-line col-10">
-        <i class="fas fa-images text-light" style="font-size: 1.5rem;"></i>&nbsp;{% trans %}My Presentations{% endtrans %}</button>
+      <div class="option-item">
+        <span class="option-text single-line">
+          <i class="fas fa-user" style="font-size: 1.5rem;"></i>
+          {% trans %}Profile{% endtrans %}</span>
+      </div>
+      <div class="option-item">
+        <span class="option-text single-line">
+          <i class="fas fa-star" style="font-size: 1.5rem;"></i>
+          {% trans %}Plan{% endtrans %}</span>
+      </div>
+      <div class="option-item">
+        <span class="option-text single-line">
+          <i class="fas fa-money-bill" style="font-size: 1.5rem;"></i>
+          {% trans %}Billing{% endtrans %}</span>
+      </div>
+      <div class="option-item">
+        <span class="option-text single-line">
+          <i class="fas fa-envelope-open" style="font-size: 1.5rem;"></i>
+          {% trans %}Email Notifications{% endtrans %}</span>
+      </div>
+      <div class="option-item small-top-margin">
+        <a class="option-text text-danger single-line" href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
+      </div>
     </div>
-    <div class="option-item">
-      <span class="option-text single-line">
-        <i class="fas fa-user" style="font-size: 1.5rem;"></i>
-        {% trans %}Profile{% endtrans %}</span>
-    </div>
-    <div class="option-item">
-      <span class="option-text single-line">
-        <i class="fas fa-star" style="font-size: 1.5rem;"></i>
-        {% trans %}Plan{% endtrans %}</span>
-    </div>
-    <div class="option-item">
-      <span class="option-text single-line">
-        <i class="fas fa-money-bill" style="font-size: 1.5rem;"></i>
-        {% trans %}Billing{% endtrans %}</span>
-    </div>
-    <div class="option-item">
-      <span class="option-text single-line">
-        <i class="fas fa-envelope-open" style="font-size: 1.5rem;"></i>
-        {% trans %}Email Notifications{% endtrans %}</span>
-    </div>
-    <div class="option-item small-top-margin">
-      <span class="option-text text-danger single-line">{% trans %}Logout{% endtrans %}</span>
-    </div>
-
-  </div>
-</ul>
+  </ul>
+{% else %}
+  <ul class="mt-auto mb-auto p-0 mr-4">
+    <a href="{{path('app_login')}}">
+      <button class="btn mt-auto mb-auto btn-info bevel-btn">
+        {% trans %}Login{% endtrans %}
+      </button>
+    </a>
+    <a href="{{path('app_register')}}">
+      <button class="btn mt-auto mb-auto btn-info bevel-btn">
+        {% trans %}Sign up{% endtrans %}
+      </button>
+    </a>
+  </ul>
+{% endif %}

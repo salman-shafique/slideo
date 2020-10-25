@@ -286,4 +286,13 @@ class User implements UserInterface
     {
         return $this->updated;
     }
+
+    public function getFirstLetters()
+    {
+        $splittedFullname = explode(" ", $this->fullname);
+        if (count($splittedFullname) >= 2)
+            return $splittedFullname[0][0] . $splittedFullname[1][0];
+        else
+            return $this->fullname[0][0];
+    }
 }
