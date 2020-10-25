@@ -1,5 +1,5 @@
 // Function to Read and return the URL of an image browsed from system files
-function readImageURL(input, imageDisplay) {
+export function readImageURL(input, imageDisplay) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 

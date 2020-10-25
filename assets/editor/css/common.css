@@ -12,9 +12,9 @@
 
 .fully-centered {
 	position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%) translateX(-50%);
 }
 
 .justified-text {
@@ -56,10 +56,10 @@
 
 .section-header {
 	font-size: 42px;
-    font-weight: bold;
-    width: 100%;
-    margin: auto;
-    text-align: left;
+	font-weight: bold;
+	width: 100%;
+	margin: auto;
+	text-align: left;
 }
 
 @media (max-width: 991px) {
@@ -67,7 +67,6 @@
 		font-size: 32px;
 		text-align: center!important;
 	}
-
 	.opening-paragraph {
 		font-size: 16px;
 		text-align: center!important;
@@ -86,20 +85,21 @@
 }
 
 .btn-landing-action, .btn-landing-action:hover, .btn-landing-action:active, .btn-landing-action:focus {
-    background-color: var(--landing-action) !important;
-    border-color: var(--landing-action) !important;
+	background-color: var(--landing-action) !important;
+	border-color: var(--landing-action) !important;
 	color: white;
 	font-weight: bold;
 }
 
 /* BACKDROP */
+
 .backdrop {
 	z-index: 10;
 	position: fixed;
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0,0.4);
+	background: rgba(0, 0, 0, 0.4);
 }
 
 /* BACKDROP */
@@ -115,13 +115,14 @@
 .footer {
 	position: absolute;
 	bottom: 20px;
-	width: 100%;
+	right: 200px;
+	width: fit-content;
 	padding: 0 20px;
 }
 
 .footer .tray-btn {
 	position: relative;
-    float: right;
+	float: right;
 	margin: 5px;
 }
 
@@ -153,6 +154,7 @@
 }
 
 /* IMPORTANT: ELEMENT ON WHICH THE FOLLOWING CLASS IS USED, MUST HAVE A MAX-WIDTH DEFINED */
+
 .horizontal-text-clip {
 	overflow: hidden;
 	text-overflow: ellipsis;
