@@ -1,0 +1,14 @@
+<ul id="SlideControlHolder" class="navbar-nav d-md-flex ml-auto d-none">
+  <li class="nav-item">
+    <a id="ProjNameHolder" class="nav-link" href="#">
+      <div class="expandable-holder">
+        <input id="ProjectName" type="text" value="Untitled Project" placeholder="Project Name" onkeypress="this.style.width = ((this.value.length) * 11) + 'px';">
+        <i class="fas fa-edit text-grey"></i>
+      </div>
+    </a>
+  </li>
+  <button id="PreviewBtn" class="btn btn-secondary bevel-btn horizontal-text-clip">
+    <i class="fas fa-play"></i>&nbsp;{% trans %}Preview{% endtrans %}</button>
+  <button id="DownloadBtn" class="btn btn-danger bevel-btn horizontal-text-clip">
+    <i class="fas fa-download"></i>&nbsp;{% trans %}Download{% endtrans %}</button>
+</ul>
