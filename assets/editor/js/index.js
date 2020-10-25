@@ -15,6 +15,9 @@ import "Editor/js/presentation";
 // Sidebar 
 import  "Editor/js/sidebar";
 
+// Navbar
+import  "Editor/js/navbar";
+
 // Editor tools
 import "Editor/js/init";
 

@@ -1,5 +1,9 @@
 export default function add_event(selector, type, callback) {
-    let elements = document.querySelectorAll(selector);
+    let elements;
+    if (typeof selector == "string")
+        elements = document.querySelectorAll(selector);
+    else if (typeof selector == "object")
+        elements = [selector];
     elements.forEach(element => {
         if (document.addEventListener) {
             return element.addEventListener(type, callback, false);

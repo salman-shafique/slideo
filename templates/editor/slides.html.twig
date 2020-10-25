@@ -3,12 +3,14 @@
     <h6 class="text-white single-line">{% trans %}Slides{% endtrans %}</h6>
   </div>
   <div id="SlidesList" class="small-top-margin custom-scrollbar vertical-scroll">
-    <div class="slide-thumbnail active-slide" title="Slide 1">
-      <img src="/Images/Slides/ppt1.jpg">
-      <div class="remove-slide">
-        <i class="fas fa-trash-alt text-white"></i>
-      </div>
-      <span class="slide-sl text-white">1</span>
+    <div id="slides_preview">
+
+
+    </div>
+    <div id="slides_init" class="d-none">
+      {% for slide_id in presentation.slidesOrder %}
+        <slide data-slide-id="{{slide_id}}"></slide>
+      {% endfor %}
     </div>
     <div class="add_slide_container">
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#create_slide_modal">
