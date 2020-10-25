@@ -19,7 +19,7 @@ export default function create_slides() {
         success: function (result) {
             // Push them into the session slides
             result.forEach(a_slide => {
-                new_slide = new slide(a_slide.slide_id);
+                new slide(a_slide.slide_id);
                 // session.DATA.slides.push(slide)
                 // session.DATA.slide_order.push(slide.slide_id)
             });
