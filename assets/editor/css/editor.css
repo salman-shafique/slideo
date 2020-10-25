@@ -65,16 +65,15 @@ body {
 }
 
 .navigate-action {
-
-	font-size: 20px;
+	font-size: 25px;
 	cursor: pointer;
 	margin-left: 5px;
 	margin-right: 5px;
 }
 
-#SlideStatusHolder li {
+/* #SlideStatusHolder li {
 	font-size: 16px;
-}
+} */
 
 #SlideControlHolder svg {
 	margin: auto;
@@ -684,9 +683,8 @@ body {
 }
 
 #ProjNameHolder {
-	width: 400px;
 	text-align: right;
-	width: 400px;
+	width: 250px;
 	text-align: right;
 	padding-top: 0.25rem;
 	padding-bottom: 0.25rem;

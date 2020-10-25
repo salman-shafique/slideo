@@ -285,11 +285,6 @@ jQuery(function () {
 		$(this).addClass("active");
 	});
 
-	$("#ProjectName").focusin(function () {
-		$(this).val("");
-		$(this).css("width", "135");
-	});
-
 	$("#colorPickerContainer").delegate(".sp-alpha", "mousedown", function () {
 		colorDrag = true;
 	});
