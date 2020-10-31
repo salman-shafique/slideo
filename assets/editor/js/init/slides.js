@@ -1,4 +1,4 @@
-import slide from "Editor/js/slides/slide";
+import slide from "Editor/entity/slide";
 
 
 jQuery(function () {

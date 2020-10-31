@@ -1,5 +1,5 @@
 import session from "Editor/js/session";
-import refresh_slide_prev_numbers from "./utils/refresh_slide_prev_numbers";
+import refresh_slide_prev_numbers from "Editor/js/slides/utils/refresh_slide_prev_numbers";
 import html_to_element from "Editor/js/utils/html_to_element";
 import add_event from "Editor/js/utils/add_event";
 
@@ -18,7 +18,7 @@ class slide {
         `;
 
         // Append to mini prevs
-
+        
         let container = html_to_element(this.mini_prev_container);
         add_event(container, "click", function () {
             $(".slide-thumbnail").removeClass("active-slide");

@@ -2,7 +2,7 @@ import session from "Editor/js/session";
 import reset_next_slide from "./reset_next_slide";
 import create_slide_modal from "Editor/js/entry/create_slide_modal";
 import status from "Editor/js/navbar/status";
-import slide from "./slide";
+import slide from "Editor/entity/slide";
 
 
 export default function create_slides() {
