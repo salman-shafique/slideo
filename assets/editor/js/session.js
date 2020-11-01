@@ -8,11 +8,8 @@ let session = {
         "sentences": [],
         'direction': 'rtl'
     },
-    NEW_SLIDES:[],
-    DATA: {
-        "slides": [],
-        'slide_order':[]
-    }
+    NEW_SLIDES: [],
+    PRESENTATION: null
 
 }
 export default session 

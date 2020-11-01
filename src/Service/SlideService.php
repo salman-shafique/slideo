@@ -6,8 +6,14 @@ use App\Entity\AnalyzedContent;
 use App\Entity\Content;
 use App\Entity\Presentation;
 use App\Entity\Slide;
+use App\Entity\Style;
+use App\Repository\StyleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\ContentService;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class SlideService
 {
@@ -20,12 +26,17 @@ class SlideService
 
     public function findAndApplyStyle(Slide $slide)
     {
-        $slide->setStyle("some style name here");
+        /** @var StyleRepository $styleRepository */
+        $styleRepository = $this->em->getRepository(Style::class);
+
+        $style = $styleRepository->findOneBy(['capacity' => count($slide->getSentences())]);
+
+        $slide->setStyle($style);
 
         $background = new Content();
         $background->setKeyword('background');
-        $background->setData(['bg'=>'foo','type'=>'bar']);
-        
+        $background->setData(['bg' => 'foo', 'type' => 'bar']);
+
         $slide->setBackground($background);
 
         $this->em->persist($background);
@@ -103,7 +114,7 @@ class SlideService
             // Sentences
             $slide->setSentences($rawSlide['sentences']);
 
-            // Find the slide
+            // Find the style
             $this->findAndApplyStyle($slide);
 
             $this->em->persist($slide);
@@ -113,39 +124,11 @@ class SlideService
         $this->em->persist($presentation);
         $this->em->flush();
 
+        $serializer = new SerializerService();
         $serializedSlides = [];
         foreach ($slides as $slide)
-            array_push($serializedSlides, $this->serialize($slide));
+            array_push($serializedSlides, $serializer->normalize($slide));
 
         return $serializedSlides;
-    }
-
-    public function serialize(Slide $slide)
-    {
-        $contentService = new ContentService();
-        $serializedSlide = [];
-
-        $serializedSlide['slide_id'] = $slide->getSlideId();
-        $serializedSlide['direction'] = $slide->getDirection();
-        $serializedSlide['isActive'] = $slide->getIsActive();
-        $serializedSlide['style'] = $slide->getStyle();
-        $serializedSlide['sentences'] = $slide->getSentences();
-
-        $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getSlideTitle()));
-        $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getSlideTitleImage()));
-        $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getSubTitle()));
-        $serializedSlide = array_merge($serializedSlide, $contentService->serialize($slide->getBackground()));
-
-        $serializedSlide['analyzed_content'] = [];
-        foreach ( $slide->getAnalyzedContent() as $analyzedContent) {
-            $tmp = [];
-            $tmp = array_merge($tmp, $contentService->serialize($analyzedContent->getH1()));
-            $tmp = array_merge($tmp, $contentService->serialize($analyzedContent->getH1Image()));
-            $tmp = array_merge($tmp, $contentService->serialize($analyzedContent->getIcon()));
-            $tmp = array_merge($tmp, $contentService->serialize($analyzedContent->getOriginalSentence()));
-            $serializedSlide['analyzed_content'][] = $tmp;
-        }
-
-        return $serializedSlide;
     }
 }

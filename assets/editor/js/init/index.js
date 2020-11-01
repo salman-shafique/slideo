@@ -1,4 +1,4 @@
 
 
 import "./editor.js";
-import "./slides";
+import "./presentation";

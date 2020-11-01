@@ -91,5 +91,4 @@ __pycache__
 /public/icons/*
 !/public/icons/nothing-found.png/(0,0,0)/nothing-found.png
 /public/styles/*
-!/public/styles/.gitignore
 

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Slide;
+use App\Entity\Style;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -15,13 +15,15 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
-class SlideCrudController extends AbstractCrudController
+class StyleCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Slide::class;
+        return Style::class;
     }
 
  
@@ -35,12 +37,17 @@ class SlideCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
-            TextField::new('slideId'),
-            AssociationField::new('style'),
+            IdField::new('id')->hideOnForm()->hideOnForm(),
             BooleanField::new('isActive'),
-            DateField::new('created')->hideOnForm(),
-            DateField::new('updated')->hideOnForm()
+            TextField::new('keywords'),
+            IntegerField::new('capacity'),
+            TextField::new('direction'),
+            IntegerField::new('designId'),
+            TextField::new('layout'),
+            UrlField::new('pptxFile')->hideOnForm(),
+            UrlField::new('svgFile')->hideOnForm(),
+            ImageField::new('prevFile')->hideOnForm(),
+            DateField::new('created')->hideOnForm()
         ];
     }
 }

@@ -36,11 +36,6 @@ class Slide
     private $slideTitle;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $style;
-
-    /**
      * @ORM\OneToOne(targetEntity=Content::class, cascade={"persist", "remove"})
      */
     private $subTitle;
@@ -91,6 +86,11 @@ class Slide
      * @ORM\ManyToOne(targetEntity=Content::class)
      */
     private $background;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Style::class)
+     */
+    private $style;
 
     public function __construct()
     {
@@ -157,17 +157,6 @@ class Slide
         return $this;
     }
 
-    public function getStyle(): ?string
-    {
-        return $this->style;
-    }
-
-    public function setStyle(string $style): self
-    {
-        $this->style = $style;
-
-        return $this;
-    }
 
     public function getSubTitle(): ?Content
     {
@@ -259,6 +248,18 @@ class Slide
     public function setBackground(?Content $background): self
     {
         $this->background = $background;
+
+        return $this;
+    }
+
+    public function getStyle(): ?Style
+    {
+        return $this->style;
+    }
+
+    public function setStyle(?Style $style): self
+    {
+        $this->style = $style;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Presentation;
 use App\Entity\User;
 use App\Entity\Slide;
+use App\Entity\Style;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -48,6 +49,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Presentations', 'far fa-file-powerpoint', Presentation::class);
         yield MenuItem::linkToCrud('Slides', 'fas fa-table', Slide::class);
+        yield MenuItem::linkToCrud('Styles', 'fas fa-ellipsis-h', Style::class);
         yield MenuItem::linktoRoute('Go to website', 'fas fa-external-link-alt', 'index');
     }
 }

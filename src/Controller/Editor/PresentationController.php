@@ -15,6 +15,7 @@ use App\Repository\SlideRepository;
 use App\Security\PresentationSecurity;
 use App\Service\FlaskService;
 use App\Service\PresentationService;
+use App\Service\SerializerService;
 use App\Service\SlideService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Constraints\Json;
@@ -27,6 +28,19 @@ use Symfony\Component\Serializer\Serializer;
  */
 class PresentationController extends AbstractController
 {
+
+    /**
+     * @Route("/init",methods={"POST"})
+     */
+    public function initPresentation(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $serializer = new SerializerService();
+        return new JsonResponse($serializer->normalize($presentation));
+    }
+
 
     /**
      * @Route("/download",methods={"POST"})

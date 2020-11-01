@@ -2,7 +2,7 @@ import session from "Editor/js/session";
 import reset_next_slide from "./reset_next_slide";
 import create_slide_modal from "Editor/js/entry/create_slide_modal";
 import status from "Editor/js/navbar/status";
-import slide from "Editor/entity/slide";
+import insert_new_slides from "./insert_new_slides";
 
 
 export default function create_slides() {
@@ -17,15 +17,12 @@ export default function create_slides() {
             "slides": session.NEW_SLIDES
         },
         success: function (result) {
-            // Push them into the session slides
+            // Create slides
             result.forEach(a_slide => {
-                new slide(a_slide.slide_id);
-                // session.DATA.slides.push(slide)
-                // session.DATA.slide_order.push(slide.slide_id)
+                insert_new_slides(a_slide);
             });
             console.log(session);
             status.update("Slides created...");
-            document.getElementById("entry_result").innerHTML = JSON.stringify(result, null, 3);
         }
     })
 

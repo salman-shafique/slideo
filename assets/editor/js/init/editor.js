@@ -53,12 +53,6 @@ jQuery(function () {
 
 	});
 
-	$(".slide-thumbnail").click(function () {
-		$(".slide-thumbnail").removeClass("active-slide");
-		$(this).addClass("active-slide");
-		$("#Main_Slide").attr("src", $(this).find("img").attr("src"));
-	});
-
 	$(".control-button").click(function () {
 		$(this).closest(".action-panel").find(".control-overlay-layout").removeClass("closed");
 		$(this).addClass("collapse");
