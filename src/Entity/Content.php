@@ -44,6 +44,16 @@ class Content
      */
     private $updated;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Slide::class, inversedBy="shapes")
+     */
+    private $slide;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Style::class, inversedBy="shapes")
+     */
+    private $style;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,5 +91,29 @@ class Content
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    public function getSlide(): ?Slide
+    {
+        return $this->slide;
+    }
+
+    public function setSlide(?Slide $slide): self
+    {
+        $this->slide = $slide;
+
+        return $this;
+    }
+
+    public function getStyle(): ?Style
+    {
+        return $this->style;
+    }
+
+    public function setStyle(?Style $style): self
+    {
+        $this->style = $style;
+
+        return $this;
     }
 }

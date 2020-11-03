@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StyleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -70,6 +72,16 @@ class Style
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $layout;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="style")
+     */
+    private $shapes;
+
+    public function __construct()
+    {
+        $this->shapes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -188,4 +200,36 @@ class Style
 
         return $this;
     }
+
+    /**
+     * @return Collection|Content[]
+     */
+    public function getShapes(): Collection
+    {
+        return $this->shapes;
+    }
+
+    public function addShape(Content $shape): self
+    {
+        if (!$this->shapes->contains($shape)) {
+            $this->shapes[] = $shape;
+            $shape->setStyle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShape(Content $shape): self
+    {
+        if ($this->shapes->contains($shape)) {
+            $this->shapes->removeElement($shape);
+            // set the owning side to null (unless already changed)
+            if ($shape->getStyle() === $this) {
+                $shape->setStyle(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -29,9 +29,20 @@ class SlideService
         /** @var StyleRepository $styleRepository */
         $styleRepository = $this->em->getRepository(Style::class);
 
-        $style = $styleRepository->findOneBy(['capacity' => count($slide->getSentences())]);
+        $style = $styleRepository->findOneBy([
+            'capacity' => count($slide->getSentences()),
+            'isActive' => true
+        ]);
 
         $slide->setStyle($style);
+
+        // Copy shapes
+        foreach ($style->getShapes() as $i => $shape) {
+            $newShape = new Content();
+            $newShape->setData($shape->getData());
+            $slide->addShape($newShape);
+            $this->em->persist($newShape);
+        }
 
         $background = new Content();
         $background->setKeyword('background');

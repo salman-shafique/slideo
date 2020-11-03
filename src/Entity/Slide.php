@@ -92,9 +92,16 @@ class Slide
      */
     private $style;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="slide")
+     */
+    private $shapes;
+
+
     public function __construct()
     {
         $this->analyzedContent = new ArrayCollection();
+        $this->shapes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,6 +267,37 @@ class Slide
     public function setStyle(?Style $style): self
     {
         $this->style = $style;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Content[]
+     */
+    public function getShapes(): Collection
+    {
+        return $this->shapes;
+    }
+
+    public function addShape(Content $shape): self
+    {
+        if (!$this->shapes->contains($shape)) {
+            $this->shapes[] = $shape;
+            $shape->setSlide($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShape(Content $shape): self
+    {
+        if ($this->shapes->contains($shape)) {
+            $this->shapes->removeElement($shape);
+            // set the owning side to null (unless already changed)
+            if ($shape->getSlide() === $this) {
+                $shape->setSlide(null);
+            }
+        }
 
         return $this;
     }

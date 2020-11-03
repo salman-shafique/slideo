@@ -235,13 +235,6 @@ body {
 	text-align: center;
 }
 
-#Main_Slide {
-	width: 100%;
-	max-width: 750px;
-	margin: auto;
-	height: 480px;
-}
-
 .slide-thumbnail.active-slide, #Images_Panel .images-gallery .image-item.active, .control-overlay-layout .image-item.active {
 	border: 2px solid salmon!important;
 }
@@ -710,4 +703,13 @@ body {
 
 .footer .btn {
 	max-width: 250px;
+}
+
+
+object.main-container {
+	background-color:white;
+	width: 100%;
+	max-width: 750px;
+	margin: auto;
+	max-height: 480px;
 }

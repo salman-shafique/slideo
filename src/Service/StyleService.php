@@ -43,6 +43,17 @@ class StyleService
         }
 
         $style = new Style;
+        if ($request->request->get("objects"))
+            foreach ($request->request->get("objects") as $object) {
+                $shape = new Content();
+                $shapeData = [];
+                foreach ($object as $key => $value)
+                    $shapeData[$key] = $value;
+                $shape->setData($shapeData);
+                $style->addShape($shape);
+                $this->em->persist($shape);
+            }
+
         $style->setKeywords($request->request->get('keywords'));
         $style->setPptxFile("/styles/$styleId/$styleId.pptx");
         $style->setSvgFile("/styles/$styleId/$styleId.svg");
@@ -63,9 +74,8 @@ class StyleService
     {
         $encoders = [new XmlEncoder(), new JsonEncoder()];
         $normalizers = [new ObjectNormalizer()];
-        
+
         $serializer = new Serializer($normalizers, $encoders);
         return $serializer->normalize($style);
-
     }
 }

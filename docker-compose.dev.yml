@@ -5,11 +5,11 @@ services:
     container_name: slideo_symfony
     build: ./
     volumes:
-      - ./:/var/www/app:cached
-      - /var/www/html/app/vendor
-      - /var/www/html/app/node_modules
+      - ./:/var/www/app:delegated
       - ./docker/php.ini:/usr/local/etc/php/php.ini
-      - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
+      - /var/www/app/vendor/ # Ignore
+      - /var/www/app/node_modules/ # Ignore
+      - /var/www/app/var/ # Ignore
     ports:
       - "5500:8000"
     command: ["/bin/bash", "/var/www/app/docker/start.sh"]

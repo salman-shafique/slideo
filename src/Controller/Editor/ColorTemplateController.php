@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Serializer;
 
 
 /**
- * @Route("/editor/colorTemplate")
+ * @Route("/api/editor/colorTemplate")
  */
 class ColorTemplateController extends AbstractController
 {

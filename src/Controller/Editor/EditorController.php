@@ -22,13 +22,11 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-/**
- * @Route("/editor")
- */
+
 class EditorController extends AbstractController
 {
     /**
-     * @Route("/",name="editor")
+     * @Route("/editor",name="editor")
      */
     public function index(SessionInterface $sessionInterface, PresentationService $presentationService)
     {
@@ -38,7 +36,7 @@ class EditorController extends AbstractController
     }
 
     /**
-     * @Route("/{presentationId}")
+     * @Route("/editor/{presentationId}")
      */
     public function editor(string $presentationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
     {
@@ -53,7 +51,7 @@ class EditorController extends AbstractController
     }
 
     /**
-     * @Route("/create/slides",methods={"POST"})
+     * @Route("/api/editor/create/slides",methods={"POST"})
      */
     public function createSlides(Request $request, SessionInterface $sessionInterface, FlaskService $flaskService, PresentationSecurity $presentationSecurity, SlideService $slideService)
     {
@@ -68,7 +66,7 @@ class EditorController extends AbstractController
     }
 
     /**
-     * @Route("/api/{className}/{methodName}",methods={"POST"})
+     * @Route("/call/{className}/{methodName}",methods={"POST"})
      */
     public function call(Request $request, String $className, String $methodName, FlaskService $flaskService)
     {
