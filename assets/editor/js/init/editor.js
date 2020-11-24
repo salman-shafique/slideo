@@ -1,5 +1,5 @@
 import "Editor/js/dependencies/spectrum-colorpicker2.min";
-
+import toHex from "Editor/js/sidebar/colors/toHex";
 jQuery(function () {
 	updateCustomGalleries();
 	// Event Handler that dictates what happens on clicking on a tool, active or otherwise
@@ -75,6 +75,7 @@ jQuery(function () {
 			type: "flat",
 			showPalette: "false",
 			showInitial: "true",
+			preferredFormat: "hex",
 			chooseText: "Done"
 		});
 
@@ -92,7 +93,7 @@ jQuery(function () {
 	});
 
 	$("#changeColor").on('move.spectrum', function (e, color) {
-		var currColor = $("#changeColor").val();
+		var currColor = toHex($("#changeColor").val());
 		$("#Colors_Panel").find(".main-section").find(".color.active").attr("data-color", currColor);
 		$("#Colors_Panel").find(".main-section").find(".color.active").css("background-color", currColor);
 	});
@@ -156,18 +157,20 @@ jQuery(function () {
 		$("#Colors_Panel").find(".main-section").find(".template-text-container").find("h6").html($(this).find(".template-header").text());
 		$("#Colors_Panel").find(".main-section").find(".template-text-container").find("p").html($(this).find(".template-desc").text());
 		var parentColorsContainer = $("#Colors_Panel").find(".main-section").find(".colors-container");
-		var bgColorsContainer = $("#Background_Colors");
+
 		$.each($(this).find(".colors-container").find(".template-icon-color"), function (index, value) {
-			parentColorsContainer.find(".color").eq(index).css("background-color", $(value).attr("data-color"));
-			parentColorsContainer.find(".color").eq(index).attr("data-color", $(value).attr("data-color"));
-			bgColorsContainer.find(".color").eq(index).css("background-color", $(value).attr("data-color"));
-			bgColorsContainer.find(".color").eq(index).attr("data-color", $(value).attr("data-color"));
+			let themeColorName = value.getAttribute("color-name-icon");
+			console.log(themeColorName,$(value).attr("data-color"));
+			parentColorsContainer.find(".color[color-name='"+themeColorName+"']").css("background-color", $(value).attr("data-color"));
+			parentColorsContainer.find(".color[color-name='"+themeColorName+"']").attr("data-color", $(value).attr("data-color"));
 		});
 		parentColorsContainer.find(".color").removeClass("active");
 		$("#Color_Templates_List").addClass("d-none").removeClass("d-block");
 		$("#Colors_Panel").find(".backdrop-overlay-layout").addClass("collapse");
 		$('#changeColor').spectrum("destroy");
 		$('#changeColor').css("display", "none");
+
+		console.log("here");
 	});
 
 	// Initialize Max char count for trackers

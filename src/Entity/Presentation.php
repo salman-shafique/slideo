@@ -67,14 +67,14 @@ class Presentation
     private $presentationId;
 
     /**
-     * @ORM\OneToMany(targetEntity=ColorTemplate::class, mappedBy="presentation")
-     */
-    private $colorTemplates;
-
-    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private $slidesOrder = [];
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $colorTemplateId;
 
     public function __construct()
     {
@@ -196,37 +196,6 @@ class Presentation
         return $this;
     }
 
-    /**
-     * @return Collection|ColorTemplate[]
-     */
-    public function getColorTemplates(): Collection
-    {
-        return $this->colorTemplates;
-    }
-
-    public function addColorTemplate(ColorTemplate $colorTemplate): self
-    {
-        if (!$this->colorTemplates->contains($colorTemplate)) {
-            $this->colorTemplates[] = $colorTemplate;
-            $colorTemplate->setPresentation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeColorTemplate(ColorTemplate $colorTemplate): self
-    {
-        if ($this->colorTemplates->contains($colorTemplate)) {
-            $this->colorTemplates->removeElement($colorTemplate);
-            // set the owning side to null (unless already changed)
-            if ($colorTemplate->getPresentation() === $this) {
-                $colorTemplate->setPresentation(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSlidesOrder(): ?array
     {
         return $this->slidesOrder;
@@ -235,6 +204,18 @@ class Presentation
     public function setSlidesOrder(?array $slidesOrder): self
     {
         $this->slidesOrder = $slidesOrder;
+
+        return $this;
+    }
+
+    public function getColorTemplateId(): ?int
+    {
+        return $this->colorTemplateId;
+    }
+
+    public function setColorTemplateId(?int $colorTemplateId): self
+    {
+        $this->colorTemplateId = $colorTemplateId;
 
         return $this;
     }

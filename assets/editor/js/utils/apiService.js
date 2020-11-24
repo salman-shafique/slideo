@@ -15,7 +15,7 @@ export default function apiService(settings = {
         settings.dataType = "json";
     if (!settings.error)
         settings.error = (r) => {
-            console.log("error", r);
+            console.error(r.responseJSON);
         };
         
     let response = $.ajax(settings);

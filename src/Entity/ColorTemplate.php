@@ -18,52 +18,52 @@ class ColorTemplate
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $ACCENT_1;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $ACCENT_2;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $ACCENT_3;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $ACCENT_4;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $ACCENT_5;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $ACCENT_6;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $BACKGROUND_1;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $BACKGROUND_2;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $TEXT_1;
 
     /**
-     * @ORM\Column(type="string", length=7)
+     * @ORM\Column(type="string", length=9)
      */
     private $TEXT_2;
 
@@ -73,9 +73,20 @@ class ColorTemplate
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Presentation::class, inversedBy="colorTemplates")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $presentation;
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="colorTemplates")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = true;
 
     public function getId(): ?int
     {
@@ -222,6 +233,42 @@ class ColorTemplate
     public function setPresentation(?Presentation $presentation): self
     {
         $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

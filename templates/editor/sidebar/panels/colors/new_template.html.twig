@@ -1,0 +1,19 @@
+<div class="control-overlay-layout closed">
+  <i class="fas fa-times control-close-button"></i>
+  <h6 class="small-top-margin medium-bottom-margin single-line">{% trans %}Save as New Template{% endtrans %}</h6>
+  <div class="form-group">
+    <label for="newTemplateTitle" class="single-line">{% trans %}Template Name:{% endtrans %}</label>
+    <input type="text" class="form-control char-tracked" id="newTemplateTitle" maxlength="50">
+    <span class="char-tracker text-secondary float-right">
+      <span class="curr-char-count">0</span>/<span class="max-char-count"></span>
+    </span>
+  </div>
+  <div class="form-group">
+    <label for="newTemplateDescr" class="single-line">{% trans %}Template Description:{% endtrans %}</label>
+    <textarea id="newTemplateDescr" maxlength="300" rows="3" class="char-tracked"></textarea>
+    <span class="char-tracker text-secondary float-right">
+      <span class="curr-char-count">0</span>/<span class="max-char-count"></span>
+    </span>
+  </div>
+</div>
+<div class="backdrop-overlay-layout collapse"></div>

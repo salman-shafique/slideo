@@ -36,7 +36,7 @@ class ColorTemplateController extends AbstractController
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $r = $presentationService->addColorTemplate($presentation, $request);
+        $r = $presentationService->addColorTemplate($this->getUser(), $request);
 
         return new JsonResponse($r);
     }

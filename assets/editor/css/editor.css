@@ -313,6 +313,8 @@ body {
 	margin: auto;
 	width: 94%;
 	justify-content: center;
+	background-color: white;
+	border-radius: 5px;
 }
 
 .color {
@@ -322,6 +324,7 @@ body {
 	height: 39px;
 	transition: 0.3s;
 	cursor: pointer;
+	border: solid 1px black;
 }
 
 .color.template-icon-color {
@@ -331,7 +334,7 @@ body {
 }
 
 .color.active {
-	border: 2px solid white;
+	border: 3px solid black;
 }
 
 #SelectedColorTemplate_Name {
@@ -636,16 +639,6 @@ body {
 	color: white;
 	font-size: 13px;
 	font-weight: bold;
-}
-
-#Background_Colors {
-	width: 100%!important;
-	justify-content: flex-start!important;
-}
-
-#Background_Colors .color {
-	flex: 0 1 26px;
-	height: 26px;
 }
 
 #Backgrounds_Gallery {

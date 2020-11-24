@@ -2,9 +2,6 @@
 
 namespace App\Enum;
 
-
-use App\Exception\CommonEnumException;
-
 class LanguagesEnum
 {
 
@@ -29,9 +26,7 @@ class LanguagesEnum
 
     public static function validate(string $language)
     {
-        if (!isset(self::AVAILABLE_TYPES[$language])) {
-            throw new CommonEnumException(self::AVAILABLE_TYPES, $language);
-        }
+       return isset(self::AVAILABLE_TYPES[$language]);
     }
 
     public static function getDescription(string $language)

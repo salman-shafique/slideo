@@ -86,9 +86,15 @@ class User implements UserInterface
      */
     private $updated;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ColorTemplate::class, mappedBy="owner")
+     */
+    private $colorTemplates;
+
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
+        $this->colorTemplates = new ArrayCollection();
     }
 
     public function __toString()
@@ -294,5 +300,36 @@ class User implements UserInterface
             return $splittedFullname[0][0] . $splittedFullname[1][0];
         else
             return $this->fullname[0][0];
+    }
+
+    /**
+     * @return Collection|ColorTemplate[]
+     */
+    public function getColorTemplates(): Collection
+    {
+        return $this->colorTemplates;
+    }
+
+    public function addColorTemplate(ColorTemplate $colorTemplate): self
+    {
+        if (!$this->colorTemplates->contains($colorTemplate)) {
+            $this->colorTemplates[] = $colorTemplate;
+            $colorTemplate->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeColorTemplate(ColorTemplate $colorTemplate): self
+    {
+        if ($this->colorTemplates->contains($colorTemplate)) {
+            $this->colorTemplates->removeElement($colorTemplate);
+            // set the owning side to null (unless already changed)
+            if ($colorTemplate->getOwner() === $this) {
+                $colorTemplate->setOwner(null);
+            }
+        }
+
+        return $this;
     }
 }
