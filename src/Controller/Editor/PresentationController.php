@@ -24,13 +24,13 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
 /**
- * @Route("/editor/presentation")
+ * @Route("/api/presentation")
  */
 class PresentationController extends AbstractController
 {
 
     /**
-     * @Route("/init",methods={"POST"})
+     * @Route("/init", methods={"POST"})
      */
     public function initPresentation(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
     {

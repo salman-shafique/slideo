@@ -58,11 +58,11 @@ class EditorController extends AbstractController
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $rawSlides = $flaskService->call("NLP", "prepare_slides", $request->request->all());
-        if (!isset($rawSlides['slides']))
-            print_r($rawSlides);
-        $slides = $slideService->createSlides($rawSlides['slides'], $presentation);
+        $r = $flaskService->call("NLP", "prepare_slides", $request->request->all());
+        if (isset($r['Error']))
+            return new JsonResponse($r, 500);
 
+        $slides = $slideService->createSlides($r['slides'], $presentation);
         return new JsonResponse($slides);
     }
 

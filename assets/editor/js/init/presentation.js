@@ -1,12 +1,12 @@
 import presentation from "Editor/js/entity/presentation.js";
+import apiService from "Editor/js/utils/apiService";
 
 jQuery(function () {
-    $.ajax({
-        method: "POST",
-        url: "/editor/presentation/init",
-        dataType: "json",
-        success: function (presentationData) {
-            presentation().init(presentationData);
+
+    apiService({
+        url: "/api/presentation/init",
+        success: (response) => {
+            presentation().init(response);
         }
-    })
+    });
 })

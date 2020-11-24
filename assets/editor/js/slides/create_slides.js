@@ -3,27 +3,26 @@ import reset_next_slide from "./reset_next_slide";
 import create_slide_modal from "Editor/js/entry/create_slide_modal";
 import status from "Editor/js/navbar/status";
 import slide from "Editor/js/entity/slide";
+import apiService from "Editor/js/utils/apiService";
 
 
 export default function create_slides() {
     create_slide_modal.close();
     status.update("Slides creating...");
-    $.ajax({
-        method: "POST",
+
+    apiService({
         url: "/api/editor/create/slides",
-        dataType: "json",
         data: {
             "slides": session.NEW_SLIDES
         },
-        success: function (result) {
+        success: (response) => {
             // Create slides
-            result.forEach(slideData => {
+            response.forEach(slideData => {
                 slide().appendToPresentation(slideData).insertToPage();
             });
             status.update("Slides created...");
         }
-    })
-
+    });
     reset_next_slide();
     session.NEW_SLIDES = [];
 }
