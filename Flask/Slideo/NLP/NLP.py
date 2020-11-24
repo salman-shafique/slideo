@@ -160,8 +160,10 @@ class NLP(object):
             # Find Slide title image if exist
             if 'slideTitle' in raw_slide:
                 raw_slide['slideTitle']['keyword'] = self.extract_keyword({
-                    'text':raw_slide['slideTitle']['slideTitle']
+                    'text':raw_slide['slideTitle']['text']
                 })['keyword']
+
+
                 
                 
 

@@ -1,4 +1,5 @@
 import shape from "Editor/js/entity/shape";
+import insertImageUrl from "./insertImageUrl";
 
 export default function selectH1Image(slideId, shapeId, imageId = null) {
     let shapeData = shape(slideId, shapeId).data();
@@ -13,5 +14,5 @@ export default function selectH1Image(slideId, shapeId, imageId = null) {
     });
 
     let g = shape(slideId, shapeId).el();
-    g.querySelector("image").setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", imageUrl);
+    insertImageUrl(g, imageUrl);
 }

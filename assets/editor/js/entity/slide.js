@@ -77,7 +77,6 @@ export default function slide(slideId) {
         this.slideData.shapes.forEach(shape_ => {
             if (shape_.data.alt) {
                 let contentNumber, foreignObject, text, direction, g, content;
-                
                 // Built in textboxes
                 if (shape_.data.alt.includes("h1|")) {
                     try {
@@ -102,7 +101,7 @@ export default function slide(slideId) {
                     } catch {
                         shape(this.slideData.slideId, shape_.data.shape_id).remove();
                     }
-                } else if (shape_.data.alt.includes("slidetitle")) {
+                } else if (shape_.data.alt == "slidetitle") {
                     try {
                         content = this.slideData.slideTitle.data;
                         shape_.data.text = text = content.text;
@@ -111,7 +110,7 @@ export default function slide(slideId) {
                     } catch {
                         shape(this.slideData.slideId, shape_.data.shape_id).remove();
                     }
-                } else if (shape_.data.alt.includes("subtitle")) {
+                } else if (shape_.data.alt == "subtitle") {
                     try {
                         content = this.slideData.subTitle.data;
                         shape_.data.text = text = content.text;
@@ -131,18 +130,17 @@ export default function slide(slideId) {
                         g.appendChild(foreignObject);
                     }
                 }
-                // Built in h1 image
+                // Built in images
                 let keyword;
                 if (shape_.data.alt.includes("h1image|")) {
                     contentNumber = shape_.data.alt.split("|")[1];
                     keyword = this.slideData.analyzedContent[contentNumber].h1.data.text;
                     h1Image(this.slideData.slideId, shape_.data.shape_id, keyword);
-                } else if (shape_.data.alt.includes("slidetitleimage")) {
+                } else if (shape_.data.alt == "slidetitleimage") {
                     try {
-                        keyword = this.slideData.slideTitle.keyword;
-
+                        keyword = this.slideData.slideTitle.data.keyword;
+                        console.log(keyword);
                         if (!keyword) throw new DOMException();
-
                         h1Image(this.slideData.slideId, shape_.data.shape_id, keyword);
                     } catch {
                         shape(this.slideData.slideId, shape_.data.shape_id).remove();
