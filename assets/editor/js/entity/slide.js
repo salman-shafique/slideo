@@ -1,5 +1,6 @@
 import session from "Editor/js/session";
 import presentation from "Editor/js/entity/presentation";
+import shape from "Editor/js/entity/shape";
 import refresh_slide_prev_numbers from "Editor/js/slides/utils/refresh_slide_prev_numbers";
 import html_to_element from "Editor/js/utils/html_to_element";
 import add_event from "Editor/js/utils/add_event";
@@ -8,6 +9,7 @@ import selectAll from "Editor/js/utils/selector/selectAll";
 import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
 import h1Image from "Editor/js/shapes/image/h1Image";
+import findKeyword from "Editor/js/utils/findKeyword";
 
 
 export default function slide(slideId) {
@@ -67,63 +69,84 @@ export default function slide(slideId) {
 
     this.initSlide = function () {
         console.log(session);
+
         this.object().style.visibility = "visible";
 
         // update textbox style.direction
         // Show the loaded slide
-        this.slideData.shapes.forEach(shape => {
-            if (shape.data.alt) {
-                let contentNumber, foreignObject, text, direction, g;
-
+        this.slideData.shapes.forEach(shape_ => {
+            if (shape_.data.alt) {
+                let contentNumber, foreignObject, text, direction, g, content;
+                
                 // Built in textboxes
-                if (shape.data.alt.includes("h1|")) {
-                    contentNumber = shape.data.alt.split("|")[1];
+                if (shape_.data.alt.includes("h1|")) {
                     try {
-                        text = this.slideData.analyzedContent[contentNumber].h1.data.h1;
-                        direction = this.slideData.analyzedContent[contentNumber].h1.data.direction;
+                        contentNumber = shape_.data.alt.split("|")[1];
+                        content = this.slideData.analyzedContent[contentNumber].h1.data;
+                        shape_.data.text = text = content.text;
+                        direction = content.direction;
+                        Object.assign(shape_.data, content);
                     } catch {
-                        this.getShape(shape.data.shape_id).remove();
+                        shape(this.slideData.slideId, shape_.data.shape_id).remove();
                     }
-                } else if (shape.data.alt.includes("paragraph|")) {
+                } else if (shape_.data.alt.includes("paragraph|")) {
                     try {
-                        contentNumber = shape.data.alt.split("|")[1];
-                        text = this.slideData.analyzedContent[contentNumber].originalSentence.data.originalSentence;
-                        direction = this.slideData.analyzedContent[contentNumber].originalSentence.data.direction;
+                        contentNumber = shape_.data.alt.split("|")[1];
+                        content = this.slideData.analyzedContent[contentNumber].originalSentence.data;
+                        shape_.data.text = text = content.text;
+                        direction = content.direction;
+                        Object.assign(shape_.data, content);
+                        if (text == this.slideData.analyzedContent[contentNumber].h1.data.text)
+                            // Rm paragraph if it is same as h1
+                            throw new DOMException();
                     } catch {
-                        this.getShape(shape.data.shape_id).remove();
+                        shape(this.slideData.slideId, shape_.data.shape_id).remove();
                     }
-                } else if (shape.data.alt.includes("slidetitle")) {
+                } else if (shape_.data.alt.includes("slidetitle")) {
                     try {
-                        text = this.slideData.slideTitle.data.slideTitle;
-                        direction = this.slideData.slideTitle.data.direction;
+                        content = this.slideData.slideTitle.data;
+                        shape_.data.text = text = content.text;
+                        direction = content.direction;
+                        Object.assign(shape_.data, content);
                     } catch {
-                        this.getShape(shape.data.shape_id).remove();
+                        shape(this.slideData.slideId, shape_.data.shape_id).remove();
                     }
-                } else if (shape.data.alt.includes("subtitle")) {
+                } else if (shape_.data.alt.includes("subtitle")) {
                     try {
-                        text = this.slideData.subTitle.data.subTitle;
-                        direction = this.slideData.slideTitle.data.direction;
+                        content = this.slideData.subTitle.data;
+                        shape_.data.text = text = content.text;
+                        direction = content.direction;
+                        Object.assign(shape_.data, content);
                     } catch {
-                        this.getShape(shape.data.shape_id).remove();
+                        shape(this.slideData.slideId, shape_.data.shape_id).remove();
                     }
                 }
                 if (text) {
                     // Append foreignObjects
-                    g = this.getShape(shape.data.shape_id);
+                    g = shape(this.slideData.slideId, shape_.data.shape_id).el();
                     if (g) {
-                        foreignObject = createForeignObject(this.contentDocument(), shape.data);
-                        arrangeForeignObject(foreignObject, shape.data, text, direction);
+                        foreignObject = createForeignObject(this.contentDocument(), shape_.data);
+                        arrangeForeignObject(foreignObject, shape_.data, text, direction);
                         g.innerHTML = "";
                         g.appendChild(foreignObject);
-                        console.log(foreignObject);
                     }
                 }
                 // Built in h1 image
                 let keyword;
-                if (shape.data.alt.includes("h1image|")) {
-                    contentNumber = shape.data.alt.split("|")[1];
-                    keyword = this.slideData.analyzedContent[contentNumber].h1.data.h1;
-                    h1Image(this.slideData.slideId, shape.data.shape_id, keyword);
+                if (shape_.data.alt.includes("h1image|")) {
+                    contentNumber = shape_.data.alt.split("|")[1];
+                    keyword = this.slideData.analyzedContent[contentNumber].h1.data.text;
+                    h1Image(this.slideData.slideId, shape_.data.shape_id, keyword);
+                } else if (shape_.data.alt.includes("slidetitleimage")) {
+                    try {
+                        keyword = this.slideData.slideTitle.keyword;
+
+                        if (!keyword) throw new DOMException();
+
+                        h1Image(this.slideData.slideId, shape_.data.shape_id, keyword);
+                    } catch {
+                        shape(this.slideData.slideId, shape_.data.shape_id).remove();
+                    }
                 }
 
             }
@@ -146,16 +169,5 @@ export default function slide(slideId) {
         return this;
     }
 
-    this.getShapeData = function (shapeId) {
-        let shapeData;
-        this.slideData.shapes.forEach(shape => {
-            if (shape.data.shape_id == shapeId)
-                shapeData = shape.data;
-        });
-        return shapeData;
-    }
-    this.getShape = function (shapeId) {
-        return this.documentElement().querySelector("g[shape_id='" + shapeId + "']");
-    }
 }
 

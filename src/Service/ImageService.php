@@ -2,19 +2,9 @@
 
 namespace App\Service;
 
-use App\Entity\AnalyzedContent;
-use App\Entity\Content;
 use App\Entity\Presentation;
-use App\Entity\Slide;
-use App\Entity\Style;
-use App\Repository\StyleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\ContentService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class ImageService
 {
@@ -29,7 +19,7 @@ class ImageService
 
     public function h1Image(Presentation $presentation, Request $request)
     {
-
+        $serializer = new SerializerService();
         $slide = null;
         foreach ($presentation->getSlides() as $slide_) {
             if ($slide_->getSlideId() == $request->request->get("slideId")) {
@@ -40,10 +30,26 @@ class ImageService
         if ($slide) {
             $images = $this->flaskService->call("Pexels", "find_images", ['keyword' => $request->request->get("keyword")]);
 
+            $serializedShape = null;
+            foreach ($slide->getShapes() as $shape)
+                if (isset($shape->getData()['shape_id']))
+                    if ($shape->getData()['shape_id'] == $request->request->get("shapeId")) {
+                        $data =  $shape->getData();
+                        $data['image'] = $images[0];
+                        $data['images'] = $images;
+                        $data['keyword'] = $request->request->get("keyword");
+                        $shape->setData($data);
+                        $this->em->persist($shape);
+                        $serializedShape = $serializer->normalize($shape);
+                        break;
+                    }
+
+            $this->em->persist($slide);
+            $this->em->flush();
             return array_merge(
                 [
                     'success' => true,
-                    'images' => $images,
+                    'serializedShape' => $serializedShape,
                 ],
                 $request->request->all()
             );

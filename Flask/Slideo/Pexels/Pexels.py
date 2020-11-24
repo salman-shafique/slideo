@@ -22,9 +22,9 @@ class Pexels(object):
     def simplify_photos(self,photos):
         tmp = []
         for photo in photos:
+            photo['url'] = photo['src']['original']
             del photo['src']
             del photo['photographer_id']
-            del photo['id']
             del photo['liked']
             tmp.append(photo)
         return tmp

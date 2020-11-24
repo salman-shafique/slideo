@@ -6,7 +6,6 @@ import slide from "Editor/js/entity/slide";
 
 
 export default function create_slides() {
-    console.log(session.NEW_SLIDES);
     create_slide_modal.close();
     status.update("Slides creating...");
     $.ajax({

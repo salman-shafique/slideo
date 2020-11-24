@@ -1,7 +1,6 @@
 import session from "Editor/js/session";
 
 export default function switch_direction(dir) {
-    console.log(dir,session.DIRECTION);
     let inline_editors = document.querySelectorAll(".inline-editor");
     let area = document.getElementById("area");
     let slide_title = document.getElementById("slideTitle");

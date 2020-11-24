@@ -9,12 +9,6 @@ use App\Entity\Slide;
 use App\Entity\Style;
 use App\Repository\StyleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\ContentService;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
-
 class SlideService
 {
     private $em;

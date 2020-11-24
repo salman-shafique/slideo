@@ -56,13 +56,8 @@ def simplify_content(raw_slide):
         tmp = raw_slide["slideTitle"]
         if tmp:
             raw_slide["slideTitle"] = {
-                "slideTitle" : tmp,
+                "text" : tmp,
                 "direction" : check_text_direction(tmp)
-            }
-            raw_slide["slideTitleImage"] = {
-                "image_path" : "",
-                "images" : [],
-                "keyword": ""
             }
         else:
             del raw_slide["slideTitle"]
@@ -73,7 +68,7 @@ def simplify_content(raw_slide):
         tmp = raw_slide["subTitle"]
         if tmp:
             raw_slide["subTitle"] = {
-                "subTitle" : tmp,
+                "text" : tmp,
                 "direction" : check_text_direction(tmp)
             }
         else:
@@ -85,51 +80,29 @@ def simplify_content(raw_slide):
     for i in range(len(analyzed_content)):
         sentence = analyzed_content[i]
 
-        # H1 # New approach - get the second result for translations - first
-        h1Text = ""
-        if sentence["lang"] == "en":
-            h1Text = sentence["not_ruled_words_original"][0]
-        else:
-            if len(sentence["not_ruled_words_original"]) >= 2:
-                h1Text = sentence["not_ruled_words_original"][1]
-            else:
-                if len(sentence["not_ruled_words_original"]) == 1:
-                    h1Text = sentence["not_ruled_words_original"][0]
-
-        # H1 English - for pexels
-        h1English = ""
-        if sentence["lang"] == "en":
-            h1English = sentence["not_ruled_words_english"][0]
-        else:
-            if len(sentence["not_ruled_words_english"]) >= 2:
-                h1English = sentence["not_ruled_words_english"][1]
-            else:
-                if len(sentence["not_ruled_words_english"]) == 1:
-                    h1English = sentence["not_ruled_words_english"][0]
-
+        h1Text = sentence["not_ruled_words_original"][0]
         # h1
         h1 = {
-            "h1": h1Text,
-            "h1English": h1English,
+            "text": h1Text,
             "direction": check_text_direction(h1Text),
         }
 
         # originalSentence
         originalSentence = {
-            "originalSentence": sentence["originalSentence"],
+            "text": sentence["originalSentence"],
             "direction": check_text_direction(sentence["originalSentence"]),
         }
 
         # Rule. If originalSentence has only 2 or less words, use it as h1
-        if len(originalSentence["originalSentence"].split(" ")) <= 2:
-            h1["h1"] = originalSentence["originalSentence"]
+        if len(originalSentence["text"].split(" ")) <= 2:
+            h1["text"] = originalSentence["text"]
 
         simplified_analyzed_content.append(
             {
                 "h1": h1,
                 "originalSentence": originalSentence,
                 "icon": {
-                    "icon_path": sentence["icon"]["icons"][0],
+                    "icon": sentence["icon"]["icons"][0],
                     "icons": sentence["icon"]["icons"],
                 }
             }

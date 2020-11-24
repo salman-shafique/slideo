@@ -59,19 +59,21 @@ class EditorController extends AbstractController
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
         $rawSlides = $flaskService->call("NLP", "prepare_slides", $request->request->all());
-        
+        if (!isset($rawSlides['slides']))
+            print_r($rawSlides);
         $slides = $slideService->createSlides($rawSlides['slides'], $presentation);
 
         return new JsonResponse($slides);
     }
 
     /**
-     * @Route("/call/{className}/{methodName}",methods={"POST"})
+     * @Route("/api/call/{className}/{methodName}",methods={"POST"})
      */
     public function call(Request $request, String $className, String $methodName, FlaskService $flaskService)
     {
         // By pass the symfony controllers
         $response = $flaskService->call($className, $methodName, $request->request->all());
+        $response['request'] = $request->request->all();
         return new JsonResponse($response);
     }
 }
