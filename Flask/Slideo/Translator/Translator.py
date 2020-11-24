@@ -1,10 +1,11 @@
-from googletrans import Translator as Translator_
 import sys
 import json
+from google.cloud import translate_v2
+
 
 class Translator(object):
     def __init__(self):
-        self.translator = Translator_()
+        self.translator = translate_v2.Client()
 
     def translate(self,args):
         if 'sentence' in args:
@@ -17,12 +18,11 @@ class Translator(object):
             if args['target_language']:
                 target_language = args['target_language']
 
-        if target_language == "en":
-            translations = self.translator.translate(sentences)
-        else:
-            translations = self.translator.translate(sentences, dest=target_language)
+        source_language = None
+        if 'source_language' in args:
+            if args['source_language']:
+                source_language = args['source_language']
 
-        if type(sentences) == list:
-            return [translation.__dict__ for translation in translations]
-        else:
-            return translations.__dict__
+        translations = self.translator.translate(sentences, target_language=target_language, source_language=source_language)
+
+        return translations

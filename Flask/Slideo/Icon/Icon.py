@@ -38,7 +38,7 @@ class Icon(object):
             return json.loads(response.text)
         else:
             # Translate back
-            translated_keyword = self.translator.translate({'sentence':args['keyword']})['text']
+            translated_keyword = self.translator.translate({'sentence':args['keyword']})['translatedText']
             response = self.thenounproject_call(translated_keyword,args['limit'],args['limit_to_public_domain'])
             if response.status_code == 200:
                 return json.loads(response.text)

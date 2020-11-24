@@ -75,14 +75,14 @@ class NLP(object):
         groupped_sentences = []
         for translation in translated_sentences:
             groupped_sentence = {
-                "originalSentence": translation["origin"],
-                "englishSentence": translation["text"],
-                "lang": translation["src"],
+                "originalSentence": translation["input"],
+                "englishSentence": translation["translatedText"],
+                "lang": translation["detectedSourceLanguage"],
                 "tokens": Algorithm.calculate_total(
-                    self.get_tokens({"text": translation["text"]})["tokens"]
+                    self.get_tokens({"text": translation["translatedText"]})["tokens"]
                 ),
                 "sentence_dictionary": self.get_sentence_dictionary(
-                    {"text": translation["text"], "options": options}
+                    {"text": translation["translatedText"], "options": options}
                 )["sentence_dictionary"],
             }
             groupped_sentences.append(groupped_sentence)
@@ -103,7 +103,7 @@ class NLP(object):
                     )
                     originalH1s = []
                     for translation in translations:
-                        originalH1s.append(translation["text"])
+                        originalH1s.append(translation["translatedText"])
                     groupped_sentence["originalH1s"] = originalH1s
                 else:
                     groupped_sentence["originalH1s"] = groupped_sentence["englishH1s"]
@@ -118,7 +118,7 @@ class NLP(object):
                     )
                     not_ruled_words_original = []
                     for translation in translations:
-                        not_ruled_words_original.append(translation["text"])
+                        not_ruled_words_original.append(translation["translatedText"])
                     groupped_sentence[
                         "not_ruled_words_original"
                     ] = not_ruled_words_original
@@ -158,14 +158,10 @@ class NLP(object):
             args["slides"][i] = PrepareSlides.simplify_content(raw_slide)
             
             # Find Slide title image if exist
-            if 'slideTitleImage' in raw_slide:
-                raw_slide['slideTitleImage']['keyword'] = self.extract_keyword({
+            if 'slideTitle' in raw_slide:
+                raw_slide['slideTitle']['keyword'] = self.extract_keyword({
                     'text':raw_slide['slideTitle']['slideTitle']
                 })['keyword']
-                if raw_slide['slideTitleImage']['keyword']:
-                    raw_slide['slideTitleImage']['images'] = self.pexels.find_images(
-                        {'keyword':raw_slide['slideTitleImage']['keyword']}
-                    )
                 
                 
 

@@ -2,7 +2,7 @@ spacy
 Flask
 requests
 argparse
-googletrans
+google-cloud-translate==2.0.1
 Pillow
 python-pptx
 requests_oauthlib
