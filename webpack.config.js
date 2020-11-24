@@ -19,7 +19,8 @@ Encore
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = 3;
-    }).addAliases({
+    })
+    .addAliases({
         JS: path.resolve(__dirname, 'assets/js'),
         CSS: path.resolve(__dirname, 'assets/css'),
         Editor: path.resolve(__dirname, 'assets/editor'),

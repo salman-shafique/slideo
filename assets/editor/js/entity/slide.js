@@ -38,11 +38,11 @@ export default function slide(slideId) {
     this.insertToPage = function () {
         let miniPrevHtml = `
         <div class="slide-thumbnail" data-slide-id="${this.slideData.slideId}">
-        <img src="https://dummyimage.com/1200x800/b30909/000000&text=${this.slideData.slideId}">
-        <div class="remove-slide">
-            <i class="fas fa-trash-alt text-white"></i>
-        </div>
-        <span class="slide-sl text-white mr-2"></span>
+            <object id="prev_${this.slideData.slideId}" type="image/svg+xml" data="${this.slideData.style.svgFile}" class="col-12 p-0 rounded"></object>
+            <div class="remove-slide">
+                <i class="fas fa-trash-alt text-white"></i>
+            </div>
+            <span class="slide-sl text-white mr-2"></span>
         </div>
         `;
         let miniPrev = html_to_element(miniPrevHtml);
@@ -69,7 +69,7 @@ export default function slide(slideId) {
 
     this.initSlide = function () {
         console.log(session);
-
+        
         this.object().style.visibility = "visible";
 
         // update textbox style.direction
@@ -139,7 +139,7 @@ export default function slide(slideId) {
                 } else if (shape_.data.alt == "slidetitleimage") {
                     try {
                         keyword = this.slideData.slideTitle.data.keyword;
-                        console.log(keyword);
+                        console.log(this.slideData.slideId, shape_.data.shape_id,keyword);
                         if (!keyword) throw new DOMException();
                         h1Image(this.slideData.slideId, shape_.data.shape_id, keyword);
                     } catch {
@@ -150,6 +150,7 @@ export default function slide(slideId) {
             }
         });
         this.display();
+        this.cloneToMiniPrev();
         return this;
     }
 
@@ -165,6 +166,13 @@ export default function slide(slideId) {
         this.object().style.display = "";
 
         return this;
+    }
+
+    this.cloneToMiniPrev = ()=>{
+        let clone = this.contentDocument().querySelector("svg").cloneNode(true);
+        clone.id = "";
+        document.getElementById("prev_" + this.slideData.slideId).contentDocument.querySelector("svg").remove();
+        document.getElementById("prev_" + this.slideData.slideId).contentDocument.appendChild(clone);
     }
 
 }
