@@ -79,7 +79,7 @@ class ColorTemplate
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="colorTemplates")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $owner;
 
