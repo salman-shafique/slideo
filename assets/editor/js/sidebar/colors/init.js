@@ -1,5 +1,6 @@
-import updateThemeColors from "./updateThemeColors";
 import toHex from "./toHex";
+import select from "Editor/js/utils/selector/select";
+import colorTemplate from "Editor/js/entity/colorTemplate";
 
 $("#Colors_Panel").find(".main-section").find(".color").click(function () {
     $("#changeColor").val($(this).attr("data-color"));
@@ -26,17 +27,25 @@ $(".color").click(function () {
 });
 
 $("#changeColor").on('move.spectrum', function (e, color) {
-    var currColor = $("#changeColor").val();
+    let currColor = $("#changeColor").val();
     $("#Colors_Panel").find(".main-section").find(".color.active").attr("data-color", currColor);
     $("#Colors_Panel").find(".main-section").find(".color.active").css("background-color", currColor);
 });
 
 $("#colorPickerContainer").delegate("#CPClose", "mouseup", function () {
+    let selectedTemplate = select("#Color_Templates_List .color_template_dropdown_item.active");
+    let colorTemplateId = selectedTemplate.getAttribute("color-template-id");
+
     let colorCircle = document.querySelector("#Colors_Panel .main-section .color.active");
     let color = colorCircle.getAttribute("data-color");
     let colorName = colorCircle.getAttribute("color-name");
-    updateThemeColors();
-    console.log(color, colorName);
+    let tmp = {}
+    tmp[colorName] = color;
+    colorTemplate(colorTemplateId).updateAllColors(tmp);
+
+    $(document).find("[color-name='" + colorName + "'][color-template-id='" + colorTemplateId + "']").css("background-color", color);
+    $(document).find("[color-name='" + colorName + "'][color-template-id='" + colorTemplateId + "']").attr("data-color", color);
+
     $('#changeColor').spectrum("destroy");
     $('#changeColor').css("display", "none");
 });
@@ -89,17 +98,21 @@ $(document).mouseup(function (e) {
 });
 
 $("#Color_Templates_List").delegate(".color_template_dropdown_item", "click", function () {
+
     $("#Color_Templates_List").find(".color_template_dropdown_item.active").removeClass("active");
     $(this).addClass("active");
     $("#SelectedColorTemplate_Name").html($(this).find(".template-header").text());
     $("#Colors_Panel").find(".main-section").find(".template-text-container").find("h6").html($(this).find(".template-header").text());
     $("#Colors_Panel").find(".main-section").find(".template-text-container").find("p").html($(this).find(".template-desc").text());
-    var parentColorsContainer = $("#Colors_Panel").find(".main-section").find(".colors-container");
+    let parentColorsContainer = $("#Colors_Panel").find(".main-section").find(".colors-container");
+
+    let selectedTemplate = select("#Color_Templates_List .color_template_dropdown_item.active");
+    let colorTemplateId = selectedTemplate.getAttribute("color-template-id");
 
     $.each($(this).find(".colors-container").find(".template-icon-color"), function (index, value) {
-        let themeColorName = value.getAttribute("color-name-icon");
-        $(document).find(".color[color-name='" + themeColorName + "']").css("background-color", $(value).attr("data-color"));
-        $(document).find(".color[color-name='" + themeColorName + "']").attr("data-color", $(value).attr("data-color"));
+        let themeColorName = value.getAttribute("color-name");
+        $(document).find(".main-colors .color[color-name='" + themeColorName + "']").css("background-color", $(value).attr("data-color"));
+        $(document).find(".main-colors .color[color-name='" + themeColorName + "']").attr("data-color", $(value).attr("data-color"));
     });
     parentColorsContainer.find(".color").removeClass("active");
     $("#Color_Templates_List").addClass("d-none").removeClass("d-block");
@@ -107,6 +120,8 @@ $("#Color_Templates_List").delegate(".color_template_dropdown_item", "click", fu
     $('#changeColor').spectrum("destroy");
     $('#changeColor').css("display", "none");
 
+
+    colorTemplate(colorTemplateId).apply();
 });
 
 // Initialize Max char count for trackers
@@ -134,3 +149,19 @@ $("#Colors_Panel").delegate(".control-close-button", "click", function () {
     $("#Colors_Panel").find(".char-tracker").removeClass("text-warning").addClass("text-secondary");
     $("#Colors_Panel").find(".char-tracker").find(".curr-char-count").html(0);
 });
+
+// After a mouseup event is fired anywhere in the document,
+// given the target event and its list of permissible containers,
+// determine, if the click was outside, all such containers
+function detectClickOutside(permittedContainersList, closeFlag, eventTarget) {
+    $.each(permittedContainersList, function (index, value) {
+        if (!value.is(eventTarget) && value.has(eventTarget).length === 0) {
+            closeFlag = (closeFlag & true) == 1 ? true : false;
+        }
+        else {
+            closeFlag = (closeFlag & false) == 1 ? true : false;
+        }
+    });
+    return closeFlag;
+}
+

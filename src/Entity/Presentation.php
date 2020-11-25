@@ -74,7 +74,7 @@ class Presentation
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $colorTemplateId;
+    private $colorTemplateId = 0;
 
     public function __construct()
     {

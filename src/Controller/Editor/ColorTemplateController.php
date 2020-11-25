@@ -13,6 +13,7 @@ use App\Enum\LanguagesEnum;
 use App\Repository\PresentationRepository;
 use App\Repository\SlideRepository;
 use App\Security\PresentationSecurity;
+use App\Service\ColorTemplateService;
 use App\Service\FlaskService;
 use App\Service\PresentationService;
 use App\Service\SlideService;
@@ -29,15 +30,25 @@ use Symfony\Component\Serializer\Serializer;
 class ColorTemplateController extends AbstractController
 {
     /**
-     * @Route("/add",methods={"POST"})
+     * @Route("/add", methods={"POST"})
      */
-    public function addColorTemplate(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
+    public function addColorTemplate(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, ColorTemplateService $colorTemplateService)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+        $r = $colorTemplateService->addColorTemplate($this->getUser(), $request);
+        return new JsonResponse($r);
+    }
+
+    /**
+     * @Route("/update", methods={"POST"})
+     */
+    public function updateColorTemplate(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, ColorTemplateService $colorTemplateService)
     {
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $r = $presentationService->addColorTemplate($this->getUser(), $request);
-
+        $r = $colorTemplateService->updateColorTemplate($request);
         return new JsonResponse($r);
     }
 }

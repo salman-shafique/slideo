@@ -1,5 +1,5 @@
 <h6 class="text-light small-top-margin small-bottom-margin centered-contents single-line">{% trans %}Design Colors{% endtrans %}</h6>
-<div class="colors-container">
+<div class="colors-container main-colors">
   {% set template = constant('App\\Enum\\ColorTemplatesEnum::TEMPLATES')['LIGHT'] %}
   {% for color_name in constant('App\\Enum\\ColorTemplatesEnum::COLOR_NAMES') %}
     <div class="color" color-name="{{color_name}}" style="background-color: {{ template[color_name] }}" data-color="{{ template[color_name] }}"></div>
@@ -7,6 +7,6 @@
 </div>
 
 <div class="template-text-container">
-  <h6 class="text-light small-top-margin small-bottom-margin">{{ template.name | trans }}</h6>
+  <h6 class="text-light small-top-margin small-bottom-margin">{{ template.title | trans }}</h6>
   <p class="text-light no-margin">{{ template.description | trans }}</p>
 </div>

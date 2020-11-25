@@ -9,22 +9,24 @@ export default function shape(slideId, shapeId) {
     this.slideId = slideId;
     this.shapeId = shapeId;
 
-    this.data = function () {
+    this.data = () => {
         let shapeData;
-        slide(this.slideId).slideData.shapes.forEach(shape => {
+        slide(this.slideId).slideData().shapes.forEach(shape => {
             if (shape.data.shape_id == this.shapeId)
                 shapeData = shape.data;
         });
         return shapeData;
     }
 
-    this.el = function () {
-        return slide(this.slideId).documentElement().querySelector("g[shape_id='" + this.shapeId + "']");
-    }
+    this.el = () => slide(this.slideId).documentElement().querySelector("g[shape_id='" + this.shapeId + "']");
 
     this.remove = function () {
-        if(this.el())
+        if (this.el()) {
             this.el().remove();
+            this.data().active = false;
+        }
     }
+
+
 }
 

@@ -13,6 +13,6 @@ export default function updateThemeColors(colors = {
     TEXT_2: "",
 }, selector = "") {
 
-
+    console.log(arguments);
 
 }

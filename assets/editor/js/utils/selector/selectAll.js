@@ -1,4 +1,5 @@
 
-export default function selectAll(selector) {
-    return window.document.querySelectorAll(selector);
+export default function selectAll(selector, parent = null) {
+    if (!parent) parent = window.document;
+    return parent.querySelectorAll(selector);
 }

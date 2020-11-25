@@ -213,17 +213,3 @@ function readImageURL(input, imageDisplay) {
 	}
 }
 
-// After a mouseup event is fired anywhere in the document,
-// given the target event and its list of permissible containers,
-// determine, if the click was outside, all such containers
-function detectClickOutside(permittedContainersList, closeFlag, eventTarget) {
-	$.each(permittedContainersList, function (index, value) {
-		if (!value.is(eventTarget) && value.has(eventTarget).length === 0) {
-			closeFlag = (closeFlag & true) == 1 ? true : false;
-		}
-		else {
-			closeFlag = (closeFlag & false) == 1 ? true : false;
-		}
-	});
-	return closeFlag;
-}
