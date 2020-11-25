@@ -51,7 +51,10 @@ class PresentationService
         $this->em->persist($user);
         $this->em->persist($colorTemplate);
         $this->em->flush();
+
+        $serializer = new SerializerService();
         return [
+            'colorTemplate' => $serializer->normalize($colorTemplate),
             'success' => true,
         ];
     }

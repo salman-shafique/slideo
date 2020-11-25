@@ -381,17 +381,17 @@ body {
 	overflow-y: scroll;
 }
 
-#Color_Templates_List .custom-dropdown-item {
+#Color_Templates_List .color_template_dropdown_item {
 	padding: 8px;
 	cursor: pointer;
 	display: flex;
 }
 
-#Color_Templates_List .custom-dropdown-item:hover {
+#Color_Templates_List .color_template_dropdown_item:hover {
 	background-color: lightgrey;
 }
 
-#Color_Templates_List .custom-dropdown-item.active {
+#Color_Templates_List .color_template_dropdown_item.active {
 	background: linear-gradient(45deg, skyblue, transparent);
 }
 

@@ -1,2 +1,2 @@
 import "./sidebar";
-import "./colors/addNewTemplate";
+import "./colors";

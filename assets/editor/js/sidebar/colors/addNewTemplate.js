@@ -5,6 +5,10 @@ import selectAll from "Editor/js/utils/selector/selectAll";
 import toHex from "./toHex";
 
 
+const addNewTemplate = () =>{
+    // todo
+}
+
 add_event("#newTemplateBtn", "click", function () {
 
     let data = {
@@ -21,7 +25,6 @@ add_event("#newTemplateBtn", "click", function () {
         console.log("Please enter more");
         return;
     }
-    console.log(data);
     apiService({
         url: "/api/editor/colorTemplate/add",
         data: data,

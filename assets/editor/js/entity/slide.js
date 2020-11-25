@@ -139,7 +139,6 @@ export default function slide(slideId) {
                 } else if (shape_.data.alt == "slidetitleimage") {
                     try {
                         keyword = this.slideData.slideTitle.data.keyword;
-                        console.log(this.slideData.slideId, shape_.data.shape_id,keyword);
                         if (!keyword) throw new DOMException();
                         h1Image(this.slideData.slideId, shape_.data.shape_id, keyword);
                     } catch {

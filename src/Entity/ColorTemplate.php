@@ -225,18 +225,6 @@ class ColorTemplate
         return $this;
     }
 
-    public function getPresentation(): ?Presentation
-    {
-        return $this->presentation;
-    }
-
-    public function setPresentation(?Presentation $presentation): self
-    {
-        $this->presentation = $presentation;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
