@@ -9,6 +9,7 @@ use App\Entity\Slide;
 use App\Entity\Style;
 use App\Repository\StyleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 class SlideService
 {
     private $em;
@@ -55,7 +56,7 @@ class SlideService
         foreach ($rawSlides as  $key => $rawSlide) {
 
             $slide = new Slide();
-            $slide->setSlideId(hash("md4", time(), false));
+            $slide->setSlideId(hash("md4", time() + rand(), false));
             $presentation->addSlide($slide);
 
             $slide->setDirection($rawSlide['direction']);

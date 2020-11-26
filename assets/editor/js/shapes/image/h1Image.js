@@ -17,10 +17,13 @@ export default function h1Image(slideId, shapeId, keyword) {
                 "keyword": keyword
             },
             success: (response) => {
-                let shapeData = shape(slideId, shapeId).data();
-                shapeData['image'] = response.serializedShape.data.image;
-                shapeData['images'] = response.serializedShape.data.images;
-                selectH1Image(response.slideId, response.shapeId);
+                if(response.serializedShape){
+                    let shapeData = shape(slideId, shapeId).data();
+                    shapeData['image'] = response.serializedShape.data.image;
+                    shapeData['images'] = response.serializedShape.data.images;
+                    selectH1Image(response.slideId, response.shapeId);
+
+                }
             }
         });
     } else {
