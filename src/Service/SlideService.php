@@ -9,6 +9,7 @@ use App\Entity\Slide;
 use App\Entity\Style;
 use App\Repository\StyleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class SlideService
 {
@@ -19,22 +20,39 @@ class SlideService
         $this->em = $em;
     }
 
+    private function findRandomStyle(int $capacity): ?Style
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('COUNT(s.id)')
+            ->from("App\Entity\Style", "s")
+            ->where('s.isActive = :isActive')
+            ->setParameter(':isActive', true)
+            ->andWhere('s.capacity = :capacity')
+            ->setParameter(':capacity', $capacity);
+
+        $totalRecords = $qb->getQuery()->getSingleScalarResult();
+        if ($totalRecords < 1) return null;
+        $rowToFetch = rand(0, $totalRecords - 1);
+
+        return $qb
+            ->select('s')
+            ->setMaxResults(1)
+            ->setFirstResult($rowToFetch)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function findAndApplyStyle(Slide $slide)
     {
-        /** @var StyleRepository $styleRepository */
-        $styleRepository = $this->em->getRepository(Style::class);
-
-        $style = $styleRepository->findOneBy([
-            'capacity' => count($slide->getSentences()),
-            'isActive' => true
-        ]);
-
+        $style = $this->findRandomStyle(count($slide->getSentences()));
         $slide->setStyle($style);
 
         // Copy shapes
         foreach ($style->getShapes() as $i => $shape) {
             $newShape = new Content();
-            $newShape->setData($shape->getData());
+            $shapeData = $shape->getData();
+            $shapeData['active'] = true;
+            $newShape->setData($shapeData);
             $slide->addShape($newShape);
             $this->em->persist($newShape);
         }
