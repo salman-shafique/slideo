@@ -29,7 +29,7 @@ class StyleService
 
         $styleId = $request->request->get("style_id");
         if (!is_dir("styles/$styleId"))
-            mkdir("styles/$styleId", 777, true);
+            mkdir("styles/$styleId", 0777, true);
 
         file_put_contents("styles/$styleId/$styleId.pptx", $request->request->get('pptxFile'));
         file_put_contents("styles/$styleId/$styleId.svg", $request->request->get('svgFile'));
