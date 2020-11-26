@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Payment;
+namespace App\Service;
 
 use App\Entity\PaypalWebhook;
 use App\Entity\Product;
