@@ -1,7 +1,7 @@
 <?php
 namespace App\Enum;
 
-class CandidateSubscriptionsEnum
+class PricingEnum
 {
     // PLANS
     public const PLAN_MONTHLY_PERSONAL = 'PLAN_MONTHLY_PERSONAL';
