@@ -9,6 +9,9 @@ export default function shape(slideId, shapeId) {
     this.slideId = slideId;
     this.shapeId = shapeId;
 
+    /**
+     * @returns {object} shapeData
+     */
     this.data = () => {
         let shapeData;
         slide(this.slideId).slideData().shapes.forEach(shape => {
@@ -18,6 +21,9 @@ export default function shape(slideId, shapeId) {
         return shapeData;
     }
 
+    /**
+     * @returns {SVGGElement}
+     */
     this.el = () => slide(this.slideId).documentElement().querySelector("g[shape_id='" + this.shapeId + "']");
 
     this.remove = function () {

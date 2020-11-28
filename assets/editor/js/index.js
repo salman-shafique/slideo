@@ -21,3 +21,6 @@ import  "Editor/js/navbar";
 // Editor tools
 import "Editor/js/init";
 
+// Shape actions
+import "Editor/js/shapes/actions/"
+

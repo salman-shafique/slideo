@@ -18,6 +18,10 @@ export default function presentation() {
         return this;
     }
 
+    /**
+     * @param {string} slideId
+     * @returns {object} slideData
+     */
     this.getSlideData = function (slideId) {
 
         let slideData;

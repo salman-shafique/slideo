@@ -10,7 +10,12 @@ const constants = {
         "4": 'justify'
     },
     GOLDEN_RATIO: (1 + Math.sqrt(5)) / 2,
-    IS_CHROME: /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
+    IS_CHROME: /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
+    TRANSFORM: {
+        TRANSLATE: 2,
+        SCALE: 3,
+        ROTATE: 4
+    }
 }
 
 

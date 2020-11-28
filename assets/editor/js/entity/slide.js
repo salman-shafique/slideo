@@ -10,7 +10,8 @@ import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import colorTemplate from "Editor/js/entity/colorTemplate";
-
+import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
+import makeDraggable from "Editor/js/shapes/actions/makeDraggable";
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -21,12 +22,31 @@ export default function slide(slideId) {
     this.object = function () {
         return select(`object.main-container[id="${this.slideId}"]`);
     }
+
+    /**
+     * @returns {HTMLElement}
+     */
     this.objectPrev = function () {
         return select(`.slide-thumbnail[data-slide-id="${this.slideId}"]`);
     }
+    
+    /**
+     * @returns {HTMLObjectElement}
+     */
+    this.objectElement = function () {
+        return select(`object.main-container[id="${this.slideId}"]`);
+    }
+
+    /**
+     * @returns {Document}
+     */
     this.contentDocument = function () {
         return select(`object.main-container[id="${this.slideId}"]`).contentDocument;
     }
+    
+    /**
+     * @returns {HTMLElement}
+     */
     this.documentElement = function () {
         return select(`object.main-container[id="${this.slideId}"]`).contentDocument.documentElement;
     }
@@ -79,81 +99,91 @@ export default function slide(slideId) {
         // Show the loaded slide
         let slideData = this.slideData();
         slideData.shapes.forEach(shape_ => {
-            if (shape_.data.alt && shape_.data.active != false) {
-                let contentNumber, foreignObject, text, direction, g, content;
-                // Built in textboxes
-                if (shape_.data.alt.includes("h1|")) {
-                    try {
-                        contentNumber = shape_.data.alt.split("|")[1];
-                        content = slideData.analyzedContent[contentNumber].h1.data;
-                        shape_.data.text = text = content.text;
-                        direction = content.direction;
-                        Object.assign(shape_.data, content);
-                    } catch {
-                        shape(this.slideId, shape_.data.shape_id).remove();
-                    }
-                } else if (shape_.data.alt.includes("paragraph|")) {
-                    try {
-                        contentNumber = shape_.data.alt.split("|")[1];
-                        content = slideData.analyzedContent[contentNumber].originalSentence.data;
-                        shape_.data.text = text = content.text;
-                        direction = content.direction;
-                        Object.assign(shape_.data, content);
-                        if (text == slideData.analyzedContent[contentNumber].h1.data.text)
-                            // Rm paragraph if it is same as h1
-                            throw new DOMException();
-                    } catch {
-                        shape(this.slideId, shape_.data.shape_id).remove();
-                    }
-                } else if (shape_.data.alt == "slidetitle") {
-                    try {
-                        content = slideData.slideTitle.data;
-                        shape_.data.text = text = content.text;
-                        direction = content.direction;
-                        Object.assign(shape_.data, content);
-                    } catch {
-                        shape(this.slideId, shape_.data.shape_id).remove();
-                    }
-                } else if (shape_.data.alt == "subtitle") {
-                    try {
-                        content = slideData.subTitle.data;
-                        shape_.data.text = text = content.text;
-                        direction = content.direction;
-                        Object.assign(shape_.data, content);
-                    } catch {
-                        shape(this.slideId, shape_.data.shape_id).remove();
-                    }
-                }
-                if (text) {
-                    // Append foreignObjects
-                    g = shape(this.slideId, shape_.data.shape_id).el();
-                    if (g) {
-                        foreignObject = createForeignObject(this.contentDocument(), shape_.data);
-                        arrangeForeignObject(foreignObject, shape_.data, text, direction);
-                        g.innerHTML = "";
-                        g.appendChild(foreignObject);
-                    }
-                }
-                // Built in images
-                let keyword;
-                if (shape_.data.alt.includes("h1image|")) {
-                    contentNumber = shape_.data.alt.split("|")[1];
-                    keyword = slideData.analyzedContent[contentNumber].h1.data.text;
-                    h1Image(this.slideId, shape_.data.shape_id, keyword);
-                } else if (shape_.data.alt == "slidetitleimage") {
-                    try {
-                        keyword = slideData.slideTitle.data.keyword;
-                        if (!keyword) throw new DOMException();
-                        h1Image(this.slideId, shape_.data.shape_id, keyword);
-                    } catch {
-                        shape(this.slideId, shape_.data.shape_id).remove();
-                    }
-                }
+            if (shape_.data.active == false) {
+                shape(this.slideId, shape_.data.shape_id).remove();
+                return;
+            };
 
+            let contentNumber, foreignObject, text, direction, g, content;
+            // Built in textboxes
+            if (shape_.data.alt.includes("h1|")) {
+                try {
+                    contentNumber = shape_.data.alt.split("|")[1];
+                    content = slideData.analyzedContent[contentNumber].h1.data;
+                    shape_.data.text = text = content.text;
+                    direction = content.direction;
+                    Object.assign(shape_.data, content);
+                } catch {
+                    shape(this.slideId, shape_.data.shape_id).remove();
+                }
+            } else if (shape_.data.alt.includes("paragraph|")) {
+                try {
+                    contentNumber = shape_.data.alt.split("|")[1];
+                    content = slideData.analyzedContent[contentNumber].originalSentence.data;
+                    shape_.data.text = text = content.text;
+                    direction = content.direction;
+                    Object.assign(shape_.data, content);
+                    if (text == slideData.analyzedContent[contentNumber].h1.data.text)
+                        // Rm paragraph if it is same as h1
+                        throw new DOMException();
+                } catch {
+                    shape(this.slideId, shape_.data.shape_id).remove();
+                }
+            } else if (shape_.data.alt == "slidetitle") {
+                try {
+                    content = slideData.slideTitle.data;
+                    shape_.data.text = text = content.text;
+                    direction = content.direction;
+                    Object.assign(shape_.data, content);
+                } catch {
+                    shape(this.slideId, shape_.data.shape_id).remove();
+                }
+            } else if (shape_.data.alt == "subtitle") {
+                try {
+                    content = slideData.subTitle.data;
+                    shape_.data.text = text = content.text;
+                    direction = content.direction;
+                    Object.assign(shape_.data, content);
+                } catch {
+                    shape(this.slideId, shape_.data.shape_id).remove();
+                }
             }
+            if (text) {
+                // Append foreignObjects
+                g = shape(this.slideId, shape_.data.shape_id).el();
+                if (g) {
+                    foreignObject = createForeignObject(this.contentDocument(), shape_.data);
+                    arrangeForeignObject(foreignObject, shape_.data, text, direction);
+                    g.innerHTML = "";
+                    g.appendChild(foreignObject);
+                }
+            }
+
+            // Built in images
+            let keyword;
+            if (shape_.data.alt.includes("h1image|")) {
+                contentNumber = shape_.data.alt.split("|")[1];
+                keyword = slideData.analyzedContent[contentNumber].h1.data.text;
+                h1Image(this.slideId, shape_.data.shape_id, keyword);
+            } else if (shape_.data.alt == "slidetitleimage") {
+                try {
+                    keyword = slideData.slideTitle.data.keyword;
+                    if (!keyword) throw new DOMException();
+                    h1Image(this.slideId, shape_.data.shape_id, keyword);
+                } catch {
+                    shape(this.slideId, shape_.data.shape_id).remove();
+                }
+            }
+
+            // initialize the transform and move
+            initializeG(shape(this.slideId, shape_.data.shape_id).el());
+
         });
+        
         this.display();
         this.cloneToMiniPrev();
+        // Add event listeners
+        makeDraggable(this.contentDocument());
 
         colorTemplate(session.PRESENTATION.colorTemplateId).updateSlideColors(this.slideId);
         return this;

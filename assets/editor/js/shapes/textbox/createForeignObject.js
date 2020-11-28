@@ -7,6 +7,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
     foreignObject.setAttribute("y", positionObj.y);
     foreignObject.setAttribute("width", positionObj.width);
     foreignObject.setAttribute("height", positionObj.height);
+    foreignObject.setAttribute("class", "bounding_box");
 
     // Clone the template
     let contentTemplate = html_to_element(`
