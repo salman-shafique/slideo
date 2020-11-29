@@ -5,59 +5,67 @@
 </button>
 <div id="mainMenu" class="sidenav">
   <a class="navbar-brand" href="{{path('index')}}">Slideo</a>
-  <a href="#">Pricing</a>
-  <a href="#">Login</a>
-  <a href="#">Sign Up</a>
+  {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{path('admin')}}">{% trans %}Dashboard{% endtrans %}</a>
+  {% endif %}
+  <a href="{{path('editor')}}">{% trans %}Editor{% endtrans %}</a>
+  <a href="{{path('pricing')}}">{% trans %}Pricing{% endtrans %}</a>
+  {% if app.user %}
+    <a href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
+  {% else %}
+    <a href="{{path('app_login')}}">{% trans %}Login{% endtrans %}</a>
+    <a href="{{path('app_register')}}">{% trans %}Sign Up{% endtrans %}</a>
+  {% endif %}
+
 </div>
 <nav id="BrandNav" class="navbar navbar-expand-sm container">
   <a class="navbar-brand d-md-flex d-none" href="{{path('index')}}">
     Slideo
   </a>
-
   <ul class="navbar-nav d-md-flex ml-auto d-none">
-    {% if app.user %}
-    <li class="nav-item submenu dropdown">
-
-      <button class="btn nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-        aria-expanded="false">{% trans %}Welcome{% endtrans %}
-        {{app.user.fullname}}
-      </button>
-
-      <ul class="dropdown-menu">
-        {% if is_granted('ROLE_ADMIN') %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('admin') }}">{% trans %}Dashboard{% endtrans %}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('editor') }}">{% trans %}Editor{% endtrans %}</a>
-        </li>
-        {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
-        </li>
-      </ul>
-    </li>
-    {% else %}
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <button class="btn d-md-flex d-none">Pricing</button>
-      </a>
-    </li>
+    {% if is_granted('ROLE_ADMIN') %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('admin')}}">
+          <button class="btn d-md-flex d-none">{% trans %}Dashboard{% endtrans %}
+            🔑</button>
+        </a>
+      </li>
+    {% endif %}
     <li class="nav-item">
       <a class="nav-link" href="{{path('editor')}}">
-        <button class="btn d-md-flex d-none">Editor</button>
+        <button class="btn d-md-flex d-none">
+          {% trans %}
+          Editor
+          {% endtrans %}
+        </button>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{path('app_login')}}">
-        <button class="btn d-md-flex d-none">Login</button>
+      <a class="nav-link" href="{{path('pricing')}}">
+        <button class="btn d-md-flex d-none">
+          {% trans %}
+          Pricing
+          {% endtrans %}
+        </button>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{path('app_register')}}">
-        <button id="loginBtn" class="btn btn-outline-dark d-md-flex d-none">Sign Up</button>
-      </a>
-    </li>
+    {% if app.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('app_logout')}}">
+          <button class="btn d-md-flex d-none">{% trans %}Logout{% endtrans %}</button>
+        </a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('app_login')}}">
+          <button class="btn d-md-flex d-none">{% trans %}Login{% endtrans %}</button>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('app_register')}}">
+          <button id="loginBtn" class="btn btn-outline-dark d-md-flex d-none">{% trans %}Sign Up{% endtrans %}</button>
+        </a>
+      </li>
     {% endif %}
   </ul>
 </nav>

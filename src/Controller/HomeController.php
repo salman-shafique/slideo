@@ -40,4 +40,13 @@ class HomeController extends AbstractController
         } else
             throw $this->createNotFoundException('The language does not exist.');
     }
+
+    /**
+     * @Route("/pricing", name="pricing")
+     */
+    public function pricing()
+    {
+        return $this->render('pricing/index.html.twig');
+    }
+
 }

@@ -1,0 +1,50 @@
+
+.panel-default > .panel-heading {
+    border: 0;
+    background: white;
+    padding: 0;
+}
+
+.panel-heading {
+    border-top: 1px solid rgb(223, 224, 229);
+}
+
+.panel-default .panel-title a {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 120%;
+    color: black;
+    margin: 0px;
+    text-decoration: none;
+}
+.panel-default .panel-title a .svg-inline--fa  {
+    position: absolute;
+    right: 12px;
+    font-size: 25px;
+    transition: 0.25s;
+}
+.panel-default .panel-title a:not(.collapsed) .svg-inline--fa {
+    transform: rotate(180deg);
+}
+.panel-default .panel-body {
+    font-weight: normal;
+    font-size: 0.875rem;
+    line-height: 150%;
+    text-decoration: none;
+}
+
+.FAQ-title {
+    font-size: 2.375rem;
+    line-height: 3rem;
+    padding-left: calc(15px + 1rem);
+}
+.line {
+    padding-top: 1.5rem;
+    border-bottom: 1px solid rgb(223, 224, 229);
+}
+
+@media (min-width: 992px) {
+    .FAQ-title {
+        margin-top: 170px;
+    }
+}
