@@ -12,6 +12,8 @@ import h1Image from "Editor/js/shapes/image/h1Image";
 import colorTemplate from "Editor/js/entity/colorTemplate";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/makeDraggable";
+import selectIcon from "Editor/js/shapes/icon/selectIcon";
+
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -29,7 +31,7 @@ export default function slide(slideId) {
     this.objectPrev = function () {
         return select(`.slide-thumbnail[data-slide-id="${this.slideId}"]`);
     }
-    
+
     /**
      * @returns {HTMLObjectElement}
      */
@@ -43,7 +45,7 @@ export default function slide(slideId) {
     this.contentDocument = function () {
         return select(`object.main-container[id="${this.slideId}"]`).contentDocument;
     }
-    
+
     /**
      * @returns {HTMLElement}
      */
@@ -159,17 +161,25 @@ export default function slide(slideId) {
                 }
             }
 
-            // Built in images
-            let keyword;
-            if (shape_.data.alt.includes("h1image|")) {
+            // Built in images icon - h1 - slidetitle
+            let iconId;
+            if (shape_.data.alt.includes("icon|")) {
+                contentNumber = shape_.data.alt.split("|").pop();
+                content = slideData.analyzedContent[contentNumber].icon.data;
+                Object.assign(shape_.data, content);
+                selectIcon(this.slideId, shape_.data.shape_id);
+
+            } else if (shape_.data.alt.includes("h1image|")) {
                 contentNumber = shape_.data.alt.split("|")[1];
-                keyword = slideData.analyzedContent[contentNumber].h1.data.text;
-                h1Image(this.slideId, shape_.data.shape_id, keyword);
+                content = slideData.analyzedContent[contentNumber].h1.data;
+                Object.assign(shape_.data, content);
+                h1Image(this.slideId, shape_.data.shape_id, content.text);
             } else if (shape_.data.alt == "slidetitleimage") {
                 try {
-                    keyword = slideData.slideTitle.data.keyword;
-                    if (!keyword) throw new DOMException();
-                    h1Image(this.slideId, shape_.data.shape_id, keyword);
+                    content = slideData.slideTitle.data;
+                    if (!content.keyword) throw new DOMException();
+                    Object.assign(shape_.data, content);
+                    h1Image(this.slideId, shape_.data.shape_id, content.keyword);
                 } catch {
                     shape(this.slideId, shape_.data.shape_id).remove();
                 }
@@ -179,7 +189,7 @@ export default function slide(slideId) {
             initializeG(shape(this.slideId, shape_.data.shape_id).el());
 
         });
-        
+
         this.display();
         this.cloneToMiniPrev();
         // Add event listeners

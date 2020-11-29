@@ -6,17 +6,6 @@ icon_class = Icon.Icon()
 def find_icons(analyzed_sentence):
     analyzed_sentence["icon"] = {"icons": []}
     if analyzed_sentence["keywords"]:
-        # Swicth keywords first and second for non-english languages
-        if analyzed_sentence["lang"] != "en":
-            if len(analyzed_sentence["keywords"]) >= 2:
-                (
-                    analyzed_sentence["keywords"][0],
-                    analyzed_sentence["keywords"][1],
-                ) = (
-                    analyzed_sentence["keywords"][1],
-                    analyzed_sentence["keywords"][0],
-                )
-
         for keywords in analyzed_sentence["keywords"]:
             for keyword in keywords:
                 # When found an icon, break
@@ -26,12 +15,12 @@ def find_icons(analyzed_sentence):
 
                 if "icons" in found_icons:
                     for icon in found_icons["icons"]:
-                        analyzed_sentence["icon"]["icons"].append(icon["preview_url"])
+                        analyzed_sentence["icon"]["icons"].append({'url':icon["preview_url"],'id':icon['id']})
 
     # Noting found icon
     if len(analyzed_sentence["icon"]["icons"]) == 0:
         analyzed_sentence["icon"]["icons"] = [
-            "/icons/nothing-found.png/(0,0,0)/nothing-found.png"
+            {'url':"/icons/nothing-found.png/(0,0,0)/nothing-found.png",'id':icon['id']}
         ]
     return analyzed_sentence
 

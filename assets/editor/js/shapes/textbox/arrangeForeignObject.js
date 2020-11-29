@@ -20,7 +20,7 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
         table.style.bottom = "0";
         table.querySelector("td").setAttribute("valign", "bottom");
     }
-    
+
     // Default h-alignment 2 - center - from python
     table.style.textAlign = constants.ALIGNMENTS[shape.alignment];
 
@@ -63,7 +63,7 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
 
     //if()
     if (!shape.text_theme_color)
-        table.style.color = '#' + shape.text_hex;
+        table.style.color = 'rgb(' + shape.text_rgb + ")";
 
     table.querySelector("tr").style.height = Math.round(shape.height) + "px";
 

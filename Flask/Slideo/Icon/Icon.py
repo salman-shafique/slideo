@@ -46,7 +46,7 @@ class Icon(object):
                 return {'error':'Nothing found'}
 
     def change_color(self, args):
-        icons = args["icons"]
+        icon = args["icon"]
         rgb = args["rgb"]
 
         r = rgb[0]
@@ -55,52 +55,47 @@ class Icon(object):
         colorName = "({},{},{})".format(r, g, b)
 
         masterResult = []
-        for icon in icons:
-            iconName = icon["icon_path"].split("/")[-1]
-            blackIconFolder = env.PUBLIC_PATH + "/icons/" + iconName + "/(0,0,0)/"
-            if not os.path.exists(blackIconFolder):
-                os.makedirs(blackIconFolder, exist_ok=True)
-                # Download the icon
-                urllib.request.urlretrieve(
-                    icon["icon_path"], blackIconFolder + iconName
-                )
-
-            # Existing icon
-            coloredIconFolder = (
-                env.PUBLIC_PATH + "/icons/" + iconName + "/" + colorName + "/"
+        
+        iconName = icon["url"].split("/")[-1]
+        blackIconFolder = env.PUBLIC_PATH + "/icons/" + iconName + "/(0,0,0)/"
+        if not os.path.exists(blackIconFolder):
+            os.makedirs(blackIconFolder, exist_ok=True)
+            # Download the icon
+            urllib.request.urlretrieve(
+                icon["url"], blackIconFolder + iconName
             )
 
-            if os.path.exists(coloredIconFolder + iconName):
-                result = {
-                    "coloredIconPath": coloredIconFolder.replace( env.PUBLIC_PATH, "")
-                    + iconName
-                }
-                masterResult.append(result)
-                continue
+        # Existing icon
+        coloredIconFolder = (
+            env.PUBLIC_PATH + "/icons/" + iconName + "/" + colorName + "/"
+        )
 
-            os.makedirs(coloredIconFolder, exist_ok=True)
-
-            im = Image.open(blackIconFolder + iconName)
-            im = im.convert("RGBA")
-            pixdata = im.load()
-            for x in range(0, im.size[0]):
-                for y in range(0, im.size[1]):
-                    rdelta = pixdata[x, y][0] - 0
-                    gdelta = pixdata[x, y][0] - 0
-                    bdelta = pixdata[x, y][0] - 0
-                    if abs(rdelta) <= 15 and abs(gdelta) <= 15 and abs(bdelta) <= 15:
-                        pixdata[x, y] = (
-                            int(r) + rdelta,
-                            int(g) + gdelta,
-                            int(b) + bdelta,
-                            pixdata[x, y][3],
-                        )
-
-            im.save(coloredIconFolder + iconName)
-
-            result = {
-                "coloredIconPath": coloredIconFolder.replace(env.PUBLIC_PATH, "") + iconName
+        if os.path.exists(coloredIconFolder + iconName):
+            return {
+                "url": coloredIconFolder.replace( env.PUBLIC_PATH, "") + iconName
             }
-            masterResult.append(result)
 
-        return masterResult
+        os.makedirs(coloredIconFolder, exist_ok=True)
+
+        im = Image.open(blackIconFolder + iconName)
+        im = im.convert("RGBA")
+        pixdata = im.load()
+        for x in range(0, im.size[0]):
+            for y in range(0, im.size[1]):
+                rdelta = pixdata[x, y][0] - 0
+                gdelta = pixdata[x, y][0] - 0
+                bdelta = pixdata[x, y][0] - 0
+                if abs(rdelta) <= 15 and abs(gdelta) <= 15 and abs(bdelta) <= 15:
+                    pixdata[x, y] = (
+                        int(r) + rdelta,
+                        int(g) + gdelta,
+                        int(b) + bdelta,
+                        pixdata[x, y][3],
+                    )
+
+        im.save(coloredIconFolder + iconName)
+
+        return {
+            "url": coloredIconFolder.replace(env.PUBLIC_PATH, "") + iconName
+        }
+

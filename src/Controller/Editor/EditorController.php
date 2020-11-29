@@ -72,7 +72,8 @@ class EditorController extends AbstractController
     public function call(Request $request, String $className, String $methodName, FlaskService $flaskService)
     {
         // By pass the symfony controllers
-        $response = $flaskService->call($className, $methodName, $request->request->all());
+        $response = array();
+        $response['body'] = $flaskService->call($className, $methodName, $request->request->all());
         $response['request'] = $request->request->all();
         return new JsonResponse($response);
     }
