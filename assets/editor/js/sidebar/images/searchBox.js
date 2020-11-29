@@ -5,9 +5,6 @@ import selectAll from "Editor/js/utils/selector/selectAll";
 import apiService from "Editor/js/utils/apiService";
 import html_to_element from "Editor/js/utils/html_to_element";
 
-
-console.log("box");
-
 add_event(".keyword-search", "keyup", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
         if (clear_text(event.target.value))
@@ -26,10 +23,9 @@ function addToKeywordList(keyword) {
     );
     KeywordsList.prepend(keywordEl);
 
-    add_event(keywordEl.querySelector(".keyword-dismiss"), "click", (event) => {
+    add_event(keywordEl.querySelector("#Images_Panel .keyword-dismiss"), "click", (event) => {
         let keyword = event.target.getAttribute("data-keyword");
         let elementsToHide = selectAll('#Images_Panel *[data-keyword="' + keyword + '"]');
-        console.log(elementsToHide,keyword);
         elementsToHide.forEach(e => e.style.display = "none");
     });
 
@@ -53,3 +49,9 @@ function addToKeywordList(keyword) {
     })
 
 }
+// test
+add_event("#Images_Panel .keyword-dismiss", "click", (event) => {
+    let keyword = event.target.getAttribute("data-keyword");
+    let elementsToHide = selectAll('#Images_Panel *[data-keyword="' + keyword + '"]');
+    elementsToHide.forEach(e => e.style.display = "none");
+});

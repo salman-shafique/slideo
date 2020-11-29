@@ -4,17 +4,45 @@
       <input type="text" class="form-control keyword-search" placeholder="{% trans %}Search all Images{% endtrans %}">
     </div>
     <div id="Keywords_list" class="keywords-list small-top-margin invisible-scrollbar dragscroll">
-
-
+      <div data-keyword="new" class="search-keyword">
+        <span class="keyword-text text-dark">new</span>&emsp;<span class="text-dark keyword-dismiss" data-keyword="new">
+          <i data-keyword="new" class="fas fa-times"></i>
+        </span>
+      </div>
+      <div data-keyword="goal" class="search-keyword">
+        <span class="keyword-text text-dark">goal</span>&emsp;<span class="text-dark keyword-dismiss" data-keyword="goal">
+          <i data-keyword="goal" class="fas fa-times"></i>
+        </span>
+      </div>
+      <div data-keyword="alp" class="search-keyword">
+        <span class="keyword-text text-dark">alp</span>&emsp;<span class="text-dark keyword-dismiss" data-keyword="alp">
+          <i data-keyword="alp" class="fas fa-times"></i>
+        </span>
+      </div>
     </div>
   </div>
   <div class="main-section">
     <div id="sideBarImages" class="images-gallery custom-scrollbar vertical-scroll">
- 
+      <img data-keyword="alp" class="image-item" src="https://images.pexels.com/photos/4275883/pexels-photo-4275883.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="alp" class="image-item" src="https://images.pexels.com/photos/4275889/pexels-photo-4275889.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="alp" class="image-item" src="https://images.pexels.com/photos/461956/pexels-photo-461956.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="alp" class="image-item" src="https://images.pexels.com/photos/4275892/pexels-photo-4275892.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="alp" class="image-item" src="https://images.pexels.com/photos/4275885/pexels-photo-4275885.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="goal" class="image-item" src="https://images.pexels.com/photos/15812/bull-center-bulls-eye-darts-15812.jpg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="goal" class="image-item" src="https://images.pexels.com/photos/1552617/pexels-photo-1552617.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="goal" class="image-item" src="https://images.pexels.com/photos/163444/sport-treadmill-tor-route-163444.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="goal" class="image-item" src="https://images.pexels.com/photos/262438/pexels-photo-262438.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="goal" class="image-item" src="https://images.pexels.com/photos/226579/pexels-photo-226579.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="new" class="image-item" src="https://images.pexels.com/photos/733854/pexels-photo-733854.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="new" class="image-item" src="https://images.pexels.com/photos/255483/pexels-photo-255483.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="new" class="image-item" src="https://images.pexels.com/photos/5872378/pexels-photo-5872378.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="new" class="image-item" src="https://images.pexels.com/photos/5757/leaf-spring-leaves-tree-5757.jpg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
+      <img data-keyword="new" class="image-item" src="https://images.pexels.com/photos/315788/pexels-photo-315788.jpeg?auto=compress&amp;fit=crop&amp;w=123&amp;h=60">
     </div>
     <div class="control-overlay-layout closed">
       <i class="fas fa-times control-close-button"></i>
       <div class="vertically-centered no-image-display centered-contents">
+
         <img class="upload-animation" src="/Images/download_anim.gif">
         <h6 class="text-dark small-top-margin small-bottom-margin">{% trans %}Start adding Your Files{% endtrans %}</h6>
         <p class="text-dark">{% trans %}Drag and Drop Ffiles, or Upload files from your Computer{% endtrans %}</p>
