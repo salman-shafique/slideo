@@ -11,6 +11,8 @@ export default function endDrag(event) {
      * @type {SVGGElement} g
      */
     let g = event.target.parentElement;
+    if(!g) return;
+    
     let shapeId = g.getAttribute("shape_id");
 
     if (event.ctrlKey) {

@@ -1,6 +1,13 @@
 import constants from "Editor/js/constants";
 import reduceFontSize from "./reduceFontSize";
 
+/**
+ * 
+ * @param {SVGForeignObjectElement} foreignObject 
+ * @param {object} shape 
+ * @param {string} text 
+ * @param {string} direction 
+ */
 export default function arrangeForeignObject(foreignObject, shape, text, direction) {
     let table = foreignObject.querySelector("table");
 

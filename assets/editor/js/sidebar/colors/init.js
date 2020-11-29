@@ -10,7 +10,8 @@ $("#Colors_Panel").find(".main-section").find(".color").click(function () {
         showPalette: "false",
         showInitial: "true",
         preferredFormat: "hex",
-        chooseText: "Done"
+        chooseText: "Done",
+        showAlpha: false
     });
 
     $("#colorPickerContainer").find(".sp-container").removeClass("sp-clear-enabled");

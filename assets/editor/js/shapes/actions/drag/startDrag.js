@@ -14,6 +14,8 @@ export default function startDrag(event) {
      * @type {SVGGElement} g
      */
     let g = event.target.parentElement;
+    if (!g) return;
+
     let shapeId = g.getAttribute("shape_id");
     if (!g.classList.contains("draggable")) {
         // Deselect all
@@ -27,7 +29,7 @@ export default function startDrag(event) {
         deSelectAll(shapeId)
     }
     updateAllTransforms();
-    
+
     session.SHAPE_STATE = "DRAGGING";
     session.SAVED_MOUSE_POS = getMousePosition(event);
 

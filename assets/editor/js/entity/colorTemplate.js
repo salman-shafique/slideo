@@ -3,7 +3,7 @@ import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import selectAll from "Editor/js/utils/selector/selectAll";
-
+import updateColor from "Editor/js/shapes/actions/color/updateColor";
 
 export default function colorTemplate(colorTemplateId) {
     if (!(this instanceof colorTemplate)) return new colorTemplate(...arguments);
@@ -47,23 +47,41 @@ export default function colorTemplate(colorTemplateId) {
         if (!aSlide) aSlide = slide(slideId).slideData();
 
         let documentElement = slide(slideId).documentElement();
-        Object.keys(colors).forEach(colorName => {
-            let selector = 'g.SlideGroup g.Page g[fill_theme_color^="' + colorName + '"]';
 
-            //selector = selector.substring(0, selector.length - 1);
-            let gs = selectAll(selector, documentElement);
-            if (gs.length > 0) {
-                let color = colors[colorName];
-                gs.forEach((g) => this.changeShapeColor(g, color));
+        Object.keys(colors).forEach(colorName => {
+            let color = colors[colorName];
+            /**
+             * @type {Array<SVGGElement>} gs
+             */
+            let gs;
+            // fill_theme_color
+            gs = selectAll("g.SlideGroup g.Page g[fill_theme_color^='" + colorName + "']:not(.Background)", documentElement);
+            gs.forEach((g) => updateColor(g).fillThemeColor(color));
+
+            // fill_gradient_stop_0
+            gs = selectAll("g.SlideGroup g.Page g[fill_gradient_stop_0^='" + colorName + "']:not(.Background)", documentElement);
+            gs.forEach((g) => updateColor(g).fillGradientStop0(color));
+
+            // fill_gradient_stop_1
+            gs = selectAll("g.SlideGroup g.Page g[fill_gradient_stop_1^='" + colorName + "']:not(.Background)", documentElement);
+            gs.forEach((g) => updateColor(g).fillGradientStop1(color));
+
+            // Background
+            /**
+             * @type {SVGGElement} background
+             */
+            let background = select("g.SlideGroup g.Page g.Background", documentElement);
+            if (background) {
+                updateColor(background).background(colorName, color);
             }
+
+            // text_theme_color
+            gs = selectAll("g.SlideGroup g.Page g[text_theme_color^='" + colorName + "']:not(.Background)", documentElement);
+            gs.forEach((g) => updateColor(g).fillText(color));
+
         });
     }
 
-    this.changeShapeColor = (g, color) => {
-        if(g.getAttribute("fill_theme_color")){
-            let path = g.querySelector("g[id]>path");
-            path.style.fill = color;   
-        }
-    }
+
 }
 

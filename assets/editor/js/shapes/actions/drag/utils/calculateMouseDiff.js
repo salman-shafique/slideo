@@ -7,8 +7,14 @@ import getMousePosition from "./getMousePosition";
  */
 export default function calculateMouseDiff(event) {
     let currentPos = getMousePosition(event);
-    return {
-        x: currentPos.x - session.SAVED_MOUSE_POS.x,
-        y: currentPos.y - session.SAVED_MOUSE_POS.y
-    };
+    if (currentPos)
+        return {
+            x: currentPos.x - session.SAVED_MOUSE_POS.x,
+            y: currentPos.y - session.SAVED_MOUSE_POS.y
+        };
+    else
+        return {
+            x: 0,
+            y: 0
+        };
 }
