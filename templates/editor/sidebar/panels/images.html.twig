@@ -1,81 +1,35 @@
+<div id="Images_Panel" class="action-panel collapse">
+  <div class="search-section">
+    <div class="input-group">
+      <input type="text" class="form-control keyword-search" placeholder="{% trans %}Search all Images{% endtrans %}">
+    </div>
+    <div id="Keywords_list" class="keywords-list small-top-margin invisible-scrollbar dragscroll">
 
-				<div id="Images_Panel" class="action-panel collapse">
-					<div class="search-section">
-						<div class="input-group">
-							<input type="text" class="form-control keyword-search" placeholder="{% trans %}Search all Images{% endtrans %}">
-							<div class="input-group-append">
-								<span class="input-group-text search-click"><i class="fas fa-search"></i></span>
-							</div>
-						</div>
-						<div id="Keywords_list" class="keywords-list small-top-margin invisible-scrollbar dragscroll">
-							<div class="search-keyword">
-								<span class="keyword-text text-dark">Mountains</span>&emsp;
-								<span class="text-dark keyword-dismiss m-auto"><i class="fas fa-times"></i></span>
-							</div>
-							<div class="search-keyword">
-								<span class="keyword-text text-dark">house</span>&emsp;
-								<span class="text-dark keyword-dismiss m-auto"><i class="fas fa-times"></i></span>
-							</div>
-							<div class="search-keyword">
-								<span class="keyword-text text-dark">Cat</span>&emsp;
-								<span class="text-dark keyword-dismiss m-auto"><i class="fas fa-times"></i></span>
-							</div>
-							<div class="search-keyword">
-								<span class="keyword-text text-dark">coffee</span>&emsp;
-								<span class="text-dark keyword-dismiss m-auto"><i class="fas fa-times"></i></span>
-							</div>
-							<div class="search-keyword">
-								<span class="keyword-text text-dark">Laptop</span>&emsp;
-								<span class="text-dark keyword-dismiss m-auto"><i class="fas fa-times"></i></span>
-							</div>
-						</div>
-					</div>
-					<div class="main-section">
-						<div class="images-gallery custom-scrollbar vertical-scroll">
-							<img class="image-item" src="/Images/Slides/ppt1.jpg">
-							<img class="image-item" src="/Images/Slides/ppt2.jpg">
-							<img class="image-item" src="/Images/Slides/ppt3.jpg">
-							<img class="image-item" src="/Images/Slides/ppt4.jpg">
-							<img class="image-item" src="/Images/Slides/ppt5.jpg">
-							<img class="image-item" src="/Images/PDFAnalyserBG.jpg">
-							<img class="image-item" src="/Images/Slides/ppt1.jpg">
-							<img class="image-item" src="/Images/Slides/ppt2.jpg">
-							<img class="image-item" src="/Images/Slides/ppt3.jpg">
-							<img class="image-item" src="/Images/Slides/ppt4.jpg">
-							<img class="image-item" src="/Images/Slides/ppt5.jpg">
-							<img class="image-item" src="/Images/PDFAnalyserBG.jpg">
-							<img class="image-item" src="/Images/Slides/ppt1.jpg">
-							<img class="image-item" src="/Images/Slides/ppt2.jpg">
-							<img class="image-item" src="/Images/Slides/ppt3.jpg">
-							<img class="image-item" src="/Images/Slides/ppt4.jpg">
-							<img class="image-item" src="/Images/Slides/ppt5.jpg">
-							<img class="image-item" src="/Images/PDFAnalyserBG.jpg">
-							<img class="image-item" src="/Images/Slides/ppt1.jpg">
-							<img class="image-item" src="/Images/Slides/ppt2.jpg">
-							<img class="image-item" src="/Images/Slides/ppt3.jpg">
-							<img class="image-item" src="/Images/Slides/ppt4.jpg">
-							<img class="image-item" src="/Images/Slides/ppt5.jpg">
-							<img class="image-item" src="/Images/PDFAnalyserBG.jpg">
-						</div>
-						<div class="control-overlay-layout closed">
-							<i class="fas fa-times control-close-button"></i>
-							<div class="vertically-centered no-image-display centered-contents">
-								<img class="upload-animation" src="/Images/download_anim.gif">
-								<h6 class="text-dark small-top-margin small-bottom-margin">{% trans %}Start adding Your Files{% endtrans %}</h6>
-								<p class="text-dark">{% trans %}Drag and Drop Ffiles, or Upload files from your Computer{% endtrans %}</p>
-								<button id="UploadFirstCustomImage" class="btn btn-primary btn-sm default-button horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
-							</div>
-							<div class="custom-image-display centered-contents collapse">
-								<h6 id="Custom_Images_Header" class="text-dark small-bottom-margin single-line">{% trans %}My Images{% endtrans %}</h6>
-								<button id="UploadCustomImage" class="btn btn-primary btn-sm default-button small-bottom-margin horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
-								<div class="images-gallery custom-scrollbar vertical-scroll">
-								</div>
-							</div>
-						</div>
-						<div class="backdrop-overlay-layout collapse"></div>
-					</div>
-					<div class="control-section">
-						<button class="btn btn-primary btn-sm btn-full control-button horizontal-text-clip">{% trans %}MY IMAGES{% endtrans %}</button>
-						<button class="btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip">{% trans %}CANCEL{% endtrans %}</button>
-					</div>
-				</div>
+
+    </div>
+  </div>
+  <div class="main-section">
+    <div id="sideBarImages" class="images-gallery custom-scrollbar vertical-scroll">
+ 
+    </div>
+    <div class="control-overlay-layout closed">
+      <i class="fas fa-times control-close-button"></i>
+      <div class="vertically-centered no-image-display centered-contents">
+        <img class="upload-animation" src="/Images/download_anim.gif">
+        <h6 class="text-dark small-top-margin small-bottom-margin">{% trans %}Start adding Your Files{% endtrans %}</h6>
+        <p class="text-dark">{% trans %}Drag and Drop Ffiles, or Upload files from your Computer{% endtrans %}</p>
+        <button id="UploadFirstCustomImage" class="btn btn-primary btn-sm default-button horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
+      </div>
+      <div class="custom-image-display centered-contents collapse">
+        <h6 id="Custom_Images_Header" class="text-dark small-bottom-margin single-line">{% trans %}My Images{% endtrans %}</h6>
+        <button id="UploadCustomImage" class="btn btn-primary btn-sm default-button small-bottom-margin horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
+        <div class="images-gallery custom-scrollbar vertical-scroll"></div>
+      </div>
+    </div>
+    <div class="backdrop-overlay-layout collapse"></div>
+  </div>
+  <div class="control-section">
+    <button class="btn btn-primary btn-sm btn-full control-button horizontal-text-clip">{% trans %}MY IMAGES{% endtrans %}</button>
+    <button class="btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip">{% trans %}CANCEL{% endtrans %}</button>
+  </div>
+</div>

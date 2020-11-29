@@ -1,4 +1,9 @@
 
+/**
+ * 
+ * @param {string} text 
+ * @returns {?string}
+ */
 export default function clear_text(text) {
     if (!text) return null;
     text = text.replace(/[•¡§·]/g, "").trim();

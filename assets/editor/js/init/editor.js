@@ -67,22 +67,6 @@ jQuery(function () {
 		$(this).closest(".action-panel").find(".backdrop-overlay-layout").addClass("collapse");
 	});
 
-	$("body").delegate(".keyword-dismiss", "click", function () {
-		$(this).closest(".search-keyword").remove();
-	});
-
-	$(".keyword-search").on('keyup', function (e) {
-		if (e.key === 'Enter' || e.keyCode === 13) {
-			addKeywordToList($(this).closest(".action-panel").find(".keywords-list"), $(this).val());
-			$(this).val("");
-		}
-	});
-
-	$(".search-click").click(function () {
-		addKeywordToList($(this).closest(".action-panel").find(".keywords-list"), $(this).closest(".action-panel").find(".keyword-search").val());
-		$(this).closest(".action-panel").find(".keyword-search").val("");
-	});
-
 	$("#UploadFirstCustomImage").click(function () {
 		$("#CommonImageInput").trigger("click");
 		bgUpload = false;
@@ -170,17 +154,6 @@ jQuery(function () {
 		}
 	});
 });
-
-function addKeywordToList(listSelector, KeywordText) {
-	if (KeywordText && $(listSelector) && $(listSelector).length >= 0) {
-		$(listSelector).prepend(
-			'<div class="search-keyword">' +
-			'<span class="keyword-text text-dark">' + KeywordText + '</span>&emsp;' +
-			'<span class="text-dark keyword-dismiss"><i class="fas fa-times"></i></span>' +
-			'</div>'
-		);
-	}
-}
 
 function addNewCustomImage(gallerySelector, imageURL) {
 	$(gallerySelector).append(
