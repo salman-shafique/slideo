@@ -13,6 +13,8 @@ import colorTemplate from "Editor/js/entity/colorTemplate";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/makeDraggable";
 import selectIcon from "Editor/js/shapes/icon/selectIcon";
+import showDesignsByCapacity from "Editor/js/sidebar/designs/showDesignsByCapacity";
+
 
 
 export default function slide(slideId) {
@@ -210,6 +212,7 @@ export default function slide(slideId) {
         });
         this.object().style.display = "";
 
+        showDesignsByCapacity(this.slideData().sentences.length)
         return this;
     }
 
