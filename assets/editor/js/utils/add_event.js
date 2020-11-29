@@ -1,3 +1,9 @@
+/**
+ * 
+ * @param {string | HTMLOrSVGElement} selector 
+ * @param {Event} type 
+ * @param {Function} callback 
+ */
 export default function add_event(selector, type, callback) {
     let elements;
     if (typeof selector == "string")

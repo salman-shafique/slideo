@@ -77,6 +77,7 @@ export default function slide(slideId) {
         add_event(miniPrev, "click", function () {
             slide(this.dataset.slideId).display();
         });
+
         document.getElementById("slides_preview").appendChild(miniPrev);
 
         let mainHtml = `
@@ -217,10 +218,21 @@ export default function slide(slideId) {
     }
 
     this.cloneToMiniPrev = () => {
-        let clone = this.contentDocument().querySelector("svg").cloneNode(true);
-        clone.id = "";
-        document.getElementById("prev_" + this.slideId).contentDocument.querySelector("svg").remove();
-        document.getElementById("prev_" + this.slideId).contentDocument.appendChild(clone);
+
+        if (document.getElementById("prev_" + slideId).contentDocument.querySelector("svg")) {
+            let clone = this.contentDocument().querySelector("svg").cloneNode(true);
+            clone.id = "";
+            document.getElementById("prev_" + this.slideId).contentDocument.querySelector("svg").remove();
+            document.getElementById("prev_" + this.slideId).contentDocument.appendChild(clone);
+        } else {
+            add_event(document.getElementById("prev_" + this.slideId), "load", function () {
+                let slideId = this.getAttirbute("id").split("_")[1];
+                let clone = slide(slideId).contentDocument().querySelector("svg").cloneNode(true);
+                clone.id = "";
+                document.getElementById("prev_" + slideId).contentDocument.querySelector("svg").remove();
+                document.getElementById("prev_" + slideId).contentDocument.appendChild(clone);
+            })
+        }
     }
 
 }
