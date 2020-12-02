@@ -9,7 +9,8 @@ if [ "$start_server" == "" ]; then
 fi;
 
 echo "Starting Python servers..."
-python3.7 -u /var/www/app/Flask/app.py &
+cd /var/www/app/Flask;
+gunicorn --bind 0.0.0.0:8080 --timeout 120 --workers 4 app:app & ;
 echo "Starting Python servers... Completed"
 
 symfony server:log 

@@ -1,5 +1,6 @@
 spacy
 Flask
+gunicorn
 requests
 argparse
 google-cloud-translate==2.0.1
