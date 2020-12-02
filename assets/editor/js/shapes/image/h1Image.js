@@ -2,7 +2,7 @@ import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import selectH1Image from "Editor/js/shapes/image/selectH1Image";
 import apiService from "Editor/js/utils/apiService";
-
+import appendImages from "Editor/js/sidebar/images/appendImages";
 
 
 export default function h1Image(slideId, shapeId, keyword) {
@@ -16,15 +16,16 @@ export default function h1Image(slideId, shapeId, keyword) {
                 "keyword": keyword
             },
             success: (response) => {
-                if(response.success){
+                if (response.success) {
                     let shapeData = shape(slideId, shapeId).data();
-                    shapeData.image = response.image;
-                    selectH1Image(response.slideId, response.shapeId, response.image);
+                    shapeData.image = response.images[0];
+                    selectH1Image(response.slideId, response.shapeId, response.images[0]);
+                    appendImages(response.images, response.keyword);
                 }
             }
         });
     } else {
-        selectH1Image(slideId, shapeId,shapeData.image);
+        selectH1Image(slideId, shapeId, shapeData.image);
     }
 
 }

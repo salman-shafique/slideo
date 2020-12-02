@@ -1,7 +1,7 @@
 import session from "Editor/js/session";
 import shape from "Editor/js/entity/shape";
 import sidebar from "Editor/js/entity/sidebar";
-import { addToKeywordList } from "Editor/js/sidebar/images/searchBox";
+import { addToImagesBar } from "Editor/js/sidebar/images/searchBox";
 
 /**
  * 
@@ -13,5 +13,5 @@ export default function selectImageElement(event) {
     let shape_ = shape(session.CURRENT_SLIDE, shapeId);
     let shapeData = shape_.data();
     sidebar().open("Images_Tool");
-    addToKeywordList(shapeData.text);
+    addToImagesBar(shapeData.text);
 }

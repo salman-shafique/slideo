@@ -3,45 +3,27 @@ import clear_text from "Editor/js/utils/clear_text";
 import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import apiService from "Editor/js/utils/apiService";
-import html_to_element from "Editor/js/utils/html_to_element";
 import toggleKeyword from "./toggleKeyword";
-import removeKeyword from "./removeKeyword";
+import appendImages from "./appendImages";
+import appendKeyword from "./appendKeyword";
 
 add_event(".keyword-search", "keyup", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
         if (clear_text(event.target.value))
-            addToKeywordList(clear_text(event.target.value));
+            addToImagesBar(clear_text(event.target.value));
         event.target.value = "";
     }
 })
 
-export function addToKeywordList(keyword) {
+export function addToImagesBar(keyword) {
+    keyword = clear_text(keyword);
+    if (!keyword) return;
     // Check if the keyword exists
     if (select('#Images_Panel div[data-keyword="' + keyword + '"].search-keyword')) {
         toggleKeyword(keyword);
         return;
     }
-
-    let KeywordsList = select("#Keywords_list");
-    let keywordEl = html_to_element(
-        '<div data-keyword="' + keyword + '" class="search-keyword active">' +
-        '<span data-keyword="' + keyword + '" class="keyword-text text-dark">' + keyword + '</span>&emsp;' +
-        '<span class="text-dark keyword-dismiss" data-keyword="' + keyword + '"><i data-keyword="' + keyword + '" class="fas fa-times"></i></span>' +
-        '</div>'
-    );
-    KeywordsList.prepend(keywordEl);
-
-    // Toggle
-    add_event(keywordEl.querySelector(".keyword-text"), "click", function () {
-        let keyword = this.getAttribute("data-keyword");
-        toggleKeyword(keyword);
-    });
-
-    // Remove
-    add_event(keywordEl.querySelector(".keyword-dismiss"), "click", (event) => {
-        let keyword = event.target.getAttribute("data-keyword");
-        removeKeyword(keyword);
-    });
+    appendKeyword(keyword);
 
     apiService({
         "url": "/api/call/Pexels/find_images",
@@ -50,17 +32,7 @@ export function addToKeywordList(keyword) {
             "per_page": 20
         },
         "success": (response) => {
-            if (response.body.length > 0) {
-                let sideBarImages = select("#sideBarImages");
-                response.body.forEach(imageData => {
-                    let image = html_to_element(
-                        '<img data-keyword="' + response.request.keyword + '" class="image-item" src="' + imageData.url + '?auto=compress&fit=crop&w=123&h=60"></img>'
-                    );
-                    sideBarImages.prepend(image);
-                    toggleKeyword(response.request.keyword);
-                    select("#sideBarImagesEmpty").style.display = "none";
-                });
-            }
+            appendImages(response.body, response.request.keyword);
         }
     })
 

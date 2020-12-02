@@ -27,14 +27,13 @@ class ImageService
             }
         }
         if ($slide) {
-            $images = $this->flaskService->call("Pexels", "find_images", ['keyword' => $request->request->get("keyword"),"per_page"=>1]);
+            $images = $this->flaskService->call("Pexels", "find_images", ['keyword' => $request->request->get("keyword"),"per_page"=>20]);
 
-            $image = null;
             foreach ($slide->getShapes() as $shape)
                 if (isset($shape->getData()['shape_id']))
                     if ($shape->getData()['shape_id'] == $request->request->get("shapeId")) {
                         $data =  $shape->getData();
-                        $image = $data['image'] = $images[0];
+                        $data['image'] = $images[0];
                         $shape->setData($data);
                         $this->em->persist($shape);
                         break;
@@ -45,7 +44,7 @@ class ImageService
             return array_merge(
                 [
                     'success' => true,
-                    'image' => $image,
+                    'images' => $images,
                 ],
                 $request->request->all()
             );
