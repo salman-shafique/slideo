@@ -12,9 +12,10 @@ import h1Image from "Editor/js/shapes/image/h1Image";
 import colorTemplate from "Editor/js/entity/colorTemplate";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/makeDraggable";
-import selectIcon from "Editor/js/shapes/icon/selectIcon";
+import iconInit from "Editor/js/shapes/icon/iconInit";
 import showDesignsByCapacity from "Editor/js/sidebar/designs/showDesignsByCapacity";
 import selectImageElement from "Editor/js/shapes/image/selectImageElement";
+import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 
 
 export default function slide(slideId) {
@@ -169,14 +170,16 @@ export default function slide(slideId) {
                 contentNumber = shape_.data.alt.split("|").pop();
                 content = slideData.analyzedContent[contentNumber].icon.data;
                 Object.assign(shape_.data, content);
-                selectIcon(this.slideId, shape_.data.shape_id);
+                iconInit(this.slideId, shape_.data.shape_id,content.keyword );
+                // Add event listener
+                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectIconElement);
             } else if (shape_.data.alt.includes("h1image|")) {
                 contentNumber = shape_.data.alt.split("|")[1];
                 content = slideData.analyzedContent[contentNumber].h1.data;
                 Object.assign(shape_.data, content);
                 h1Image(this.slideId, shape_.data.shape_id, content.text);
                 // Add event listener
-                shape(this.slideId, shape_.data.shape_id).addEvent("click",selectImageElement);
+                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
 
             } else if (shape_.data.alt == "slidetitleimage") {
                 try {

@@ -14,7 +14,7 @@ export default function appendImages(images, keyword) {
             '<img data-keyword="' + keyword + '" class="image-item" src="' + imageData.url + '?auto=compress&fit=crop&w=123&h=60"></img>'
         );
         sideBarImages.prepend(image);
-        toggleKeyword(keyword);
-        select("#sideBarImagesEmpty").style.display = "none";
     });
+    toggleKeyword(keyword);
+    select("#sideBarImagesEmpty").style.display = "none";
 }

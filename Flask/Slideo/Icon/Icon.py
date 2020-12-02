@@ -13,37 +13,59 @@ from ..Translator import Translator
 
 class Icon(object):
     def __init__(self):
-        self.auth = OAuth1(env.THENOUNPROJECT_KEY,env.THENOUNPROJECT_SECRET)
+        self.auth = OAuth1(env.THENOUNPROJECT_KEY, env.THENOUNPROJECT_SECRET)
         self.translator = Translator.Translator()
 
-    def thenounproject_call(self,keyword,limit,limit_to_public_domain):
-     
+    def thenounproject_call(self, keyword, limit, limit_to_public_domain):
+
         endpoint = "http://api.thenounproject.com/icons/{}?limit={}&limit_to_public_domain={}".format(
-            keyword,
-            limit,
-            limit_to_public_domain
+            keyword, limit, limit_to_public_domain
         )
 
         return requests.get(endpoint, auth=self.auth)
 
-    def find_icons(self,args):
-        if not 'limit' in args:
-            args['limit'] = 20
-        if not 'limit_to_public_domain' in args:
-            args['limit_to_public_domain'] = 0
-        
-        response = self.thenounproject_call(args['keyword'],args['limit'],args['limit_to_public_domain'])
-   
+    def simplify_icons(self, response):
+        master_tmp = []
+        for icon in response["icons"]:
+            tmp = {
+                "id": icon["id"],
+                "url": icon["preview_url"],
+                "uploader_id": icon["uploader_id"],
+                "rgb": "0 0 0"
+            }
+            master_tmp.append(tmp)
+        return master_tmp
+
+    def find_icons(self, args):
+        if not "limit" in args:
+            args["limit"] = 20
+        if not "limit_to_public_domain" in args:
+            args["limit_to_public_domain"] = 0
+
+        response = self.thenounproject_call(
+            args["keyword"], args["limit"], args["limit_to_public_domain"]
+        )
+
         if response.status_code == 200:
-            return json.loads(response.text)
+            return self.simplify_icons(json.loads(response.text))
         else:
             # Translate back
-            translated_keyword = self.translator.translate({'sentence':args['keyword']})['translatedText']
-            response = self.thenounproject_call(translated_keyword,args['limit'],args['limit_to_public_domain'])
+            translated_keyword = self.translator.translate(
+                {"sentence": args["keyword"]}
+            )["translatedText"]
+            response = self.thenounproject_call(
+                translated_keyword, args["limit"], args["limit_to_public_domain"]
+            )
             if response.status_code == 200:
-                return json.loads(response.text)
+                return self.simplify_icons(json.loads(response.text))
             else:
-                return {'error':'Nothing found'}
+                return [
+                    {
+                        "url": "/icons/nothing-found.png/(0,0,0)/nothing-found.png",
+                        "id": 0,
+                        "rgb": "0 0 0"
+                    }
+                ]
 
     def change_color(self, args):
         icon = args["icon"]
@@ -55,15 +77,13 @@ class Icon(object):
         colorName = "({},{},{})".format(r, g, b)
 
         masterResult = []
-        
+
         iconName = icon["url"].split("/")[-1]
         blackIconFolder = env.PUBLIC_PATH + "/icons/" + iconName + "/(0,0,0)/"
         if not os.path.exists(blackIconFolder):
             os.makedirs(blackIconFolder, exist_ok=True)
             # Download the icon
-            urllib.request.urlretrieve(
-                icon["url"], blackIconFolder + iconName
-            )
+            urllib.request.urlretrieve(icon["url"], blackIconFolder + iconName)
 
         # Existing icon
         coloredIconFolder = (
@@ -71,9 +91,7 @@ class Icon(object):
         )
 
         if os.path.exists(coloredIconFolder + iconName):
-            return {
-                "url": coloredIconFolder.replace( env.PUBLIC_PATH, "") + iconName
-            }
+            return {"url": coloredIconFolder.replace(env.PUBLIC_PATH, "") + iconName}
 
         os.makedirs(coloredIconFolder, exist_ok=True)
 
@@ -95,7 +113,4 @@ class Icon(object):
 
         im.save(coloredIconFolder + iconName)
 
-        return {
-            "url": coloredIconFolder.replace(env.PUBLIC_PATH, "") + iconName
-        }
-
+        return {"url": coloredIconFolder.replace(env.PUBLIC_PATH, "") + iconName}

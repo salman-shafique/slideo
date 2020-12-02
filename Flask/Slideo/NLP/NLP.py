@@ -149,9 +149,6 @@ class NLP(object):
 
             analyzed_sentences = self.analyze({"sentences": raw_slide["sentences"]})
 
-            # Find icons
-            for analyzed_sentence in analyzed_sentences:
-                analyzed_sentence = PrepareSlides.find_icons(analyzed_sentence)
             args["slides"][i]["analyzed_content"] = analyzed_sentences
 
             # Simplify

@@ -259,6 +259,10 @@ body {
 	box-shadow: 0 0 8px 1px white;
 }
 
+#sideBarIcons .icon-item{
+	
+}
+
 .remove-slide {
 	opacity: 0.6;
 	position: absolute;
@@ -543,9 +547,18 @@ body {
 	margin: 4px;
 	flex: 0 1 calc(50% - 8px);
 	max-width: calc(50% - 8px);
-	height: 60px;
 	transition: 0.3s;
 	cursor: pointer;
+}
+
+#sideBarIconsEmpty{
+	color: white;
+	text-align: center;
+	font-size: x-large;
+}
+.icon-item{
+	cursor: pointer;
+
 }
 
 #Custom_Images_Header {

@@ -17,7 +17,7 @@ export default function h1Image(slideId, shapeId, keyword) {
             },
             success: (response) => {
                 if (response.success) {
-                    let shapeData = shape(slideId, shapeId).data();
+                    let shapeData = shape(response.slideId, response.shapeId).data();
                     shapeData.image = response.images[0];
                     selectH1Image(response.slideId, response.shapeId, response.images[0]);
                     appendImages(response.images, response.keyword);

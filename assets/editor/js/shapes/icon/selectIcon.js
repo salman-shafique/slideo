@@ -5,24 +5,18 @@ import changeIconColor from "./changeIconColor";
  * 
  * @param {string} slideId 
  * @param {string} shapeId 
- * @param {string} iconId 
+ * @param {{id:string,url:string,uploader_id:string}} icon
  */
-export default function selectIcon(slideId, shapeId, iconId = null) {
+export default function selectIcon(slideId, shapeId, icon = null) {
     let shape_ = shape(slideId, shapeId);
     let shapeData = shape_.data();
 
-    if (!iconId)
-        iconId = shapeData.icon.id;
+    if (icon)
+        shapeData.icon = icon;
 
-    let icon;
-    shapeData.icons.forEach(icon_ => {
-        if (icon_.id == iconId)
-            icon = icon_;
-    });
-
-    if (icon.rgb != shapeData.rgb)
-        changeIconColor(slideId, shapeId, iconId, shapeData.rgb)
+    if (shapeData.icon.rgb != shapeData.rgb)
+        changeIconColor(slideId, shapeId, shapeData.icon, shapeData.rgb)
 
     let image = shape_.el().querySelector("image");
-    image.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", icon.url);
+    image.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", shapeData.icon.url);
 }

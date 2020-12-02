@@ -4,35 +4,35 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import apiService from "Editor/js/utils/apiService";
 import toggleKeyword from "./toggleKeyword";
-import appendImages from "./appendImages";
+import appendIcons from "./appendIcons";
 import appendKeyword from "./appendKeyword";
 
-add_event("#Images_Panel .keyword-search", "keyup", (event) => {
+add_event("#Icons_Panel .keyword-search", "keyup", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
         if (clear_text(event.target.value))
-            addToImagesBar(clear_text(event.target.value));
+            addToIconsBar(clear_text(event.target.value));
         event.target.value = "";
     }
 })
 
-export function addToImagesBar(keyword) {
+export function addToIconsBar(keyword) {
     keyword = clear_text(keyword);
     if (!keyword) return;
     // Check if the keyword exists
-    if (select('#Images_Panel div[data-keyword="' + keyword + '"].search-keyword')) {
+    if (select('#Icons_Panel div[data-keyword="' + keyword + '"].search-keyword')) {
         toggleKeyword(keyword);
         return;
     }
     appendKeyword(keyword);
 
     apiService({
-        "url": "/api/call/Pexels/find_images",
+        "url": "/api/call/Icon/find_icons",
         "data": {
             "keyword": keyword,
-            "per_page": 20
+            "limit": 20
         },
         "success": (response) => {
-            appendImages(response.body, response.request.keyword);
+            appendIcons(response.body, response.request.keyword);
         }
     })
 
