@@ -14,7 +14,7 @@ import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/makeDraggable";
 import selectIcon from "Editor/js/shapes/icon/selectIcon";
 import showDesignsByCapacity from "Editor/js/sidebar/designs/showDesignsByCapacity";
-
+import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 
 
 export default function slide(slideId) {
@@ -165,18 +165,19 @@ export default function slide(slideId) {
             }
 
             // Built in images icon - h1 - slidetitle
-            let iconId;
             if (shape_.data.alt.includes("icon|")) {
                 contentNumber = shape_.data.alt.split("|").pop();
                 content = slideData.analyzedContent[contentNumber].icon.data;
                 Object.assign(shape_.data, content);
                 selectIcon(this.slideId, shape_.data.shape_id);
-
             } else if (shape_.data.alt.includes("h1image|")) {
                 contentNumber = shape_.data.alt.split("|")[1];
                 content = slideData.analyzedContent[contentNumber].h1.data;
                 Object.assign(shape_.data, content);
                 h1Image(this.slideId, shape_.data.shape_id, content.text);
+                // Add event listener
+                shape(this.slideId, shape_.data.shape_id).addEvent("click",selectImageElement);
+
             } else if (shape_.data.alt == "slidetitleimage") {
                 try {
                     content = slideData.slideTitle.data;
@@ -213,7 +214,9 @@ export default function slide(slideId) {
         });
         this.object().style.display = "";
 
-        showDesignsByCapacity(this.slideData().sentences.length)
+        showDesignsByCapacity(this.slideData().sentences.length);
+        // Update the session CURRENT_SLIDE
+        session.CURRENT_SLIDE = this.slideId;
         return this;
     }
 

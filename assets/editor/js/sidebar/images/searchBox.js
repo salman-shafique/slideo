@@ -15,7 +15,7 @@ add_event(".keyword-search", "keyup", (event) => {
     }
 })
 
-function addToKeywordList(keyword) {
+export function addToKeywordList(keyword) {
     // Check if the keyword exists
     if (select('#Images_Panel div[data-keyword="' + keyword + '"].search-keyword')) {
         toggleKeyword(keyword);
@@ -24,7 +24,7 @@ function addToKeywordList(keyword) {
 
     let KeywordsList = select("#Keywords_list");
     let keywordEl = html_to_element(
-        '<div data-keyword="' + keyword + '" class="search-keyword">' +
+        '<div data-keyword="' + keyword + '" class="search-keyword active">' +
         '<span data-keyword="' + keyword + '" class="keyword-text text-dark">' + keyword + '</span>&emsp;' +
         '<span class="text-dark keyword-dismiss" data-keyword="' + keyword + '"><i data-keyword="' + keyword + '" class="fas fa-times"></i></span>' +
         '</div>'
@@ -42,7 +42,6 @@ function addToKeywordList(keyword) {
         let keyword = event.target.getAttribute("data-keyword");
         removeKeyword(keyword);
     });
-
 
     apiService({
         "url": "/api/call/Pexels/find_images",

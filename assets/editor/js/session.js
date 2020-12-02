@@ -11,6 +11,10 @@ let session = {
     NEW_SLIDES: [],
     PRESENTATION: null,
     /**
+     * @type {string}
+     */
+    CURRENT_SLIDE:"",
+    /**
      * @type {{shapeId: string,shape:SVGGElement, translate: {transform:SVGTransform,startingE:number,startingF:number}, scale: {transform:SVGTransform}, rotate: {transform:SVGTransform}}[]}
      */
     SELECTED_ELEMENTS: [],

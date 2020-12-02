@@ -141,6 +141,9 @@ body {
 	font-size: 11px;
 	line-height: 15px;
 }
+.tool *{
+	pointer-events: none;
+}
 
 .tool.active-tool {
 	background-color: var(--active-tool);

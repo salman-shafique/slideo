@@ -17,10 +17,10 @@ def find_icons(analyzed_sentence):
                     for icon in found_icons["icons"]:
                         analyzed_sentence["icon"]["icons"].append({'url':icon["preview_url"],'id':icon['id']})
 
-    # Noting found icon
+    # Nothing found icon
     if len(analyzed_sentence["icon"]["icons"]) == 0:
         analyzed_sentence["icon"]["icons"] = [
-            {'url':"/icons/nothing-found.png/(0,0,0)/nothing-found.png",'id':icon['id']}
+            {'url':"/icons/nothing-found.png/(0,0,0)/nothing-found.png",'id':0}
         ]
     return analyzed_sentence
 

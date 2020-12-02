@@ -7,8 +7,7 @@ import apiService from "Editor/js/utils/apiService";
 
 export default function h1Image(slideId, shapeId, keyword) {
     let shapeData = shape(slideId, shapeId).data();
-    if (!shapeData.images) {
-
+    if (!shapeData.image) {
         apiService({
             url: "/api/editor/image/h1Image",
             data: {
@@ -17,17 +16,15 @@ export default function h1Image(slideId, shapeId, keyword) {
                 "keyword": keyword
             },
             success: (response) => {
-                if(response.serializedShape){
+                if(response.success){
                     let shapeData = shape(slideId, shapeId).data();
-                    shapeData['image'] = response.serializedShape.data.image;
-                    shapeData['images'] = response.serializedShape.data.images;
-                    selectH1Image(response.slideId, response.shapeId);
-
+                    shapeData.image = response.image;
+                    selectH1Image(response.slideId, response.shapeId, response.image);
                 }
             }
         });
     } else {
-        selectH1Image(slideId, shapeId);
+        selectH1Image(slideId, shapeId,shapeData.image);
     }
 
 }

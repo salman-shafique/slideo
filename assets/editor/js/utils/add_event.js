@@ -1,6 +1,6 @@
 /**
  * 
- * @param {string | HTMLOrSVGElement} selector 
+ * @param {string | HTMLOrSVGElement | Array<HTMLOrSVGElement>} selector 
  * @param {Event} type 
  * @param {Function} callback 
  */
@@ -10,6 +10,9 @@ export default function add_event(selector, type, callback) {
         elements = document.querySelectorAll(selector);
     else if (typeof selector == "object")
         elements = [selector];
+    else if (Array.isArray(selector))
+        elements = selector;
+    
     elements.forEach(element => {
         if (document.addEventListener) {
             return element.addEventListener(type, callback, false);

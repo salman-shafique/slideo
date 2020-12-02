@@ -1,7 +1,6 @@
-import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
 import select from "Editor/js/utils/selector/select";
-import selectAll from "Editor/js/utils/selector/selectAll";
+import add_event from "Editor/js/utils/add_event";
 
 export default function shape(slideId, shapeId) {
     if (!(this instanceof shape)) return new shape(...arguments);
@@ -33,6 +32,14 @@ export default function shape(slideId, shapeId) {
         }
     }
 
-
+    /**
+     * 
+     * @param {Event} event 
+     * @param {Function} callback 
+     */
+    this.addEvent = (event, callback) => {
+        let selectable = select(".bounding_box", this.el());
+        add_event(selectable, event, callback);
+    }
 }
 

@@ -5,53 +5,6 @@ jQuery(function () {
 	// Event Handler that dictates what happens on clicking on a tool, active or otherwise
 	var bgUpload = false;
 	var colorDrag = false;
-	$(".tool").on("click", function () {
-		// allow transitions
-		$("#ActionsPanel").removeClass("no-transition");
-		$("#SlidesPanel").removeClass("no-transition");
-		$("#MainPanel").removeClass("no-transition");
-		var activeExisted = false;
-		var activeToolID = "";
-		if ($(".active-tool")[0]) {
-			var currActivePanel = $("#" + $(".active-tool").attr("id").replace("Tool", "Panel"));
-			currActivePanel.addClass("collapse");
-			activeExisted = true;
-			activeToolID = $(".active-tool").attr("id");
-		}
-		var newActivePanel = $("#" + $(this).attr("id").replace("Tool", "Panel"));
-		newActivePanel.addClass("collapse");
-		if ($(this).hasClass("active-tool")) {
-			$("#ActionsPanel").addClass("closed");
-			$("#MainPanel").addClass("expanded");
-			$(this).removeClass("active-tool");
-		}
-		else {
-			// load Action panel components based on button clicked
-			$("#ActionsPanel").removeClass("closed");
-			$("#MainPanel").removeClass("expanded");
-			$(".active-tool").removeClass("active-tool");
-			$(this).addClass("active-tool");
-		}
-
-		if (activeExisted) {
-			// clicked on the active tool
-			if ($(this).attr("id") === activeToolID) { } // do nothing
-			else newActivePanel.removeClass("collapse"); // instantly change panel
-		}
-		else {
-			// newly opening panel, open with delay
-			setTimeout(function () {
-				newActivePanel.removeClass("collapse");
-			}, 300);
-		}
-		setTimeout(function () {
-			// block transitions
-			$("#ActionsPanel").addClass("no-transition");
-			$("#SlidesPanel").addClass("no-transition");
-			$("#MainPanel").addClass("no-transition");
-		}, 600);
-
-	});
 
 	$(".control-button").click(function () {
 		$(this).closest(".action-panel").find(".control-overlay-layout").removeClass("closed");

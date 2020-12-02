@@ -130,13 +130,6 @@
 	box-shadow: 2px 2px 5px 1px grey;
 }
 
-.no-transition {
-	-webkit-transition-property: none!important;
-	-moz-transition-property: none!important;
-	-ms-transition-property: none!important;
-	-o-transition-property: none!important;
-	transition-property: none!important;
-}
 
 .single-line {
 	overflow: hidden;

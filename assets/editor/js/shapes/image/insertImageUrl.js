@@ -1,6 +1,6 @@
 export default function insertImageUrl(g, imageUrl) {
-
     let image = g.querySelector("image");
+
     if (image) {
         let image_width = parseFloat(image.getAttribute("width"));
         let image_height = parseFloat(image.getAttribute("height"));
