@@ -13,7 +13,7 @@ export default function appendIcons(icons, keyword) {
         let icon = html_to_element(
             '<img data-keyword="' + keyword + '" class="icon-item col-4 py-2 bg-light rounded" src="' + iconData.url + '"></img>'
         );
-        sideBarIcons.prepend(icon);
+        sideBarIcons.append(icon);
     });
     toggleKeyword(keyword);
     select("#sideBarIconsEmpty").style.display = "none";

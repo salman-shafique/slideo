@@ -13,7 +13,7 @@ export default function appendImages(images, keyword) {
         let image = html_to_element(
             '<img data-keyword="' + keyword + '" class="image-item" src="' + imageData.url + '?auto=compress&fit=crop&w=123&h=60"></img>'
         );
-        sideBarImages.prepend(image);
+        sideBarImages.append(image);
     });
     toggleKeyword(keyword);
     select("#sideBarImagesEmpty").style.display = "none";
