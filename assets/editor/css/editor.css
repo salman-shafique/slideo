@@ -504,6 +504,7 @@ body {
 	margin: 5px;
 	padding: 0 10px;
 	display: flex;
+	cursor: pointer;
 }
 
 .keyword-dismiss, .search-click, .slide-options-menu {
@@ -528,9 +529,11 @@ body {
 	display: flex;
 	flex-flow: row wrap;
 	margin: auto;
-	background-color: whitesmoke;
 	height: 100%;
 	padding-top: 6px;
+	color: white;
+	text-align: center;
+	font-size: x-large;
 }
 
 .image-item {

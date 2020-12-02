@@ -1,0 +1,40 @@
+<div id="Images_Panel" class="action-panel collapse">
+  <div class="search-section">
+    <div class="input-group">
+      <input type="text" class="form-control keyword-search" placeholder="{% trans %}Search all Images{% endtrans %}">
+    </div>
+    <div id="Keywords_list" class="keywords-list small-top-margin invisible-scrollbar dragscroll"></div>
+  </div>
+  <div class="main-section">
+    <div id="sideBarImages" class="images-gallery custom-scrollbar vertical-scroll">
+      <div id="sideBarImagesEmpty">
+        Please select image on slide
+        <br/>
+        <br/>
+        -or-
+        <br/>
+        <br/>
+        Use the search bar
+      </div>
+    </div>
+    <div class="control-overlay-layout closed">
+      <i class="fas fa-times control-close-button"></i>
+      <div class="vertically-centered no-image-display centered-contents">
+        <img class="upload-animation" src="/Images/download_anim.gif">
+        <h6 class="text-dark small-top-margin small-bottom-margin">{% trans %}Start adding Your Files{% endtrans %}</h6>
+        <p class="text-dark">{% trans %}Drag and Drop Ffiles, or Upload files from your Computer{% endtrans %}</p>
+        <button id="UploadFirstCustomImage" class="btn btn-primary btn-sm default-button horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
+      </div>
+      <div class="custom-image-display centered-contents collapse">
+        <h6 id="Custom_Images_Header" class="text-dark small-bottom-margin single-line">{% trans %}My Images{% endtrans %}</h6>
+        <button id="UploadCustomImage" class="btn btn-primary btn-sm default-button small-bottom-margin horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
+        <div class="images-gallery custom-scrollbar vertical-scroll"></div>
+      </div>
+    </div>
+    <div class="backdrop-overlay-layout collapse"></div>
+  </div>
+  <div class="control-section">
+    <button class="btn btn-primary btn-sm btn-full control-button horizontal-text-clip">{% trans %}MY IMAGES{% endtrans %}</button>
+    <button class="btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip">{% trans %}CANCEL{% endtrans %}</button>
+  </div>
+</div>

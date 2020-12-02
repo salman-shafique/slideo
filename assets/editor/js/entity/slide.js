@@ -220,17 +220,15 @@ export default function slide(slideId) {
     this.cloneToMiniPrev = () => {
 
         if (document.getElementById("prev_" + slideId).contentDocument.querySelector("svg")) {
-            let clone = this.contentDocument().querySelector("svg").cloneNode(true);
-            clone.id = "";
-            document.getElementById("prev_" + this.slideId).contentDocument.querySelector("svg").remove();
-            document.getElementById("prev_" + this.slideId).contentDocument.appendChild(clone);
+            let clone = this.contentDocument().querySelector("g.SlideGroup g.Page").cloneNode(true);
+            window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Page").remove();
+            window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Slide").appendChild(clone);
         } else {
             add_event(document.getElementById("prev_" + this.slideId), "load", function () {
                 let slideId = this.getAttirbute("id").split("_")[1];
-                let clone = slide(slideId).contentDocument().querySelector("svg").cloneNode(true);
-                clone.id = "";
-                document.getElementById("prev_" + slideId).contentDocument.querySelector("svg").remove();
-                document.getElementById("prev_" + slideId).contentDocument.appendChild(clone);
+                let clone = window.top.document.getElementById(slideId).contentDocument.querySelector("g.SlideGroup g.Page").cloneNode(true);
+                window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Page").remove();
+                window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Slide").appendChild(clone);
             })
         }
     }
