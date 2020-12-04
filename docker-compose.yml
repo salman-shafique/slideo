@@ -12,6 +12,7 @@ services:
       - "5500:8000"
     env_file:
       - .env
+    restart: always
     command: ["/bin/bash", "/var/www/app/docker/start.sh"]
     
 networks:
