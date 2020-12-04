@@ -51,4 +51,41 @@ class IconService
         }
         return ['success' => false];
     }
+
+    public function changeColor(Request $request)
+    {
+        $request = $request->request->all();
+
+        $arr = explode("/", $request['url']);
+        $latestKey = array_key_last($arr);
+        $iconName = $arr[$latestKey];
+
+        $rgb = $request['rgb'];
+        $colorName = "(" . $rgb[0] . "," . $rgb[1] . "," . $rgb[2] . ")";
+
+        // Check if the icon exists
+        if (file_exists("/var/www/app/public/icons/$iconName/$colorName/$iconName")) {
+            $request['url'] = "/icons/$iconName/$colorName/$iconName";
+            return $request;
+        }
+
+        // Download the black icon
+        if (!file_exists("/var/www/app/public/icons/$iconName/(0,0,0)/$iconName")) {
+            mkdir("/var/www/app/public/icons/$iconName/(0,0,0)", 0777, true);
+            $iconFromApi = file_get_contents($request['url']);
+            file_put_contents("/var/www/app/public/icons/$iconName/(0,0,0)/$iconName", $iconFromApi);
+        }
+        // Create the colored con folder
+        if (!file_exists("/var/www/app/public/icons/$iconName/$colorName/"))
+            mkdir("/var/www/app/public/icons/$iconName/$colorName/", 0777, true);
+
+        $request['url'] = "/icons/$iconName/(0,0,0)/$iconName";
+        $coloredIconBinary = $this->flaskService->call("Icon", "change_color", $request);
+
+        $coloredIconBinary['icon_str'];
+
+        $request['url'] = $this->flaskService->saveBase64File($coloredIconBinary['icon_str'],"/var/www/app/public/icons/$iconName/$colorName/$iconName");
+
+        return $request;
+    }
 }

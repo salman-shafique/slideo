@@ -27,4 +27,16 @@ class IconController extends AbstractController
         $r = $iconService->find($presentation, $request);
         return new JsonResponse($r);
     }
+
+    /**
+     * @Route("/changeColor", methods={"POST"})
+     */
+    public function changeColor(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, IconService $iconService)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $iconService->changeColor($request);
+        return new JsonResponse($r);
+    }
 }

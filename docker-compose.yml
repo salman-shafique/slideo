@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  slideo:
+  slideo_symfony:
     container_name: slideo_symfony
     build: ./
     volumes:
@@ -13,3 +13,7 @@ services:
     env_file:
       - .env
     command: ["/bin/bash", "/var/www/app/docker/start.sh"]
+    
+networks:
+  default:
+    name: slideo_network

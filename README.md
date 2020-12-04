@@ -15,10 +15,12 @@ docker-compose build
 #### a. Production
 ```
 docker-compose up -d
+docker-compose stop
 ```
 #### b. Development
 ```
 docker-compose -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.dev.yml stop
 ```
 
 ### 4. Setup the project

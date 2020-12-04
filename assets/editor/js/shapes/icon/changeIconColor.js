@@ -18,18 +18,18 @@ export default function changeIconColor(slideId, shapeId, icon = null, color) {
         shapeData.icon = icon;
 
     apiService({
-        url: "/api/call/Icon/change_color",
+        url: "/api/editor/icon/changeColor",
         data: {
             "slideId": slideId,
             "shapeId": shapeId,
             "rgb": color.split(" "),
-            "icon": {'url':shapeData.icon.url}
+            "url": shapeData.icon.url
         },
         success: (response) => {
-            let shape_ = shape(response.request.slideId, response.request.shapeId);
+            let shape_ = shape(response.slideId, response.shapeId);
             let shapeData = shape_.data();
-            shapeData.icon.url = response.body.url;
-            shapeData.icon.rgb = shapeData.rgb = response.request.rgb.join(" ");
+            shapeData.icon.url = response.url;
+            shapeData.icon.rgb = shapeData.rgb = response.rgb.join(" ");
             let image = shape_.el().querySelector("image");
             image.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", shapeData.icon.url);;
         }

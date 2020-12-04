@@ -28,16 +28,6 @@ RUN install-php-extensions pdo_mysql zip intl opcache
 # Certificate verify - CA file - cURL
 COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
 
-# Python environment - This can be another container before
-RUN apt-get update
-RUN apt-get install python3.7 -y
-RUN apt-get install python3-pip -y
-RUN pip3 install --upgrade pip
-COPY Flask/requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
-# RUN python3.7 -m pip install -U spacy
-RUN python3.7 -m spacy download en_core_web_sm
-
 # Update
 RUN apt-get update -y
 RUN apt-get autoremove -y
