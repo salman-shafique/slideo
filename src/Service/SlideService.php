@@ -20,7 +20,7 @@ class SlideService
         $this->em = $em;
     }
 
-    private function findRandomStyle(int $capacity): ?Style
+    private function findRandomStyle(int $capacity, string $direction): ?Style
     {
         $qb = $this->em->createQueryBuilder()
             ->select('COUNT(s.id)')
@@ -28,7 +28,9 @@ class SlideService
             ->where('s.isActive = :isActive')
             ->setParameter(':isActive', true)
             ->andWhere('s.capacity = :capacity')
-            ->setParameter(':capacity', $capacity);
+            ->setParameter(':capacity', $capacity)
+            ->andWhere('s.direction = :direction')
+            ->setParameter(':direction', $direction);
 
         $totalRecords = $qb->getQuery()->getSingleScalarResult();
         if ($totalRecords < 1) return null;
@@ -44,7 +46,7 @@ class SlideService
 
     public function findAndApplyStyle(Slide $slide)
     {
-        $style = $this->findRandomStyle(count($slide->getSentences()));
+        $style = $this->findRandomStyle(count($slide->getSentences()),$slide->getDirection());
         $slide->setStyle($style);
 
         // Copy shapes

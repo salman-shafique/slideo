@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Content;
 use App\Entity\Style;
+use App\Repository\StyleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -27,6 +28,26 @@ class StyleService
         if (!$request->request->get("A2A3EF62A0498A46531B71DBD6969004")) return ["success" => false];
         if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11") return ["success" => false];
 
+        $capacity = (int)$request->request->get('capacity');
+        $direction = $request->request->get('direction');
+        $designId = $request->request->get('designId');
+
+        // Check if the style exists
+        /**  @var StyleRepository $styleRepository */
+        $styleRepository = $this->em->getRepository(Style::class);
+        $style = $styleRepository->findOneBy([
+            'capacity' => $capacity,
+            'direction' => $direction,
+            'designId' => $designId
+        ]);
+        $status = "New style created...";
+        if ($style) {
+            $status = "Style is updated";
+            foreach ($style->getShapes() as $shape)
+                $style->removeShape($shape);
+        } else
+            $style = new Style;
+
         $styleId = $request->request->get("style_id");
         if (!is_dir("styles/$styleId"))
             mkdir("styles/$styleId", 0777, true);
@@ -42,7 +63,6 @@ class StyleService
                 file_put_contents("styles/$styleId/images/" . $image['name'], $image['blob']);
         }
 
-        $style = new Style;
         if ($request->request->get("objects"))
             foreach ($request->request->get("objects") as $object) {
                 $shape = new Content();
@@ -57,16 +77,16 @@ class StyleService
         $style->setKeywords($request->request->get('keywords'));
         $style->setPptxFile("/styles/$styleId/$styleId.pptx");
         $style->setSvgFile("/styles/$styleId/$styleId.svg");
-        $style->setCapacity((int)$request->request->get('capacity'));
-        $style->setDirection($request->request->get('direction'));
+        $style->setCapacity($capacity);
+        $style->setDirection($direction);
         $style->setPrevFile("/styles/$styleId/$styleId.png");
-        $style->setDesignId((int)$request->request->get('designId'));
-        $style->setLayout($request->request->get('layout'));;;
+        $style->setDesignId($designId);
+        $style->setLayout($request->request->get('layout'));
 
         $this->em->persist($style);
         $this->em->flush();
 
-        return ["success" => true, "id" => $style->getId()];
+        return ["success" => true, "id" => $style->getId(),'status'=>$status];
     }
 
 
