@@ -32,21 +32,7 @@ class StyleService
         $direction = $request->request->get('direction');
         $designId = $request->request->get('designId');
 
-        // Check if the style exists
-        /**  @var StyleRepository $styleRepository */
-        $styleRepository = $this->em->getRepository(Style::class);
-        $style = $styleRepository->findOneBy([
-            'capacity' => $capacity,
-            'direction' => $direction,
-            'designId' => $designId
-        ]);
-        $status = "New style created...";
-        if ($style) {
-            $status = "Style is updated";
-            foreach ($style->getShapes() as $shape)
-                $style->removeShape($shape);
-        } else
-            $style = new Style;
+        $style = new Style;
 
         $styleId = $request->request->get("style_id");
         if (!is_dir("styles/$styleId"))
@@ -86,7 +72,7 @@ class StyleService
         $this->em->persist($style);
         $this->em->flush();
 
-        return ["success" => true, "id" => $style->getId(),'status'=>$status];
+        return ["success" => true, "id" => $style->getId()];
     }
 
 
