@@ -92,7 +92,6 @@ export default function slide(slideId) {
         });
         document.getElementById("SlideContainer").appendChild(main);
 
-        refresh_slide_prev_numbers();
         return this;
     }
 
@@ -106,7 +105,7 @@ export default function slide(slideId) {
         const contentDocument = this.contentDocument();
         const filterContainer = contentDocument.createElementNS("http://www.w3.org/2000/svg", "g");
         filterContainer.setAttribute("id", "filterContainer");
-        contentDocument.querySelector("svg").appendChild(filterContainer);
+        contentDocument.querySelector("g.SlideGroup g.Page").appendChild(filterContainer);
 
         // update textbox style.direction
         // Show the loaded slide
@@ -159,7 +158,7 @@ export default function slide(slideId) {
                 } catch {
                     shape(this.slideId, shape_.data.shape_id).remove();
                 }
-            }
+            } 
             if (text) {
                 // Append foreignObjects
                 g = shape(this.slideId, shape_.data.shape_id).el();
@@ -214,6 +213,8 @@ export default function slide(slideId) {
         makeDraggable(this.contentDocument());
 
         colorTemplate(session.PRESENTATION.colorTemplateId).updateSlideColors(this.slideId);
+
+        refresh_slide_prev_numbers();
         return this;
     }
 
