@@ -1,9 +1,6 @@
-import shape from "Editor/js/entity/shape";
 import React from "react";
 import ReactDOM from "react-dom";
 import session from "Editor/js/session";
-import select from "Editor/js/utils/selector/select";
-import selectAll from "Editor/js/utils/selector/selectAll";
 
 /**
  * 
@@ -24,14 +21,20 @@ export default function colorFilters(g) {
 
         let filter;
         if (alt.includes("icon|")) {
+            let floodColor = "#fff";
+            if (!g.getAttribute("icon_theme_color")) {
+                let rgb = g.getAttribute("rgb");
+                if (rgb) floodColor = "rgb(" + rgb.replace(" ", ",") + ")";
+            }
+
             filter =
                 <defs>
                     <filter id={"color_filter_" + shapeId}>
-                        <feFlood floodColor="#fff" result="flood" />
+                        <feFlood floodColor={floodColor} result="flood" />
                         <feComposite in="SourceGraphic" in2="flood" result="alp" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" />
                     </filter>
                 </defs>;
-            g.setAttribute("filter", "url(#color_filter_" + shapeId + ")");
+            g.querySelector("image").setAttribute("filter", "url(#color_filter_" + shapeId + ")");
         } else {
             let brightness = g.getAttribute("shape_brightness");
             if (brightness) {
