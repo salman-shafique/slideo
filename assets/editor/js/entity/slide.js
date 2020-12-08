@@ -109,7 +109,6 @@ export default function slide(slideId) {
                 shape(this.slideId, shape_.data.shape_id).remove();
                 return;
             };
-
             let contentNumber, foreignObject, text, direction, g, content;
             // Built in textboxes
             if (shape_.data.alt.includes("h1|")) {

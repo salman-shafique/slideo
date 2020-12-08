@@ -79,5 +79,15 @@ export default function updateColor(g) {
         if (!table) return;
         table.style.color = color;
     }
+
+    /**
+     * @param {string} color 
+     */
+    this.fillIcon = function (color) {
+        let feFlood = this.g.querySelector('feFlood');
+        if (!feFlood) return;
+        feFlood.style.floodColor = color;
+    }
+
 }
 

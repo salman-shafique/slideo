@@ -20,7 +20,7 @@ export default function selectEl(event) {
     g.style.outline = "cyan 100px solid";
 
     let selectedEl = {
-        shapeId: g.getAttribute("shape_id"),
+        shapeId: shapeId,
         shape: g
     };
 

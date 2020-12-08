@@ -6,7 +6,7 @@ import selectIcon from "./selectIcon";
 
 export default function iconInit(slideId, shapeId, keyword) {
     let shapeData = shape(slideId, shapeId).data();
-    if (!shapeData.icon.url) {
+    if (!shapeData.icon || !shapeData.icon.url) {
         apiService({
             url: "/api/editor/icon/find",
             data: {
@@ -18,8 +18,8 @@ export default function iconInit(slideId, shapeId, keyword) {
                 if (response.success) {
                     let shapeData = shape(response.slideId, response.shapeId).data();
                     shapeData.icon = response.icons[0];
-                    selectIcon(response.slideId, response.shapeId, shapeData.icon);
-                    appendIcons(response.icons, response.keyword);
+                    selectIcon(response.slideId, response.shapeId);
+                    appendIcons(response.icons.slice(1), response.keyword);
                 }
             }
         });

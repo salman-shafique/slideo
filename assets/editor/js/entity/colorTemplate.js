@@ -79,6 +79,10 @@ export default function colorTemplate(colorTemplateId) {
             gs = selectAll("g.SlideGroup g.Page g[text_theme_color^='" + colorName + "']:not(.Background)", documentElement);
             gs.forEach((g) => updateColor(g).fillText(color));
 
+            // icon_theme_color
+            gs = selectAll("g.SlideGroup g.Page g[icon_theme_color^='" + colorName + "']", documentElement);
+            gs.forEach((g) => updateColor(g).fillIcon(color));
+
         });
     }
 
