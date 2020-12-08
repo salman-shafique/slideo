@@ -13,7 +13,6 @@ export default function findKeyword(text) {
             "text": text
         },
         success: (response) => {
-            console.log(response);
         },
         async: false
     });

@@ -11,7 +11,6 @@ add_event("#presentation_name", "change", function () {
             "presentation_name": presentation_name
         },
         success: (response) => {
-            console.log(response);
         },
     });
 })

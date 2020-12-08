@@ -29,7 +29,6 @@ add_event("#newTemplateBtn", "click", function () {
         url: "/api/editor/colorTemplate/add",
         data: data,
         success: (r) => {
-            console.log(r);
         }
     });
 }); 

@@ -8,7 +8,6 @@ export default function refresh_slide_prev_numbers() {
             let slideId = slide_prev.dataset.slideId;
 
             let slideCounter = slide(slideId).contentDocument().querySelector('g[alt="slidecounter"] text tspan[fill]');
-            console.log(slideCounter);
             if (slideCounter)
                 slideCounter.innerHTML = index + 1;
         });

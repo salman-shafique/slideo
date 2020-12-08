@@ -16,7 +16,6 @@ export default function colorTemplate(colorTemplateId) {
 
     this.apply = () => {
         if (session.PRESENTATION.colorTemplateId != this.colorTemplateId) {
-            console.log("send to server");
             session.PRESENTATION.colorTemplateId = this.colorTemplateId;
             this.updateAllColors()
         }

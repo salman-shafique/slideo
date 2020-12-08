@@ -11,9 +11,6 @@ import shape from "Editor/js/entity/shape";
  */
 export default function getWhiteIcon(slideId, shapeId) {
 
-
-    console.log("changed icon color");
-
     let shape_ = shape(slideId, shapeId);
     let shapeData = shape_.data();
 

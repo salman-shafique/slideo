@@ -12,7 +12,6 @@ add_event('.download-pptx,.download-pdf', 'click', function () {
             "type": type
         },
         success: (response) => {
-            console.log(response);
         }
     });
 
