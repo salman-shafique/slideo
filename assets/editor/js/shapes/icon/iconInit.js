@@ -3,7 +3,6 @@ import apiService from "Editor/js/utils/apiService";
 import appendIcons from "Editor/js/sidebar/icons/appendIcons";
 import selectIcon from "./selectIcon";
 
-
 export default function iconInit(slideId, shapeId, keyword) {
     let shapeData = shape(slideId, shapeId).data();
     if (!shapeData.icon || !shapeData.icon.url) {
@@ -20,6 +19,7 @@ export default function iconInit(slideId, shapeId, keyword) {
                     shapeData.icon = response.icons[0];
                     selectIcon(response.slideId, response.shapeId);
                     appendIcons(response.icons.slice(1), response.keyword);
+
                 }
             }
         });

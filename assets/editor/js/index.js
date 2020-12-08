@@ -22,5 +22,5 @@ import  "Editor/js/navbar";
 import "Editor/js/init";
 
 // Shape actions
-import "Editor/js/shapes/actions/"
+import "Editor/js/shapes/actions/";
 

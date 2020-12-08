@@ -26,6 +26,7 @@ Encore
         CSS: path.resolve(__dirname, 'assets/css'),
         Editor: path.resolve(__dirname, 'assets/editor'),
     })
+    .enableReactPreset()
     .autoProvidejQuery();
 
 module.exports = Encore.getWebpackConfig();
