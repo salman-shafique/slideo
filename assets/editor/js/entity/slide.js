@@ -16,7 +16,7 @@ import iconInit from "Editor/js/shapes/icon/iconInit";
 import showDesignsByCapacity from "Editor/js/sidebar/designs/showDesignsByCapacity";
 import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
-
+import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -101,6 +101,13 @@ export default function slide(slideId) {
 
         this.object().style.visibility = "visible";
 
+
+        // Create g for the filters
+        const contentDocument = this.contentDocument();
+        const filterContainer = contentDocument.createElementNS("http://www.w3.org/2000/svg", "g");
+        filterContainer.setAttribute("id", "filterContainer");
+        contentDocument.querySelector("svg").appendChild(filterContainer);
+
         // update textbox style.direction
         // Show the loaded slide
         let slideData = this.slideData();
@@ -169,7 +176,7 @@ export default function slide(slideId) {
                 contentNumber = shape_.data.alt.split("|").pop();
                 content = slideData.analyzedContent[contentNumber].icon.data;
                 Object.assign(shape_.data, content);
-                iconInit(this.slideId, shape_.data.shape_id,content.keyword );
+                iconInit(this.slideId, shape_.data.shape_id, content.keyword);
                 // Add event listener
                 shape(this.slideId, shape_.data.shape_id).addEvent("click", selectIconElement);
             } else if (shape_.data.alt.includes("h1image|")) {
@@ -191,8 +198,13 @@ export default function slide(slideId) {
                 }
             }
 
-            // initialize the transform and move
-            initializeG(shape(this.slideId, shape_.data.shape_id).el());
+            g = shape(this.slideId, shape_.data.shape_id).el();
+            if (g) {
+                // initialize the transform and move
+                initializeG(g);
+                // initialize the filters
+                colorFilters(g).init();
+            }
 
         });
 

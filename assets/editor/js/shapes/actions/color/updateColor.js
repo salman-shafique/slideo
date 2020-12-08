@@ -84,8 +84,9 @@ export default function updateColor(g) {
      * @param {string} color 
      */
     this.fillIcon = function (color) {
-        let feFlood = this.g.querySelector('feFlood');
-        if (!feFlood) return;
+        const shapeId = this.g.getAttribute("shape_id");
+        const colorFilter = this.g.ownerSVGElement.querySelector("#color_filter_" + shapeId);
+        const feFlood = colorFilter.querySelector('feFlood');
         feFlood.style.floodColor = color;
     }
 

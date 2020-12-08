@@ -13,7 +13,7 @@ let session = {
     /**
      * @type {string}
      */
-    CURRENT_SLIDE:"",
+    CURRENT_SLIDE: "",
     /**
      * @type {{shapeId: string,shape:SVGGElement, translate: {transform:SVGTransform,startingE:number,startingF:number}, scale: {transform:SVGTransform}, rotate: {transform:SVGTransform}}[]}
      */
@@ -25,6 +25,7 @@ let session = {
     /**
      * @type {string} SHAPE_STATE - "DRAGGING" | null
      */
-    SHAPE_STATE: null
+    SHAPE_STATE: null,
+    GOLDEN_RATIO: (1 + Math.sqrt(5)) / 2
 }
 export default session 
