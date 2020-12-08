@@ -1,6 +1,6 @@
 import session from "Editor/js/session";
-import deSelectEl from "./utils/deSelectEl";
 import deSelectAll from "./utils/deSelectAll";
+import disableTextSelect from "./utils/disableTextSelect";
 
 /**
  * 
@@ -26,4 +26,5 @@ export default function endDrag(event) {
     }
 
     session.SAVED_MOUSE_POS = session.SHAPE_STATE = null;
+    g.ownerDocument.removeEventListener('selectstart', disableTextSelect);
 }

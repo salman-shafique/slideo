@@ -1,6 +1,6 @@
 import session from "Editor/js/session";
 import selectEl from "./utils/selectEl";
-import deSelectEl from "./utils/deSelectEl";
+import disableTextSelect from "./utils/disableTextSelect";
 import deSelectAll from "./utils/deSelectAll";
 import getMousePosition from "./utils/getMousePosition";
 import updateAllTransforms from "./utils/updateAllTransforms";
@@ -31,6 +31,8 @@ export default function startDrag(event) {
     updateAllTransforms();
 
     session.SHAPE_STATE = "DRAGGING";
+    g.ownerDocument.addEventListener("selectstart",disableTextSelect);
+
     session.SAVED_MOUSE_POS = getMousePosition(event);
 
 }
