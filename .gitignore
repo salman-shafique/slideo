@@ -89,6 +89,6 @@ __pycache__
 
 # not found icon
 /public/icons/*
-!/public/icons/nothing-found.png/(255,255,255)/nothing-found.png
+!/public/icons/nothing-found.png
 /public/styles/*
 
