@@ -18,6 +18,7 @@ import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 
+
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
 
@@ -79,7 +80,21 @@ export default function slide(slideId) {
             slide(this.dataset.slideId).display();
         });
 
+        add_event(select("object", miniPrev), "load", function () {
+            let slideId = this.getAttribute("id").split("_")[1];
+            slide(slideId).cloneToMiniPrev();
+
+            // Rm styles
+            let style = html_to_element(
+                '<style type="text/css">.draggable:hover,.draggable {outline:none !important}</style>',
+                this.documentElement,
+                "http://www.w3.org/2000/svg"
+                );
+            this.contentDocument.querySelector("svg").appendChild(style);
+        });
+
         document.getElementById("slides_preview").appendChild(miniPrev);
+
 
         let mainHtml = `
         <object id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
@@ -158,7 +173,7 @@ export default function slide(slideId) {
                 } catch {
                     shape(this.slideId, shape_.data.shape_id).remove();
                 }
-            } 
+            }
             if (text) {
                 // Append foreignObjects
                 g = shape(this.slideId, shape_.data.shape_id).el();
@@ -208,13 +223,15 @@ export default function slide(slideId) {
         });
 
         this.display();
-        this.cloneToMiniPrev();
+
         // Add event listeners
         makeDraggable(this.contentDocument());
 
         colorTemplate(session.PRESENTATION.colorTemplateId).updateSlideColors(this.slideId);
 
         refresh_slide_prev_numbers();
+
+        this.cloneToMiniPrev();
         return this;
     }
 
@@ -236,18 +253,11 @@ export default function slide(slideId) {
     }
 
     this.cloneToMiniPrev = () => {
-
-        if (document.getElementById("prev_" + slideId).contentDocument.querySelector("svg")) {
+        let contentDocument = window.top.document.getElementById("prev_" + this.slideId).contentDocument;
+        if (contentDocument.querySelector("svg")) {
             let clone = this.contentDocument().querySelector("g.SlideGroup g.Page").cloneNode(true);
-            window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Page").remove();
-            window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Slide").appendChild(clone);
-        } else {
-            add_event(document.getElementById("prev_" + this.slideId), "load", function () {
-                let slideId = this.getAttirbute("id").split("_")[1];
-                let clone = window.top.document.getElementById(slideId).contentDocument.querySelector("g.SlideGroup g.Page").cloneNode(true);
-                window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Page").remove();
-                window.top.document.getElementById("prev_" + slideId).contentDocument.querySelector("g.SlideGroup g.Slide").appendChild(clone);
-            })
+            contentDocument.querySelector("g.SlideGroup g.Page").remove();
+            contentDocument.querySelector("g.SlideGroup g.Slide").appendChild(clone);
         }
     }
 

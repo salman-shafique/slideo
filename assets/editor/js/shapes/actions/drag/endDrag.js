@@ -1,6 +1,7 @@
 import session from "Editor/js/session";
 import deSelectAll from "./utils/deSelectAll";
 import disableTextSelect from "./utils/disableTextSelect";
+import slide from "Editor/js/entity/slide";
 
 /**
  * 
@@ -27,4 +28,5 @@ export default function endDrag(event) {
 
     session.SAVED_MOUSE_POS = session.SHAPE_STATE = null;
     g.ownerDocument.removeEventListener('selectstart', disableTextSelect);
+    slide(session.CURRENT_SLIDE).cloneToMiniPrev();
 }
