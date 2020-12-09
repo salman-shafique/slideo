@@ -12,7 +12,7 @@ export default function DesignsPanel() {
 
     if (designs.length==0)
         apiService({
-            "url": "/api/editor/getStyles",
+            "url": "/api/style/get",
             "data": { "alp": 12 },
             "success": (r) => {
                 console.log(r);

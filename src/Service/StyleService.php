@@ -3,7 +3,9 @@
 namespace App\Service;
 
 use App\Entity\Content;
+use App\Entity\Layout;
 use App\Entity\Style;
+use App\Repository\LayoutRepository;
 use App\Repository\StyleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +19,7 @@ class StyleService
         $this->em = $em;
     }
 
-    public function saveBase64File(string $filepath, string $base64)
+    private function saveBase64File(string $filepath, string $base64)
     {
         $content = base64_decode($base64);
         $file = fopen($filepath, "wb");
@@ -27,8 +29,7 @@ class StyleService
 
     public function add(Request $request)
     {
-        if (!$request->request->get("A2A3EF62A0498A46531B71DBD6969004")) return ["success" => false];
-        if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11") return ["success" => false];
+        if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11") return ["descr" => "Not authorized"];
 
         $path = $request->request->get("path");
         $jsonFile = json_decode(file_get_contents("http://slideo_flask$path"), true);
@@ -71,15 +72,19 @@ class StyleService
         $style->setDirection($direction);
         $style->setPrevFile("/styles/$styleId/$styleId.png");
         $style->setDesignId($designId);
-        $style->setLayout($jsonFile['layout']);
+
+        /**  @var LayoutRepository $layoutRepository */
+        $layoutRepository = $this->em->getRepository(Layout::class);
+        $layout = $layoutRepository->findOneBy(['id' => $request->request->get('layout_id')]);
+        $style->setLayout($layout);
 
         $this->em->persist($style);
         $this->em->flush();
 
-        return ["success" => true, "id" => $style->getId()];
+        return ["descr" => "Success " . $style->getId()];
     }
 
-    public function getStyles(Request $request)
+    public function get(Request $request)
     {
         /**  @var StyleRepository $styleRepository */
         $styleRepository = $this->em->getRepository(Style::class);

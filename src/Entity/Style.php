@@ -68,11 +68,6 @@ class Style
     private $designId;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $layout;
-
-    /**
      * @ORM\OneToMany(targetEntity=Content::class, mappedBy="style")
      * @Ignore()
      */
@@ -82,6 +77,12 @@ class Style
      * @ORM\Column(type="array", nullable=true)
      */
     private $keywords = [];
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Layout::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $layout;
 
     public function __construct()
     {
@@ -182,18 +183,6 @@ class Style
         return $this;
     }
 
-    public function getLayout(): ?string
-    {
-        return $this->layout;
-    }
-
-    public function setLayout(?string $layout): self
-    {
-        $this->layout = $layout;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Content[]
      */
@@ -233,6 +222,18 @@ class Style
     public function setKeywords(?array $keywords): self
     {
         $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    public function getLayout(): ?Layout
+    {
+        return $this->layout;
+    }
+
+    public function setLayout(?Layout $layout): self
+    {
+        $this->layout = $layout;
 
         return $this;
     }

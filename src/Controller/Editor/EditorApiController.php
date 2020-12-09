@@ -34,20 +34,6 @@ class EditorApiController extends AbstractController
         return new JsonResponse($slides);
     }
 
-
-    /**
-     * @Route("/getStyles")
-     */
-    public function getStyles(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, StyleService $styleService)
-    {
-        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
-        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
-
-        $r = $styleService->getStyles($request);
-        
-        return new JsonResponse($r);
-    }
-
     /**
      * @Route("/call/{className}/{methodName}")
      */
