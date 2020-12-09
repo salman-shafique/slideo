@@ -24,14 +24,14 @@ export default function colorFilters(g) {
             let floodColor = "#fff";
             if (!g.getAttribute("icon_theme_color")) {
                 let rgb = g.getAttribute("rgb");
-                if (rgb) floodColor = "rgb(" + rgb.replace(" ", ",") + ")";
+                if (rgb) floodColor = "rgb(" + rgb.replace(/ /g, ",") + ")";
             }
 
             filter =
                 <defs>
                     <filter id={"color_filter_" + shapeId}>
                         <feFlood floodColor={floodColor} result="flood" />
-                        <feComposite in="SourceGraphic" in2="flood" result="alp" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" />
+                        <feComposite in="SourceGraphic" in2="flood" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" />
                     </filter>
                 </defs>;
             g.querySelector("image").setAttribute("filter", "url(#color_filter_" + shapeId + ")");
