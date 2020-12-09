@@ -63,12 +63,6 @@ jQuery(function () {
 		$(".linked-user-nav-blocks").find("i").removeClass("text-dark").addClass("text-light");
 	});
 
-	$(".slide-options-menu").click(function () {
-		var parentPanel = $(this).closest(".action-panel");
-		parentPanel.find(".options-dropdown").removeClass("d-none").addClass("d-block");
-		parentPanel.find(".backdrop-overlay-layout").removeClass("collapse");
-	});
-
 	$("body").delegate(".dropdown-closer", "click", function () {
 		var parentPanel = $(this).closest(".action-panel");
 		parentPanel.find(".options-dropdown").addClass("d-none").removeClass("d-block");

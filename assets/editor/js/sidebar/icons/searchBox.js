@@ -26,7 +26,7 @@ export function addToIconsBar(keyword) {
     appendKeyword(keyword);
 
     apiService({
-        "url": "/api/call/Icon/find_icons",
+        "url": "/api/editor/call/Icon/find_icons",
         "data": {
             "keyword": keyword,
             "limit": 20

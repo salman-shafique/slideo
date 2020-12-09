@@ -2,10 +2,14 @@
 
 namespace App\Service;
 
+use App\Entity\Style;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 
 class SerializerService
 {
@@ -19,14 +23,15 @@ class SerializerService
                 return $object->getId();
             },
         ];
-        $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+        $normalizer = new ObjectNormalizer($classMetadataFactory, null, null, null, null, null, $defaultContext);
 
         $this->serializer =  new Serializer([$normalizer], [$encoder]);
     }
 
     public function normalize(Object $object): array
     {
-        return $this->serializer->normalize($object,null, [AbstractNormalizer::IGNORED_ATTRIBUTES => ['owner']]);
+        return $this->serializer->normalize($object,null);
     }
 
     public function serialize(Object $object): string

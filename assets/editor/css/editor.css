@@ -259,9 +259,6 @@ body {
 	box-shadow: 0 0 8px 1px white;
 }
 
-#sideBarIcons .icon-item{
-	
-}
 
 .remove-slide {
 	opacity: 0.6;
@@ -514,7 +511,7 @@ body {
 	cursor: pointer;
 }
 
-.keyword-dismiss, .search-click, .slide-options-menu {
+.keyword-dismiss, .search-click {
 	cursor: pointer;
 }
 
@@ -595,20 +592,6 @@ body {
 	right: 10px;
 }
 
-#Designs_Gallery, #Design_Layouts {
-	background-color: transparent;
-	padding: 4px;
-}
-
-#Design_Layouts {
-	max-height: calc(100% - 30px);
-	height: auto;
-}
-
-#Designs_Gallery {
-	max-height: calc(100% - 55px);
-	height: auto;
-}
 
 .options-dropdown, #UserMenuDropdown {
 	padding: 10px;
@@ -728,4 +711,44 @@ object[id^="prev_"] {
 	background-color: white;
 	width: 100%;
 	pointer-events: none;
+}
+
+
+/* Scroll bar */
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    border-radius: 10px;
+}
+
+/* Design_Panel */
+
+#Design_Panel .layout-container{
+    background-color: transparent;
+    padding: 4px;
+    max-height: calc(100% - 30px);
+	height: auto;
+	overflow-y: scroll;
+}
+
+#Design_Panel .design-container{
+    background-color: transparent;
+	padding: 4px;
+	max-height: calc(100% - 55px);
+	height: auto;
+	overflow-y: scroll;
 }

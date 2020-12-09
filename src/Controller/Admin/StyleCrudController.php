@@ -39,7 +39,7 @@ class StyleCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm()->hideOnForm(),
             BooleanField::new('isActive'),
-            TextField::new('keywords'),
+            ArrayField::new('keywords'),
             IntegerField::new('capacity'),
             TextField::new('direction'),
             IntegerField::new('designId'),

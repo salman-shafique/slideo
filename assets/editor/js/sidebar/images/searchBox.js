@@ -26,7 +26,7 @@ export function addToImagesBar(keyword) {
     appendKeyword(keyword);
 
     apiService({
-        "url": "/api/call/Pexels/find_images",
+        "url": "/api/editor/call/Pexels/find_images",
         "data": {
             "keyword": keyword,
             "per_page": 20

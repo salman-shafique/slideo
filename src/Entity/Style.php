@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 /**
  * @ORM\Entity(repositoryClass=StyleRepository::class)
@@ -19,14 +20,10 @@ class Style
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $keywords;
-
+    
     /**
      * @ORM\Column(type="string", length=255)
+     * @Ignore()
      */
     private $pptxFile;
 
@@ -50,11 +47,13 @@ class Style
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @Ignore()
      */
     private $created;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Ignore()
      */
     private $isActive = true;
 
@@ -75,8 +74,14 @@ class Style
 
     /**
      * @ORM\OneToMany(targetEntity=Content::class, mappedBy="style")
+     * @Ignore()
      */
     private $shapes;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $keywords = [];
 
     public function __construct()
     {
@@ -86,18 +91,6 @@ class Style
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getKeywords(): ?string
-    {
-        return $this->keywords;
-    }
-
-    public function setKeywords(?string $keywords): self
-    {
-        $this->keywords = $keywords;
-
-        return $this;
     }
 
     public function getPptxFile(): ?string
@@ -228,6 +221,18 @@ class Style
                 $shape->setStyle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getKeywords(): ?array
+    {
+        return $this->keywords;
+    }
+
+    public function setKeywords(?array $keywords): self
+    {
+        $this->keywords = $keywords;
 
         return $this;
     }

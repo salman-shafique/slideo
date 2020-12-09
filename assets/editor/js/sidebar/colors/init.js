@@ -77,7 +77,7 @@ $(document).mouseup(function (e) {
     }
 
     if ($(".options-dropdown").hasClass("d-block")) {
-        var optionsDropdownContainers = [$(".options-dropdown"), $(".slide-options-menu")];
+        var optionsDropdownContainers = [$(".options-dropdown")];
         var optionsDropdownClose = true;
         // outside click for options Dropdown
         optionsDropdownClose = detectClickOutside(optionsDropdownContainers, optionsDropdownClose, e.target);

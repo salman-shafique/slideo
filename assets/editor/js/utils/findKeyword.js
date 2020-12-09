@@ -8,7 +8,7 @@ export default function findKeyword(text) {
     if (!text) return;
 
     return apiService({
-        url: "/api/call/NLP/extract_keyword",
+        url: "/api/editor/call/NLP/extract_keyword",
         data: {
             "text": text
         },

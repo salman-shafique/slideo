@@ -7,10 +7,6 @@ use App\Entity\Style;
 use App\Repository\StyleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class StyleService
 {
@@ -83,13 +79,20 @@ class StyleService
         return ["success" => true, "id" => $style->getId()];
     }
 
-
-    public static function serialize(Style $style): array
+    public function getStyles(Request $request)
     {
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
+        /**  @var StyleRepository $styleRepository */
+        $styleRepository = $this->em->getRepository(Style::class);
 
-        $serializer = new Serializer($normalizers, $encoders);
-        return $serializer->normalize($style);
+        $serializer = new SerializerService;
+        $styles = $styleRepository->findBy([
+            "isActive" => true,
+        ]);
+
+        $styles_ = [];
+        foreach ($styles as $style)
+            array_push($styles_, $serializer->normalize($style));
+
+        return $styles_;
     }
 }

@@ -1,7 +1,7 @@
 
 
 let session = {
-    DIRECTION: "rtl",
+    DIRECTION: null,
     EDITOR: document.getElementById("area"),
     NEXT_SLIDE: {
         "slideTitle": "",

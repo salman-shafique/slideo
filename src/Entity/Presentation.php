@@ -7,6 +7,7 @@ use App\Repository\PresentationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 /**
  * @ORM\Entity(repositoryClass=PresentationRepository::class)
@@ -22,11 +23,13 @@ class Presentation
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="presentations")
+     * @Ignore()
      */
     private $owner;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Ignore()
      */
     private $sessionId;
 
@@ -42,6 +45,7 @@ class Presentation
 
     /**
      * @ORM\Column(type="boolean")
+     * @Ignore()
      */
     private $isActive = true;
 
