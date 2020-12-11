@@ -752,3 +752,12 @@ object[id^="prev_"] {
 	height: auto;
 	overflow-y: scroll;
 }
+
+.layout-item{
+	cursor: pointer;
+}
+.layout-item.selected{
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(0,93,143,1);
+	-moz-box-shadow: 0px 0px 10px 0px rgba(0,93,143,1);
+	box-shadow: 0px 0px 10px 0px rgba(0,93,143,1);
+}

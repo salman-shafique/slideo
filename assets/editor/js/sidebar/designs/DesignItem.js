@@ -7,8 +7,14 @@ import slide from "Editor/js/entity/slide";
 
 export default function DesignItem({ designData }) {
 
+    const selectDesign = () => {
+        console.log("design from ", slide(session.CURRENT_SLIDE).slideData().style.id,
+            "  to ", designData.id
+        );
+    }
+
     return (
-        <img className="col-6 px-1 mb-1" src={designData.prevFile} />
+        <img onClick={selectDesign} keywords={designData.keywords ? designData.keywords.join(",") : ""} layoutid={designData.layout.id} className="col-6 px-1 mb-1" src={designData.prevFile} />
     )
 
 }

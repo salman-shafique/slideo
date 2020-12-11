@@ -23,6 +23,7 @@ export default function DesignItems() {
                 designs[direction][capacity] = [];
 
             if (designs[direction][capacity].length == 0) {
+                designs[direction][capacity].push(null);
                 apiService({
                     "url": "/api/style/get",
                     "data": {
@@ -39,13 +40,14 @@ export default function DesignItems() {
             try {
                 let designItemsTmp = [];
                 designs[direction][capacity].forEach((designData, i) => {
-                    designItemsTmp.push(
-                        <DesignItem key={i} designData={designData} />
-                    )
+                    if (designData)
+                        designItemsTmp.push(
+                            <DesignItem key={i} designData={designData} />
+                        )
                 });
                 setDesignItems(designItemsTmp);
             } catch (error) {
-                
+
             }
         });
 
@@ -54,5 +56,5 @@ export default function DesignItems() {
         )
     }
     return designItems;
- 
+
 }

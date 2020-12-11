@@ -3,6 +3,7 @@ import apiService from "Editor/js/utils/apiService";
 import slide from "Editor/js/entity/slide";
 import LayoutItem from "./LayoutItem";
 
+
 export default function LayoutItems() {
 
     const [layouts, setLayouts] = React.useState({});
@@ -22,6 +23,7 @@ export default function LayoutItems() {
                 layouts[direction][capacity] = [];
 
             if (layouts[direction][capacity].length == 0) {
+                layouts[direction][capacity].push(null);
                 apiService({
                     "url": "/api/layout/get",
                     "data": {
@@ -32,19 +34,20 @@ export default function LayoutItems() {
                         layouts[direction][capacity] = r;
                         setLayouts(layouts);
                     }
-                })
+                });
             }
 
             try {
                 let layoutItemsTmp = [];
                 layouts[direction][capacity].forEach((layoutData, i) => {
-                    layoutItemsTmp.push(
-                        <LayoutItem key={i} layoutData={layoutData} />
-                    )
+                    if (layoutData)
+                        layoutItemsTmp.push(
+                            <LayoutItem key={i} layoutData={layoutData} />
+                        )
                 });
                 setLayoutItems(layoutItemsTmp);
             } catch (error) {
-                
+
             }
         });
 
@@ -53,5 +56,5 @@ export default function LayoutItems() {
         )
     }
     return layoutItems;
- 
+
 }

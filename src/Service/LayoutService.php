@@ -73,4 +73,21 @@ class LayoutService
 
         return $layouts_;
     }
+
+    public function getAll()
+    {
+        /**  @var LayoutRepository $layoutRepository */
+        $layoutRepository = $this->em->getRepository(Layout::class);
+
+        $serializer = new SerializerService;
+        $layouts = $layoutRepository->findBy([
+            "isActive" => true
+        ]);
+
+        $layouts_ = [];
+        foreach ($layouts as $layout)
+            array_push($layouts_, $serializer->normalize($layout));
+
+        return $layouts_;
+    }
 }
