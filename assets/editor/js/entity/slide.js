@@ -251,7 +251,7 @@ export default function slide(slideId) {
         // Update the session CURRENT_SLIDE
         session.CURRENT_SLIDE = this.slideId;
 
-        // Dispatch the event
+        // Dispatch the selection event
         Events.slide.display.slideId = this.slideId;
         window.top.dispatchEvent(Events.slide.display);
 
