@@ -1,7 +1,4 @@
 
-// Toastr
-// import "CSS/toastr.min.css";
-
 // Bootstrap JS
 import '../../js/bootstrap.bundle.min.js';
 
@@ -23,4 +20,5 @@ import "Editor/js/init";
 
 // Shape actions
 import "Editor/js/shapes/actions/";
+
 

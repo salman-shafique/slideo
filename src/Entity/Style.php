@@ -81,6 +81,7 @@ class Style
     /**
      * @ORM\ManyToOne(targetEntity=Layout::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Ignore()
      */
     private $layout;
 

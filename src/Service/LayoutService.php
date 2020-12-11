@@ -63,6 +63,8 @@ class LayoutService
         $serializer = new SerializerService;
         $layouts = $layoutRepository->findBy([
             "isActive" => true,
+            "direction"=>$request->request->get("direction"),
+            "capacity"=>$request->request->get("capacity")
         ]);
 
         $layouts_ = [];

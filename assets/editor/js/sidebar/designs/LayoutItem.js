@@ -1,8 +1,14 @@
 import React from "react";
-export default function LayoutItem(){
-    
+import session from "Editor/js/session";
+import apiService from "Editor/js/utils/apiService";
+import slide from "Editor/js/entity/slide";
 
-    return(
-        <img className="col-6 px-1 mb-1" src="https://dummyimage.com/123x60/b30909/000000&text=Layout" />
+
+
+export default function LayoutItem({ layoutData }) {
+
+    return (
+        <img className="col-6 px-1 mb-1" src={layoutData.prevFile} />
     )
+
 }

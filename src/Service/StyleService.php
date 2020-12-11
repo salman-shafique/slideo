@@ -92,6 +92,8 @@ class StyleService
         $serializer = new SerializerService;
         $styles = $styleRepository->findBy([
             "isActive" => true,
+            "direction"=>$request->request->get("direction"),
+            "capacity"=>$request->request->get("capacity")
         ]);
 
         $styles_ = [];

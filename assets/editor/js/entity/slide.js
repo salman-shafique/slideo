@@ -1,4 +1,5 @@
 import session from "Editor/js/session";
+import Events from "Editor/js/Events";
 import presentation from "Editor/js/entity/presentation";
 import shape from "Editor/js/entity/shape";
 import refresh_slide_prev_numbers from "Editor/js/slides/utils/refresh_slide_prev_numbers";
@@ -89,7 +90,7 @@ export default function slide(slideId) {
                 '<style type="text/css">.draggable:hover,.draggable {outline:none !important}</style>',
                 this.documentElement,
                 "http://www.w3.org/2000/svg"
-                );
+            );
             this.contentDocument.querySelector("svg").appendChild(style);
         });
 
@@ -249,6 +250,11 @@ export default function slide(slideId) {
         showDesignsByCapacity(this.slideData().sentences.length);
         // Update the session CURRENT_SLIDE
         session.CURRENT_SLIDE = this.slideId;
+
+        // Dispatch the event
+        Events.slide.display.slideId = this.slideId;
+        window.top.dispatchEvent(Events.slide.display);
+
         return this;
     }
 
