@@ -1,5 +1,4 @@
 import React from "react";
-import session from "Editor/js/session";
 import apiService from "Editor/js/utils/apiService";
 import slide from "Editor/js/entity/slide";
 import DesignItem from "./DesignItem";
@@ -8,6 +7,18 @@ export default function DesignItems() {
 
     const [designs, setDesigns] = React.useState({});
     const [designItems, setDesignItems] = React.useState([]);
+
+
+    const arrangeDesignItems = (freshDesignItems)=>{
+        let tmpDesignItems = [];
+        freshDesignItems.forEach((designData, i) => {
+            if (designData)
+                tmpDesignItems.push(
+                    <DesignItem key={i} designData={designData} />
+                )
+        });
+        setDesignItems(tmpDesignItems);
+    }
 
     if (Object.keys(designs).length == 0) {
         window.top.addEventListener('slide.display', (event) => {
@@ -33,19 +44,14 @@ export default function DesignItems() {
                     "success": (r) => {
                         designs[direction][capacity] = r;
                         setDesigns(designs);
+                        arrangeDesignItems(designs[direction][capacity]);
                     }
                 })
+                return;
             }
 
             try {
-                let designItemsTmp = [];
-                designs[direction][capacity].forEach((designData, i) => {
-                    if (designData)
-                        designItemsTmp.push(
-                            <DesignItem key={i} designData={designData} />
-                        )
-                });
-                setDesignItems(designItemsTmp);
+                arrangeDesignItems(designs[direction][capacity]);
             } catch (error) {
 
             }
