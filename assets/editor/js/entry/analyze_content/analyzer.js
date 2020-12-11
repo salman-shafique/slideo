@@ -112,7 +112,7 @@ add_event("#entry_analyze", "click", function () {
                         }
                         if (node.querySelector("br")) {
                             // Shift+Enter behaivor
-                            node_texts = node.innerHTML.split("<br>");
+                            let node_texts = node.innerHTML.split("<br>");
                             if (node_texts)
                                 node_texts.forEach(node_text => {
                                     if (clear_text(node_text)) {

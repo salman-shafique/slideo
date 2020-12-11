@@ -26,6 +26,9 @@ let session = {
      * @type {string} SHAPE_STATE - "DRAGGING" | null
      */
     SHAPE_STATE: null,
-    GOLDEN_RATIO: (1 + Math.sqrt(5)) / 2
+    /**
+     * @type {string} SLIDE_STATE - "CHANCING_DESIGN" | null
+     */
+    SLIDE_STATE: null
 }
 export default session 

@@ -89,13 +89,13 @@ class StyleService
         /**  @var StyleRepository $styleRepository */
         $styleRepository = $this->em->getRepository(Style::class);
 
-        $serializer = new SerializerService;
         $styles = $styleRepository->findBy([
             "isActive" => true,
             "direction"=>$request->request->get("direction"),
             "capacity"=>$request->request->get("capacity")
         ]);
 
+        $serializer = new SerializerService;
         $styles_ = [];
         foreach ($styles as $style)
             array_push($styles_, $serializer->normalize($style));

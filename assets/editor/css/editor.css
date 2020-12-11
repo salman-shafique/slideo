@@ -240,9 +240,11 @@ body {
 
 .slide-thumbnail.active-slide, #Images_Panel .images-gallery .image-item.active, .control-overlay-layout .image-item.active {
 	border: 2px solid salmon!important;
+	border-radius: .25rem;
 }
 
 .slide-thumbnail {
+	display: flex;
 	position: relative;
 	cursor: pointer;
 	transition: 0.6s;
@@ -700,6 +702,7 @@ body {
 }
 
 object.main-container {
+	border: gray 1px solid;
 	background-color: white;
 	width: 100%;
 	max-width: 750px;
@@ -763,4 +766,10 @@ object[id^="prev_"] {
 }
 .design-item{
 	cursor: pointer;
+}
+
+
+/* Input area */
+#area {
+	overflow-y: scroll;
 }

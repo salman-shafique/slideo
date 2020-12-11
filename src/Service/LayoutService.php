@@ -60,13 +60,13 @@ class LayoutService
         /**  @var LayoutRepository $layoutRepository */
         $layoutRepository = $this->em->getRepository(Layout::class);
 
-        $serializer = new SerializerService;
         $layouts = $layoutRepository->findBy([
             "isActive" => true,
-            "direction"=>$request->request->get("direction"),
-            "capacity"=>$request->request->get("capacity")
+            "direction" => $request->request->get("direction"),
+            "capacity" => $request->request->get("capacity")
         ]);
 
+        $serializer = new SerializerService;
         $layouts_ = [];
         foreach ($layouts as $layout)
             array_push($layouts_, $serializer->normalize($layout));

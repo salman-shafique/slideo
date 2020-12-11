@@ -14,7 +14,6 @@ import colorTemplate from "Editor/js/entity/colorTemplate";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/makeDraggable";
 import iconInit from "Editor/js/shapes/icon/iconInit";
-import showDesignsByCapacity from "Editor/js/sidebar/designs/showDesignsByCapacity";
 import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
@@ -247,13 +246,14 @@ export default function slide(slideId) {
         });
         this.object().style.display = "";
 
-        showDesignsByCapacity(this.slideData().sentences.length);
         // Update the session CURRENT_SLIDE
         session.CURRENT_SLIDE = this.slideId;
 
         // Dispatch the selection event
-        Events.slide.display.slideId = this.slideId;
-        window.top.dispatchEvent(Events.slide.display);
+        if (session.SLIDE_STATE = "CHANCING_DESIGN") {
+            Events.slide.display.slideId = this.slideId;
+            window.top.dispatchEvent(Events.slide.display);
+        }
 
         return this;
     }
@@ -265,6 +265,51 @@ export default function slide(slideId) {
             contentDocument.querySelector("g.SlideGroup g.Page").remove();
             contentDocument.querySelector("g.SlideGroup g.Slide").appendChild(clone);
         }
+    }
+
+    this.chunkDesigns = {}
+
+    this.changeDesign = (designData) => {
+        if (!this.chunkDesigns[String(designData.id)])
+            this.chunkDesigns[String(designData.id)] = designData;
+
+        let slideData = this.slideData();
+        slideData.style = this.chunkDesigns[String(designData.id)];
+        slideData.shapes = this.chunkDesigns[String(designData.id)].shapes;
+
+        session.SLIDE_STATE = "CHANCING_DESIGN";
+        this.updateOnPage();
+        session.SLIDE_STATE = null;
+    }
+
+    this.updateOnPage = () => {
+        console.log(this.slideData());
+
+        let slideData = this.slideData();
+        let miniPrev = select('div.slide-thumbnail[data-slide-id="' + this.slideId + '"]');
+        let miniPrevObject = select("object", miniPrev);
+
+        add_event(miniPrevObject, "load", function () {
+            let slideId = this.getAttribute("id").split("_")[1];
+            slide(slideId).cloneToMiniPrev();
+            // Rm styles
+            let style = html_to_element(
+                '<style type="text/css">.draggable:hover,.draggable {outline:none !important}</style>',
+                this.documentElement,
+                "http://www.w3.org/2000/svg"
+            );
+            this.contentDocument.querySelector("svg").appendChild(style);
+        });
+        miniPrevObject.setAttribute("data", slideData.style.svgFile);
+
+        let main = select("object[id='" + this.slideId + "']");
+        // Init the slide - move etc
+        add_event(main, "load", function () {
+            slide(this.dataset.slideId).initSlide();
+        });
+        main.setAttribute("data", slideData.style.svgFile);
+
+        return this;
     }
 
 }

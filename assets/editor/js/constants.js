@@ -15,7 +15,8 @@ const constants = {
         TRANSLATE: 2,
         SCALE: 3,
         ROTATE: 4
-    }
+    },
+    MAX_SLIDE_CAPACITY: 6
 }
 
 

@@ -69,7 +69,6 @@ class Style
 
     /**
      * @ORM\OneToMany(targetEntity=Content::class, mappedBy="style")
-     * @Ignore()
      */
     private $shapes;
 

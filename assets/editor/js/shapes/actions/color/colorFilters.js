@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import session from "Editor/js/session";
+import constants from "Editor/js/constants";
 
 /**
  * 
@@ -39,7 +39,7 @@ export default function colorFilters(g) {
             let brightness = g.getAttribute("shape_brightness");
             if (brightness) {
                 brightness = 1 + parseFloat(brightness);
-                brightness = brightness ** session.GOLDEN_RATIO;
+                brightness = brightness ** constants.GOLDEN_RATIO;
             } else brightness = 1;
 
             filter =

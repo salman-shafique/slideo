@@ -8,15 +8,14 @@ import slide from "Editor/js/entity/slide";
 export default function DesignItem({ designData }) {
 
     const selectDesign = () => {
-        let currentStyeId = slide(session.CURRENT_SLIDE).slideData().style.id;
-        if (designData.id == currentStyeId) {
+        let currentSlide = slide(session.CURRENT_SLIDE);
+        let slideData = currentSlide.slideData();
+        if (designData.id == slideData.style.id) {
             console.log("same design");
             return;
         }
 
-        console.log("design from ", currentStyeId,
-            "  to ", designData.id
-        );
+        currentSlide.changeDesign(designData);
     }
 
     return (
