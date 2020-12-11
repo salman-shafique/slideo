@@ -52,13 +52,11 @@ export default function DesignItems() {
 
             try {
                 arrangeDesignItems(designs[direction][capacity]);
-            } catch (error) {
-
-            }
+            } catch (error) {}
         });
 
         return (
-            <h1>No design items here</h1>
+            <h4 className={"text-center text-white"}>Let's create beautiful presentations!</h4>
         )
     }
     return designItems;

@@ -9,6 +9,17 @@ export default function LayoutItems() {
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
 
+    const arrangeLayoutItems = (freshDesignItems)=>{
+        let layoutItemsTmp = [];
+        freshDesignItems.forEach((layoutData, i) => {
+            if (layoutData)
+                layoutItemsTmp.push(
+                    <LayoutItem key={i} layoutData={layoutData} />
+                )
+        });
+        setLayoutItems(layoutItemsTmp);
+    }
+
     if (Object.keys(layouts).length == 0) {
         window.top.addEventListener('slide.display', (event) => {
             const slideId = event.slideId;
@@ -33,26 +44,18 @@ export default function LayoutItems() {
                     "success": (r) => {
                         layouts[direction][capacity] = r;
                         setLayouts(layouts);
+                        arrangeLayoutItems(layouts[direction][capacity])
                     }
                 });
             }
 
             try {
-                let layoutItemsTmp = [];
-                layouts[direction][capacity].forEach((layoutData, i) => {
-                    if (layoutData)
-                        layoutItemsTmp.push(
-                            <LayoutItem key={i} layoutData={layoutData} />
-                        )
-                });
-                setLayoutItems(layoutItemsTmp);
-            } catch (error) {
-
-            }
+                arrangeLayoutItems(layouts[direction][capacity]);
+            } catch (error) {}
         });
 
         return (
-            <h1>No layout items here</h1>
+            <h4 className={"text-center"}>Let's create beautiful presentations!</h4>
         )
     }
     return layoutItems;

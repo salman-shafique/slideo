@@ -14,7 +14,7 @@ export default function SearchBox() {
                     <i className="fas fa-search"></i>
                 </span>
             </div>
-            <input type="text" onChange={enterQuery} className="form-control" placeholder="" />
+            <input type="text" onChange={enterQuery} className="form-control" placeholder="Try something..." />
         </div>
     )
 }
