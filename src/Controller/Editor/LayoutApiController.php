@@ -41,4 +41,13 @@ class LayoutApiController extends AbstractController
         $r = $layoutService->getAll();   
         return new JsonResponse($r);
     }
+
+    /**
+     * @Route("/check")
+     */
+    public function check(Request $request, LayoutService $layoutService)
+    {
+        $r = $layoutService->check($request);   
+        return new JsonResponse($r);
+    }
 }

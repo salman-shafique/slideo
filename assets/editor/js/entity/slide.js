@@ -283,32 +283,14 @@ export default function slide(slideId) {
     }
 
     this.updateOnPage = () => {
-        console.log(this.slideData());
-
         let slideData = this.slideData();
         let miniPrev = select('div.slide-thumbnail[data-slide-id="' + this.slideId + '"]');
         let miniPrevObject = select("object", miniPrev);
-
-        add_event(miniPrevObject, "load", function () {
-            let slideId = this.getAttribute("id").split("_")[1];
-            slide(slideId).cloneToMiniPrev();
-            // Rm styles
-            let style = html_to_element(
-                '<style type="text/css">.draggable:hover,.draggable {outline:none !important}</style>',
-                this.documentElement,
-                "http://www.w3.org/2000/svg"
-            );
-            this.contentDocument.querySelector("svg").appendChild(style);
-        });
         miniPrevObject.setAttribute("data", slideData.style.svgFile);
-
+        // load event will be triggered
         let main = select("object[id='" + this.slideId + "']");
-        // Init the slide - move etc
-        add_event(main, "load", function () {
-            slide(this.dataset.slideId).initSlide();
-        });
         main.setAttribute("data", slideData.style.svgFile);
-
+        // load event will be triggered
         return this;
     }
 

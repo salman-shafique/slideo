@@ -9,6 +9,7 @@ use App\Repository\LayoutRepository;
 use App\Repository\StyleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class LayoutService
 {
@@ -89,5 +90,21 @@ class LayoutService
             array_push($layouts_, $serializer->normalize($layout));
 
         return $layouts_;
+    }
+
+    public function check(Request $request): array
+    {
+        /**  @var LayoutRepository $layoutRepository */
+        $layoutRepository = $this->em->getRepository(Layout::class);
+
+        $layouts = $layoutRepository->findOneBy([
+            "isActive" => true,
+            "uniqueName" => $request->request->get("layout_name"),
+            "direction" => $request->request->get("direction")
+        ]);
+        if ($layouts)
+            return ['success' => true];
+
+        return ['success' => false];
     }
 }
