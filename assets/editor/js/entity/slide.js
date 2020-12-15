@@ -158,6 +158,7 @@ export default function slide(slideId) {
             } else if (shape_.data.alt == "slidetitle") {
                 try {
                     content = slideData.slideTitle.data;
+                    if (!content.text) throw new DOMException();
                     shape_.data.text = text = content.text;
                     direction = content.direction;
                     Object.assign(shape_.data, content);
@@ -167,6 +168,7 @@ export default function slide(slideId) {
             } else if (shape_.data.alt == "subtitle") {
                 try {
                     content = slideData.subTitle.data;
+                    if (!content.text) throw new DOMException();
                     shape_.data.text = text = content.text;
                     direction = content.direction;
                     Object.assign(shape_.data, content);
@@ -203,10 +205,12 @@ export default function slide(slideId) {
 
             } else if (shape_.data.alt == "slidetitleimage") {
                 try {
-                    content = slideData.slideTitle.data;
+                    content = slideData.slideTitleImage.data;
                     if (!content.keyword) throw new DOMException();
                     Object.assign(shape_.data, content);
                     h1Image(this.slideId, shape_.data.shape_id, content.keyword);
+                    // Add event listener
+                    shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
                 } catch {
                     shape(this.slideId, shape_.data.shape_id).remove();
                 }

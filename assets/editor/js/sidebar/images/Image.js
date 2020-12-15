@@ -6,7 +6,10 @@ export default function Image({ imageData }) {
     const onClick = () => {
         if (session.SELECTED_ELEMENTS.length == 1) {
             const g = session.SELECTED_ELEMENTS[0].shape;
-            if (g.getAttribute("alt").includes("h1image|")) {
+            if (
+                g.getAttribute("alt").includes("h1image|") ||
+                g.getAttribute("alt").includes("slidetitleimage")
+            ) {
                 const shapeId = session.SELECTED_ELEMENTS[0].shapeId;
                 selectH1Image(session.CURRENT_SLIDE, shapeId, imageData);
             }

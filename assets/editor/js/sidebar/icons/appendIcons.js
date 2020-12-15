@@ -13,7 +13,7 @@ export default function appendIcons(icons, keyword) {
 
     const sideBarIcons = select("#sideBarIcons");
     const div = reactToDOM(
-        <div className={"icon-container"} data-keyword={keyword}>
+        <div className={"icon-container"} data-keyword={keyword} style={{"filter":"invert(100%) sepia(100%) saturate(0%) hue-rotate(46deg) brightness(104%) contrast(102%)"}}>
 
         </div>
     );
@@ -27,6 +27,6 @@ export default function appendIcons(icons, keyword) {
     });
     ReactDOM.render(iconEls, div);
 
-    toggleKeyword(keyword,"255 255 255");
+    toggleKeyword(keyword);
     select("#sideBarIconsEmpty").style.display = "none";
 }

@@ -50,9 +50,15 @@ export default function shape(slideId, shapeId) {
     }
     this.setImage = (image) => {
         // Update the analyzed content
-        const contentNumber = this.data().alt.split("|").pop();
-        const content = slide(this.slideId).slideData().analyzedContent[contentNumber].h1Image.data;
-        content.image = image;
+        const alt = this.data().alt;
+        if (alt.includes("slidetitleimage")) {
+            const content = slide(this.slideId).slideData().slideTitleImage.data;
+            content.image = image;
+        } else {
+            const contentNumber = alt.split("|").pop();
+            const content = slide(this.slideId).slideData().analyzedContent[contentNumber].h1Image.data;
+            content.image = image;
+        }
     }
     this.setH1 = (h1) => {
         // Update the analyzed content

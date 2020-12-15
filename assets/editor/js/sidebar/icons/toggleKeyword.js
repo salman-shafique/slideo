@@ -1,13 +1,12 @@
 
 import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
-import createFilter from "Editor/js/sidebar/icons/createFilter";
 
 /**
  * 
  * @param {string} keyword 
  */
-export default function toggleKeyword(keyword, rgb = "") {
+export default function toggleKeyword(keyword) {
     // Icons
     const allIconContainers = selectAll('#Icons_Panel div.icon-container[data-keyword]');
     allIconContainers.forEach(e => e.style.display = "none");
@@ -25,12 +24,5 @@ export default function toggleKeyword(keyword, rgb = "") {
     select("#Icon_keywords_list").scrollLeft = searchKeyword.offsetLeft - searchKeyword.offsetWidth / 2;
 
     const iconContainerToShow = select('#Icons_Panel div.icon-container[data-keyword="' + keyword + '"]');
-    if (rgb)
-        if (iconContainerToShow.getAttribute("rgb") != rgb) {
-            const filter = createFilter(rgb.split(" "));
-            iconContainerToShow.setAttribute("style","filter: "+filter);
-            iconContainerToShow.setAttribute("rgb", rgb);
-        }
-
     iconContainerToShow.style.display = "";
 }

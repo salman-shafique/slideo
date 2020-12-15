@@ -46,7 +46,7 @@ class SlideService
 
     public function findAndApplyStyle(Slide $slide)
     {
-        $style = $this->findRandomStyle(count($slide->getSentences()),$slide->getDirection());
+        $style = $this->findRandomStyle(count($slide->getSentences()), $slide->getDirection());
         $slide->setStyle($style);
 
         // Copy shapes
@@ -83,31 +83,37 @@ class SlideService
             $this->em->persist($slide);
 
             // Slide title
-            if (isset($rawSlide['slideTitle'])) {
-                $slideTitle = new Content();
+            $slideTitle = new Content();
+            if (isset($rawSlide['slideTitle']))
                 $slideTitle->setData($rawSlide['slideTitle']);
-                $slideTitle->setKeyword('slideTitle');
-                $slide->setSlideTitle($slideTitle);
-                $this->em->persist($slideTitle);
-            }
+            else
+                $slideTitle->setData([]);
+            $slideTitle->setKeyword('slideTitle');
+            $slide->setSlideTitle($slideTitle);
+            $this->em->persist($slideTitle);
+
 
             // Slide title image
-            if (isset($rawSlide['slideTitleImage'])) {
-                $slideTitleImage = new Content();
+            $slideTitleImage = new Content();
+            if (isset($rawSlide['slideTitleImage']))
                 $slideTitleImage->setData($rawSlide['slideTitleImage']);
-                $slideTitleImage->setKeyword('slideTitleImage');
-                $slide->setSlideTitleImage($slideTitleImage);
-                $this->em->persist($slideTitleImage);
-            }
+            else
+                $slideTitleImage->setData([]);
+
+            $slideTitleImage->setKeyword('slideTitleImage');
+            $slide->setSlideTitleImage($slideTitleImage);
+            $this->em->persist($slideTitleImage);
+
 
             // Sub title
-            if (isset($rawSlide['subTitle'])) {
-                $subTitle = new Content();
+            $subTitle = new Content();
+            if (isset($rawSlide['subTitle']))
                 $subTitle->setData($rawSlide['subTitle']);
-                $subTitle->setKeyword('subTitle');
-                $slide->setSubTitle($subTitle);
-                $this->em->persist($subTitle);
-            }
+            else
+                $subTitle->setData([]);
+            $subTitle->setKeyword('subTitle');
+            $slide->setSubTitle($subTitle);
+            $this->em->persist($subTitle);
 
             // Analyzed content
             foreach ($rawSlide['analyzed_content'] as $rawAnalyzedContent) {

@@ -15,12 +15,12 @@ add_event("#Icons_Panel .keyword-search", "keyup", (event) => {
     }
 })
 
-export function addToIconsBar(keyword, rgb = "") {
+export function addToIconsBar(keyword) {
     keyword = clear_text(keyword);
     if (!keyword) return;
     // Check if the keyword exists
     if (select('#Icons_Panel div[data-keyword="' + keyword + '"].search-keyword')) {
-        toggleKeyword(keyword, rgb);
+        toggleKeyword(keyword);
         return;
     }
     appendKeyword(keyword);
