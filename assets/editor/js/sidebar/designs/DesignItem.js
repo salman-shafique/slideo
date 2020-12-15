@@ -8,8 +8,8 @@ import slide from "Editor/js/entity/slide";
 export default function DesignItem({ designData }) {
 
     const selectDesign = () => {
-        let currentSlide = slide(session.CURRENT_SLIDE);
-        let slideData = currentSlide.slideData();
+        const currentSlide = slide(session.CURRENT_SLIDE);
+        const slideData = currentSlide.slideData();
         if (designData.id == slideData.style.id) {
             console.log("same design");
             return;

@@ -1,7 +1,7 @@
 import session from "Editor/js/session";
 import shape from "Editor/js/entity/shape";
 import sidebar from "Editor/js/entity/sidebar";
-import {addToIconsBar} from "Editor/js/sidebar/icons/searchBox";
+import { addToIconsBar } from "Editor/js/sidebar/icons/searchBox";
 
 /**
  * 
@@ -13,5 +13,5 @@ export default function selectIconElement(event) {
     let shape_ = shape(session.CURRENT_SLIDE, shapeId);
     let shapeData = shape_.data();
     sidebar().open("Icons_Tool");
-    addToIconsBar(shapeData.keyword);
+    addToIconsBar(shapeData.keyword, shapeData.rgb);
 }

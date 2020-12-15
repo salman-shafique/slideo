@@ -121,12 +121,17 @@ class SlideService
                 $icon->setData($rawAnalyzedContent['icon']);
                 $icon->setKeyword("icon");
 
+                $h1image = new Content();
+                $h1image->setData($rawAnalyzedContent['h1image']);
+                $h1image->setKeyword("h1image");
+
                 $originalSentence = new Content();
                 $originalSentence->setData($rawAnalyzedContent['originalSentence']);
                 $originalSentence->setKeyword("originalSentence");
 
                 $analyzedContent->setH1($h1);
                 $analyzedContent->setIcon($icon);
+                $analyzedContent->setH1Image($h1image);
                 $analyzedContent->setOriginalSentence($originalSentence);
 
                 $slide->addAnalyzedContent($analyzedContent);

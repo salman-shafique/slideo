@@ -3,7 +3,7 @@ import Events from "Editor/js/Events";
 import presentation from "Editor/js/entity/presentation";
 import shape from "Editor/js/entity/shape";
 import refresh_slide_prev_numbers from "Editor/js/slides/utils/refresh_slide_prev_numbers";
-import html_to_element from "Editor/js/utils/html_to_element";
+import stringToDOM from "Editor/js/utils/stringToDOM";
 import add_event from "Editor/js/utils/add_event";
 import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
@@ -74,7 +74,7 @@ export default function slide(slideId) {
             <span class="slide-sl text-white mr-2"></span>
         </div>
         `;
-        let miniPrev = html_to_element(miniPrevHtml);
+        let miniPrev = stringToDOM(miniPrevHtml);
 
         add_event(miniPrev, "click", function () {
             slide(this.dataset.slideId).display();
@@ -85,7 +85,7 @@ export default function slide(slideId) {
             slide(slideId).cloneToMiniPrev();
 
             // Rm styles
-            let style = html_to_element(
+            let style = stringToDOM(
                 '<style type="text/css">.draggable:hover,.draggable {outline:none !important}</style>',
                 this.documentElement,
                 "http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ export default function slide(slideId) {
         let mainHtml = `
         <object id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
         `;
-        let main = html_to_element(mainHtml);
+        let main = stringToDOM(mainHtml);
 
         // Init the slide - move etc
         add_event(main, "load", function () {
@@ -195,9 +195,9 @@ export default function slide(slideId) {
                 shape(this.slideId, shape_.data.shape_id).addEvent("click", selectIconElement);
             } else if (shape_.data.alt.includes("h1image|")) {
                 contentNumber = shape_.data.alt.split("|")[1];
-                content = slideData.analyzedContent[contentNumber].h1.data;
+                content = slideData.analyzedContent[contentNumber].h1Image.data;
                 Object.assign(shape_.data, content);
-                h1Image(this.slideId, shape_.data.shape_id, content.text);
+                h1Image(this.slideId, shape_.data.shape_id, content.keyword);
                 // Add event listener
                 shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
 
@@ -250,10 +250,8 @@ export default function slide(slideId) {
         session.CURRENT_SLIDE = this.slideId;
 
         // Dispatch the selection event
-        if (session.SLIDE_STATE = "CHANCING_DESIGN") {
-            Events.slide.display.slideId = this.slideId;
-            window.top.dispatchEvent(Events.slide.display);
-        }
+        Events.slide.display.slideId = this.slideId;
+        window.top.dispatchEvent(Events.slide.display);
 
         return this;
     }
@@ -273,13 +271,11 @@ export default function slide(slideId) {
         if (!this.chunkDesigns[String(designData.id)])
             this.chunkDesigns[String(designData.id)] = designData;
 
-        let slideData = this.slideData();
+        const slideData = this.slideData();
         slideData.style = this.chunkDesigns[String(designData.id)];
         slideData.shapes = this.chunkDesigns[String(designData.id)].shapes;
 
-        session.SLIDE_STATE = "CHANCING_DESIGN";
         this.updateOnPage();
-        session.SLIDE_STATE = null;
     }
 
     this.updateOnPage = () => {

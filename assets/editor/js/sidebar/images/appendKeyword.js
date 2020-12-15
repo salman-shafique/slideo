@@ -1,5 +1,5 @@
 import select from "Editor/js/utils/selector/select";
-import html_to_element from "Editor/js/utils/html_to_element";
+import stringToDOM from "Editor/js/utils/stringToDOM";
 import toggleKeyword from "./toggleKeyword";
 import removeKeyword from "./removeKeyword";
 import add_event from "Editor/js/utils/add_event";
@@ -8,7 +8,7 @@ import add_event from "Editor/js/utils/add_event";
 export default function appendKeyword(keyword) {
 
     let KeywordsList = select("#Keywords_list");
-    let keywordEl = html_to_element(
+    let keywordEl = stringToDOM(
         '<div data-keyword="' + keyword + '" class="search-keyword active">' +
         '<span data-keyword="' + keyword + '" class="keyword-text text-dark">' + keyword + '</span>&emsp;' +
         '<span class="text-dark keyword-dismiss" data-keyword="' + keyword + '"><i data-keyword="' + keyword + '" class="fas fa-times"></i></span>' +

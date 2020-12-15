@@ -25,10 +25,6 @@ let session = {
     /**
      * @type {string} SHAPE_STATE - "DRAGGING" | null
      */
-    SHAPE_STATE: null,
-    /**
-     * @type {string} SLIDE_STATE - "CHANCING_DESIGN" | null
-     */
-    SLIDE_STATE: null
+    SHAPE_STATE: null
 }
 export default session 

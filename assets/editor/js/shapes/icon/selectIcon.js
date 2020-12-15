@@ -13,10 +13,12 @@ export default function selectIcon(slideId, shapeId, icon = null) {
 
     if (icon)
         shapeData.icon = icon;
-
-    if (shapeData.icon.rgb != "255 255 255")
-        getWhiteIcon(slideId, shapeId)
+        
+    shape_.setIcon(shapeData.icon);
 
     let image = shape_.el().querySelector("image");
     image.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", shapeData.icon.url);
+
+    if (shapeData.icon.rgb != "255 255 255")
+        getWhiteIcon(slideId, shapeId)
 }

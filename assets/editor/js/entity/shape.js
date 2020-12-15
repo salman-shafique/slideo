@@ -41,5 +41,30 @@ export default function shape(slideId, shapeId) {
         let selectable = select(".bounding_box", this.el());
         add_event(selectable, event, callback);
     }
+
+    this.setIcon = (icon) => {
+        // Update the analyzed content
+        const contentNumber = this.data().alt.split("|").pop();
+        const content = slide(this.slideId).slideData().analyzedContent[contentNumber].icon.data;
+        content.icon = icon;
+    }
+    this.setImage = (image) => {
+        // Update the analyzed content
+        const contentNumber = this.data().alt.split("|").pop();
+        const content = slide(this.slideId).slideData().analyzedContent[contentNumber].h1Image.data;
+        content.image = image;
+    }
+    this.setH1 = (h1) => {
+        // Update the analyzed content
+        const contentNumber = this.data().alt.split("|").pop();
+        const content = slide(this.slideId).slideData().analyzedContent[contentNumber].h1.data;
+        content.text = h1;
+    }
+    this.setOriginalSentence = (originalSentence) => {
+        // Update the analyzed content
+        const contentNumber = this.data().alt.split("|").pop();
+        const content = slide(this.slideId).slideData().analyzedContent[contentNumber].originalSentence.data;
+        content.text = originalSentence;
+    }
 }
 

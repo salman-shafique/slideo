@@ -3,7 +3,7 @@
  * @param {string} html_string 
  * @returns {HTMLElement}
  */
-export default function html_to_element(html_string, document = null, NS = null) {
+export default function stringToDOM(html_string, document = null, NS = null) {
     if (!document) document = window.top.document;
 
     let template;
