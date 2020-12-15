@@ -20,6 +20,7 @@ export default function appendImages(images, keyword) {
     sideBarImages.append(div);
     const imageEls = [];
     images.forEach((imageData, i) => {
+        imageData.keyword = keyword;
         imageEls.push(
             <Image key={i} imageData={imageData} />
         )

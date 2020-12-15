@@ -20,11 +20,6 @@ jQuery(function () {
 		$(this).closest(".action-panel").find(".backdrop-overlay-layout").addClass("collapse");
 	});
 
-	$("#UploadFirstCustomImage").click(function () {
-		$("#CommonImageInput").trigger("click");
-		bgUpload = false;
-	});
-
 	$("#UploadCustomImage").click(function () {
 		$("#CommonImageInput").trigger("click");
 		bgUpload = false;

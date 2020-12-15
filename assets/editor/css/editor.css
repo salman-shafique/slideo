@@ -692,10 +692,6 @@ body {
 	height: 36px;
 }
 
-#UploadFirstCustomImage, #UploadCustomImage {
-	max-width: 100%;
-}
-
 .footer .btn {
 	max-width: 250px;
 }
@@ -775,4 +771,8 @@ object[id^="prev_"] {
 
 .new-image-item{
 	cursor: pointer;
+}
+
+.image-container{
+	width: 100%;
 }

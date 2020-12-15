@@ -1,8 +1,8 @@
 
 
 const constants = {
-    SVG_WIDTH: 33867,
-    SVG_HEIGHT: 19050,
+    SVG_WIDTH: 25400,
+    SVG_HEIGHT: 14288,
     ALIGNMENTS: {
         "1": 'left',
         "2": 'center',

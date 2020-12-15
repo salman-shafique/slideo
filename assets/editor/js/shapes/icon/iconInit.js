@@ -18,8 +18,7 @@ export default function iconInit(slideId, shapeId, keyword) {
                     let shapeData = shape(response.slideId, response.shapeId).data();
                     shapeData.icon = response.icons[0];
                     selectIcon(response.slideId, response.shapeId);
-                    appendIcons(response.icons.slice(1), response.keyword);
-
+                    appendIcons(response.icons, response.keyword);
                 }
             }
         });

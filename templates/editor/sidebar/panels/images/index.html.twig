@@ -19,16 +19,8 @@
     </div>
     <div class="control-overlay-layout closed">
       <i class="fas fa-times control-close-button"></i>
-      <div class="vertically-centered no-image-display centered-contents">
-        <img class="upload-animation" src="/Images/download_anim.gif">
-        <h6 class="text-dark small-top-margin small-bottom-margin">{% trans %}Start adding Your Files{% endtrans %}</h6>
-        <p class="text-dark">{% trans %}Drag and Drop Ffiles, or Upload files from your Computer{% endtrans %}</p>
-        <button id="UploadFirstCustomImage" class="btn btn-primary btn-sm default-button horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
-      </div>
-      <div class="custom-image-display centered-contents collapse">
-        <h6 id="Custom_Images_Header" class="text-dark small-bottom-margin single-line">{% trans %}My Images{% endtrans %}</h6>
-        <button id="UploadCustomImage" class="btn btn-primary btn-sm default-button small-bottom-margin horizontal-text-clip">{% trans %}UPLOAD MEDIA{% endtrans %}</button>
-        <div class="images-gallery custom-scrollbar vertical-scroll"></div>
+      <div id="uploadUserImageArea" class="vertically-centered no-image-display centered-contents">
+
       </div>
     </div>
     <div class="backdrop-overlay-layout collapse"></div>

@@ -21,6 +21,7 @@ export default function appendIcons(icons, keyword) {
 
     const iconEls = [];
     icons.forEach((iconData, i) => {
+        iconData.keyword = keyword;
         iconEls.push(
             <Icon key={i} iconData={iconData} />
         )

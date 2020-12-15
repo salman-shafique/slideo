@@ -44,17 +44,20 @@ export default function shape(slideId, shapeId) {
 
     this.setIcon = (icon) => {
         // Update the analyzed content
-        const contentNumber = this.data().alt.split("|").pop();
-        const content = slide(this.slideId).slideData().analyzedContent[contentNumber].icon.data;
-        content.icon = icon;
+        const alt = this.data().alt;
+        if (alt.includes("icon|")) {
+            const contentNumber = this.data().alt.split("|").pop();
+            const content = slide(this.slideId).slideData().analyzedContent[contentNumber].icon.data;
+            content.icon = icon;
+        }
     }
     this.setImage = (image) => {
         // Update the analyzed content
         const alt = this.data().alt;
-        if (alt.includes("slidetitleimage")) {
+        if (alt == "slidetitleimage") {
             const content = slide(this.slideId).slideData().slideTitleImage.data;
             content.image = image;
-        } else {
+        } else if (alt.includes("h1image|")) {
             const contentNumber = alt.split("|").pop();
             const content = slide(this.slideId).slideData().analyzedContent[contentNumber].h1Image.data;
             content.image = image;

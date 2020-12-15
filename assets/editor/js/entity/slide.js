@@ -57,6 +57,13 @@ export default function slide(slideId) {
         return select(`object.main-container[id="${this.slideId}"]`).contentDocument.documentElement;
     }
 
+    /**
+     * @returns {HTMLElement} Page elements
+     */
+    this.page = function () {
+        return this.documentElement().querySelector("g.SlideGroup g.Page");
+    }
+
     this.appendToPresentation = function (slideData) {
         session.PRESENTATION.slides.push(slideData);
         session.PRESENTATION.slidesOrder.push(slideData.slideId);
