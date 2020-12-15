@@ -772,3 +772,7 @@ object[id^="prev_"] {
 #area {
 	overflow-y: scroll;
 }
+
+.new-image-item{
+	cursor: pointer;
+}

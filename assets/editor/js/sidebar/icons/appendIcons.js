@@ -27,6 +27,6 @@ export default function appendIcons(icons, keyword) {
     });
     ReactDOM.render(iconEls, div);
 
-    toggleKeyword(keyword);
+    toggleKeyword(keyword,"255 255 255");
     select("#sideBarIconsEmpty").style.display = "none";
 }

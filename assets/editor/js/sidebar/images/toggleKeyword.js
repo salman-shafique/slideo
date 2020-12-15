@@ -7,14 +7,14 @@ import selectAll from "Editor/js/utils/selector/selectAll";
  */
 export default function toggleKeyword(keyword) {
     // Images
-    let allImages = selectAll('#Images_Panel img[data-keyword]');
-    allImages.forEach(e => e.style.display = "none");
+    const allImageContainers = selectAll('#Images_Panel div.image-container[data-keyword]');
+    allImageContainers.forEach(e => e.style.display = "none");
     // search-keyword
-    let keywordsToDisable = selectAll('#Images_Panel div[data-keyword].search-keyword');
+    const keywordsToDisable = selectAll('#Images_Panel div[data-keyword].search-keyword');
     keywordsToDisable.forEach(e => e.style.opacity = "0.7");
 
     // search-keyword
-    let searchKeyword = select('#Images_Panel div[data-keyword="' + keyword + '"].search-keyword');
+    const searchKeyword = select('#Images_Panel div[data-keyword="' + keyword + '"].search-keyword');
     searchKeyword.style.opacity = "1";
     searchKeyword.style.display = "";
     searchKeyword.classList.add("active");
@@ -22,6 +22,6 @@ export default function toggleKeyword(keyword) {
     // Scroll into view
     select("#Keywords_list").scrollLeft = searchKeyword.offsetLeft - searchKeyword.offsetWidth / 2;
     
-    let imagesToShow = selectAll('#Images_Panel img[data-keyword="' + keyword + '"]');
-    imagesToShow.forEach(e => e.style.display = "");
+    const imageContainerToShow = select('#Images_Panel div.image-container[data-keyword="' + keyword + '"]');
+    imageContainerToShow.style.display = "";
 }

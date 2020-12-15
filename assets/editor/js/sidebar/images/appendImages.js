@@ -1,20 +1,31 @@
 import select from "Editor/js/utils/selector/select";
-import stringToDOM from "Editor/js/utils/stringToDOM";
+import reactToDOM from "Editor/js/utils/reactToDOM";
 import appendKeyword from "./appendKeyword";
 import toggleKeyword from "./toggleKeyword";
+import React from "react";
+import ReactDOM from "react-dom";
+import Image from "./Image";
 
 export default function appendImages(images, keyword) {
     // Check keyword
     if (!select('#Keywords_list div[data-keyword="' + keyword + '"].search-keyword'))
         appendKeyword(keyword);
 
-    let sideBarImages = select("#sideBarImages");
-    images.forEach(imageData => {
-        let image = stringToDOM(
-            '<img data-keyword="' + keyword + '" class="image-item" src="' + imageData.url + '?auto=compress&fit=crop&w=123&h=60"></img>'
-        );
-        sideBarImages.append(image);
+    const sideBarImages = select("#sideBarImages");
+    const div = reactToDOM(
+        <div className={"image-container"} data-keyword={keyword}>
+
+        </div>
+    );
+    sideBarImages.append(div);
+    const imageEls = [];
+    images.forEach((imageData, i) => {
+        imageEls.push(
+            <Image key={i} imageData={imageData} />
+        )
     });
+    ReactDOM.render(imageEls, div);
+
     toggleKeyword(keyword);
     select("#sideBarImagesEmpty").style.display = "none";
 }

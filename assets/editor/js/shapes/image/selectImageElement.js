@@ -13,5 +13,5 @@ export default function selectImageElement(event) {
     let shape_ = shape(session.CURRENT_SLIDE, shapeId);
     let shapeData = shape_.data();
     sidebar().open("Images_Tool");
-    addToImagesBar(shapeData.text);
+    addToImagesBar(shapeData.keyword);
 }

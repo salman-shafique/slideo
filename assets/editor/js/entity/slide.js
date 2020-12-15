@@ -17,7 +17,7 @@ import iconInit from "Editor/js/shapes/icon/iconInit";
 import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
-
+import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -236,6 +236,9 @@ export default function slide(slideId) {
     }
 
     this.display = function () {
+        // Deselect elements
+        deSelectAll();
+
         selectAll(".slide-thumbnail").forEach(e => {
             e.classList.remove("active-slide");
         });

@@ -1,4 +1,3 @@
-import constants from "Editor/js/constants";
 import session from "Editor/js/session";
 
 /**
