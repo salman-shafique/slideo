@@ -13,7 +13,7 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 let addedIconCounter = 0;
 
 export default function createNewIcon(iconData) {
-
+    if (!session.CURRENT_SLIDE) return;
     const shapeId = Math.floor(Math.random() * 1000000) + 1000000;
 
     const x = constants.SVG_WIDTH / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH / 48;

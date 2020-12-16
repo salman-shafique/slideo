@@ -13,6 +13,7 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 let addedImageCounter = 0;
 
 export default function createNewImage(imageData) {
+    if (!session.CURRENT_SLIDE) return;
 
     const shapeId = Math.floor(Math.random() * 1000000) + 1000000;
 
