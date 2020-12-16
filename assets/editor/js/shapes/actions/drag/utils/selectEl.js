@@ -1,8 +1,6 @@
-import constants from "Editor/js/constants";
 import session from "Editor/js/session";
 import checkSelected from "./checkSelected";
 import getTransform from "./getTransform";
-
 
 /**
  * 
@@ -24,7 +22,7 @@ export default function selectEl(event) {
         shape: g
     };
 
-    Object.assign(selectedEl,getTransform(g));
+    Object.assign(selectedEl, getTransform(g));
 
     session.SELECTED_ELEMENTS.push(selectedEl);
 }

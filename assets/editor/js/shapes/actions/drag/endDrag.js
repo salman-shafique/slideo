@@ -28,5 +28,7 @@ export default function endDrag(event) {
 
     session.SAVED_MOUSE_POS = session.SHAPE_STATE = null;
     g.ownerDocument.removeEventListener('selectstart', disableTextSelect);
+    if (g.classList.contains("dragging"))
+        g.classList.remove("dragging");
     slide(session.CURRENT_SLIDE).cloneToMiniPrev();
 }

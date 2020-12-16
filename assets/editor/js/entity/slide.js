@@ -18,6 +18,8 @@ import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
+import resizeElement from "Editor/js/shapes/actions/resize/resizeElement";
+
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -58,10 +60,17 @@ export default function slide(slideId) {
     }
 
     /**
-     * @returns {HTMLElement} Page elements
+     * @returns {HTMLElement} Page G element
      */
     this.page = function () {
         return this.documentElement().querySelector("g.SlideGroup g.Page");
+    }
+
+    /**
+     * @returns {HTMLElement} Slide G element
+     */
+    this.slideG = function () {
+        return this.documentElement().querySelector("g.SlideGroup g.Slide");
     }
 
     this.appendToPresentation = function (slideData) {
@@ -229,6 +238,8 @@ export default function slide(slideId) {
                 initializeG(g);
                 // initialize the filters
                 colorFilters(g).init();
+                // Add resize event listener
+                shape(this.slideId, shape_.data.shape_id).addEvent("mouseup", resizeElement);
             }
 
         });

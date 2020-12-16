@@ -31,7 +31,9 @@ export default function startDrag(event) {
     updateAllTransforms();
 
     session.SHAPE_STATE = "DRAGGING";
-    g.ownerDocument.addEventListener("selectstart",disableTextSelect);
+    if (!g.classList.contains("dragging"))
+        g.classList.add("dragging");
+    g.ownerDocument.addEventListener("selectstart", disableTextSelect);
 
     session.SAVED_MOUSE_POS = getMousePosition(event);
 
