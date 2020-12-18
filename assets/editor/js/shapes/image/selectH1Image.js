@@ -12,8 +12,12 @@ export default function selectH1Image(slideId, shapeId, image = null) {
     const shape_ = shape(slideId, shapeId);
     let shapeData = shape_.data();
 
-    if (image)
+    if (image) {
         shapeData.image = image;
+        // Keyword if exists
+        image.keyword ? shapeData.keyword = image.keyword : "";
+    }
+
     shape_.setImage(shapeData.image);
 
     let g = shape_.el();
