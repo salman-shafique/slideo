@@ -58,21 +58,28 @@ class LayoutService
 
     public function get(Request $request)
     {
-        /**  @var LayoutRepository $layoutRepository */
-        $layoutRepository = $this->em->getRepository(Layout::class);
+        $query = $this->em
+            ->createQueryBuilder()
+            ->select('layout')
+            ->groupBy('layout')
+            ->from('App\Entity\Layout', 'layout')
+            ->join('App\Entity\Style', 'style')
+            ->where("style.layout = layout.id")
+            ->andWhere("layout.isActive = :isActive")
+            ->andWhere("style.isActive = :isActive")
+            ->setParameter("isActive", true)
+            ->andWhere("layout.direction = :direction")
+            ->andWhere("style.direction = :direction")
+            ->setParameter("direction", $request->request->get("direction"))
+            ->andWhere("layout.capacity = :capacity")
+            ->andWhere("style.capacity = :capacity")
+            ->setParameter("capacity", $request->request->get("capacity"));
 
-        $layouts = $layoutRepository->findBy([
-            "isActive" => true,
-            "direction" => $request->request->get("direction"),
-            "capacity" => $request->request->get("capacity")
-        ]);
+        $r = $query
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
 
-        $serializer = new SerializerService;
-        $layouts_ = [];
-        foreach ($layouts as $layout)
-            array_push($layouts_, $serializer->normalize($layout));
-
-        return $layouts_;
+        return $r;
     }
 
     public function getAll()

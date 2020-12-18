@@ -9,10 +9,10 @@ export default function DesignsPanel() {
 
     return (
         <>
-            <div className="search-section">
+            <div className="search-section d-none">
                 <SearchBox />
             </div>
-            <div className="main-section">
+            <div className="main-section mt-4">
                 <h6 className="text-light small-top-margin small-bottom-margin centered-contents single-line">All Designs</h6>
                 <div className="design-container row m-0 px-1">
                     <DesignItems/>
