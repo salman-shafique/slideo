@@ -12,13 +12,12 @@ import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject"
 import h1Image from "Editor/js/shapes/image/h1Image";
 import colorTemplate from "Editor/js/entity/colorTemplate";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
-import makeDraggable from "Editor/js/shapes/actions/makeDraggable";
+import makeDraggable from "Editor/js/shapes/actions/drag/makeDraggable";
 import iconInit from "Editor/js/shapes/icon/iconInit";
 import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
-import resizeElement from "Editor/js/shapes/actions/resize/resizeElement";
 
 
 export default function slide(slideId) {
@@ -99,14 +98,6 @@ export default function slide(slideId) {
         add_event(select("object", miniPrev), "load", function () {
             let slideId = this.getAttribute("id").split("_")[1];
             slide(slideId).cloneToMiniPrev();
-
-            // Rm styles
-            let style = stringToDOM(
-                '<style type="text/css">.draggable:hover,.draggable {outline:none !important}</style>',
-                this.documentElement,
-                "http://www.w3.org/2000/svg"
-            );
-            this.contentDocument.querySelector("svg").appendChild(style);
         });
 
         document.getElementById("slides_preview").appendChild(miniPrev);
@@ -238,8 +229,6 @@ export default function slide(slideId) {
                 initializeG(g);
                 // initialize the filters
                 colorFilters(g).init();
-                // Add resize event listener
-                shape(this.slideId, shape_.data.shape_id).addEvent("mouseup", resizeElement);
             }
 
         });
@@ -275,8 +264,7 @@ export default function slide(slideId) {
         session.CURRENT_SLIDE = this.slideId;
 
         // Dispatch the selection event
-        Events.slide.display.slideId = this.slideId;
-        window.top.dispatchEvent(Events.slide.display);
+        Events.slide.display({ slideId: this.slideId });
 
         return this;
     }

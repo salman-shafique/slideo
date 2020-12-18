@@ -1,6 +1,7 @@
 import session from "Editor/js/session";
 import checkSelected from "./checkSelected";
 import getTransform from "./getTransform";
+import Events from "Editor/js/Events";
 
 /**
  * 
@@ -15,14 +16,15 @@ export default function selectEl(event) {
 
     if (checkSelected(shapeId)) return;
 
-    g.style.outline = "cyan 100px solid";
-
     let selectedEl = {
         shapeId: shapeId,
         shape: g
     };
 
     Object.assign(selectedEl, getTransform(g));
-
     session.SELECTED_ELEMENTS.push(selectedEl);
+
+    // Trigger selection event
+    Events.shape.selected({ 'shape': g });
+
 }

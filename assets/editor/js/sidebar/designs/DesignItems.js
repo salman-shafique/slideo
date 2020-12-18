@@ -22,7 +22,7 @@ export default function DesignItems() {
 
     if (Object.keys(designs).length == 0) {
         window.top.addEventListener('slide.display', (event) => {
-            const slideId = event.slideId;
+            const slideId = event.data.slideId;
             const slideData = slide(slideId).slideData();
 
             const direction = slideData.direction;

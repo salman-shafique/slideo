@@ -21,7 +21,8 @@ export default function toggleKeyword(keyword) {
 
     // Scroll into view
     select("#Keywords_list").scrollLeft = searchKeyword.offsetLeft - searchKeyword.offsetWidth / 2;
-    
+
     const imageContainerToShow = select('#Images_Panel div.image-container[data-keyword="' + keyword + '"]');
-    imageContainerToShow.style.display = "";
+    if (imageContainerToShow)
+        imageContainerToShow.style.display = "";
 }

@@ -2,6 +2,7 @@ import session from "Editor/js/session";
 import deSelectAll from "./utils/deSelectAll";
 import disableTextSelect from "./utils/disableTextSelect";
 import slide from "Editor/js/entity/slide";
+import Events from "Editor/js/Events";
 
 /**
  * 
@@ -12,8 +13,8 @@ export default function endDrag(event) {
      * @type {SVGGElement} g
      */
     let g = event.target.parentElement;
-    if(!g) return;
-    
+    if (!g) return;
+
     let shapeId = g.getAttribute("shape_id");
 
     if (event.ctrlKey) {
@@ -26,9 +27,14 @@ export default function endDrag(event) {
         }
     }
 
-    session.SAVED_MOUSE_POS = session.SHAPE_STATE = null;
-    g.ownerDocument.removeEventListener('selectstart', disableTextSelect);
-    if (g.classList.contains("dragging"))
-        g.classList.remove("dragging");
     slide(session.CURRENT_SLIDE).cloneToMiniPrev();
+
+    if (session.SHAPE_STATE == "DRAGGING") {
+        g.ownerDocument.removeEventListener('selectstart', disableTextSelect);
+        if (g.classList.contains("dragging"))
+            g.classList.remove("dragging");
+        // Trigger event
+        Events.shape.drag.ended();
+    }
+    session.SAVED_MOUSE_POS = session.SHAPE_STATE = null;
 }

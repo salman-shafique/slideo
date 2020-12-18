@@ -24,5 +24,6 @@ export default function toggleKeyword(keyword) {
     select("#Icon_keywords_list").scrollLeft = searchKeyword.offsetLeft - searchKeyword.offsetWidth / 2;
 
     const iconContainerToShow = select('#Icons_Panel div.icon-container[data-keyword="' + keyword + '"]');
-    iconContainerToShow.style.display = "";
+    if (iconContainerToShow)
+        iconContainerToShow.style.display = "";
 }

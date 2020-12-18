@@ -1,6 +1,6 @@
-import startDrag from "./drag/startDrag";
-import drag from "./drag/drag";
-import endDrag from "./drag/endDrag";
+import startDrag from "./startDrag";
+import drag from "./drag";
+import endDrag from "./endDrag";
 
 /**
  * 
