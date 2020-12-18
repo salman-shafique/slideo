@@ -15,8 +15,8 @@ export default function drag(event) {
         const g = event.target.parentElement;
         if (!g) return;
 
-        if (!g.classList.contains("dragging"))
-            g.classList.add("dragging");
+        if (!g.ownerDocument.querySelector("svg").classList.contains("dragging"))
+            g.ownerDocument.querySelector("svg").classList.add("dragging");
         g.ownerDocument.addEventListener("selectstart", disableTextSelect);
 
         session.SHAPE_STATE = "DRAGGING";

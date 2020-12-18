@@ -31,8 +31,8 @@ export default function endDrag(event) {
 
     if (session.SHAPE_STATE == "DRAGGING") {
         g.ownerDocument.removeEventListener('selectstart', disableTextSelect);
-        if (g.classList.contains("dragging"))
-            g.classList.remove("dragging");
+        if (g.ownerDocument.querySelector("svg").classList.contains("dragging"))
+            g.ownerDocument.querySelector("svg").classList.remove("dragging");
         // Trigger event
         Events.shape.drag.ended();
     }
