@@ -22,7 +22,12 @@ const constants = {
         THIRD: 3,
         FOURTH: 4
     },
-    MAX_SLIDE_CAPACITY: 8
+    SHAPE_TYPES: {
+        TEXTBOX: 0,
+        IMAGE: 1,
+        AUTO_SHAPE: 2
+    },
+    MAX_SLIDE_CAPACITY: 8,
 }
 
 

@@ -9,7 +9,6 @@ export default function ResizeCirle({ g, cx, cy, direction }) {
         session.SCALING_DIRECTION = direction;
         session.SAVED_MOUSE_POS = getMousePosition(event);
         session.SHAPE_STATE = "RESIZING";
-        console.log(direction);
         // Trigger event
         Events.shape.resize.started();
     }

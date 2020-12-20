@@ -24,45 +24,34 @@ export default function insertResizeCircles(g) {
         "http://www.w3.org/2000/svg"
     )
 
-    const topLine = <line strokeWidth={"50"} x1={x} y1={y} x2={x + width} y2={y}
+    const resizeEls = [];
+    resizeEls.push(<line key={"tl"} direction="tl" strokeWidth={"50"} x1={x} y1={y} x2={x + width} y2={y}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
-    />;
-    const rightLine = <line strokeWidth={"50"} x1={x + width} y1={y} x2={x + width} y2={y + height}
+    />);
+    resizeEls.push(<line key={"rl"} direction="rl" strokeWidth={"50"} x1={x + width} y1={y} x2={x + width} y2={y + height}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
-    />;
-    const bottomLine = <line strokeWidth={"50"} x1={x + width} y1={y + height} x2={x} y2={y + height}
+    />);
+    resizeEls.push(<line key={"bl"} direction="bl" strokeWidth={"50"} x1={x + width} y1={y + height} x2={x} y2={y + height}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
-    />;
-    const leftLine = <line strokeWidth={"50"} x1={x} y1={y + height} x2={x} y2={y}
+    />);
+    resizeEls.push(<line key={"ll"} direction="ll" strokeWidth={"50"} x1={x} y1={y + height} x2={x} y2={y}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
-    />;
+    />);
 
-    const lt = <ResizeCirle g={g} cx={x} cy={y} direction="lt" />;
-    const t = <ResizeCirle g={g} cx={x + width / 2} cy={y} direction="t" />;
-    const rt = <ResizeCirle g={g} cx={x + width} cy={y} direction="rt" />;
-    const r = <ResizeCirle g={g} cx={x + width} cy={y + height / 2} direction="r" />;
-    const rb = <ResizeCirle g={g} cx={x + width} cy={y + height} direction="rb" />;
-    const b = <ResizeCirle g={g} cx={x + width / 2} cy={y + height} direction="b" />;
-    const lb = <ResizeCirle g={g} cx={x} cy={y + height} direction="lb" />;
-    const l = <ResizeCirle g={g} cx={x} cy={y + height / 2} direction="l" />;
+    resizeEls.push(<ResizeCirle g={g} cx={x} cy={y} direction="lt" key={"lt"} />);
+    resizeEls.push(<ResizeCirle g={g} cx={x + width} cy={y} direction="rt" key={"rt"} />);
+    resizeEls.push(<ResizeCirle g={g} cx={x + width} cy={y + height} direction="rb" key={"rb"} />);
+    resizeEls.push(<ResizeCirle g={g} cx={x} cy={y + height} direction="lb" key={"lb"} />);
+
+    if (g.querySelector("foreignObject")) {
+        resizeEls.push(<ResizeCirle g={g} cx={x + width / 2} cy={y} direction="t" key={"t"} />);
+        resizeEls.push(<ResizeCirle g={g} cx={x + width} cy={y + height / 2} direction="r" key={"r"} />);
+        resizeEls.push(<ResizeCirle g={g} cx={x + width / 2} cy={y + height} direction="b" key={"b"} />);
+        resizeEls.push(<ResizeCirle g={g} cx={x} cy={y + height / 2} direction="l" key={"l"} />);
+    }
 
     slide(session.CURRENT_SLIDE).slideG().appendChild(resizeCircleContainer);
-    ReactDOM.render(
-        <>
-            {topLine}
-            {rightLine}
-            {bottomLine}
-            {leftLine}
-            {lt}
-            {t}
-            {rt}
-            {r}
-            {rb}
-            {b}
-            {lb}
-            {l}
-        </>, resizeCircleContainer
-    );
+    ReactDOM.render(resizeEls, resizeCircleContainer);
 
     return resizeCircleContainer;
 }

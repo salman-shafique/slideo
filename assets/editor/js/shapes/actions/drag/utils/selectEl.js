@@ -3,6 +3,7 @@ import checkSelected from "./checkSelected";
 import getTransform from "./getTransform";
 import Events from "Editor/js/Events";
 import getSizeAttributes from "./getSizeAttributes";
+import getShapeType from "./getShapeType";
 /**
  * 
  * @param {MouseEvent} event
@@ -19,7 +20,8 @@ export default function selectEl(event) {
     let selectedEl = {
         shapeId: shapeId,
         shape: g,
-        size: getSizeAttributes(g)
+        size: getSizeAttributes(g),
+        shapeType: getShapeType(g)
     };
 
     Object.assign(selectedEl, getTransform(g));

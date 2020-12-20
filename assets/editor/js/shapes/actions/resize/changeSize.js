@@ -1,8 +1,7 @@
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import calculateMouseDiff from "Editor/js/shapes/actions/drag/utils/calculateMouseDiff";
-import copyTransform from "./utils/copyTransform";
-import { resizeCircleContainer } from "./utils/copyTransform";
+import { resizeCircleContainer, relocateResizeCircleContainer } from "./utils/copyTransform";
 
 
 /**
@@ -39,6 +38,55 @@ export default function changeSize(event) {
         const newRelatedY = newScale * selectedEl.size.y;
 
         switch (session.SCALING_DIRECTION) {
+            case "t":
+                if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
+                    const newHeight = parseInt(selectedEl.size.height - mouseDiff.y);
+                    if (newHeight < 1000) return;
+                    selectedEl.shape.setAttribute("height", newHeight + "px");
+                    selectedEl.shape.querySelector("foreignObject").setAttribute("height", newHeight + "px");
+
+                    selectedEl.translate.transform.setTranslate(
+                        selectedEl.translate.startingE,
+                        selectedEl.translate.startingF + mouseDiff.y
+                    );
+
+                    relocateResizeCircleContainer(selectedEl.shape);
+                }
+                break;
+            case "r":
+                if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
+                    const newWidth = parseInt(selectedEl.size.width + mouseDiff.x);
+                    if (newWidth < 2000) return;
+                    selectedEl.shape.setAttribute("width", newWidth + "px");
+                    selectedEl.shape.querySelector("foreignObject").setAttribute("width", newWidth + "px");
+                    relocateResizeCircleContainer(selectedEl.shape);
+
+                }
+                break;
+            case "b":
+                if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
+                    const newHeight = parseInt(selectedEl.size.height + mouseDiff.y);
+                    if (newHeight < 1000) return;
+                    selectedEl.shape.setAttribute("height", newHeight + "px");
+                    selectedEl.shape.querySelector("foreignObject").setAttribute("height", newHeight + "px");
+                    relocateResizeCircleContainer(selectedEl.shape);
+                }
+                break;
+            case "l":
+                if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
+                    const newWidth = parseInt(selectedEl.size.width - mouseDiff.x);
+                    if (newWidth < 2000) return;
+                    selectedEl.shape.setAttribute("width", newWidth + "px");
+                    selectedEl.shape.querySelector("foreignObject").setAttribute("width", newWidth + "px");
+
+                    selectedEl.translate.transform.setTranslate(
+                        selectedEl.translate.startingE + mouseDiff.x,
+                        selectedEl.translate.startingF
+                    );
+
+                    relocateResizeCircleContainer(selectedEl.shape);
+                }
+                break;
             case "lt":
                 if ([constants.TRIGONOMETRY_AREAS.SECOND, constants.TRIGONOMETRY_AREAS.FOURTH].includes(area)) {
                     newScale = selectedEl.scale.startingA - diffRatio;
@@ -57,9 +105,6 @@ export default function changeSize(event) {
                     resizeCircleContainer(selectedEl.shape, newScale);
                 }
                 break;
-            case "t":
-
-                break;
             case "rt":
                 if ([constants.TRIGONOMETRY_AREAS.FIRST, constants.TRIGONOMETRY_AREAS.THIRD].includes(area)) {
                     if (newScale < 0.14) return;
@@ -75,9 +120,6 @@ export default function changeSize(event) {
                     resizeCircleContainer(selectedEl.shape, newScale);
                 }
                 break;
-            case "r":
-
-                break;
             case "rb":
                 if ([constants.TRIGONOMETRY_AREAS.FOURTH, constants.TRIGONOMETRY_AREAS.SECOND].includes(area)) {
                     if (newScale < 0.14) return;
@@ -91,9 +133,6 @@ export default function changeSize(event) {
                     );
                     resizeCircleContainer(selectedEl.shape, newScale);
                 }
-                break;
-            case "b":
-
                 break;
             case "lb":
 
@@ -111,9 +150,6 @@ export default function changeSize(event) {
 
                     resizeCircleContainer(selectedEl.shape, newScale);
                 }
-                break;
-            case "l":
-
                 break;
             default: break;
 

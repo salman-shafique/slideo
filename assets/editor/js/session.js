@@ -16,11 +16,12 @@ let session = {
     CURRENT_SLIDE: "",
     /**
      * @type {{
-     *  shapeId: string,
-     *  shape: SVGGElement, 
+     *  shapeId: string
+     *  shape: SVGGElement
+     *  shapeType: "TEXTBOX" | "IMAGE" | "AUTO_SHAPE"
      *  size: {slope: number,width: number,height: number,x: number,y: number}
-     *  translate: {transform:SVGTransform,startingE:number,startingF: number}, 
-     *  scale: {transform:SVGTransform, startingA: number}, 
+     *  translate: {transform:SVGTransform,startingE:number,startingF: number}
+     *  scale: {transform:SVGTransform, startingA: number}
      *  rotate: {transform:SVGTransform}
      * }[]}
      */
