@@ -21,4 +21,8 @@ import "Editor/js/init";
 // Shape actions
 import "Editor/js/shapes/actions/";
 
+// Textbox actions
+import "Editor/js/shapes/textbox/";
+
+
 

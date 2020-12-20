@@ -5,7 +5,7 @@ import changeSize from  "Editor/js/shapes/actions/resize/changeSize";
 
 /**
  * 
- * @param {Document} svg 
+ * @param {Document} contentDocument 
  */
 export default function makeDraggable(contentDocument) {
     contentDocument.addEventListener('mousedown', startDrag);

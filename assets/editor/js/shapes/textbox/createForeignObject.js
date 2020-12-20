@@ -11,7 +11,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
 
     // Clone the template
     let contentTemplate = stringToDOM(`
-        <table style="pointer-events:none;width:100%">
+        <table style="width:100%">
             <tbody style="padding: 0;">
                 <tr style="padding: 0;">
                     <td style="padding: 0;line-height: 1.23;">

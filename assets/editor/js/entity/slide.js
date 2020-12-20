@@ -20,6 +20,8 @@ import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import React from "react";
+import keyboardListener from "Editor/js/shapes/actions/keyboard/index";
+import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -149,6 +151,7 @@ export default function slide(slideId) {
                     shape_.data.text = text = content.text;
                     direction = content.direction;
                     Object.assign(shape_.data, content);
+
                 } catch {
                     shape(this.slideId, shape_.data.shape_id).remove();
                 }
@@ -194,6 +197,9 @@ export default function slide(slideId) {
                     arrangeForeignObject(foreignObject, shape_.data, text, direction);
                     g.innerHTML = "";
                     g.appendChild(foreignObject);
+                    // Add event listener
+                    shape(this.slideId, shape_.data.shape_id).addEvent("dblclick", selectTextboxElement);
+
                 }
             }
 
@@ -240,6 +246,7 @@ export default function slide(slideId) {
 
         // Add event listeners
         makeDraggable(this.contentDocument());
+        keyboardListener(this.contentDocument());
 
         colorTemplate(session.PRESENTATION.colorTemplateId).updateSlideColors(this.slideId);
 
@@ -309,6 +316,24 @@ export default function slide(slideId) {
 
     this.insertCustomStyles = () => {
         const styles = reactToDOM(<style>{`
+
+        .draggable:hover {
+            cursor: pointer;
+            outline: solid cyan 20px;
+        }
+        .draggable *:not(.bounding_box){
+            pointer-events:none;
+        }
+        .text_editing *{
+            pointer-events:all !important;
+        }
+        foreignObject { overflow: visible; }
+        foreignObject table {
+            position: fixed;
+            word-break: break-word;
+        }
+
+        /* Resize elements */
         circle[direction="lt"] {
             cursor: nwse-resize;
         }

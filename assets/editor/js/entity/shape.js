@@ -38,7 +38,7 @@ export default function shape(slideId, shapeId) {
      * @param {Function} callback 
      */
     this.addEvent = (event, callback) => {
-        let selectable = select(".bounding_box", this.el());
+        const selectable = select(".bounding_box", this.el());
         add_event(selectable, event, callback);
     }
 
