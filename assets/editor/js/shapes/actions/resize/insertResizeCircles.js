@@ -24,16 +24,16 @@ export default function insertResizeCircles(g) {
         "http://www.w3.org/2000/svg"
     )
 
-    const topLine = <line x1={x} y1={y} x2={x + width} y2={y}
+    const topLine = <line strokeWidth={"50"} x1={x} y1={y} x2={x + width} y2={y}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
     />;
-    const rightLine = <line x1={x + width} y1={y} x2={x + width} y2={y + height}
+    const rightLine = <line strokeWidth={"50"} x1={x + width} y1={y} x2={x + width} y2={y + height}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
     />;
-    const bottomLine = <line x1={x + width} y1={y + height} x2={x} y2={y + height}
+    const bottomLine = <line strokeWidth={"50"} x1={x + width} y1={y + height} x2={x} y2={y + height}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
     />;
-    const leftLine = <line x1={x} y1={y + height} x2={x} y2={y}
+    const leftLine = <line strokeWidth={"50"} x1={x} y1={y + height} x2={x} y2={y}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
     />;
 

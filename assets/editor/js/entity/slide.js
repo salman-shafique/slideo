@@ -18,7 +18,8 @@ import selectImageElement from "Editor/js/shapes/image/selectImageElement";
 import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
-
+import reactToDOM from "Editor/js/utils/reactToDOM";
+import React from "react";
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -122,6 +123,8 @@ export default function slide(slideId) {
 
         this.object().style.visibility = "visible";
 
+        // Custom styles
+        this.insertCustomStyles();
 
         // Create g for the filters
         const contentDocument = this.contentDocument();
@@ -303,5 +306,43 @@ export default function slide(slideId) {
         return this;
     }
 
+
+    this.insertCustomStyles = () => {
+        const styles = reactToDOM(<style>{`
+        circle[direction="lt"] {
+            cursor: nwse-resize;
+        }
+        circle[direction="t"] {
+            cursor: ns-resize;
+        }
+        circle[direction="rt"] {
+            cursor: nesw-resize;
+        }
+        circle[direction="r"] {
+            cursor: ew-resize;
+        }
+        circle[direction="rb"] {
+            cursor: nwse-resize;
+        }
+        circle[direction="b"] {
+            cursor: ns-resize;
+        }
+        circle[direction="lb"] {
+            cursor: nesw-resize;
+        }
+        circle[direction="l"] {
+            cursor: ew-resize;
+        }
+        .dragging *{
+            cursor: grabbing !important;
+        }
+        `}</style>,
+            null,
+            "http://www.w3.org/2000/svg"
+        );
+
+        this.contentDocument().querySelector("svg").appendChild(styles);
+
+    }
 }
 

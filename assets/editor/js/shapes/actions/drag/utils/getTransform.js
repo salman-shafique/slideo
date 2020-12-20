@@ -15,7 +15,8 @@ export default function getTransform(g) {
             };
         else if (transform.type == constants.TRANSFORM.SCALE)
             allTransforms.scale = {
-                transform: transform
+                transform: transform,
+                startingA: transform.matrix.a
             };
         else if (transform.type == constants.TRANSFORM.ROTATE)
             allTransforms.rotate = {

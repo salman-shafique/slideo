@@ -1,6 +1,7 @@
 import startDrag from "./startDrag";
 import drag from "./drag";
 import endDrag from "./endDrag";
+import changeSize from  "Editor/js/shapes/actions/resize/changeSize";
 
 /**
  * 
@@ -14,4 +15,9 @@ export default function makeDraggable(contentDocument) {
     contentDocument.addEventListener('mouseup', endDrag);
     contentDocument.addEventListener('touchend', endDrag);
     contentDocument.addEventListener('touchcancel', endDrag);
+
+    // Resize function
+    contentDocument.addEventListener('mousemove', changeSize);
+    contentDocument.addEventListener('touchmove', changeSize);
+    
 }

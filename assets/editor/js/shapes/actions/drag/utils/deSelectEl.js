@@ -9,7 +9,8 @@ export default function deSelectEl(shapeId) {
 
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
         if (shapeId == selectedEl.shapeId) {
-            // Trigger selection event
+            selectedEl.SAVED_SCALE_DATA = null;
+            // Trigger deselection event
             Events.shape.released({ 'shape': selectedEl.shape });
         }
     });

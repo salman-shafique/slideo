@@ -16,6 +16,12 @@ const constants = {
         SCALE: 3,
         ROTATE: 4
     },
+    TRIGONOMETRY_AREAS: {
+        FIRST: 1,
+        SECOND: 2,
+        THIRD: 3,
+        FOURTH: 4
+    },
     MAX_SLIDE_CAPACITY: 8
 }
 

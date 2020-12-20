@@ -15,6 +15,9 @@ export default function startDrag(event) {
     const g = event.target.parentElement;
     if (!g) return;
 
+    // Allow resize circles clicks
+    if (g.getAttribute("role") == "resize-circles") return;
+
     let shapeId = g.getAttribute("shape_id");
     if (!g.classList.contains("draggable")) {
         // Deselect all
