@@ -11,7 +11,6 @@ export default function DesignItem({ designData }) {
         const currentSlide = slide(session.CURRENT_SLIDE);
         const slideData = currentSlide.slideData();
         if (designData.id == slideData.style.id) {
-            console.log("same design");
             return;
         }
 

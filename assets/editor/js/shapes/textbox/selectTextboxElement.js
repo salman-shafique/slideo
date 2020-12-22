@@ -10,7 +10,6 @@ export default function selectTextboxElement(event) {
       * @type {SVGGElement} g
       */
     const g = event.target.parentElement;
-    console.log(g);
     if (!g.querySelector("foreignObject")) return;
 
     const shapeId = g.getAttribute("shape_id");

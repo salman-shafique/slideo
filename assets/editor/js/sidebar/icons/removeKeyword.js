@@ -8,7 +8,6 @@ import toggleKeyword from "./toggleKeyword";
  * @param {string} keyword 
  */
 export default function removeKeyword(keyword) {
-    console.log(keyword);
     const searchKeywordToHide = select('#Icons_Panel div[data-keyword="' + keyword + '"].search-keyword');
     searchKeywordToHide.classList.remove("active");
     searchKeywordToHide.style.display = "none";
