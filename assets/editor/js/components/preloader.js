@@ -1,13 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
 
-const preloaderEl = document.createElement("div");
-preloaderEl.classList.add("preloader-container");
-ReactDOM.render(
-    <div className="spinner-border preloader" role="status">
-        <span className="sr-only">Loading...</span>
-    </div>, preloaderEl)
-document.body.appendChild(preloaderEl);
+const preloaderEl = document.querySelector(".preloader-container");
 
 let registeredEvents=[];
 export default function preloader() {
