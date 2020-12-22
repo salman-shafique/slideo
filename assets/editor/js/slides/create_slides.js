@@ -5,7 +5,7 @@ import status from "Editor/js/navbar/status";
 import slide from "Editor/js/entity/slide";
 import apiService from "Editor/js/utils/apiService";
 import constants from "Editor/js/constants";
-
+import preloader from "Editor/js/components/preloader";
 
 const checkMaxCapacity = () => {
     let allSlides = session.NEW_SLIDES.length;
@@ -36,6 +36,7 @@ export default function create_slides() {
 
     status.update("Slides creating...");
 
+    preloader().show();
     apiService({
         url: "/api/editor/create/slides",
         data: {
@@ -47,6 +48,7 @@ export default function create_slides() {
                 slide().appendToPresentation(slideData).insertToPage();
             });
             status.update("Slides created...");
+            preloader().hide();
         }
     });
     reset_next_slide();
