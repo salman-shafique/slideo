@@ -14,7 +14,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
         <table style="width:100%">
             <tbody style="padding: 0;">
                 <tr style="padding: 0;">
-                    <td onfocus="document.execCommand('selectAll', false, null);" style="padding: 0;line-height: 1.23;">
+                    <td style="padding: 0;line-height: 1.23;">
                     </td>
                 </tr>
             </tbody>
