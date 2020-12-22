@@ -16,14 +16,14 @@ export default function createNewIcon(iconData) {
     if (!session.CURRENT_SLIDE) return;
     const shapeId = Math.floor(Math.random() * 1000000) + 1000000;
 
-    const x = constants.SVG_WIDTH / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH / 48;
-    const y = constants.SVG_HEIGHT / 12 * 5 + (addedIconCounter % 10) * constants.SVG_HEIGHT / 48;
-    const width = constants.SVG_WIDTH / 12;
-    const height = constants.SVG_WIDTH / 12;
+    const x = constants.SVG_WIDTH() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH() / 48;
+    const y = constants.SVG_HEIGHT() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_HEIGHT() / 48;
+    const width = constants.SVG_WIDTH() / 12;
+    const height = constants.SVG_WIDTH() / 12;
 
     const newIconShape = reactToDOM(
-        <g xmlns="http://www.w3.org/2000/svg" alt="newicon" className="draggable" shape_id={shapeId}>
-            <image className="bounding_box" height={height} width={width} x={x} xmlnsXlink="http://www.w3.org/1999/xlink" y={y} />
+        <g xmlns="http://www.w3.org/2000/svg" height={height} width={width} x={x} y={y} alt="newicon" className="draggable" shape_id={shapeId}>
+            <image className="bounding_box" height={height} width={width} x={x} y={y} xmlnsXlink="http://www.w3.org/1999/xlink" />
         </g>,
         null,
         "http://www.w3.org/2000/svg"

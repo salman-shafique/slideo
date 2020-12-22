@@ -1,8 +1,26 @@
+import session from "./session";
 
 
+const getViewBox = () => {
+
+    if (!session.CURRENT_SLIDE) return;
+    /**
+     * @type {HTMLObjectElement} object
+     */
+    const object = document.getElementById(session.CURRENT_SLIDE);
+    const viewBox = object.contentDocument.querySelector("svg").getAttribute("viewBox").split(" ");
+    return {
+        width: viewBox[2],
+        height: viewBox[3]
+    }
+}
 const constants = {
-    SVG_WIDTH: 25400,
-    SVG_HEIGHT: 14288,
+    SVG_WIDTH: () => {
+        return getViewBox()['width']
+    },
+    SVG_HEIGHT: () => {
+        return getViewBox()['height']
+    },
     ALIGNMENTS: {
         "1": 'left',
         "2": 'center',

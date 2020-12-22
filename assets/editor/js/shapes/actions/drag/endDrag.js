@@ -3,6 +3,7 @@ import deSelectAll from "./utils/deSelectAll";
 import disableTextSelect from "./utils/disableTextSelect";
 import Events from "Editor/js/Events";
 import updateAllTransforms from "./utils/updateAllTransforms";
+import dragPreventDefault from "./utils/dragPreventDefault";
 
 /**
  * 
@@ -28,11 +29,14 @@ export default function endDrag(event) {
     }
 
     if (session.SHAPE_STATE == "DRAGGING") {
-        g.ownerDocument.removeEventListener('selectstart', disableTextSelect);
-        if (g.ownerDocument.querySelector("svg").classList.contains("dragging"))
-            g.ownerDocument.querySelector("svg").classList.remove("dragging");
+        dragPreventDefault(g, true);
         // Trigger event
         Events.shape.drag.ended();
+    }
+    if (session.SHAPE_STATE == "RESIZING") {
+        dragPreventDefault(g, true);
+        // Trigger event
+        Events.shape.resize.ended();
     }
 
     // Update saved transfroms for next actions

@@ -1,7 +1,7 @@
 import session from "Editor/js/session";
 import calculateMouseDiff from "./utils/calculateMouseDiff";
 import Events from "Editor/js/Events";
-import disableTextSelect from "./utils/disableTextSelect";
+import dragPreventDefault from "Editor/js/shapes/actions/drag/utils/dragPreventDefault";
 
 /**
  * 
@@ -15,9 +15,8 @@ export default function drag(event) {
         const g = event.target.parentElement;
         if (!g) return;
 
-        if (!g.ownerDocument.querySelector("svg").classList.contains("dragging"))
-            g.ownerDocument.querySelector("svg").classList.add("dragging");
-        g.ownerDocument.addEventListener("selectstart", disableTextSelect);
+        // Disable select text etc
+        dragPreventDefault(g);
 
         session.SHAPE_STATE = "DRAGGING";
         // Trigger event

@@ -17,14 +17,14 @@ export default function createNewImage(imageData) {
 
     const shapeId = Math.floor(Math.random() * 1000000) + 1000000;
 
-    const x = constants.SVG_WIDTH / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH / 48;
-    const y = constants.SVG_HEIGHT / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT / 48;
-    const width = constants.SVG_WIDTH / 12 * 8;
-    const height = constants.SVG_HEIGHT / 12 * 8;
+    const x = constants.SVG_WIDTH() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH() / 48;
+    const y = constants.SVG_HEIGHT() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT() / 48;
+    const width = constants.SVG_WIDTH() / 12 * 8;
+    const height = constants.SVG_HEIGHT() / 12 * 8;
 
     const newImageShape = reactToDOM(
-        <g xmlns="http://www.w3.org/2000/svg" alt="newimage" className="draggable" shape_id={shapeId}>
-            <image className="bounding_box" height={height} width={width} x={x} xmlnsXlink="http://www.w3.org/1999/xlink" y={y} />
+        <g xmlns="http://www.w3.org/2000/svg" height={height} width={width} x={x} y={y} alt="newimage" className="draggable" shape_id={shapeId}>
+            <image className="bounding_box" height={height} width={width} x={x} y={y} xmlnsXlink="http://www.w3.org/1999/xlink" />
         </g>,
         null,
         "http://www.w3.org/2000/svg"

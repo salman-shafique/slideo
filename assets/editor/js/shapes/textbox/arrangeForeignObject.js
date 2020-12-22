@@ -24,10 +24,10 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     // Default h-alignment 2 - center - from python
     table.style.textAlign = constants.ALIGNMENTS[shape.alignment];
 
-    let margin_bottom_content = Math.round(parseFloat(shape.margin_bottom_ratio) * constants.SVG_HEIGHT);
-    let margin_top_content = Math.round(parseFloat(shape.margin_top_ratio) * constants.SVG_HEIGHT);
-    let margin_left_content = Math.round(parseFloat(shape.margin_left_ratio) * constants.SVG_WIDTH);
-    let margin_right_content = Math.round(parseFloat(shape.margin_right_ratio) * constants.SVG_WIDTH);
+    let margin_bottom_content = Math.round(parseFloat(shape.margin_bottom_ratio) * constants.SVG_HEIGHT());
+    let margin_top_content = Math.round(parseFloat(shape.margin_top_ratio) * constants.SVG_HEIGHT());
+    let margin_left_content = Math.round(parseFloat(shape.margin_left_ratio) * constants.SVG_WIDTH());
+    let margin_right_content = Math.round(parseFloat(shape.margin_right_ratio) * constants.SVG_WIDTH());
     table.querySelector("td").style.paddingBottom = margin_bottom_content + "px";
     table.querySelector("td").style.paddingTop = margin_top_content + "px";
     table.querySelector("td").style.paddingLeft = Math.round(margin_left_content) + "px";
@@ -56,7 +56,7 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
         shape.sizeRatio = reduceFontSize(foreignObject);
 
     table.style.fontSize = shape.font_size + "px";
-    //font_size = shape.sizeRatio * constants.SVG_HEIGHT / parseFloat(shape.scale);
+    //font_size = shape.sizeRatio * constants.SVG_HEIGHT() / parseFloat(shape.scale);
 
     // bold
     table.style.fontWeight = shape.font_weight;

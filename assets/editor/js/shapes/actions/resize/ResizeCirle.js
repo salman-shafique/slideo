@@ -2,6 +2,7 @@ import React from "react";
 import session from "Editor/js/session";
 import getMousePosition from "Editor/js/shapes/actions/drag/utils/getMousePosition";
 import Events from "Editor/js/Events";
+import dragPreventDefault from "Editor/js/shapes/actions/drag/utils/dragPreventDefault";
 
 export default function ResizeCirle({ g, cx, cy, direction }) {
 
@@ -9,6 +10,9 @@ export default function ResizeCirle({ g, cx, cy, direction }) {
         session.SCALING_DIRECTION = direction;
         session.SAVED_MOUSE_POS = getMousePosition(event);
         session.SHAPE_STATE = "RESIZING";
+        
+        // Disable select text etc
+        dragPreventDefault(g);
         // Trigger event
         Events.shape.resize.started();
     }
