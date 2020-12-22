@@ -1,6 +1,5 @@
 import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
-import colorTemplate from "Editor/js/entity/colorTemplate";
 
 export default function presentation() {
     if (!(this instanceof presentation)) return new presentation(...arguments);
@@ -14,7 +13,6 @@ export default function presentation() {
         if (document.getElementById("slides_preview").children[0])
             document.getElementById("slides_preview").children[0].click();
 
-        colorTemplate(presentationData.colorTemplateId).select();
         return this;
     }
 

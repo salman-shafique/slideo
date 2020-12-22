@@ -248,11 +248,12 @@ export default function slide(slideId) {
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
 
-        colorTemplate(session.PRESENTATION.colorTemplateId).updateSlideColors(this.slideId);
+        colorTemplate(this.slideId).changeColors();
 
         refresh_slide_prev_numbers();
 
         this.cloneToMiniPrev();
+
         return this;
     }
 
@@ -272,6 +273,9 @@ export default function slide(slideId) {
 
         // Update the session CURRENT_SLIDE
         session.CURRENT_SLIDE = this.slideId;
+
+        // Update the color circles
+        colorTemplate(this.slideId).updateColorCirles();
 
         // Dispatch the selection event
         Events.slide.display({ slideId: this.slideId });
@@ -297,6 +301,7 @@ export default function slide(slideId) {
         const slideData = this.slideData();
         slideData.style = this.chunkDesigns[String(designData.id)];
         slideData.shapes = this.chunkDesigns[String(designData.id)].shapes;
+        slideData.colorTemplate = this.chunkDesigns[String(designData.id)].colorTemplate;
 
         this.updateOnPage();
     }
@@ -316,7 +321,9 @@ export default function slide(slideId) {
 
     this.insertCustomStyles = () => {
         const styles = reactToDOM(<style>{`
-
+        g.SlideGroup g.Page{
+            fill: transparent
+        }
         .draggable:hover {
             cursor: pointer;
             outline: solid cyan 20px;

@@ -58,6 +58,8 @@ class SlideService
             $slide->addShape($newShape);
             $this->em->persist($newShape);
         }
+        // Copy color template
+        $slide->setColorTemplate($style->getColorTemplate());
 
         $background = new Content();
         $background->setKeyword('background');

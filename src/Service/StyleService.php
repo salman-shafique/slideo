@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\ColorTemplate;
 use App\Entity\Content;
 use App\Entity\Layout;
 use App\Entity\Style;
@@ -36,7 +37,6 @@ class StyleService
 
         $capacity = (int)$jsonFile['capacity'];
         $direction = $jsonFile['direction'];
-        $designId = $jsonFile['designId'];
 
         $style = new Style;
 
@@ -71,13 +71,28 @@ class StyleService
         $style->setCapacity($capacity);
         $style->setDirection($direction);
         $style->setPrevFile("/styles/$styleId/$styleId.png");
-        $style->setDesignId($designId);
 
         /**  @var LayoutRepository $layoutRepository */
         $layoutRepository = $this->em->getRepository(Layout::class);
         $layout = $layoutRepository->findOneBy(['id' => $request->request->get('layout_id')]);
         $style->setLayout($layout);
 
+        $colorTemplateData = $jsonFile["color_template"];
+
+        $colorTemplate = new ColorTemplate();
+        $colorTemplate->setACCENT1($colorTemplateData['ACCENT_1']);
+        $colorTemplate->setACCENT2($colorTemplateData['ACCENT_2']);
+        $colorTemplate->setACCENT3($colorTemplateData['ACCENT_3']);
+        $colorTemplate->setACCENT4($colorTemplateData['ACCENT_4']);
+        $colorTemplate->setACCENT5($colorTemplateData['ACCENT_5']);
+        $colorTemplate->setACCENT6($colorTemplateData['ACCENT_6']);
+        $colorTemplate->setBACKGROUND1($colorTemplateData['BACKGROUND_1']);
+        $colorTemplate->setBACKGROUND2($colorTemplateData['BACKGROUND_2']);
+        $colorTemplate->setTEXT1($colorTemplateData['TEXT_1']);
+        $colorTemplate->setTEXT2($colorTemplateData['TEXT_2']);
+        $style->setColorTemplate($colorTemplate);
+        
+        $this->em->persist($colorTemplate);
         $this->em->persist($style);
         $this->em->flush();
 
@@ -91,8 +106,8 @@ class StyleService
 
         $styles = $styleRepository->findBy([
             "isActive" => true,
-            "direction"=>$request->request->get("direction"),
-            "capacity"=>$request->request->get("capacity")
+            "direction" => $request->request->get("direction"),
+            "capacity" => $request->request->get("capacity")
         ]);
 
         $serializer = new SerializerService;
