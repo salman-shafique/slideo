@@ -367,6 +367,13 @@ export default function slide(slideId) {
         }
         .dragging *{
             cursor: grabbing !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+        .dragging *::selection {
+            background: none !important;
         }
         `}</style>,
             null,
