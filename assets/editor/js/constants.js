@@ -3,7 +3,10 @@ import session from "./session";
 
 const getViewBox = () => {
 
-    if (!session.CURRENT_SLIDE) return;
+    if (!session.CURRENT_SLIDE) return {
+        width: 25400,
+        height: 14288
+    };
     /**
      * @type {HTMLObjectElement} object
      */
