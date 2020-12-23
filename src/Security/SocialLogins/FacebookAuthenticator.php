@@ -45,39 +45,39 @@ class FacebookAuthenticator extends SocialAuthenticator
             ->fetchUserFromToken($credentials);
 
         // Check if the user provided the email
-        if ($facebookUser->getEmail() == null) 
+        if ($facebookUser->getEmail() == null)
             return null;
 
         $existingFacebookUser = $this->em->getRepository(User::class)
             ->findOneBy(['email' =>  $facebookUser->getEmail(), 'facebookId' => $facebookUser->getId()]);
 
-        if ($existingFacebookUser) {
+        if ($existingFacebookUser)
             return $existingFacebookUser;
-        } else {
-            $qb = $this->em->createQueryBuilder();
-            $anyRelatedUser = $qb->select("u")
-                ->from("App\Entity\User", "u")
-                ->where('u.email = :email')
-                ->setParameter('email', $facebookUser->getEmail())
-                ->orWhere('u.facebookId = :facebookId')
-                ->setParameter('facebookId', $facebookUser->getId())
-                ->getQuery()
-                ->getResult();
-            if (!$anyRelatedUser) {
-                $user = new User();
-                $user->setPassword(md5(time()));
-                $user->setEmail($facebookUser->getEmail());
-                $user->setFullname($facebookUser->getFirstName() . " " . $facebookUser->getLastName());
-                $user->setIsVerified(true);
-                $user->setFacebookId($facebookUser->getId());
-                $user->setPicture($facebookUser->getPictureUrl());
-                $user->addRole("ROLE_USER");
 
-                $this->em->persist($user);
-                $this->em->flush();
-                return $user;
-            } else return null;
-        };
+        $qb = $this->em->createQueryBuilder();
+        $anyRelatedUser = $qb->select("u")
+            ->from("App\Entity\User", "u")
+            ->where('u.email = :email')
+            ->setParameter('email', $facebookUser->getEmail())
+            ->orWhere('u.facebookId = :facebookId')
+            ->setParameter('facebookId', $facebookUser->getId())
+            ->getQuery()
+            ->getResult();
+
+        if ($anyRelatedUser) return null;
+
+        $user = new User();
+        $user->setPassword(md5(time()));
+        $user->setEmail($facebookUser->getEmail());
+        $user->setFullname($facebookUser->getFirstName() . " " . $facebookUser->getLastName());
+        $user->setIsVerified(true);
+        $user->setFacebookId($facebookUser->getId());
+        $user->setPicture($facebookUser->getPictureUrl());
+        $user->addRole("ROLE_USER");
+
+        $this->em->persist($user);
+        $this->em->flush();
+        return $user;
     }
 
     /**
