@@ -15,7 +15,7 @@ export default function colorTemplate(slideId) {
         let colors = {};
         Object.keys(colorTemplate_).forEach(colorName => {
             if (colorName != "id")
-                colors[colorName.toUpperCase()] = colorTemplate_[colorName];
+                colors[this.rigthColorName(colorName)] = colorTemplate_[colorName];
         });
         return colors;
     }
@@ -51,11 +51,11 @@ export default function colorTemplate(slideId) {
     this.changeColors = (colors = null) => {
         if (!slide(this.slideId).documentElement()) return;
 
-        if (colors) {
+        if (colors)
             this.updateColors(colors);
-        } else {
-            colors = this.getAllColors();
-        }
+
+        colors = this.getAllColors();
+
 
         const documentElement = slide(slideId).documentElement();
 
