@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\AnalyzedContent;
+use App\Entity\ColorTemplate;
 use App\Entity\Content;
 use App\Entity\Presentation;
 use App\Entity\Slide;
@@ -58,8 +59,21 @@ class SlideService
             $slide->addShape($newShape);
             $this->em->persist($newShape);
         }
+
         // Copy color template
-        $slide->setColorTemplate($style->getColorTemplate());
+        $colorTemplateOfStyle = $style->getColorTemplate();
+        $colorTemplateOfSlide = new ColorTemplate();
+        $colorTemplateOfSlide->setACCENT1($colorTemplateOfStyle->getACCENT1());
+        $colorTemplateOfSlide->setACCENT2($colorTemplateOfStyle->getACCENT2());
+        $colorTemplateOfSlide->setACCENT3($colorTemplateOfStyle->getACCENT3());
+        $colorTemplateOfSlide->setACCENT4($colorTemplateOfStyle->getACCENT4());
+        $colorTemplateOfSlide->setACCENT5($colorTemplateOfStyle->getACCENT5());
+        $colorTemplateOfSlide->setACCENT6($colorTemplateOfStyle->getACCENT6());
+        $colorTemplateOfSlide->setBACKGROUND1($colorTemplateOfStyle->getBACKGROUND1());
+        $colorTemplateOfSlide->setBACKGROUND2($colorTemplateOfStyle->getBACKGROUND2());
+        $colorTemplateOfSlide->setTEXT1($colorTemplateOfStyle->getTEXT1());
+        $colorTemplateOfSlide->setTEXT2($colorTemplateOfStyle->getTEXT2());
+        $slide->setColorTemplate($colorTemplateOfSlide);
 
         $background = new Content();
         $background->setKeyword('background');
