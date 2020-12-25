@@ -1,5 +1,7 @@
 import constants from "Editor/js/constants";
 import reduceFontSize from "./reduceFontSize";
+import autosizeForeignObject from "./autosizeForeignObject";
+
 
 /**
  * 
@@ -47,7 +49,7 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     //table.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 
     // Font family
-    table.style.fontFamily = shape.font_family.replace(/(Bold)|(bold)/g,"");
+    table.style.fontFamily = shape.font_family.replace(/(Bold)|(bold)/g, "");
 
     // Direction
     table.style.direction = direction;

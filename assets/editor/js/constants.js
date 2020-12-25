@@ -1,7 +1,18 @@
 import session from "./session";
 
 
-const getViewBox = () => {
+/**
+ * 
+ * @param {?SVGSVGElement} svg 
+ */
+const getViewBox = (svg) => {
+    if (svg) {
+        const viewBox = svg.getAttribute("viewBox").split(" ");
+        return {
+            width: parseInt(viewBox[2]),
+            height: parseInt(viewBox[3])
+        }
+    }
 
     if (!session.CURRENT_SLIDE) return {
         width: 25400,
@@ -13,16 +24,24 @@ const getViewBox = () => {
     const object = document.getElementById(session.CURRENT_SLIDE);
     const viewBox = object.contentDocument.querySelector("svg").getAttribute("viewBox").split(" ");
     return {
-        width: viewBox[2],
-        height: viewBox[3]
+        width: parseInt(viewBox[2]),
+        height: parseInt(viewBox[3])
     }
 }
 const constants = {
-    SVG_WIDTH: () => {
-        return getViewBox()['width']
+    /**
+     * 
+     * @param {?SVGSVGElement} svg 
+     */
+    SVG_WIDTH: (svg = null) => {
+        return getViewBox(svg)['width']
     },
-    SVG_HEIGHT: () => {
-        return getViewBox()['height']
+    /**
+     * 
+     * @param {?SVGSVGElement} svg 
+     */
+    SVG_HEIGHT: (svg = null) => {
+        return getViewBox(svg)['height']
     },
     ALIGNMENTS: {
         "1": 'left',

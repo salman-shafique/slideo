@@ -9,6 +9,7 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
+import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import colorTemplate from "Editor/js/entity/colorTemplate";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
@@ -199,7 +200,6 @@ export default function slide(slideId) {
                     g.appendChild(foreignObject);
                     // Add event listener
                     shape(this.slideId, shape_.data.shape_id).addEvent("dblclick", selectTextboxElement);
-
                 }
             }
 
@@ -248,10 +248,18 @@ export default function slide(slideId) {
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
 
+        // Color template
         colorTemplate(this.slideId).changeColors();
 
+        // Autosize the foreignObjects
+        selectAll("g[alt]>foreignObject.bounding_box", this.page()).forEach(foreignObject => {
+            autosizeForeignObject(foreignObject);
+        });
+
+        // Slide numbers
         refresh_slide_prev_numbers();
 
+        // Update the mini prevs
         this.cloneToMiniPrev();
 
         return this;
