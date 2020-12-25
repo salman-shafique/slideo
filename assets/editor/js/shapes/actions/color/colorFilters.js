@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import constants from "Editor/js/constants";
+import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 
 /**
  * 
@@ -12,6 +13,8 @@ export default function colorFilters(g) {
     this.g = g;
 
     this.init = () => {
+        if (getShapeType(this.g) == constants.SHAPE_TYPES.TEXTBOX) return;
+
         const shapeId = g.getAttribute("shape_id");
         const alt = g.getAttribute("alt");
 
