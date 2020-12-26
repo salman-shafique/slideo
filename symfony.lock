@@ -1,21 +1,4 @@
 {
-    "api-platform/api-pack": {
-        "version": "v1.2.2"
-    },
-    "api-platform/core": {
-        "version": "2.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "a93061567140e386f107be75340ac2aee3f86cbf"
-        },
-        "files": [
-            "./config/packages/api_platform.yaml",
-            "./config/routes/api_platform.yaml",
-            "./src/Entity/.gitignore"
-        ]
-    },
     "behat/transliterator": {
         "version": "v1.3.0"
     },
@@ -129,9 +112,6 @@
     "egulias/email-validator": {
         "version": "2.1.18"
     },
-    "fig/link-util": {
-        "version": "1.1.1"
-    },
     "friendsofsymfony/jsrouting-bundle": {
         "version": "2.3",
         "recipe": {
@@ -195,18 +175,6 @@
     "monolog/monolog": {
         "version": "2.1.0"
     },
-    "nelmio/cors-bundle": {
-        "version": "1.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.5",
-            "ref": "6388de23860284db9acce0a7a5d9d13153bcb571"
-        },
-        "files": [
-            "./config/packages/nelmio_cors.yaml"
-        ]
-    },
     "nesbot/carbon": {
         "version": "2.36.1"
     },
@@ -215,9 +183,6 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
-    },
-    "pagerfanta/pagerfanta": {
-        "version": "v2.3.0"
     },
     "php": {
         "version": "7.4"
@@ -529,6 +494,9 @@
     "symfony/property-info": {
         "version": "v5.1.2"
     },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.1.10"
+    },
     "symfony/routing": {
         "version": "5.1",
         "recipe": {
@@ -729,17 +697,11 @@
             "./config/packages/vich_uploader.yaml"
         ]
     },
-    "webimpress/safe-writer": {
-        "version": "2.1.0"
-    },
     "webmozart/assert": {
         "version": "1.9.0"
     },
     "willdurand/jsonp-callback-validator": {
         "version": "v1.1.0"
-    },
-    "willdurand/negotiation": {
-        "version": "v2.3.1"
     },
     "zendframework/zend-code": {
         "version": "3.4.1"
