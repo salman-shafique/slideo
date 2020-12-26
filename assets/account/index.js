@@ -2,6 +2,7 @@ import "CSS/account.css";
 
 import "./presentation/";
 import "./profile/";
+import "./notifications/";
 
 
 $(document).ready(function () {

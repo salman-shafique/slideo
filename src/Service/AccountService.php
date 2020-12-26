@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Entity\Notifications;
 
 class AccountService
 {
@@ -108,18 +109,36 @@ class AccountService
 
     public function browserNotifications(User $user, $val): array
     {
-        $val == "true" ? $val = true : $val = false;        
-        $user->setBrowserNotifications($val);
-        $this->em->persist($user);
+        $val == "true" ? $val = true : $val = false;
+
+        $notifications = $user->getNotifications();
+
+        if (!$notifications) {
+            $notifications = new Notifications();
+            $user->setNotifications($notifications);
+            $this->em->persist($user);
+        }
+
+        $notifications->setBrowserNotifications($val);
+        $this->em->persist($notifications);
         $this->em->flush();
         return ['success' => true];
     }
 
-    public function allowAnonymousChat(User $user, $val): array
+    public function productUpdates(User $user, $val): array
     {
         $val == "true" ? $val = true : $val = false;
-        $user->setAllowAnonymousChat($val);
-        $this->em->persist($user);
+
+        $notifications = $user->getNotifications();
+
+        if (!$notifications) {
+            $notifications = new Notifications();
+            $user->setNotifications($notifications);
+            $this->em->persist($user);
+        }
+
+        $notifications->setProductUpdates($val);
+        $this->em->persist($notifications);
         $this->em->flush();
         return ['success' => true];
     }

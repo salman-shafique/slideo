@@ -24,15 +24,6 @@ class AccountApiContoller extends AbstractController
     }
 
     /**
-     * @Route("/change/password")
-     */
-    public function changePassword(Request $request, AccountService $accountService, UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $r = $accountService->changePassword($request, $this->getUser(), $passwordEncoder);
-        return new JsonResponse($r);
-    }
-
-    /**
      * @Route("/change/fullname")
      */
     public function changeFullname(Request $request, AccountService $accountService)
@@ -51,7 +42,7 @@ class AccountApiContoller extends AbstractController
     }
     
     /**
-     * @Route("/change/browserNotifications")
+     * @Route("/notifications/browserNotifications")
      */
     public function browserNotifications(AccountService $accountService, Request $request)
     {
@@ -60,11 +51,11 @@ class AccountApiContoller extends AbstractController
     }
 
     /**
-     * @Route("/change/allowAnonymousChat")
+     * @Route("/notifications/productUpdates")
      */
-    public function allowAnonymousChat(AccountService $accountService, Request $request)
+    public function productUpdates(AccountService $accountService, Request $request)
     {
-        $r = $accountService->allowAnonymousChat($this->getUser(), $request->request->get("allowAnonymousChat"));
+        $r = $accountService->productUpdates($this->getUser(), $request->request->get("productUpdates"));
         return new JsonResponse($r);
     }
 }

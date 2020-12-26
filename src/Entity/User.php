@@ -86,6 +86,11 @@ class User implements UserInterface
      */
     private $updated;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Notifications::class, mappedBy="owner", cascade={"persist", "remove"})
+     */
+    private $notifications;
+
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
@@ -294,6 +299,23 @@ class User implements UserInterface
             return $splittedFullname[0][0] . $splittedFullname[1][0];
         else
             return $this->fullname[0][0];
+    }
+
+    public function getNotifications(): ?Notifications
+    {
+        return $this->notifications;
+    }
+
+    public function setNotifications(Notifications $notifications): self
+    {
+        $this->notifications = $notifications;
+
+        // set the owning side of the relation if necessary
+        if ($notifications->getOwner() !== $this) {
+            $notifications->setOwner($this);
+        }
+
+        return $this;
     }
 
 }
