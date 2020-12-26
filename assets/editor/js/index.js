@@ -28,4 +28,6 @@ import "Editor/js/shapes/textbox/";
 import "Editor/js/components/preloader";
 
 
+// Enable close tab warning
+window.onbeforeunload = () => "";
 

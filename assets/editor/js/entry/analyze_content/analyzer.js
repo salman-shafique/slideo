@@ -1,7 +1,7 @@
 import clear_text from "Editor/js/utils/clear_text";
 import session from "Editor/js/session";
 import add_event from "Editor/js/utils/add_event";
-import toastr from "toastr";
+import toastr from "Editor/js/components/toastr";
 import create_slides from "Editor/js/slides/create_slides";
 import clear_mso_specials from "./clear_mso_specials";
 import reset_next_slide from "Editor/js/slides/reset_next_slide";
@@ -59,7 +59,7 @@ add_event("#entry_analyze", "click", function () {
         slideTitle = true;
 
     if (!slideContent && !slideTitle) {
-        toastr.error("no content");
+        toastr.error("Please enter some content");
         return;
     }
 
