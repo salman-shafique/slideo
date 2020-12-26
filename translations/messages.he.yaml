@@ -3,11 +3,12 @@ Login: התחברות
 Log in: התחברות
 Language: שפה
 Home : בית
-Editor : עוֹרֵך
+Editor : עיצוב מצגת
 Contact : איש קשר
 Welcome : ברוך הבא
-Dashboard : לוּחַ מַחווָנִים
+Dashboard : מרכז ניהול
 Links : קישורים
+Pricing: מחירון
 Forgot password? : שכחת ססמא?
 Don't have an account? : אין לך חשבון?
 Already have an account?: כבר יש לך חשבון?
@@ -45,12 +46,17 @@ Our organization paid insane amounts, to make relatively simple presentations, u
 Ariel Segev : אריאל שגב
 I had no previous experience with building presentations, and I was able to easily create an excellent presentation, which looks like the end of the road - while having my lunch ... : לא היה לי ניסיון קודם עם בניית מצגות, והצלחתי ליצור בקלות מצגת מעולה, שנראית סוף הדרך - תוך כדי ארוחת הצהריים שלי...
 
+# Add New Slide Popup
+Slide Title: כותרת השקף
+Create Slide: עיצוב אוטומטי
+
+
 # Editor Page Translation
 Slides created: השקפים נוצרו
 All Changes Saved: כל השינויים נשמרו
 
 New Presentation: מצגת חדש
-Preview: צפייה מקדימה
+Preview: תצוגה מקדימה
 Download: הורדה
 Design: עיצוב
 All Designs: כל העיצובים
@@ -80,3 +86,5 @@ Plan: תכנית ומנוי
 Billing: חשבוניות ותשלום
 email notifications: התראות אימייל
 Logout : להתנתק
+
+
