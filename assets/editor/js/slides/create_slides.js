@@ -20,8 +20,8 @@ const checkMaxCapacity = () => {
             tmpSlide.subTitle = session.NEW_SLIDES[index].subTitle;
             tmpSlide.sentences = session.NEW_SLIDES[index].sentences.slice(constants.MAX_SLIDE_CAPACITY);
             session.NEW_SLIDES[index].sentences = session.NEW_SLIDES[index].sentences.slice(0, constants.MAX_SLIDE_CAPACITY);
-            
-            session.NEW_SLIDES.splice(index+1, 0, tmpSlide);
+
+            session.NEW_SLIDES.splice(index + 1, 0, tmpSlide);
 
             index++;
             allSlides++;
@@ -43,6 +43,10 @@ export default function create_slides() {
             "slides": session.NEW_SLIDES
         },
         success: (response) => {
+            if (response.presentationId) {
+                location.href = "/editor/" + response.presentationId;
+                return;
+            }
             // Create slides
             response.forEach(slideData => {
                 slide().appendToPresentation(slideData).insertToPage();

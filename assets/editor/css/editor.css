@@ -688,22 +688,3 @@ object[id^="prev_"] {
 .image-container {
 	width: 100%;
 }
-
-.preloader {
-	font-size: 1px;
-	width: 100px;
-	position: absolute;
-	height: 100px;
-}
-.preloader-container {
-	position: absolute;
-	display: flex;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	align-items: center;
-	justify-content: center;
-	z-index: 1090;
-	background-color: rgba(255,255,255,0.8);
-}

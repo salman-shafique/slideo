@@ -1,3 +1,4 @@
+import "Editor/css/preloader.css";
 
 const preloaderEl = document.querySelector(".preloader-container");
 

@@ -10,10 +10,10 @@ import "Editor/js/entry";
 import "Editor/js/presentation";
 
 // Sidebar 
-import  "Editor/js/sidebar";
+import "Editor/js/sidebar";
 
 // Navbar
-import  "Editor/js/navbar";
+import "Editor/js/navbar";
 
 // Editor tools
 import "Editor/js/init";
