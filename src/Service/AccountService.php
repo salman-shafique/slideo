@@ -41,26 +41,6 @@ class AccountService
         return ['success' => true];
     }
 
-    public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): array
-    {
-        $oldPassword = $request->request->get('old_password');
-        $newPassword = $request->request->get('new_password');
-
-        if (!$passwordEncoder->isPasswordValid($user, $oldPassword))
-            return [
-                'success' => false,
-                'descr' => 'Wrong old password'
-            ];
-
-        $newPasswordEncoded = $passwordEncoder->encodePassword($user, $newPassword);
-        $user->setPassword($newPasswordEncoded);
-
-        $this->em->persist($user);
-        $this->em->flush();
-
-        return ['success' => true];
-    }
-
     public function changeFullname(Request $request, User $user): array
     {
         $newFullname = $request->request->get('new_fullname');
