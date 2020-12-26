@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {% trans %}Account{% endtrans %}
+{% endblock %}
+
+{% block style %}
+  {{parent()}}
+  {{ encore_entry_link_tags('user_account') }}
+{% endblock %}
+
+{% block body %}
+  hello account!
+{% endblock %}
+
+{% block script %}
+  {{parent()}}
+  {{ encore_entry_script_tags('user_account') }}
+{% endblock %}
