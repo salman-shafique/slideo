@@ -10,10 +10,30 @@
 {% endblock %}
 
 {% block body %}
-  hello account!
-{% endblock %}
 
+  <div class="row m-0">
+    <div class="col-12 col-md-3 mt-5">
+      {% include "account/menu.html.twig" %}
+    </div>
+    <div class="col-12 col-md-9">
+      <div id="ProfileTabContentMain">
+
+        {% include "account/my_presentations.html.twig" %}
+
+        {% include "account/profile.html.twig" %}
+
+        {% include "account/plans.html.twig" %}
+
+        {% include "account/billing.html.twig" %}
+
+        {% include "account/notifications.html.twig" %}
+
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
 {% block script %}
-  {{parent()}}
-  {{ encore_entry_script_tags('user_account') }}
+  {{parent()}}{{ encore_entry_script_tags('user_account') }}
 {% endblock %}

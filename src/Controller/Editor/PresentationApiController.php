@@ -12,13 +12,12 @@ use App\Service\SerializerService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * @Route("/api/presentation")
+ * @Route("/api/presentation", methods={"POST"})
  */
-class PresentationController extends AbstractController
+class PresentationApiController extends AbstractController
 {
-
     /**
-     * @Route("/init", methods={"POST"})
+     * @Route("/init")
      */
     public function initPresentation(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
     {
@@ -31,7 +30,7 @@ class PresentationController extends AbstractController
 
 
     /**
-     * @Route("/download",methods={"POST"})
+     * @Route("/download")
      */
     public function downloadPresentation(Request $request, SessionInterface $sessionInterface, FlaskService $flaskService, PresentationSecurity $presentationSecurity)
     {
@@ -49,7 +48,7 @@ class PresentationController extends AbstractController
         return new JsonResponse($download);
     }
     /**
-     * @Route("/change_name",methods={"POST"})
+     * @Route("/change_name")
      */
     public function changeName(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
     {
@@ -57,6 +56,21 @@ class PresentationController extends AbstractController
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
         $presentation->setTitle($request->request->get("presentation_name"));
+        $this->getDoctrine()->getManager()->persist($presentation);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse(['success' => true]);
+    }
+
+    /**
+     * @Route("/remove/{presentationId}")
+     */
+    public function remove(string $presentationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
+    {
+        $presentation = $presentationSecurity->getPresentation($presentationId, $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $presentation->setIsActive(false);
         $this->getDoctrine()->getManager()->persist($presentation);
         $this->getDoctrine()->getManager()->flush();
 

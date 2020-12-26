@@ -1,0 +1,228 @@
+:root {
+	--landing-action: rgb(229, 34, 86);
+    --brand-color: rgb(44, 120, 156);
+    --footer-background: rgb(244, 244, 244);
+	--active-tool: rgb(39, 44, 49);
+	--control-button: rgb(43, 119, 156);
+	--feedback-button: rgb(82, 38, 234);
+	--profiles: rgb(92, 26, 142);
+	--default-input: #f1f1f1;
+}
+
+
+body {
+    color: black;
+}
+
+#ProfilePicture {
+    width: 42px;
+    height: 42px;
+    background-color: skyblue;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#Initials {
+    font-weight: bold;
+    overflow: hidden;
+}
+
+#UserHolder {
+    width: 320px;
+}
+
+#UserHolder li {
+    margin-left: 15px;
+}
+
+#Name, #ProjectName {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#NavUser {
+    min-width: 165px;
+}
+
+#Email {
+    font-size: 12px;
+}
+
+.linked-user-nav-blocks {
+    margin: -10px;
+    padding: 10px;
+}
+
+#Logo {
+    width: 150px;
+}
+
+.profile-screen-link {
+    margin: 3px 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: black !important;
+    display: block;
+    padding: 8px;
+}
+
+.profile-screen-link.active, .profile-screen-link:hover {
+    background-color: var(--profiles);
+    color: white !important;
+}
+
+#ProfileTabContentMain {
+    width: 100%;
+}
+
+
+
+.info-component {
+    padding: 20px;
+    border-radius: 20px;
+    margin: 12px 10px;
+    font-size: 20px;
+    position: relative;
+    background-color: var(--footer-background);
+}
+
+.tab-header {
+    padding: 20px 30px;
+}
+
+#thumbnail {
+    height: 50px;
+    width: 60px;
+}
+
+.info-component-history-subHeader {
+    padding: 20px;
+    margin: 5px 10px;
+    font-size: 20px;
+}
+
+.account-upgrade {
+    background-color: lightgrey;
+    margin: 18px -24px;
+}
+
+.upgrade-button {
+    background-color: var(--control-button);
+}
+
+.info-action-link {
+    cursor: pointer;
+}
+
+.info-action-link:hover {
+    text-decoration: underline;
+}
+
+#PresentationsGallery {
+    display: flex;
+    flex-flow: row wrap;
+    margin: auto;
+}
+
+.presentation-thumb {
+    margin: 8px 16px;
+    flex: 0 1 calc(33% - 32px);
+    max-width: calc(33% - 32px);
+    transition: 0.3s;
+    position: relative;
+}
+
+.presentation-thumb-img {
+    width: 100%;
+    box-shadow: -4px 4px 8px 0 #3e3e3e;
+    height: 160px;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    color: gray;
+    text-decoration: none !important;
+}
+.presentation-thumb-img span{
+    font-size: 70px;
+}
+
+
+.ppt-title {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.ppt-last-modified {
+    font-size: 12px;
+}
+
+.ppt-remove {
+    position: absolute;
+    bottom: 20px;
+    visibility: hidden;
+    right: 5px;
+    cursor: pointer;
+}
+
+.presentation-thumb:hover .presentation-thumb-img {
+    box-shadow: -6px 6px 12px 0 #7e7e7e;
+}
+.presentation-thumb:hover {
+    text-decoration: none;
+}
+
+.presentation-thumb:hover .ppt-remove {
+    visibility: visible;
+}
+
+#PptCreate {
+    border-radius: 20px;
+    border: 4px dashed var(--control-button);
+    color: var(--control-button);
+    max-height: 170px;
+    cursor: pointer;
+}
+
+#PptCreate .fully-centered {
+    padding: 5px;
+}
+
+#PptCreate .ppt-add-icon {
+    font-size: 72px;
+    width: 72px;
+}
+
+
+@media(max-width: 1200px) {
+    .presentation-thumb {
+        margin: 8px 16px;
+        flex: 0 1 calc(50% - 32px);
+        max-width: calc(50% - 32px);
+    }
+}
+
+@media(max-width: 576px) {
+    .presentation-thumb {
+        margin: 8px 16px;
+        flex: 0 1 calc(100% - 32px);
+        max-width: calc(100% - 32px);
+    }
+}
+
+@media(min-width: 768px) {
+    .resp-sm-text-right {
+        text-align: right !important;
+    }
+}
+
+.resp-modify {
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+}
+
+.resp-modify:hover {
+    color: var(--control-button);
+    box-shadow: -4px 4px 8px 0 #3e3e3e;
+}

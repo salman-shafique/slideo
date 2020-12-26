@@ -7,6 +7,7 @@ use App\Entity\Content;
 use App\Entity\Slide;
 use App\Entity\Presentation;
 use App\Entity\User;
+use App\Security\PresentationSecurity;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -30,5 +31,4 @@ class PresentationService
         $this->em->flush();
         return $presentation;
     }
-
 }
