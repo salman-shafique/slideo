@@ -21,7 +21,7 @@ export default function BrowserNotificationsSwitch({ isActive }) {
                     const options = {
                         vibrate: [500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500],
                         icon: '/favicon/favicon-128.png',
-                        body: "We will inform you know about updates about you."
+                        body: "We will inform you about updates about you."
                     };
                     new Notification(title, options);
                     updateServer(true);
