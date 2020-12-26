@@ -10,7 +10,10 @@ export default function apiService(settings = {
     error: null,
     beforeSend: null,
     async: true,
+    processData: true,
+    contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
 }) {
+
 
     if (!settings.method)
         settings.method = "POST";

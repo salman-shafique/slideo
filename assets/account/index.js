@@ -1,6 +1,7 @@
 import "CSS/account.css";
 
 import "./presentation/";
+import "./profile/";
 
 
 $(document).ready(function () {

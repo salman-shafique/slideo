@@ -49,16 +49,7 @@ class AccountApiContoller extends AbstractController
         $r = $accountService->changeAvatar($request, $this->getUser());
         return new JsonResponse($r);
     }
-
-    /**
-     * @Route("/remove/avatar")
-     */
-    public function removeAvatar(AccountService $accountService)
-    {
-        $r = $accountService->removeAvatar($this->getUser());
-        return new JsonResponse($r);
-    }
-
+    
     /**
      * @Route("/change/browserNotifications")
      */

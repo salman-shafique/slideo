@@ -11,6 +11,7 @@
   <a href="{{path('editor')}}">{% trans %}Editor{% endtrans %}</a>
   <a href="{{path('pricing')}}">{% trans %}Pricing{% endtrans %}</a>
   {% if app.user %}
+    <a href="{{path('user_account')}}">{% trans %}Account{% endtrans %}</a>
     <a href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
   {% else %}
     <a href="{{path('app_login')}}">{% trans %}Login{% endtrans %}</a>
@@ -50,6 +51,11 @@
       </a>
     </li>
     {% if app.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('user_account')}}">
+          <button class="btn d-md-flex d-none">{% trans %}Account{% endtrans %}</button>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="{{path('app_logout')}}">
           <button class="btn d-md-flex d-none">{% trans %}Logout{% endtrans %}</button>

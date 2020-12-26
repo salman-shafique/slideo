@@ -63,7 +63,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $picture;
+    private $picture = "/favicon/favicon-128.png";
 
     /**
      * @ORM\OneToMany(targetEntity=Presentation::class, mappedBy="owner")

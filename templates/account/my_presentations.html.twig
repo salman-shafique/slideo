@@ -4,7 +4,7 @@
   </h1>
   <div id="PresentationsGallery" class="row medium-bottom-margin">
 
-    <a href="{{path('editor')}}" target="_blank" id="PptCreate" class="presentation-thumb">
+    <a href="{{path('editor')}}" id="PptCreate" class="presentation-thumb">
       <div class="fully-centered text-center">
         <i class="fas fa-plus ppt-add-icon"></i>
         <p class="small-top-margin small-bottom-margin">Create a new presentation</p>
@@ -13,7 +13,7 @@
 
     {% for presentation in app.user.presentations|reverse  %}
       {% if presentation.isActive %}
-        <a href="{{path('editor')}}/{{presentation.presentationId}}" target="_blank" class="presentation-thumb">
+        <a href="{{path('editor')}}/{{presentation.presentationId}}" class="presentation-thumb">
           <div class="presentation-thumb-img">
             <span>
               {{presentation.slides|length}}

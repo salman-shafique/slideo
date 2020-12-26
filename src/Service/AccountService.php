@@ -106,14 +106,6 @@ class AccountService
         ];
     }
 
-    public function removeAvatar(User $user): array
-    {
-        $user->setPicture(null);
-        $this->em->persist($user);
-        $this->em->flush();
-        return ['success' => true];
-    }
-
     public function browserNotifications(User $user, $val): array
     {
         $val == "true" ? $val = true : $val = false;        
