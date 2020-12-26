@@ -290,8 +290,6 @@ add_event("#entry_analyze", "click", function () {
     });
 
     create_next_slides(tmp_slides);
-    console.log(session.NEW_SLIDES);
-    return;
     create_slides();
 
 });
