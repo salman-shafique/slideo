@@ -12,34 +12,19 @@
         <i class="fas fa-chevron-down float-right vertically-centered"></i>
       </li>
     </div>
-    <div id="UserMenuDropdown" class="custom-dropdown d-none small-top-margin">
-      <div class="option-item row m-0 justify-content-center">
-        <button id="Presentations" class="btn btn-highlight single-line col-10">
-          <i class="fas fa-images text-light" style="font-size: 1.5rem;"></i>&nbsp;{% trans %}My Presentations{% endtrans %}</button>
-      </div>
-      <div class="option-item">
-        <span class="option-text single-line">
-          <i class="fas fa-user" style="font-size: 1.5rem;"></i>
-          {% trans %}Profile{% endtrans %}</span>
-      </div>
-      <div class="option-item">
-        <span class="option-text single-line">
-          <i class="fas fa-star" style="font-size: 1.5rem;"></i>
-          {% trans %}Plan{% endtrans %}</span>
-      </div>
-      <div class="option-item">
-        <span class="option-text single-line">
-          <i class="fas fa-money-bill" style="font-size: 1.5rem;"></i>
-          {% trans %}Billing{% endtrans %}</span>
-      </div>
-      <div class="option-item">
-        <span class="option-text single-line">
-          <i class="fas fa-envelope-open" style="font-size: 1.5rem;"></i>
-          {% trans %}Email Notifications{% endtrans %}</span>
-      </div>
-      <div class="option-item small-top-margin">
-        <a class="option-text text-danger single-line" href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a>
-      </div>
+    <div id="UserMenuDropdown" class="custom-dropdown d-none small-top-margin p-3">
+      <a href="{{path('user_account')}}">
+        <div class="option-item row m-0 justify-content-center">
+          <button id="Presentations" class="btn btn-highlight single-line col-10">
+            <i class="fas fa-user text-light"></i>&nbsp;{% trans %}Account{% endtrans %}</button>
+        </div>
+      </a>
+      <a href="{{path('app_logout')}}">
+        <div class="option-item row m-0 justify-content-center">
+          <button id="Presentations" class="btn btn-danger mt-2 single-line col-10">
+            {% trans %}Logout{% endtrans %}</button>
+        </div>
+      </a>
     </div>
   </ul>
 {% else %}

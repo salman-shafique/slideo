@@ -504,7 +504,7 @@ body {
 	right: 10px;
 }
 
-.options-dropdown, #UserMenuDropdown {
+.options-dropdown{
 	padding: 10px;
 	min-height: 225px;
 }
@@ -533,12 +533,12 @@ body {
 }
 
 #UserMenuDropdown {
-	min-height: 280px;
 	width: 256px;
 	box-shadow: 1px 1px 10px 1px grey;
 	z-index: 4;
 	left: 5px;
 	top: 55px;
+	height: auto;
 }
 
 #UserMenuDropdown .option-text {

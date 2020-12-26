@@ -14,7 +14,7 @@ class LanguagesEnum
 
     public const AVAILABLE_TYPES = [
         self::ENGLISH => 'English',
-        self::TURKISH => 'Turkish',
+ #       self::TURKISH => 'Turkish',
         self::HEBREW => 'Hebrew'
     ];
 
