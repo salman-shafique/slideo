@@ -13,9 +13,15 @@ function create_next_slides(slides) {
         slides = slides.slice(1, 2);
 
     slides.forEach(function (slide) {
+        const slideTitle = clear_text(slide.slideTitle);
         // NEXT_SLIDE
-        session.NEXT_SLIDE.slideTitle = clear_text(slide.slideTitle);
-        session.NEXT_SLIDE.subTitle = clear_text(slide.root.innerText);
+        if (slideTitle) {
+            session.NEXT_SLIDE.slideTitle = slideTitle;
+            session.NEXT_SLIDE.subTitle = clear_text(slide.root.innerText);
+        } else {
+            session.NEXT_SLIDE.slideTitle = clear_text(slide.root.innerText);
+            session.NEXT_SLIDE.subTitle = "";
+        }
         session.NEXT_SLIDE.direction = session.DIRECTION;
 
         let sentences = [];
@@ -65,7 +71,7 @@ add_event("#entry_analyze", "click", function () {
         return;
     }
 
-    let marginAlignment; 
+    let marginAlignment;
     session.DIRECTION == "ltr" ? marginAlignment = "marginLeft" : marginAlignment = "marginRight";
 
     let lines = [];
@@ -92,9 +98,10 @@ add_event("#entry_analyze", "click", function () {
                                     lines.push(inner_node);
                                 else {
                                     // Check tab spaces indent 
-                                    if (node.childNodes.length == 2)
-                                        if (node.querySelector("[style='white-space:pre']")) {
-                                            let spaces = inner_node.innerText.length;
+                                    if (node.childNodes.length >= 2)
+                                        if (node.querySelector("[style*='white-space']")) {
+                                            let spaceNode = node.querySelector("[style*='white-space']");
+                                            let spaces = spaceNode.innerText.length;
                                             node.style[marginAlignment] = (spaces * 10) + "px";
                                             lines.push(node);
                                             break;
@@ -206,12 +213,12 @@ add_event("#entry_analyze", "click", function () {
     });
 
     let max = not_classified.length;
-    let line_bottom,level_bottom,siblings;
+    let line_bottom, level_bottom, siblings;
     for (let i = max - 1; i > 0; i--) {
         line_bottom = not_classified[i];
         level_bottom = parseInt(line_bottom.getAttribute("level"));
         siblings = [];
-    
+
 
         for (let j = i - 1; j >= 0; j--) {
             let line_up = not_classified[j];
@@ -283,6 +290,8 @@ add_event("#entry_analyze", "click", function () {
     });
 
     create_next_slides(tmp_slides);
+    console.log(session.NEW_SLIDES);
+    return;
     create_slides();
 
 });
