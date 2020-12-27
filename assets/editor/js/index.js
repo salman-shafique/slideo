@@ -24,9 +24,6 @@ import "Editor/js/shapes/actions/";
 // Textbox actions
 import "Editor/js/shapes/textbox/";
 
-// Preloader
-import "Editor/js/components/preloader";
-
 
 // Enable close tab warning
 window.onbeforeunload = () => "";

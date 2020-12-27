@@ -21,7 +21,7 @@ export default function apiService(settings = {
         settings.dataType = "json";
     if (!settings.error)
         settings.error = (r) => {
-            preloader().hide();
+            preloader().forceHide();
             toastr.error("OOps... Something went wrong on our side...");
             console.error(r.responseJSON);
         };
