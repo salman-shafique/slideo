@@ -5,7 +5,6 @@ const preloaderEl = document.querySelector(".preloader-container");
 let registeredEvents = 0;
 export default function preloader() {
     if (!(this instanceof preloader)) return new preloader(...arguments);
-    console.log(registeredEvents);
     this.show = () => {
         registeredEvents++;
         if (preloaderEl.classList.contains("d-none")) {

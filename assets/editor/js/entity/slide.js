@@ -170,25 +170,27 @@ export default function slide(slideId) {
                     shape(this.slideId, shape_.data.shape_id).remove();
                 }
             } else if (shape_.data.alt == "slidetitle") {
-                try {
-                    content = slideData.slideTitle.data;
-                    if (!content.text) throw new DOMException();
-                    shape_.data.text = text = content.text;
-                    direction = content.direction;
-                    Object.assign(shape_.data, content);
-                } catch {
-                    shape(this.slideId, shape_.data.shape_id).remove();
-                }
+                content = slideData.slideTitle.data;
+                if (!content.text)
+                    // Place holder slide title
+                    content = {
+                        text: "Add your slide title here",
+                        direction: "ltr"
+                    };
+                shape_.data.text = text = content.text;
+                direction = content.direction;
+                Object.assign(shape_.data, content);
             } else if (shape_.data.alt == "subtitle") {
-                try {
-                    content = slideData.subTitle.data;
-                    if (!content.text) throw new DOMException();
-                    shape_.data.text = text = content.text;
-                    direction = content.direction;
-                    Object.assign(shape_.data, content);
-                } catch {
-                    shape(this.slideId, shape_.data.shape_id).remove();
-                }
+                content = slideData.subTitle.data;
+                if (!content.text)
+                    // Place holder slide title
+                    content = {
+                        text: "Add your slide sub title here",
+                        direction: "ltr"
+                    };
+                shape_.data.text = text = content.text;
+                direction = content.direction;
+                Object.assign(shape_.data, content);
             }
             if (text) {
                 // Append foreignObjects
@@ -220,16 +222,25 @@ export default function slide(slideId) {
                 shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
 
             } else if (shape_.data.alt == "slidetitleimage") {
-                try {
-                    content = slideData.slideTitleImage.data;
-                    if (!content.keyword) throw new DOMException();
-                    Object.assign(shape_.data, content);
-                    h1Image(this.slideId, shape_.data.shape_id, content.keyword);
-                    // Add event listener
-                    shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
-                } catch {
-                    shape(this.slideId, shape_.data.shape_id).remove();
-                }
+                content = slideData.slideTitleImage.data;
+                if (!content.keyword && !content.image) {
+                    let slideTitleImagePlaceholderUrl =
+                        shape(this.slideId, shape_.data.shape_id)
+                            .el()
+                            .querySelector("image")
+                            .getAttribute("xlink:href");
+                    content = {
+                        image: {
+                            url: slideTitleImagePlaceholderUrl,
+                            keyword: ""
+                        },
+                        keyword: ""
+                    }
+                };
+                Object.assign(shape_.data, content);
+                h1Image(this.slideId, shape_.data.shape_id, content.keyword);
+                // Add event listener
+                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
             }
 
             g = shape(this.slideId, shape_.data.shape_id).el();
