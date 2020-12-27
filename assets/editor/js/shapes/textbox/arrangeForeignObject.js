@@ -47,6 +47,8 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     //table.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 
     // Font family
+    if (!shape.font_family)
+        shape.font_family = "Arial";
     table.style.fontFamily = shape.font_family.replace(/(Bold)|(bold)/g, "");
 
     // Direction
