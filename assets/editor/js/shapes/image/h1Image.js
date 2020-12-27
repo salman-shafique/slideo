@@ -1,4 +1,3 @@
-import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import selectH1Image from "Editor/js/shapes/image/selectH1Image";
 import apiService from "Editor/js/utils/apiService";

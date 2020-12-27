@@ -1,7 +1,5 @@
 import constants from "Editor/js/constants";
 import reduceFontSize from "./reduceFontSize";
-import autosizeForeignObject from "./autosizeForeignObject";
-
 
 /**
  * 

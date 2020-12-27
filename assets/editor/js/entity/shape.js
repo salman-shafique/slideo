@@ -1,6 +1,8 @@
 import slide from "Editor/js/entity/slide";
 import select from "Editor/js/utils/selector/select";
 import add_event from "Editor/js/utils/add_event";
+import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
+import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
 
 export default function shape(slideId, shapeId) {
     if (!(this instanceof shape)) return new shape(...arguments);
@@ -63,17 +65,59 @@ export default function shape(slideId, shapeId) {
             content.image = image;
         }
     }
-    this.setH1 = (h1) => {
+    /**
+     * 
+     * @param {String} newText 
+     */
+    this.setH1 = (newText) => {
         // Update the analyzed content
         const contentNumber = this.data().alt.split("|").pop();
         const content = slide(this.slideId).slideData().analyzedContent[contentNumber].h1.data;
-        content.text = h1;
+        if (content.text != newText) {
+            content.text = newText;
+            autosizeForeignObject(this.el().querySelector("foreignObject"));
+            relocateResizeCircleContainer(this.el());
+        }
     }
-    this.setOriginalSentence = (originalSentence) => {
+    /**
+     * 
+     * @param {String} newText 
+     */
+    this.setOriginalSentence = (newText) => {
         // Update the analyzed content
         const contentNumber = this.data().alt.split("|").pop();
         const content = slide(this.slideId).slideData().analyzedContent[contentNumber].originalSentence.data;
-        content.text = originalSentence;
+        if (content.text != newText) {
+            content.text = newText;
+            autosizeForeignObject(this.el().querySelector("foreignObject"));
+            relocateResizeCircleContainer(this.el());
+        }
+    }
+    /**
+     * 
+     * @param {String} newText 
+     */
+    this.setSlideTitle = (newText) => {
+        // Update the slide title
+        const content = slide(this.slideId).slideData().slideTitle.data;
+        if (content.text != newText) {
+            content.text = newText;
+            autosizeForeignObject(this.el().querySelector("foreignObject"));
+            relocateResizeCircleContainer(this.el());
+        }
+    }
+    /**
+     * 
+     * @param {String} newText 
+     */
+    this.setSubTitle = (newText) => {
+        // Update the slide title
+        const content = slide(this.slideId).slideData().subTitle.data;
+        if (content.text != newText) {
+            content.text = newText;
+            autosizeForeignObject(this.el().querySelector("foreignObject"));
+            relocateResizeCircleContainer(this.el());
+        }
     }
 }
 
