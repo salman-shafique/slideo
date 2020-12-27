@@ -7,6 +7,8 @@ import ReactDOM from "react-dom";
 import Icon from "./Icon";
 
 export default function appendIcons(icons, keyword) {
+    keyword = keyword.trim();
+
     // Check keyword
     if (!select('#Icon_keywords_list div[data-keyword="' + keyword + '"].search-keyword'))
         appendKeyword(keyword);

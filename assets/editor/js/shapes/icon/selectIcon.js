@@ -19,8 +19,6 @@ export default function selectIcon(slideId, shapeId, icon = null) {
 
     shape_.setIcon(shapeData.icon);
 
-
-
     let image = shape_.el().querySelector("image");
     image.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", shapeData.icon.url);
 

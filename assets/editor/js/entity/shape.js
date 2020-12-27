@@ -3,6 +3,10 @@ import select from "Editor/js/utils/selector/select";
 import add_event from "Editor/js/utils/add_event";
 import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
+import iconInit from "Editor/js/shapes/icon/iconInit";
+import findKeyword from "../utils/findKeyword";
+import h1Image from "Editor/js/shapes/image/h1Image";
+
 
 export default function shape(slideId, shapeId) {
     if (!(this instanceof shape)) return new shape(...arguments);
@@ -72,9 +76,35 @@ export default function shape(slideId, shapeId) {
     this.setH1 = (newText) => {
         // Update the analyzed content
         const contentNumber = this.data().alt.split("|").pop();
-        const content = slide(this.slideId).slideData().analyzedContent[contentNumber].h1.data;
+        const slide_ = slide(this.slideId);
+        const content = slide_.slideData().analyzedContent[contentNumber].h1.data;
         if (content.text != newText) {
             content.text = newText;
+
+            const iconG = slide_.page().querySelector("g[alt$='icon|" + contentNumber + "']");
+            if (iconG) {
+                // page has an icon, update it
+                const iconShapeId = iconG.getAttribute("shape_id");
+                const iconShape = shape(this.slideId, iconShapeId);
+                iconShape.data().icon = null;
+
+                findKeyword(newText, (slideId, shapeId, keyword) => {
+                    iconInit(slideId, shapeId, keyword);
+                }, [this.slideId, iconShapeId]);
+            }
+
+            const h1ImageG = slide_.page().querySelector("g[alt='h1image|" + contentNumber + "']");
+            if (h1ImageG) {
+                // page has an h1 image update it
+                const imageShapeId = h1ImageG.getAttribute("shape_id");
+                const imageShape = shape(this.slideId, imageShapeId);
+                imageShape.data().image = null;
+
+                findKeyword(newText, (slideId, shapeId, keyword) => {
+                    h1Image(slideId, shapeId, keyword);
+                }, [this.slideId, imageShapeId]);
+            }
+
             autosizeForeignObject(this.el().querySelector("foreignObject"));
             relocateResizeCircleContainer(this.el());
         }
@@ -99,9 +129,21 @@ export default function shape(slideId, shapeId) {
      */
     this.setSlideTitle = (newText) => {
         // Update the slide title
-        const content = slide(this.slideId).slideData().slideTitle.data;
+        const slide_ = slide(this.slideId);
+        const content = slide_.slideData().slideTitle.data;
         if (content.text != newText) {
             content.text = newText;
+            const slideTitleImageG = slide_.page().querySelector("g[alt='slidetitleimage']");
+            if (slideTitleImageG) {
+                // page has the slidetitleimage
+                const slideTitleImageShapeId = slideTitleImageG.getAttribute("shape_id");
+                const slideTitleImageShape = shape(this.slideId, slideTitleImageShapeId);
+                slideTitleImageShape.data().image = null;
+
+                findKeyword(newText, (slideId, shapeId, keyword) => {
+                    h1Image(slideId, shapeId, keyword);
+                }, [this.slideId, slideTitleImageShapeId]);
+            }
             autosizeForeignObject(this.el().querySelector("foreignObject"));
             relocateResizeCircleContainer(this.el());
         }

@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 import Image from "./Image";
 
 export default function appendImages(images, keyword) {
+    keyword = keyword.trim();
     // Check keyword
     if (!select('#Keywords_list div[data-keyword="' + keyword + '"].search-keyword'))
         appendKeyword(keyword);
