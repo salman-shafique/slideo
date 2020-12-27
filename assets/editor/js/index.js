@@ -24,6 +24,9 @@ import "Editor/js/shapes/actions/";
 // Textbox actions
 import "Editor/js/shapes/textbox/";
 
+// Confetti
+import "Editor/js/components/Confetti";
+
 
 // Enable close tab warning
 window.onbeforeunload = () => "";
