@@ -12,18 +12,26 @@ window.addEventListener("shape.released", (event) => {
   const alt = g.getAttribute("alt");
   const newText = g.querySelector("td").innerText;
 
-  if (alt.includes("h1|"))
+  if (alt.includes("h1|")) {
     // Update the H1
     shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setH1(newText);
-  else if (alt.includes("paragraph|"))
+  }
+  else if (alt.includes("paragraph|")) {
     // Update the OriginalSentence
     shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setOriginalSentence(newText);
-  else if (alt == "slidetitle")
+  }
+  else if (alt == "slidetitle") {
     // Update the SlideTitle
     shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setSlideTitle(newText);
-  else if (alt == "subtitle")
+  }
+  else if (alt == "subtitle") {
     // Update the SubTitle
     shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setSubTitle(newText);
+  }
+  else if (alt == "newtextbox") {
+    // Update the SubTitle
+    shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setText(newText);
+  }
 
   if (g.classList.contains("text_editing"))
     g.classList.remove("text_editing");

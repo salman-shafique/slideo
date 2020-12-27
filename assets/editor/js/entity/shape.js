@@ -119,5 +119,18 @@ export default function shape(slideId, shapeId) {
             relocateResizeCircleContainer(this.el());
         }
     }
+    /**
+     * 
+     * @param {String} newText 
+     */
+    this.setText = (newText) => {
+        // Update the custom textbox
+        const content = this.data();
+        if (content.text != newText) {
+            content.text = newText;
+            autosizeForeignObject(this.el().querySelector("foreignObject"));
+            relocateResizeCircleContainer(this.el());
+        }
+    }
 }
 
