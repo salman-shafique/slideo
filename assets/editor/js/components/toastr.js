@@ -1,5 +1,5 @@
 import Toastr from "Editor/js/dependencies/toastr.min.js";
-import "Editor/css//toastr.css";
+import "Editor/css/toastr.css";
 
 Toastr.options = {
     "closeButton": true,
