@@ -41,7 +41,7 @@ export default function colorFilters(g) {
         } else {
             let brightness = g.getAttribute("shape_brightness");
             if (brightness) {
-                brightness = 1 + parseFloat(brightness);
+                brightness = parseFloat(brightness);
                 brightness = brightness ** constants.GOLDEN_RATIO;
             } else brightness = 1;
 
