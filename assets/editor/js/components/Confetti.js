@@ -30,9 +30,13 @@ const Confetti = () => {
 }
 
 (function () {
+    if (window.localStorage.confettiShowed) return;
+
     let timeout = setInterval(() => {
         try {
             if (session.PRESENTATION.slides.length == 1) {
+                window.localStorage.confettiShowed = "true";
+
                 const div = document.createElement("div");
                 document.body.appendChild(div);
 
