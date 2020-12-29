@@ -68,6 +68,8 @@ const constants = {
         AUTO_SHAPE: 2
     },
     MAX_SLIDE_CAPACITY: 8,
+    SLIDE_TITLE_PLACEHOLDER: "Add your slide title here",
+    SLIDE_SUBTITLE_PLACEHOLDER: "Add your slide sub title here",
 }
 
 

@@ -1,4 +1,5 @@
 import session from "Editor/js/session";
+import constants from "Editor/js/constants";
 import Events from "Editor/js/Events";
 import presentation from "Editor/js/entity/presentation";
 import shape from "Editor/js/entity/shape";
@@ -174,7 +175,7 @@ export default function slide(slideId) {
                 if (!content.text)
                     // Place holder slide title
                     content = {
-                        text: "Add your slide title here",
+                        text: constants.SLIDE_TITLE_PLACEHOLDER,
                         direction: "ltr"
                     };
                 shape_.data.text = text = content.text;
@@ -185,7 +186,7 @@ export default function slide(slideId) {
                 if (!content.text)
                     // Place holder slide title
                     content = {
-                        text: "Add your slide sub title here",
+                        text: constants.SLIDE_SUBTITLE_PLACEHOLDER,
                         direction: "ltr"
                     };
                 shape_.data.text = text = content.text;
