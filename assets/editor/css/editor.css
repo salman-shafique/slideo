@@ -675,12 +675,6 @@ object[id^="prev_"] {
 	cursor: pointer;
 }
 
-/* Input area */
-
-#area {
-	overflow-y: scroll;
-}
-
 .new-image-item {
 	cursor: pointer;
 }
