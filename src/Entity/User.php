@@ -38,7 +38,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ["ROLE_USER"];
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -63,7 +63,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $picture;
+    private $picture = "/favicon/favicon-128.png";
 
     /**
      * @ORM\OneToMany(targetEntity=Presentation::class, mappedBy="owner")
@@ -87,14 +87,13 @@ class User implements UserInterface
     private $updated;
 
     /**
-     * @ORM\OneToMany(targetEntity=ColorTemplate::class, mappedBy="owner")
+     * @ORM\OneToOne(targetEntity=Notifications::class, mappedBy="owner", cascade={"persist", "remove"})
      */
-    private $colorTemplates;
+    private $notifications;
 
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
-        $this->colorTemplates = new ArrayCollection();
     }
 
     public function __toString()
@@ -302,34 +301,21 @@ class User implements UserInterface
             return $this->fullname[0][0];
     }
 
-    /**
-     * @return Collection|ColorTemplate[]
-     */
-    public function getColorTemplates(): Collection
+    public function getNotifications(): ?Notifications
     {
-        return $this->colorTemplates;
+        return $this->notifications;
     }
 
-    public function addColorTemplate(ColorTemplate $colorTemplate): self
+    public function setNotifications(Notifications $notifications): self
     {
-        if (!$this->colorTemplates->contains($colorTemplate)) {
-            $this->colorTemplates[] = $colorTemplate;
-            $colorTemplate->setOwner($this);
+        $this->notifications = $notifications;
+
+        // set the owning side of the relation if necessary
+        if ($notifications->getOwner() !== $this) {
+            $notifications->setOwner($this);
         }
 
         return $this;
     }
 
-    public function removeColorTemplate(ColorTemplate $colorTemplate): self
-    {
-        if ($this->colorTemplates->contains($colorTemplate)) {
-            $this->colorTemplates->removeElement($colorTemplate);
-            // set the owning side to null (unless already changed)
-            if ($colorTemplate->getOwner() === $this) {
-                $colorTemplate->setOwner(null);
-            }
-        }
-
-        return $this;
-    }
 }

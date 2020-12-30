@@ -5,7 +5,7 @@ namespace App\Enum;
 class LanguagesEnum
 {
 
-    public const DEFAULT = 'en';
+    public const DEFAULT = 'he';
 
     public const ENGLISH = 'en';
     public const TURKISH = 'tr';
@@ -13,8 +13,8 @@ class LanguagesEnum
 
 
     public const AVAILABLE_TYPES = [
-        self::ENGLISH => 'English',
-        self::TURKISH => 'Turkish',
+        // self::ENGLISH => 'English',
+        // self::TURKISH => 'Turkish',
         self::HEBREW => 'Hebrew'
     ];
 

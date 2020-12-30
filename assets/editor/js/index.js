@@ -1,7 +1,4 @@
 
-// Toastr
-// import "CSS/toastr.min.css";
-
 // Bootstrap JS
 import '../../js/bootstrap.bundle.min.js';
 
@@ -13,14 +10,24 @@ import "Editor/js/entry";
 import "Editor/js/presentation";
 
 // Sidebar 
-import  "Editor/js/sidebar";
+import "Editor/js/sidebar";
 
 // Navbar
-import  "Editor/js/navbar";
+import "Editor/js/navbar";
 
 // Editor tools
 import "Editor/js/init";
 
 // Shape actions
 import "Editor/js/shapes/actions/";
+
+// Textbox actions
+import "Editor/js/shapes/textbox/";
+
+// Confetti
+import "Editor/js/components/Confetti";
+
+
+// Enable close tab warning
+window.onbeforeunload = () => "";
 

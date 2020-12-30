@@ -11,13 +11,11 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class EditorController extends AbstractController
 {
     /**
-     * @Route("/editor",name="editor")
+     * @Route("/editor", name="editor", methods={"GET"})
      */
-    public function index(SessionInterface $sessionInterface, PresentationService $presentationService)
+    public function index()
     {
-        // Create a presentation and redirect the user.
-        $presentation = $presentationService->create($this->getUser(), $sessionInterface->getId());
-        return $this->redirect("/editor" . "/" . $presentation->getPresentationId());
+        return $this->render('editor/index_pre.html.twig');
     }
 
     /**
@@ -34,5 +32,4 @@ class EditorController extends AbstractController
             return $this->redirect("/editor");
         }
     }
-
 }

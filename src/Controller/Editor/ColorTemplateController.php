@@ -29,16 +29,6 @@ use Symfony\Component\Serializer\Serializer;
  */
 class ColorTemplateController extends AbstractController
 {
-    /**
-     * @Route("/add", methods={"POST"})
-     */
-    public function addColorTemplate(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, ColorTemplateService $colorTemplateService)
-    {
-        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
-        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
-        $r = $colorTemplateService->addColorTemplate($this->getUser(), $request);
-        return new JsonResponse($r);
-    }
 
     /**
      * @Route("/update", methods={"POST"})

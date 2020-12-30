@@ -1,0 +1,37 @@
+<div id="EmailTab" class="profile-tab collapse">
+  <h1 class="tab-header">Notifications</h1>
+  <div class="row info-component">
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="vertically-centered">
+        <span>Product updates</span>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-12"></div>
+    <div class="col-md-3">
+      <div class="vertically-centered text-right">
+        {% set product_updates = true %}
+        {% if app.user.notifications %}
+          {% set product_updates =  app.user.notifications.productUpdates %}
+        {% endif %}
+        <span id="account-notification-product-updates" product-updates="{{product_updates}}" class="text-primary info-action-link"></span>
+      </div>
+    </div>
+  </div>
+  <div class="row info-component">
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="vertically-centered">
+        <span>Browser Noficiations</span>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-12"></div>
+    <div class="col-md-3">
+      <div class="vertically-centered text-right">
+        {% set brower_notifications = false %}
+        {% if app.user.notifications %}
+          {% set brower_notifications =  app.user.notifications.browserNotifications %}
+        {% endif %}
+        <span id="account-notification-browser" browser-notifications="{{brower_notifications}}" class="text-primary info-action-link"></span>
+      </div>
+    </div>
+  </div>
+</div>

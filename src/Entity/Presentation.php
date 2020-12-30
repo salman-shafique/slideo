@@ -75,15 +75,9 @@ class Presentation
      */
     private $slidesOrder = [];
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $colorTemplateId = 0;
-
     public function __construct()
     {
         $this->slides = new ArrayCollection();
-        $this->colorTemplates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,15 +206,4 @@ class Presentation
         return $this;
     }
 
-    public function getColorTemplateId(): ?int
-    {
-        return $this->colorTemplateId;
-    }
-
-    public function setColorTemplateId(?int $colorTemplateId): self
-    {
-        $this->colorTemplateId = $colorTemplateId;
-
-        return $this;
-    }
 }

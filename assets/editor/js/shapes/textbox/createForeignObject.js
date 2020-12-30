@@ -1,4 +1,4 @@
-import html_to_element from "Editor/js/utils/html_to_element";
+import stringToDOM from "Editor/js/utils/stringToDOM";
 
 export default function createForeignObject(svg, positionObj = { x: 2000, y: 2000, width: 2000, height: 2000 }) {
     // Generate the foreign object
@@ -10,8 +10,8 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
     foreignObject.setAttribute("class", "bounding_box");
 
     // Clone the template
-    let contentTemplate = html_to_element(`
-        <table style="pointer-events:none;width:100%">
+    let contentTemplate = stringToDOM(`
+        <table style="width:100%">
             <tbody style="padding: 0;">
                 <tr style="padding: 0;">
                     <td style="padding: 0;line-height: 1.23;">

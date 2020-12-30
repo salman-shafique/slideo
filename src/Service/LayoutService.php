@@ -9,6 +9,7 @@ use App\Repository\LayoutRepository;
 use App\Repository\StyleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class LayoutService
 {
@@ -57,12 +58,38 @@ class LayoutService
 
     public function get(Request $request)
     {
+        $query = $this->em
+            ->createQueryBuilder()
+            ->select('layout')
+            ->groupBy('layout')
+            ->from('App\Entity\Layout', 'layout')
+            ->join('App\Entity\Style', 'style')
+            ->where("style.layout = layout.id")
+            ->andWhere("layout.isActive = :isActive")
+            ->andWhere("style.isActive = :isActive")
+            ->setParameter("isActive", true)
+            ->andWhere("layout.direction = :direction")
+            ->andWhere("style.direction = :direction")
+            ->setParameter("direction", $request->request->get("direction"))
+            ->andWhere("layout.capacity = :capacity")
+            ->andWhere("style.capacity = :capacity")
+            ->setParameter("capacity", $request->request->get("capacity"));
+
+        $r = $query
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        return $r;
+    }
+
+    public function getAll()
+    {
         /**  @var LayoutRepository $layoutRepository */
         $layoutRepository = $this->em->getRepository(Layout::class);
 
         $serializer = new SerializerService;
         $layouts = $layoutRepository->findBy([
-            "isActive" => true,
+            "isActive" => true
         ]);
 
         $layouts_ = [];
@@ -70,5 +97,21 @@ class LayoutService
             array_push($layouts_, $serializer->normalize($layout));
 
         return $layouts_;
+    }
+
+    public function check(Request $request): array
+    {
+        /**  @var LayoutRepository $layoutRepository */
+        $layoutRepository = $this->em->getRepository(Layout::class);
+
+        $layouts = $layoutRepository->findOneBy([
+            "isActive" => true,
+            "uniqueName" => $request->request->get("layout_name"),
+            "direction" => $request->request->get("direction")
+        ]);
+        if ($layouts)
+            return ['success' => true];
+
+        return ['success' => false];
     }
 }

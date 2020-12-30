@@ -4,7 +4,8 @@ class status {
     }
 
     update(msg) {
-        this.el.innerText = msg;
+        if (this.el)
+            this.el.innerText = msg;
     }
 }
 

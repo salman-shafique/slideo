@@ -1,0 +1,43 @@
+<div id="PresentationsTab" class="profile-tab">
+  <h1 class="tab-header">
+    My Presentations
+  </h1>
+  <div id="PresentationsGallery" class="row medium-bottom-margin">
+
+    <a href="{{path('editor')}}" id="PptCreate" class="presentation-thumb">
+      <div class="fully-centered text-center">
+        <i class="fas fa-plus ppt-add-icon"></i>
+        <p class="small-top-margin small-bottom-margin">Create a new presentation</p>
+      </div>
+    </a>
+
+    {% for presentation in app.user.presentations|reverse  %}
+      {% if presentation.isActive %}
+        <a href="{{path('editor')}}/{{presentation.presentationId}}" class="presentation-thumb">
+          <div class="presentation-thumb-img">
+            <span>
+              {{presentation.slides|length}}
+            </span>
+            <br/>
+            Slides
+          </div>
+          <p class="ppt-title ppt-title">{{presentation.title}}</p>
+          <p class="ppt-last-modified text-secondary no-margin">Created:
+            <span class="modified-datetime">{{presentation.created|date("F jS \\a\\t g:ia")}}</span>
+          </p>
+          <i class="fas fa-trash-alt ppt-remove" presentation-id="{{presentation.presentationId}}"></i>
+        </a>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+  <div class="card text-center account-upgrade">
+    <div class="card-body">
+      <div>
+        <h2 class="card-title medium-bottom-margin">Need more presentations?</h2>
+        <h5 class="card-text medium-bottom-margin">Upgrade your account to get unlimited presentations & features!</h5>
+        <a href="#" class="btn btn-primary upgrade-button">UPGRADE MY ACCOUNT</a>
+      </div>
+    </div>
+  </div>
+</div>

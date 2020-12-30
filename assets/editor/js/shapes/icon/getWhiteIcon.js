@@ -27,6 +27,8 @@ export default function getWhiteIcon(slideId, shapeId) {
             let shapeData = shape_.data();
             shapeData.icon.url = response.url;
             shapeData.icon.rgb = "255 255 255";
+            shape_.setIcon(shapeData.icon);
+            
             let image = shape_.el().querySelector("image");
             image.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", shapeData.icon.url);;
         }

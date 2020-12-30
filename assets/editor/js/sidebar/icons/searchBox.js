@@ -29,7 +29,7 @@ export function addToIconsBar(keyword) {
         "url": "/api/editor/call/Icon/find_icons",
         "data": {
             "keyword": keyword,
-            "limit": 20
+            "limit": 50
         },
         "success": (response) => {
             appendIcons(response.body, response.request.keyword);

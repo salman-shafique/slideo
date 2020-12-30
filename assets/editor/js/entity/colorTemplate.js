@@ -5,47 +5,59 @@ import shape from "Editor/js/entity/shape";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
 
-export default function colorTemplate(colorTemplateId) {
+export default function colorTemplate(slideId) {
     if (!(this instanceof colorTemplate)) return new colorTemplate(...arguments);
 
-    this.colorTemplateId = parseInt(colorTemplateId);
-
-    this.select = () => {
-        select(".color_template_dropdown_item[color-template-id='" + this.colorTemplateId + "']").click();
-    }
-
-    this.apply = () => {
-        if (session.PRESENTATION.colorTemplateId != this.colorTemplateId) {
-            session.PRESENTATION.colorTemplateId = this.colorTemplateId;
-            this.updateAllColors()
-        }
-    }
+    this.slideId = slideId;
 
     this.getAllColors = () => {
-        let colorCircles = select("#Colors_Panel .colors-container.main-colors").children;
+        const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
         let colors = {};
-        colorCircles.forEach(colorCircle => {
-            let colorName = colorCircle.getAttribute("color-name");
-            let color = colorCircle.getAttribute("data-color");
-            colors[colorName] = color;
+        Object.keys(colorTemplate_).forEach(colorName => {
+            if (colorName != "id")
+                colors[this.rigthColorName(colorName)] = colorTemplate_[colorName];
         });
         return colors;
     }
 
-    this.updateAllColors = (colors = null) => {
+    this.rigthColorName = (wrongColorName) => {
+        const dic = {
+            "aCCENT1": "ACCENT_1",
+            "aCCENT2": "ACCENT_2",
+            "aCCENT3": "ACCENT_3",
+            "aCCENT4": "ACCENT_4",
+            "aCCENT5": "ACCENT_5",
+            "aCCENT6": "ACCENT_6",
+            "bACKGROUND1": "BACKGROUND_1",
+            "bACKGROUND2": "BACKGROUND_2",
+            "tEXT1": "TEXT_1",
+            "tEXT2": "TEXT_2",
+        }
+        return dic[wrongColorName];
+    }
 
-        if (!colors) colors = this.getAllColors();
-        session.PRESENTATION.slides.forEach(aSlide => {
-            this.updateSlideColors(aSlide.slideId, colors, aSlide);
+    this.updateColors = (colors) => {
+        const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
+        Object.keys(colorTemplate_).forEach(colorName => {
+            if (colorName == "id") return;
+
+            if (colors[this.rigthColorName(colorName)])
+                colorTemplate_[colorName] = colors[this.rigthColorName(colorName)];
+
         });
     }
 
-    this.updateSlideColors = (slideId = "", colors = null, aSlide = null) => {
-        if (!slide(slideId).documentElement()) return;
-        if (!colors) colors = this.getAllColors();
-        if (!aSlide) aSlide = slide(slideId).slideData();
 
-        let documentElement = slide(slideId).documentElement();
+    this.changeColors = (colors = null) => {
+        if (!slide(this.slideId).documentElement()) return;
+
+        if (colors)
+            this.updateColors(colors);
+
+        colors = this.getAllColors();
+
+
+        const documentElement = slide(slideId).documentElement();
 
         Object.keys(colors).forEach(colorName => {
             let color = colors[colorName];
@@ -85,6 +97,16 @@ export default function colorTemplate(colorTemplateId) {
         });
     }
 
+    this.updateColorCirles = () => {
+        const colorCirles = selectAll("#Colors_Panel .main-section .color");
 
+        const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
+        colorCirles.forEach(colorCirle => {
+            const colorName = colorCirle.getAttribute("color-name");
+            const color = colorTemplate_[(colorName.charAt(0).toLowerCase() + colorName.slice(1)).replace("_", "")];
+            colorCirle.setAttribute("data-color", color);
+            colorCirle.style.backgroundColor = color;
+        });
+    }
 }
 

@@ -1,53 +1,26 @@
 import React from "react";
 import SearchBox from "./SearchBox";
-import DesignItem from "./DesignItem";
-import LayoutItem from "./LayoutItem";
-import session from "Editor/js/session";
-import apiService from "Editor/js/utils/apiService";
+import DesignItems from "./DesignItems";
+import LayoutItems from "./LayoutItems";
+
+
 
 export default function DesignsPanel() {
 
-    const [designs, setDesigns] = React.useState([]);
-    const [layouts, setLayouts] = React.useState([]);
-
-    if (designs.length==0)
-        apiService({
-            "url": "/api/style/get",
-            "data": { "alp": 12 },
-            "success": (r) => {
-                console.log(r);
-                setDesigns(r)
-            }
-        })
-
-    const designItems = [];
-    const layoutItems = [];
-    designs.forEach(designData => {
-        
-    });
-    for (let index = 0; index < designs.length; index++) {
-        designItems.push(
-            <DesignItem key={index} />
-        )
-        layoutItems.push(
-            <LayoutItem key={index} />
-        )
-    }
-
     return (
         <>
-            <div className="search-section">
+            <div className="search-section d-none">
                 <SearchBox />
             </div>
-            <div className="main-section">
+            <div className="main-section mt-4">
                 <h6 className="text-light small-top-margin small-bottom-margin centered-contents single-line">All Designs</h6>
                 <div className="design-container row m-0 px-1">
-                    {designItems}
+                    <DesignItems/>
                 </div>
                 <div className="control-overlay-layout closed">
                     <h6 className="text-dark small-top-margin small-bottom-margin centered-contents single-line">Design Layouts</h6>
                     <div className="layout-container row m-0 px-1">
-                        {layoutItems}
+                      <LayoutItems/>
                     </div>
                 </div>
                 <div className="backdrop-overlay-layout collapse"></div>

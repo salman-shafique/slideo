@@ -63,13 +63,7 @@ class Style
     private $prevFile;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $designId;
-
-    /**
      * @ORM\OneToMany(targetEntity=Content::class, mappedBy="style")
-     * @Ignore()
      */
     private $shapes;
 
@@ -83,6 +77,12 @@ class Style
      * @ORM\JoinColumn(nullable=false)
      */
     private $layout;
+
+    /**
+     * @ORM\OneToOne(targetEntity=ColorTemplate::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $colorTemplate;
 
     public function __construct()
     {
@@ -171,18 +171,6 @@ class Style
         return $this->created;
     }
 
-    public function getDesignId(): ?int
-    {
-        return $this->designId;
-    }
-
-    public function setDesignId(int $designId): self
-    {
-        $this->designId = $designId;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Content[]
      */
@@ -234,6 +222,18 @@ class Style
     public function setLayout(?Layout $layout): self
     {
         $this->layout = $layout;
+
+        return $this;
+    }
+
+    public function getColorTemplate(): ?ColorTemplate
+    {
+        return $this->colorTemplate;
+    }
+
+    public function setColorTemplate(ColorTemplate $colorTemplate): self
+    {
+        $this->colorTemplate = $colorTemplate;
 
         return $this;
     }

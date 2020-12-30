@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\AnalyzedContent;
+use App\Entity\ColorTemplate;
 use App\Entity\Content;
 use App\Entity\Presentation;
 use App\Entity\Slide;
@@ -46,7 +47,7 @@ class SlideService
 
     public function findAndApplyStyle(Slide $slide)
     {
-        $style = $this->findRandomStyle(count($slide->getSentences()),$slide->getDirection());
+        $style = $this->findRandomStyle(count($slide->getSentences()), $slide->getDirection());
         $slide->setStyle($style);
 
         // Copy shapes
@@ -58,6 +59,21 @@ class SlideService
             $slide->addShape($newShape);
             $this->em->persist($newShape);
         }
+
+        // Copy color template
+        $colorTemplateOfStyle = $style->getColorTemplate();
+        $colorTemplateOfSlide = new ColorTemplate();
+        $colorTemplateOfSlide->setACCENT1($colorTemplateOfStyle->getACCENT1());
+        $colorTemplateOfSlide->setACCENT2($colorTemplateOfStyle->getACCENT2());
+        $colorTemplateOfSlide->setACCENT3($colorTemplateOfStyle->getACCENT3());
+        $colorTemplateOfSlide->setACCENT4($colorTemplateOfStyle->getACCENT4());
+        $colorTemplateOfSlide->setACCENT5($colorTemplateOfStyle->getACCENT5());
+        $colorTemplateOfSlide->setACCENT6($colorTemplateOfStyle->getACCENT6());
+        $colorTemplateOfSlide->setBACKGROUND1($colorTemplateOfStyle->getBACKGROUND1());
+        $colorTemplateOfSlide->setBACKGROUND2($colorTemplateOfStyle->getBACKGROUND2());
+        $colorTemplateOfSlide->setTEXT1($colorTemplateOfStyle->getTEXT1());
+        $colorTemplateOfSlide->setTEXT2($colorTemplateOfStyle->getTEXT2());
+        $slide->setColorTemplate($colorTemplateOfSlide);
 
         $background = new Content();
         $background->setKeyword('background');
@@ -83,31 +99,37 @@ class SlideService
             $this->em->persist($slide);
 
             // Slide title
-            if (isset($rawSlide['slideTitle'])) {
-                $slideTitle = new Content();
+            $slideTitle = new Content();
+            if (isset($rawSlide['slideTitle']))
                 $slideTitle->setData($rawSlide['slideTitle']);
-                $slideTitle->setKeyword('slideTitle');
-                $slide->setSlideTitle($slideTitle);
-                $this->em->persist($slideTitle);
-            }
+            else
+                $slideTitle->setData([]);
+            $slideTitle->setKeyword('slideTitle');
+            $slide->setSlideTitle($slideTitle);
+            $this->em->persist($slideTitle);
+
 
             // Slide title image
-            if (isset($rawSlide['slideTitleImage'])) {
-                $slideTitleImage = new Content();
+            $slideTitleImage = new Content();
+            if (isset($rawSlide['slideTitleImage']))
                 $slideTitleImage->setData($rawSlide['slideTitleImage']);
-                $slideTitleImage->setKeyword('slideTitleImage');
-                $slide->setSlideTitleImage($slideTitleImage);
-                $this->em->persist($slideTitleImage);
-            }
+            else
+                $slideTitleImage->setData([]);
+
+            $slideTitleImage->setKeyword('slideTitleImage');
+            $slide->setSlideTitleImage($slideTitleImage);
+            $this->em->persist($slideTitleImage);
+
 
             // Sub title
-            if (isset($rawSlide['subTitle'])) {
-                $subTitle = new Content();
+            $subTitle = new Content();
+            if (isset($rawSlide['subTitle']))
                 $subTitle->setData($rawSlide['subTitle']);
-                $subTitle->setKeyword('subTitle');
-                $slide->setSubTitle($subTitle);
-                $this->em->persist($subTitle);
-            }
+            else
+                $subTitle->setData([]);
+            $subTitle->setKeyword('subTitle');
+            $slide->setSubTitle($subTitle);
+            $this->em->persist($subTitle);
 
             // Analyzed content
             foreach ($rawSlide['analyzed_content'] as $rawAnalyzedContent) {
@@ -121,12 +143,17 @@ class SlideService
                 $icon->setData($rawAnalyzedContent['icon']);
                 $icon->setKeyword("icon");
 
+                $h1image = new Content();
+                $h1image->setData($rawAnalyzedContent['h1image']);
+                $h1image->setKeyword("h1image");
+
                 $originalSentence = new Content();
                 $originalSentence->setData($rawAnalyzedContent['originalSentence']);
                 $originalSentence->setKeyword("originalSentence");
 
                 $analyzedContent->setH1($h1);
                 $analyzedContent->setIcon($icon);
+                $analyzedContent->setH1Image($h1image);
                 $analyzedContent->setOriginalSentence($originalSentence);
 
                 $slide->addAnalyzedContent($analyzedContent);

@@ -1,5 +1,5 @@
-import constants from "Editor/js/constants";
 import session from "Editor/js/session";
+import Events from "Editor/js/Events";
 
 /**
  * 
@@ -8,8 +8,10 @@ import session from "Editor/js/session";
 export default function deSelectEl(shapeId) {
 
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
-        if (shapeId == selectedEl.shapeId)
-            selectedEl.shape.style.outline = "";
+        if (shapeId == selectedEl.shapeId) {
+            // Trigger deselection event
+            Events.shape.released({ 'shape': selectedEl.shape });
+        }
     });
     session.SELECTED_ELEMENTS = session.SELECTED_ELEMENTS.filter(selectedEl => (selectedEl.shapeId != shapeId));
 

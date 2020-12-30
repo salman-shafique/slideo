@@ -1,6 +1,5 @@
 import session from "Editor/js/session";
 import selectEl from "./utils/selectEl";
-import disableTextSelect from "./utils/disableTextSelect";
 import deSelectAll from "./utils/deSelectAll";
 import getMousePosition from "./utils/getMousePosition";
 import updateAllTransforms from "./utils/updateAllTransforms";
@@ -13,8 +12,11 @@ export default function startDrag(event) {
     /**
      * @type {SVGGElement} g
      */
-    let g = event.target.parentElement;
+    const g = event.target.parentElement;
     if (!g) return;
+
+    // Allow resize circles clicks
+    if (g.getAttribute("role") == "resize-circles") return;
 
     let shapeId = g.getAttribute("shape_id");
     if (!g.classList.contains("draggable")) {
@@ -30,9 +32,6 @@ export default function startDrag(event) {
     }
     updateAllTransforms();
 
-    session.SHAPE_STATE = "DRAGGING";
-    g.ownerDocument.addEventListener("selectstart",disableTextSelect);
-
     session.SAVED_MOUSE_POS = getMousePosition(event);
-
+    session.SHAPE_STATE = "DRAG_STARTING";
 }

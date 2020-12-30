@@ -67,27 +67,6 @@ class ColorTemplate
      */
     private $TEXT_2;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $description;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="colorTemplates")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $owner;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isActive = true;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -213,51 +192,8 @@ class ColorTemplate
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function __toString()
     {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?User $owner): self
-    {
-        $this->owner = $owner;
-
-        return $this;
-    }
-
-    public function getIsActive(): ?bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
-
-        return $this;
+        return "#".(string)$this->id;
     }
 }

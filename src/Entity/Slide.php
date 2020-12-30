@@ -99,6 +99,12 @@ class Slide
      */
     private $shapes;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ColorTemplate::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $colorTemplate;
+
 
     public function __construct()
     {
@@ -300,6 +306,18 @@ class Slide
                 $shape->setSlide(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColorTemplate(): ?ColorTemplate
+    {
+        return $this->colorTemplate;
+    }
+
+    public function setColorTemplate(ColorTemplate $colorTemplate): self
+    {
+        $this->colorTemplate = $colorTemplate;
 
         return $this;
     }
