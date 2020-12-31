@@ -32,20 +32,19 @@ class PresentationApiController extends AbstractController
     /**
      * @Route("/download")
      */
-    public function downloadPresentation(Request $request, SessionInterface $sessionInterface, FlaskService $flaskService, PresentationSecurity $presentationSecurity)
+    public function downloadPresentation(Request $request, FlaskService $flaskService)
     {
-        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
-        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+        // $presentationId = $request->request->get("presentationId");
+        // $request->request->add(['id' => $presentation->getId()]);
 
-        $request->request->add(['id' => $presentation->getId()]);
+        // $download = $flaskService->call(
+        //     "Presentation",
+        //     "download",
+        //     $request->request->all()
+        // );
 
-        $download = $flaskService->call(
-            "Presentation",
-            "download",
-            $request->request->all()
-        );
-
-        return new JsonResponse($download);
+        // return new JsonResponse($download);
+        return new JsonResponse([]);
     }
     /**
      * @Route("/change_name")

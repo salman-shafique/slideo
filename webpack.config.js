@@ -11,6 +11,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('editor', './assets/editor/index.js')
     .addEntry('editor_pre', './assets/editor/indexPre.js')
+    .addEntry('editor_download', './assets/editor/js/download/index.js')
     .addEntry('pricing', './assets/pricing/index.js')
     .addEntry('user_account', './assets/account/index.js')
     .splitEntryChunks()

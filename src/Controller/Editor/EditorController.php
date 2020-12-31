@@ -32,4 +32,19 @@ class EditorController extends AbstractController
             return $this->redirect("/editor");
         }
     }
+
+    /**
+     * @Route("/editor/{presentationId}/download")
+     */
+    public function download(string $presentationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
+    {
+        $presentation = $presentationSecurity->getPresentation($presentationId, $sessionInterface->getId(), $this->getUser());
+
+        if ($presentation) {
+            return $this->render('editor/download/index.html.twig', ['presentation' => $presentation]);
+        } else {
+            // Redirect to editor page in order to create a new presentation
+            return $this->redirect("/editor");
+        }
+    }
 }

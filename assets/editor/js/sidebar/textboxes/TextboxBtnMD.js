@@ -9,8 +9,8 @@ export default function TextboxBtnMD() {
             "yGrid": 5,
             "heightGrid": 4,
             "widthGrid": 6,
-            "fontSize": 1200,
-            "fontWeight": 400,
+            "font_size": 1200,
+            "font_weight": 400,
             "text": "כותרת ראשית",
             "size":"MD"
         });

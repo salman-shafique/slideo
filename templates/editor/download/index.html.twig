@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Download
+{% endblock %}
+
+{% block style %}
+  {{parent()}}
+  {{ encore_entry_link_tags('editor_download') }}
+{% endblock %}
+
+{% block body %}
+  <div class="row m-0 my-5 py-5 text-center" id="downloadArea" presentationid="{{presentation.presentationId}}">
+    you are downloading
+  </div>
+  {% include "editor/components/preloader.html.twig" %}
+{% endblock %}
+
+{% block script %}
+  {{parent()}}
+  {{ encore_entry_script_tags('editor_download') }}
+{% endblock %}

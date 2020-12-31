@@ -9,8 +9,8 @@ export default function TextboxBtnSM() {
             "yGrid": 9,
             "heightGrid": 3,
             "widthGrid": 4,
-            "fontSize": 900,
-            "fontWeight": 400,
+            "font_size": 900,
+            "font_weight": 400,
             "text": "טקסט פסקה",
             "size":"SM"
         });

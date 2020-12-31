@@ -11,6 +11,7 @@ import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 
+
 let addedTextboxCounter = {
     XL: 0,
     L: 0,
@@ -58,9 +59,6 @@ export default function createNewTextbox(textboxData) {
             "width": width,
             "height": height,
             "shape_id": shapeId,
-            "font_size": textboxData.fontSize,
-            "text": textboxData.text,
-            "font_weight": textboxData.fontWeight,
             "alt": "newtextbox",
             "class": "draggable",
             "active": true,
@@ -82,13 +80,16 @@ export default function createNewTextbox(textboxData) {
             "sizeRatio": 1,
         }
     }
+
+    Object.assign(newShapeData.data, textboxData);
+
     arrangeForeignObject(foreignObject, newShapeData.data, textboxData.text, "rtl");
 
     newTextboxShape.appendChild(foreignObject);
 
     // Insert to page
     slide_.page().appendChild(newTextboxShape);
-    slide_.slideData().shapes.push(newShapeData);
+    slide_.appendNewShape(newShapeData);
 
     // Make clickable
     shape(session.CURRENT_SLIDE, shapeId).addEvent("dblclick", selectTextboxElement);

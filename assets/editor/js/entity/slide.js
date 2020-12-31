@@ -24,6 +24,11 @@ import reactToDOM from "Editor/js/utils/reactToDOM";
 import React from "react";
 import keyboardListener from "Editor/js/shapes/actions/keyboard/index";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
+import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
+
+
+
+const chunkDesigns = {};
 
 export default function slide(slideId) {
     if (!(this instanceof slide)) return new slide(...arguments);
@@ -192,6 +197,8 @@ export default function slide(slideId) {
                 shape_.data.text = text = content.text;
                 direction = content.direction;
                 Object.assign(shape_.data, content);
+            } else if (shape_.data.alt == "newtextbox") {
+                createNewTextbox(shape_.data);
             }
             if (text) {
                 // Append foreignObjects
@@ -312,16 +319,20 @@ export default function slide(slideId) {
         }
     }
 
-    this.chunkDesigns = {}
-
     this.changeDesign = (designData) => {
-        if (!this.chunkDesigns[String(designData.id)])
-            this.chunkDesigns[String(designData.id)] = designData;
-
         const slideData = this.slideData();
-        slideData.style = this.chunkDesigns[String(designData.id)];
-        slideData.shapes = this.chunkDesigns[String(designData.id)].shapes;
-        slideData.colorTemplate = this.chunkDesigns[String(designData.id)].colorTemplate;
+        if (!chunkDesigns[String(slideData.style.id)]) {
+            slideData.style.shapes = slideData.shapes;
+            slideData.style.colorTemplate = slideData.colorTemplate;
+            chunkDesigns[String(slideData.style.id)] = Object.assign({}, slideData.style);
+        }
+
+        if (!chunkDesigns[String(designData.id)])
+            chunkDesigns[String(designData.id)] = designData;
+
+        slideData.style = chunkDesigns[String(designData.id)];
+        slideData.shapes = chunkDesigns[String(designData.id)].shapes;
+        slideData.colorTemplate = chunkDesigns[String(designData.id)].colorTemplate;
 
         this.updateOnPage();
     }
@@ -338,6 +349,16 @@ export default function slide(slideId) {
         return this;
     }
 
+    this.appendNewShape = (newShapeData) => {
+        let addedBefore = false;
+        const shapes = this.slideData().shapes;
+        shapes.forEach(shape => {
+            if (shape.data.shape_id == newShapeData.data.shape_id)
+                addedBefore = true;
+        });
+        if (!addedBefore)
+            shapes.push(newShapeData)
+    }
 
     this.insertCustomStyles = () => {
         const styles = reactToDOM(<style>{`

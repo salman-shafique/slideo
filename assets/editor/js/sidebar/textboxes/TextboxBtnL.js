@@ -10,8 +10,8 @@ export default function TextboxBtnL() {
             "yGrid": 3,
             "heightGrid": 2,
             "widthGrid": 8,
-            "fontSize": 1700,
-            "fontWeight": 700,
+            "font_size": 1700,
+            "font_weight": 700,
             "text": "כותרת משנה",
             "size":"L"
         });

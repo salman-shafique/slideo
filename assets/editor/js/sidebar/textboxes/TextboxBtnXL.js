@@ -9,8 +9,8 @@ export default function TextboxBtnXL() {
             "yGrid": 1,
             "heightGrid": 2,
             "widthGrid": 10,
-            "fontSize": 2000,
-            "fontWeight": 700,
+            "font_size": 2000,
+            "font_weight": 700,
             "text": "כותרת ראשית",
             "size":"XL"
         });
