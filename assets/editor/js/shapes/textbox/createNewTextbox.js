@@ -40,25 +40,12 @@ export default function createNewTextbox(textboxData) {
     const width = constants.SVG_WIDTH() / 12 * textboxData.widthGrid;
     const height = constants.SVG_HEIGHT() / 12 * textboxData.heightGrid;
 
-    const shapeId = Math.floor(Math.random() * 1000000) + 1000000;
-
-    const newTextboxShape = reactToDOM(
-        <g xmlns="http://www.w3.org/2000/svg" height={height} width={width} x={x} y={y} alt="newtextbox" className="draggable" shape_id={shapeId}>
-        </g>,
-        null,
-        "http://www.w3.org/2000/svg"
-    );
-
-    const slide_ = slide(session.CURRENT_SLIDE);
-    const foreignObject = createForeignObject(slide_.contentDocument(), { x: x, y: y, width: width, height: height });
-
     const newShapeData = {
         data: {
             "x": x,
             "y": y,
             "width": width,
             "height": height,
-            "shape_id": shapeId,
             "alt": "newtextbox",
             "class": "draggable",
             "active": true,
@@ -80,11 +67,21 @@ export default function createNewTextbox(textboxData) {
             "sizeRatio": 1,
         }
     }
-
     Object.assign(newShapeData.data, textboxData);
 
-    arrangeForeignObject(foreignObject, newShapeData.data, textboxData.text, "rtl");
+    if (!newShapeData.data.shape_id)
+        newShapeData.data.shape_id = Math.floor(Math.random() * 1000000) + 1000000;
 
+    const newTextboxShape = reactToDOM(
+        <g xmlns="http://www.w3.org/2000/svg" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} alt="newtextbox" className="draggable" shape_id={newShapeData.data.shape_id}>
+        </g>,
+        null,
+        "http://www.w3.org/2000/svg"
+    );
+
+    const slide_ = slide(session.CURRENT_SLIDE);
+    const foreignObject = createForeignObject(slide_.contentDocument(), { x: newShapeData.data.x, y: newShapeData.data.y, width: newShapeData.data.width, height: newShapeData.data.height });
+    arrangeForeignObject(foreignObject, newShapeData.data, textboxData.text, "rtl");
     newTextboxShape.appendChild(foreignObject);
 
     // Insert to page
@@ -92,7 +89,7 @@ export default function createNewTextbox(textboxData) {
     slide_.appendNewShape(newShapeData);
 
     // Make clickable
-    shape(session.CURRENT_SLIDE, shapeId).addEvent("dblclick", selectTextboxElement);
+    shape(session.CURRENT_SLIDE, newShapeData.data.shape_id).addEvent("dblclick", selectTextboxElement);
 
     // Transforms
     initializeG(newTextboxShape);

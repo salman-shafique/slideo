@@ -15,44 +15,41 @@ let addedImageCounter = 0;
 export default function createNewImage(imageData) {
     if (!session.CURRENT_SLIDE) return;
 
-    const shapeId = Math.floor(Math.random() * 1000000) + 1000000;
-
     const x = constants.SVG_WIDTH() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT() / 48;
     const width = constants.SVG_WIDTH() / 12 * 8;
     const height = constants.SVG_HEIGHT() / 12 * 8;
 
-    const newImageShape = reactToDOM(
-        <g xmlns="http://www.w3.org/2000/svg" height={height} width={width} x={x} y={y} alt="newimage" className="draggable" shape_id={shapeId}>
-            <image className="bounding_box" height={height} width={width} x={x} y={y} xmlnsXlink="http://www.w3.org/1999/xlink" />
-        </g>,
-        null,
-        "http://www.w3.org/2000/svg"
-    );
-
     const newShapeData = {
         data: {
-            shape_id: shapeId,
             active: true,
             alt: "newimage",
             height: height,
-            image: imageData,
-            keyword: imageData.keyword,
             rotation: 0,
-            shape_id: shapeId,
             width: width,
             x: x,
             y: y
         }
     }
 
+    Object.assign(newShapeData.data, imageData);
+    if (!newShapeData.data.shape_id)
+        newShapeData.data.shape_id = Math.floor(Math.random() * 1000000) + 1000000;
+
+    const newImageShape = reactToDOM(
+        <g xmlns="http://www.w3.org/2000/svg" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} alt="newimage" className="draggable" shape_id={newShapeData.data.shape_id}>
+            <image className="bounding_box" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} xmlnsXlink="http://www.w3.org/1999/xlink" />
+        </g>,
+        null,
+        "http://www.w3.org/2000/svg"
+    );
     const slide_ = slide(session.CURRENT_SLIDE);
     // Insert to page
     slide_.page().appendChild(newImageShape);
-    slide_.slideData().shapes.push(newShapeData);
+    slide_.appendNewShape(newShapeData);
 
     // Make clickable
-    shape(session.CURRENT_SLIDE, shapeId).addEvent("click", selectImageElement);
+    shape(session.CURRENT_SLIDE, newShapeData.data.shape_id).addEvent("click", selectImageElement);
 
     // Transforms
     initializeG(newImageShape);
@@ -62,7 +59,7 @@ export default function createNewImage(imageData) {
     selectEl({ target: { parentElement: newImageShape } })
 
     // Image url
-    insertImageUrl(newImageShape, imageData.url);
+    insertImageUrl(newImageShape, newShapeData.data.image.url);
 
     addedImageCounter++;
 }

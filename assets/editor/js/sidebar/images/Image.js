@@ -19,7 +19,7 @@ export default function Image({ imageData }) {
             }
         }
         // Add new picture
-        createNewImage(imageData);
+        createNewImage({ image: imageData, keyword: imageData.keyword });
 
     }
 

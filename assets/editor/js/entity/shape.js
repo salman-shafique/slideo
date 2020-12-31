@@ -174,7 +174,6 @@ export default function shape(slideId, shapeId) {
     this.setText = (newText) => {
         // Update the custom textbox
         const content = this.data();
-        if(!content) return;
         if (content.text != newText) {
             content.text = newText;
             autosizeForeignObject(this.el().querySelector("foreignObject"));

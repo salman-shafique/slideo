@@ -14,44 +14,43 @@ let addedIconCounter = 0;
 
 export default function createNewIcon(iconData) {
     if (!session.CURRENT_SLIDE) return;
-    const shapeId = Math.floor(Math.random() * 1000000) + 1000000;
 
     const x = constants.SVG_WIDTH() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_HEIGHT() / 48;
     const width = constants.SVG_WIDTH() / 12;
     const height = constants.SVG_WIDTH() / 12;
 
-    const newIconShape = reactToDOM(
-        <g xmlns="http://www.w3.org/2000/svg" height={height} width={width} x={x} y={y} alt="newicon" className="draggable" shape_id={shapeId}>
-            <image className="bounding_box" height={height} width={width} x={x} y={y} xmlnsXlink="http://www.w3.org/1999/xlink" />
-        </g>,
-        null,
-        "http://www.w3.org/2000/svg"
-    );
-
     const newShapeData = {
         data: {
-            shape_id: shapeId,
             active: true,
             alt: "newicon",
             height: height,
-            icon: iconData,
-            keyword: iconData.keyword,
             rotation: 0,
-            shape_id: shapeId,
             width: width,
             x: x,
             y: y
         }
     }
+    Object.assign(newShapeData.data, iconData);
+    if (!newShapeData.data.shape_id)
+        newShapeData.data.shape_id = Math.floor(Math.random() * 1000000) + 1000000;
+
+
+    const newIconShape = reactToDOM(
+        <g xmlns="http://www.w3.org/2000/svg" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} alt="newicon" className="draggable" shape_id={newShapeData.data.shape_id}>
+            <image className="bounding_box" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} xmlnsXlink="http://www.w3.org/1999/xlink" />
+        </g>,
+        null,
+        "http://www.w3.org/2000/svg"
+    );
 
     const slide_ = slide(session.CURRENT_SLIDE);
     // Insert to page
     slide_.page().appendChild(newIconShape);
-    slide_.slideData().shapes.push(newShapeData);
+    slide_.appendNewShape(newShapeData);
 
     // Make clickable
-    shape(session.CURRENT_SLIDE, shapeId).addEvent("click", selectIconElement);
+    shape(session.CURRENT_SLIDE, newShapeData.data.shape_id).addEvent("click", selectIconElement);
 
     // Transforms
     initializeG(newIconShape);
@@ -61,7 +60,7 @@ export default function createNewIcon(iconData) {
     selectEl({ target: { parentElement: newIconShape } })
 
     // Select icon
-    selectIcon(session.CURRENT_SLIDE, shapeId)
+    selectIcon(session.CURRENT_SLIDE, newShapeData.data.shape_id)
 
     addedIconCounter++;
 }

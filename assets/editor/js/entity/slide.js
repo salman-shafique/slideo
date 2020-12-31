@@ -25,7 +25,8 @@ import React from "react";
 import keyboardListener from "Editor/js/shapes/actions/keyboard/index";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
-
+import createNewImage from "Editor/js/shapes/image/createNewImage";
+import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 
 
 const chunkDesigns = {};
@@ -139,7 +140,7 @@ export default function slide(slideId) {
         const contentDocument = this.contentDocument();
         const filterContainer = contentDocument.createElementNS("http://www.w3.org/2000/svg", "g");
         filterContainer.setAttribute("id", "filterContainer");
-        contentDocument.querySelector("g.SlideGroup g.Page").appendChild(filterContainer);
+        this.slideG().appendChild(filterContainer);
 
         // update textbox style.direction
         // Show the loaded slide
@@ -249,6 +250,10 @@ export default function slide(slideId) {
                 h1Image(this.slideId, shape_.data.shape_id, content.keyword);
                 // Add event listener
                 shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
+            } else if (shape_.data.alt == "newimage") {
+                createNewImage(shape_.data);
+            } else if (shape_.data.alt == "newicon") {
+                createNewIcon(shape_.data);
             }
 
             g = shape(this.slideId, shape_.data.shape_id).el();
@@ -313,9 +318,10 @@ export default function slide(slideId) {
     this.cloneToMiniPrev = () => {
         let contentDocument = window.top.document.getElementById("prev_" + this.slideId).contentDocument;
         if (contentDocument.querySelector("svg")) {
-            let clone = this.contentDocument().querySelector("g.SlideGroup g.Page").cloneNode(true);
-            contentDocument.querySelector("g.SlideGroup g.Page").remove();
-            contentDocument.querySelector("g.SlideGroup g.Slide").appendChild(clone);
+            let clone = this.slideG().cloneNode(true);
+            const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
+            oldSlideG.parentElement.appendChild(clone);
+            oldSlideG.remove();
         }
     }
 
@@ -352,10 +358,11 @@ export default function slide(slideId) {
     this.appendNewShape = (newShapeData) => {
         let addedBefore = false;
         const shapes = this.slideData().shapes;
-        shapes.forEach(shape => {
-            if (shape.data.shape_id == newShapeData.data.shape_id)
+        shapes.forEach(shape_ => {
+            if (shape_.data.shape_id == newShapeData.data.shape_id)
                 addedBefore = true;
         });
+        console.log(newShapeData, "alp");
         if (!addedBefore)
             shapes.push(newShapeData)
     }

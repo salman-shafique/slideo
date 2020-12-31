@@ -16,7 +16,7 @@ export default function Icon({ iconData }) {
             }
         }
         // Add new icon
-        createNewIcon(iconData);
+        createNewIcon({ icon: iconData, keyword: iconData.keyword });
     }
 
     return (
