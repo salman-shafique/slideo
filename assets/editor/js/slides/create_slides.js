@@ -6,6 +6,8 @@ import slide from "Editor/js/entity/slide";
 import apiService from "Editor/js/utils/apiService";
 import constants from "Editor/js/constants";
 import preloader from "Editor/js/components/preloader";
+import sidebar from "Editor/js/entity/sidebar";
+
 
 const checkMaxCapacity = () => {
     let allSlides = session.NEW_SLIDES.length;
@@ -52,6 +54,8 @@ export default function create_slides() {
                 slide().appendToPresentation(slideData).insertToPage();
             });
             status.update("Slides created...");
+            
+            sidebar().open("Design_Tool");
             preloader().hide();
         }
     });

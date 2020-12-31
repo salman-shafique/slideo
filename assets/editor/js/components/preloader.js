@@ -10,24 +10,19 @@ export default function preloader() {
         if (preloaderEl.classList.contains("d-none")) {
             preloaderEl.classList.remove("d-none");
             preloaderEl.classList.add("d-flex");
-            $(preloaderEl).fadeIn('slow');
         }
     }
     this.hide = () => {
         registeredEvents--;
         if (registeredEvents <= 0) {
-            $(preloaderEl).fadeOut('slow', function () {
-                this.classList.remove("d-flex");
-                this.classList.add("d-none");
-            });
+            preloaderEl.classList.remove("d-flex");
+            preloaderEl.classList.add("d-none");
         }
     }
     this.forceHide = () => {
         registeredEvents = 0;
-        $(preloaderEl).fadeOut('slow', function () {
-            this.classList.remove("d-flex");
-            this.classList.add("d-none");
-        });
+        preloaderEl.classList.remove("d-flex");
+        preloaderEl.classList.add("d-none");
     }
 
 }

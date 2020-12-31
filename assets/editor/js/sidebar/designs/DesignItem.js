@@ -1,9 +1,6 @@
 import React from "react";
 import session from "Editor/js/session";
-import apiService from "Editor/js/utils/apiService";
 import slide from "Editor/js/entity/slide";
-
-
 
 export default function DesignItem({ designData }) {
 

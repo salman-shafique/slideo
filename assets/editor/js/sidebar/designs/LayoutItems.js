@@ -2,8 +2,9 @@ import React from "react";
 import apiService from "Editor/js/utils/apiService";
 import slide from "Editor/js/entity/slide";
 import LayoutItem from "./LayoutItem";
+import preloader from "Editor/js/components/preloader";
 
-
+const preloader_ = preloader();
 export default function LayoutItems() {
 
     const [layouts, setLayouts] = React.useState({});
@@ -35,6 +36,7 @@ export default function LayoutItems() {
 
             if (layouts[direction][capacity].length == 0) {
                 layouts[direction][capacity].push(null);
+                preloader_.show();
                 apiService({
                     "url": "/api/layout/get",
                     "data": {
@@ -44,7 +46,8 @@ export default function LayoutItems() {
                     "success": (r) => {
                         layouts[direction][capacity] = r;
                         setLayouts(layouts);
-                        arrangeLayoutItems(layouts[direction][capacity])
+                        arrangeLayoutItems(layouts[direction][capacity]);
+                        preloader_.hide();
                     }
                 });
             }
