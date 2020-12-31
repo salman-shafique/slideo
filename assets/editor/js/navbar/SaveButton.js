@@ -1,10 +1,11 @@
 import React from "react";
 import preloader from "Editor/js/components/preloader";
 import apiService from "Editor/js/utils/apiService";
+import slide from "Editor/js/entity/slide";
+import session from "Editor/js/session";
 
 
 const preloader_ = preloader();
-
 
 export function saveChanges() {
     preloader_.show();
