@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Security\PresentationSecurity;
 use App\Service\FlaskService;
+use App\Service\PresentationService;
 use App\Service\SerializerService;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -46,6 +47,19 @@ class PresentationApiController extends AbstractController
         // return new JsonResponse($download);
         return new JsonResponse([]);
     }
+    /**
+     * @Route("/save/slide")
+     */
+    public function saveSlide(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $presentationService->saveSlide($request);
+        return new JsonResponse($r);
+    }
+
+
     /**
      * @Route("/change_name")
      */

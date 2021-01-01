@@ -7,7 +7,7 @@ import iconInit from "Editor/js/shapes/icon/iconInit";
 import findKeyword from "../utils/findKeyword";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import constants from "Editor/js/constants";
-
+import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 
 export default function shape(slideId, shapeId) {
     if (!(this instanceof shape)) return new shape(...arguments);
@@ -182,6 +182,40 @@ export default function shape(slideId, shapeId) {
             autosizeForeignObject(this.el().querySelector("foreignObject"));
             relocateResizeCircleContainer(this.el());
         }
+    }
+
+    this.saveTransforms = (SVG_WIDTH, SVG_HEIGHT) => {
+        const data = this.data();
+        data.allTransforms = getTransform(this.el());
+
+        delete data.allTransforms.translate.transform;
+        delete data.allTransforms.scale.transform;
+        delete data.allTransforms.rotate.transform;
+
+        data.allTransforms.SVG_WIDTH = SVG_WIDTH;
+        data.allTransforms.SVG_HEIGHT = SVG_HEIGHT;
+
+    }
+
+    this.moveToSavedPosition = () => {
+        const data = this.data();
+        if (!data) return;
+
+        const savedAllTransforms = data.allTransforms;
+        if (!savedAllTransforms) return;
+
+        const allTransforms = getTransform(this.el());
+
+        allTransforms.scale.transform.setScale(
+            savedAllTransforms.scale.startingA,
+            savedAllTransforms.scale.startingA
+        )
+
+        allTransforms.translate.transform.setTranslate(
+            savedAllTransforms.translate.startingE,
+            savedAllTransforms.translate.startingF
+        )
+
     }
 }
 

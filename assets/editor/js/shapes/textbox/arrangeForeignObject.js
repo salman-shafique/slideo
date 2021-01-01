@@ -63,9 +63,15 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     // bold
     table.style.fontWeight = shape.font_weight;
 
-    //if()
-    if (!shape.text_theme_color)
-        table.style.color = 'rgb(' + shape.text_rgb + ")";
+    // Text colors
+    if (shape.text_theme_color != 0)
+        if (shape.text_rgb) {
+            table.style.color = 'rgb(' + shape.text_rgb.replace(/ /g, ",") + ")";
+        }
+
+    if (shape.font_color)
+        table.style.color = 'rgb(' + shape.font_color.replace(/ /g, ",") + ")";
+
 
     table.querySelector("tr").style.height = Math.round(shape.height) + "px";
 

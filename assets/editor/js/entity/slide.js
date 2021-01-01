@@ -256,10 +256,13 @@ export default function slide(slideId) {
                 createNewIcon(shape_.data);
             }
 
-            g = shape(this.slideId, shape_.data.shape_id).el();
+            const shapeCls = shape(this.slideId, shape_.data.shape_id);
+            g = shapeCls.el();
             if (g) {
-                // initialize the transform and move
+                // initialize the transform
                 initializeG(g);
+                // Move to saved position
+                shapeCls.moveToSavedPosition();
                 // initialize the filters
                 colorFilters(g).init();
             }
@@ -362,7 +365,6 @@ export default function slide(slideId) {
             if (shape_.data.shape_id == newShapeData.data.shape_id)
                 addedBefore = true;
         });
-        console.log(newShapeData, "alp");
         if (!addedBefore)
             shapes.push(newShapeData)
     }
