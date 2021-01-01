@@ -1,3 +1,6 @@
+import toastr from "Editor/js/components/toastr";
+import preloader from "Editor/js/components/preloader";
+
 
 // Bootstrap JS
 import '../../js/bootstrap.bundle.min.js';
@@ -27,6 +30,12 @@ import "Editor/js/shapes/textbox/";
 // Confetti
 import "Editor/js/components/Confetti";
 
+
+window.onerror = (r)=>{
+    preloader().forceHide();
+    toastr.error("OOps... Something went wrong on our side...");
+    console.error(r);
+}
 
 // Enable close tab warning
 window.onbeforeunload = () => "";
