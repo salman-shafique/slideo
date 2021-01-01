@@ -8,7 +8,6 @@
         "ext-pdo": "*",
         "easycorp/easyadmin-bundle": "^3.1",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
-        "fzaninotto/faker": "^1.9",
         "gedmo/doctrine-extensions": "^2.4",
         "knpuniversity/oauth2-client-bundle": "^2.3",
         "laminas/laminas-code": "^3.4",

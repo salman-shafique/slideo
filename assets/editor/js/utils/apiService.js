@@ -23,7 +23,7 @@ export default function apiService(settings = {
         settings.error = (r) => {
             preloader().forceHide();
             toastr.error("OOps... Something went wrong on our side...");
-            console.error(r.responseJSON);
+            console.error(r);
         };
 
     let response = $.ajax(settings);
