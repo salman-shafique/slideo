@@ -6,7 +6,6 @@ services:
     build: ./
     volumes:
       - ./:/var/www/app:delegated
-      - ./docker/php.ini:/usr/local/etc/php/php.ini
       - /var/www/app/vendor/ # Ignore
       - /var/www/app/node_modules/ # Ignore
       - /var/www/app/var/ # Ignore
