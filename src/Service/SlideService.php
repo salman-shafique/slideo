@@ -54,7 +54,7 @@ class SlideService
         foreach ($style->getShapes() as $i => $shape) {
             $newShape = new Content();
             $shapeData = $shape->getData();
-            $shapeData['active'] = true;
+            $shapeData['active'] = "true";
             $newShape->setData($shapeData);
             $slide->addShape($newShape);
             $this->em->persist($newShape);

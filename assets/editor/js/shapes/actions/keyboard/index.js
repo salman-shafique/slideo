@@ -1,4 +1,6 @@
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
+import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
+import { saveChanges } from "Editor/js/navbar/SaveButton";
 
 
 /**
@@ -8,11 +10,15 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 export default function keyboardListener(contentDocument) {
     contentDocument.addEventListener('keyup', (event) => {
         const key = event.key;
-
-        if (key == "Escape") {
-            deSelectAll()
+        switch (key) {
+            case "Escape":
+                deSelectAll()
+                break;
+            case "Delete":
+                deleteShapes();
+                break;
+            default:
+                break;
         }
     });
-
-
 }

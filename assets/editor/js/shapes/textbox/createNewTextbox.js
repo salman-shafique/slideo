@@ -33,7 +33,6 @@ let addedTextboxCounter = {
  * }} textboxData 
  */
 export default function createNewTextbox(textboxData) {
-    if (!session.CURRENT_SLIDE) return;
 
     const x = constants.SVG_WIDTH() / 12 * textboxData.xGrid + (addedTextboxCounter[textboxData.size] % 5) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * textboxData.yGrid + (addedTextboxCounter[textboxData.size] % 5) * constants.SVG_HEIGHT() / 48;
@@ -48,7 +47,7 @@ export default function createNewTextbox(textboxData) {
             "height": height,
             "alt": "newtextbox",
             "class": "draggable",
-            "active": true,
+            "active": "true",
             "italic": "False",
             "rotation": "0",
             "alignment": "2",

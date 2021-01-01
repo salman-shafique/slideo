@@ -146,7 +146,7 @@ export default function slide(slideId) {
         // Show the loaded slide
         let slideData = this.slideData();
         slideData.shapes.forEach(shape_ => {
-            if (shape_.data.active == false) {
+            if (shape_.data.active == "false") {
                 shape(this.slideId, shape_.data.shape_id).remove();
                 return;
             };
@@ -427,6 +427,9 @@ export default function slide(slideId) {
         }
         .dragging *::selection {
             background: none !important;
+        }
+        .d-none {
+            display:none !important
         }
         `}</style>,
             null,

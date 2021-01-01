@@ -118,27 +118,28 @@ class PresentationService
             foreach ($slideJson['shapes'] as $shape) {
                 $newShape = new Content();
                 $shapeData = $shape['data'];
-                $shapeData['active'] = true;
                 $newShape->setData($shapeData);
                 $slide->addShape($newShape);
 
                 array_push($newShapes, $this->serializer->normalize($newShape));
                 $this->em->persist($newShape);
             }
-
-            $this->em->persist($slide);
-            $this->em->flush();
         } else {
             // Shapes
             foreach ($slideJson['shapes'] as $shape) {
                 $newShape = $this->updateContent($shape);
                 array_push($newShapes, $this->serializer->normalize($newShape));
 
-                if (!isset($shape['id']))
+                if (!isset($shape['id'])) {
                     $slide->addShape($newShape);
+                    $this->em->persist($newShape);
+                }
             }
         }
+        
+        $this->em->persist($slide);
+        $this->em->flush();
 
-        return ["newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
+        return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
     }
 }

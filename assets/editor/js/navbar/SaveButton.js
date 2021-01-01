@@ -20,11 +20,12 @@ export function saveChanges() {
         const SVG_WIDTH = constants.SVG_WIDTH(svg);
         const SVG_HEIGHT = constants.SVG_HEIGHT(svg);
 
+
         aSlide.shapes.forEach(aShape => {
             const shape_ = shape(aSlide.slideId, aShape.data.shape_id);
             shape_.saveTransforms(SVG_WIDTH, SVG_HEIGHT);
         });
-
+        
         apiService({
             url: "/api/presentation/save/slide",
             data: {

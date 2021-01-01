@@ -13,7 +13,6 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 let addedIconCounter = 0;
 
 export default function createNewIcon(iconData) {
-    if (!session.CURRENT_SLIDE) return;
 
     const x = constants.SVG_WIDTH() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_HEIGHT() / 48;
@@ -22,7 +21,7 @@ export default function createNewIcon(iconData) {
 
     const newShapeData = {
         data: {
-            active: true,
+            active: "true",
             alt: "newicon",
             height: height,
             rotation: 0,

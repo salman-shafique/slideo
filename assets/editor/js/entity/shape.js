@@ -34,8 +34,8 @@ export default function shape(slideId, shapeId) {
 
     this.remove = function () {
         if (this.el()) {
-            this.el().remove();
-            this.data().active = false;
+            this.el().classList.add("d-none");
+            this.data().active = "false";
         }
     }
 
@@ -79,7 +79,7 @@ export default function shape(slideId, shapeId) {
         const contentNumber = this.data().alt.split("|").pop();
         const slide_ = slide(this.slideId);
         const content = slide_.slideData().analyzedContent[contentNumber].h1.data;
-        if (content.text != newText) {
+        if (content.text.trim() != newText.trim()) {
             content.text = newText;
 
             const iconG = slide_.page().querySelector("g[alt$='icon|" + contentNumber + "']");
@@ -118,7 +118,7 @@ export default function shape(slideId, shapeId) {
         // Update the analyzed content
         const contentNumber = this.data().alt.split("|").pop();
         const content = slide(this.slideId).slideData().analyzedContent[contentNumber].originalSentence.data;
-        if (content.text != newText) {
+        if (content.text.trim() != newText.trim()) {
             content.text = newText;
             autosizeForeignObject(this.el().querySelector("foreignObject"));
             relocateResizeCircleContainer(this.el());
@@ -134,7 +134,7 @@ export default function shape(slideId, shapeId) {
         const content = slide_.slideData().slideTitle.data;
 
         if (content.text == newText) return;
-        if (newText.trim().toLowerCase() == constants.SLIDE_TITLE_PLACEHOLDER.trim().toLowerCase()) return;
+        if (newText.trim() == constants.SLIDE_TITLE_PLACEHOLDER.trim()) return;
 
         content.text = newText;
         const slideTitleImageG = slide_.page().querySelector("g[alt='slidetitleimage']");
@@ -160,7 +160,7 @@ export default function shape(slideId, shapeId) {
         // Update the slide title
         const content = slide(this.slideId).slideData().subTitle.data;
         if (content.text == newText) return;
-        if (newText.trim().toLowerCase() == constants.SLIDE_SUBTITLE_PLACEHOLDER.trim().toLowerCase()) return;
+        if (newText.trim() == constants.SLIDE_SUBTITLE_PLACEHOLDER.trim()) return;
 
         content.text = newText;
         autosizeForeignObject(this.el().querySelector("foreignObject"));
@@ -177,7 +177,7 @@ export default function shape(slideId, shapeId) {
         if (!content) return;
         if (!content.text) return;
 
-        if (content.text != newText) {
+        if (content.text.trim() != newText.trim()) {
             content.text = newText;
             autosizeForeignObject(this.el().querySelector("foreignObject"));
             relocateResizeCircleContainer(this.el());
@@ -186,6 +186,7 @@ export default function shape(slideId, shapeId) {
 
     this.saveTransforms = (SVG_WIDTH, SVG_HEIGHT) => {
         const data = this.data();
+        if(data.active == "false") return;
         data.allTransforms = getTransform(this.el());
 
         delete data.allTransforms.translate.transform;
@@ -207,13 +208,13 @@ export default function shape(slideId, shapeId) {
         const allTransforms = getTransform(this.el());
 
         allTransforms.scale.transform.setScale(
-            savedAllTransforms.scale.startingA,
-            savedAllTransforms.scale.startingA
+            parseFloat(savedAllTransforms.scale.startingA),
+            parseFloat(savedAllTransforms.scale.startingA)
         )
 
         allTransforms.translate.transform.setTranslate(
-            savedAllTransforms.translate.startingE,
-            savedAllTransforms.translate.startingF
+            parseFloat(savedAllTransforms.translate.startingE),
+            parseFloat(savedAllTransforms.translate.startingF)
         )
 
     }

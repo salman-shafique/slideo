@@ -13,7 +13,6 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 let addedImageCounter = 0;
 
 export default function createNewImage(imageData) {
-    if (!session.CURRENT_SLIDE) return;
 
     const x = constants.SVG_WIDTH() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT() / 48;
@@ -22,7 +21,7 @@ export default function createNewImage(imageData) {
 
     const newShapeData = {
         data: {
-            active: true,
+            active: "true",
             alt: "newimage",
             height: height,
             rotation: 0,
