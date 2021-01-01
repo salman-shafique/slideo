@@ -10,7 +10,8 @@ window.addEventListener("shape.released", (event) => {
   if (!g.querySelector("foreignObject")) return;
 
   const alt = g.getAttribute("alt");
-  const newText = g.querySelector("td").innerText;
+  const td = g.querySelector("td");
+  const newText = td.innerHTML = td.innerText;
 
   if (alt.includes("h1|")) {
     // Update the H1
