@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use App\Enum\LanguagesEnum;
 use App\Repository\PresentationRepository;
 use App\Repository\SlideRepository;
 use App\Security\PresentationSecurity;

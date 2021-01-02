@@ -26,7 +26,7 @@ class HomeController extends AbstractController
     public function locale(Request $request, String $lang)
     {
 
-        if (in_array($lang, LanguagesEnum::CONSTANTS)) {
+        if (in_array($lang, LanguagesEnum::ENABLED_LOCALES)) {
             $referer = $request->headers->get('referer');
 
             $request->setLocale($lang);

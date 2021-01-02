@@ -1,7 +1,7 @@
 framework:
     default_locale: !php/const \App\Enum\LanguagesEnum::DEFAULT
     translator:
-        enabled_locales: !php/const \App\Enum\LanguagesEnum::CONSTANTS
+        enabled_locales: !php/const \App\Enum\LanguagesEnum::ENABLED_LOCALES
         default_path: '%kernel.project_dir%/translations'
         fallbacks:
             - !php/const \App\Enum\LanguagesEnum::DEFAULT

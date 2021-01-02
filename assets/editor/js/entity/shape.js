@@ -186,12 +186,15 @@ export default function shape(slideId, shapeId) {
 
     this.saveTransforms = (SVG_WIDTH, SVG_HEIGHT) => {
         const data = this.data();
-        if(data.active == "false") return;
+        if (data.active == "false") return;
         data.allTransforms = getTransform(this.el());
 
-        delete data.allTransforms.translate.transform;
-        delete data.allTransforms.scale.transform;
-        delete data.allTransforms.rotate.transform;
+        if (data.allTransforms.translate)
+            delete data.allTransforms.translate.transform;
+        if (data.allTransforms.scale)
+            delete data.allTransforms.scale.transform;
+        if (data.allTransforms.rotate)
+            delete data.allTransforms.rotate.transform;
 
         data.allTransforms.SVG_WIDTH = SVG_WIDTH;
         data.allTransforms.SVG_HEIGHT = SVG_HEIGHT;
