@@ -26,6 +26,10 @@ class FlaskService
         $this->client = $client;
     }
 
+    public function getClient()
+    {
+        return $this->client;
+    }
     public function call(String $className, String $methodName, array $data): ?array
     {
         $response = $this->client->request(

@@ -13,7 +13,7 @@ use App\Repository\ContentRepository;
 use App\Repository\ColorTemplateRepository;
 use App\Repository\SlideRepository;
 use App\Repository\StyleRepository;
-use App\Security\PresentationSecurity;
+use App\Service\FlaskService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,12 +21,14 @@ class PresentationService
 {
     private $em;
     private $serializer;
+    private $flaskService;
 
 
-    public function __construct(EntityManagerInterface $em, SerializerService $serializer)
+    public function __construct(EntityManagerInterface $em, SerializerService $serializer, FlaskService $flaskService)
     {
         $this->em = $em;
         $this->serializer = $serializer;
+        $this->flaskService = $flaskService;
     }
 
     public function create(?User $user, string $sessionId): Presentation
@@ -152,6 +154,9 @@ class PresentationService
         $this->em->persist($dowloadPresentation);
         $this->em->persist($presentation);
         $this->em->flush();
+
+        // invoke the flask server
+        $this->flaskService->call("Presentation", "start_downloads", []);
         return ['success' => true];
     }
 
@@ -177,5 +182,53 @@ class PresentationService
             ->setParameter("downloadPresentationId", $downloadPresentationId)
             ->getQuery()
             ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
+    private function saveBase64File(string $filepath, string $base64)
+    {
+        $content = base64_decode($base64);
+        $file = fopen($filepath, "wb");
+        fwrite($file, $content);
+        fclose($file);
+    }
+
+    public function saveFromFlask(Request $request)
+    {
+        if (!$request->request->get("A2A3EF62A0498A46531B71DBD6969004")) return ["success" => false];
+        if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11") return ["success" => false];
+
+        $path = $request->request->get('path');
+        $jsonFile = json_decode(file_get_contents("http://slideo_flask$path"), true);
+
+        $now = time();
+        $uniquefolder = hash('md2', $now);
+        if (!is_dir("presentations/$uniquefolder"))
+            mkdir("presentations/$uniquefolder", 0777, true);
+
+        $currentDownloadId = $jsonFile['current_download_id'];
+
+        $this->saveBase64File("presentations/$uniquefolder/$now.pptx", $jsonFile['pptx']);
+        $this->saveBase64File("presentations/$uniquefolder/$now.png", $jsonFile['png']);
+        $this->saveBase64File("presentations/$uniquefolder/$now.pdf", $jsonFile['pdf']);
+
+        /** @var DownloadPresentation $downloadPresentation */
+        $downloadPresentation = $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\DownloadPresentation', 'd')
+            ->where("d.id = :id")
+            ->setParameter("id", $currentDownloadId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $downloadPresentation->setPptxFile("/presentations/$uniquefolder/$now.pptx");
+        $downloadPresentation->setPdfFile("/presentations/$uniquefolder/$now.pdf");
+        $downloadPresentation->setPrevFile("/presentations/$uniquefolder/$now.png");
+        $downloadPresentation->setCompleted(true);
+
+        $this->em->persist($downloadPresentation);
+        $this->em->flush();
+
+        return ["success" => true];
     }
 }

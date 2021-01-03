@@ -70,6 +70,15 @@ class PresentationApiController extends AbstractController
     }
 
     /**
+     * @Route("/flask/save")
+     */
+    public function saveFromFlask(Request $request, PresentationService $presentationService)
+    {
+        $presentationService->saveFromFlask($request);
+        return new JsonResponse(["Thanks flask"]);
+    }
+
+    /**
      * @Route("/save/slide")
      */
     public function saveSlide(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
