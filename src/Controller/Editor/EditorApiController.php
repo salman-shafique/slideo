@@ -11,8 +11,9 @@ use App\Service\FlaskService;
 use App\Service\PresentationService;
 use App\Service\SlideService;
 use App\Service\StyleService;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
+use App\Service\JWTService;
 
 /**
  * @Route("/api/editor", methods={"POST"})
@@ -43,8 +44,23 @@ class EditorApiController extends AbstractController
 
         $slides = $slideService->createSlides($r['slides'], $presentation);
 
-        if ($fresh)
-            return new JsonResponse(['presentationId' => $presentation->getPresentationId()]);
+        if ($fresh) {
+            $response = new JsonResponse(['presentationId' => $presentation->getPresentationId()]);
+            if (!$this->getUser()) {
+                $cookies = $request->cookies->all();
+                if (isset($cookies['presentations'])) {
+                    $jwt = $cookies['presentations'];
+                    $presentationsInCookies = JWTService::decode($jwt);
+                    if (!$presentationsInCookies) $presentationsInCookies = [];
+                } else {
+                    $presentationsInCookies = [];
+                }
+                array_push($presentationsInCookies, $presentation->getPresentationId());
+                $newCookie = new Cookie("presentations", JWTService::encode($presentationsInCookies), 0);
+                $response->headers->setCookie($newCookie);
+            }
+            return $response;
+        }
 
         return new JsonResponse($slides);
     }
