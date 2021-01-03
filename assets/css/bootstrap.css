@@ -6344,6 +6344,8 @@ a.close.disabled {
 .spinner-border {
   display: inline-block;
   vertical-align: text-bottom;
+  width: 2rem;
+  height: 2rem;
   border: 0.25em solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;

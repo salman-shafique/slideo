@@ -13,20 +13,25 @@
 
     {% for presentation in app.user.presentations|reverse  %}
       {% if presentation.isActive %}
-        <a href="{{path('editor')}}/{{presentation.presentationId}}" class="presentation-thumb">
-          <div class="presentation-thumb-img">
-            <span>
-              {{presentation.slides|length}}
-            </span>
-            <br/>
-            Slides
-          </div>
+        <div class="presentation-thumb">
+          <a href="{{path('editor')}}/{{presentation.presentationId}}">
+            <div class="presentation-thumb-img">
+              <span>
+                {{presentation.slides|length}}
+              </span>
+              <br/>
+              Slides
+            </div>
+          </a>
           <p class="ppt-title ppt-title">{{presentation.title}}</p>
           <p class="ppt-last-modified text-secondary no-margin">Created:
             <span class="modified-datetime">{{presentation.created|date("F jS \\a\\t g:ia")}}</span>
           </p>
-          <i class="fas fa-trash-alt ppt-remove" presentation-id="{{presentation.presentationId}}"></i>
-        </a>
+          <i class="fas fa-trash-alt ppt-remove text-danger" presentation-id="{{presentation.presentationId}}"></i>
+          <a href="{{path('editor')}}/{{presentation.presentationId}}/download">
+            <i class="fas fa-download ppt-download"></i>
+          </a>
+        </div>
       {% endif %}
     {% endfor %}
 

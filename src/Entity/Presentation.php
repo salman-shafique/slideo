@@ -75,9 +75,15 @@ class Presentation
      */
     private $slidesOrder = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=DownloadPresentation::class, mappedBy="presentation")
+     */
+    private $downloadedPresenatations;
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
+        $this->downloadedPresenatations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +208,36 @@ class Presentation
     public function setSlidesOrder(?array $slidesOrder): self
     {
         $this->slidesOrder = $slidesOrder;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DownloadPresentation[]
+     */
+    public function getDownloadedPresenatations(): Collection
+    {
+        return $this->downloadedPresenatations;
+    }
+
+    public function addDownloadedPresenatation(DownloadPresentation $downloadedPresenatation): self
+    {
+        if (!$this->downloadedPresenatations->contains($downloadedPresenatation)) {
+            $this->downloadedPresenatations[] = $downloadedPresenatation;
+            $downloadedPresenatation->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDownloadedPresenatation(DownloadPresentation $downloadedPresenatation): self
+    {
+        if ($this->downloadedPresenatations->removeElement($downloadedPresenatation)) {
+            // set the owning side to null (unless already changed)
+            if ($downloadedPresenatation->getPresentation() === $this) {
+                $downloadedPresenatation->setPresentation(null);
+            }
+        }
 
         return $this;
     }

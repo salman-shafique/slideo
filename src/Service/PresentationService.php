@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\ColorTemplate;
 use App\Entity\Content;
+use App\Entity\DownloadPresentation;
 use App\Entity\Slide;
 use App\Entity\Presentation;
 use App\Entity\Style;
@@ -136,10 +137,33 @@ class PresentationService
                 }
             }
         }
-        
+
         $this->em->persist($slide);
         $this->em->flush();
 
         return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
+    }
+
+    public function downloadStart(Presentation $presentation)
+    {
+        $dowloadPresentation = new DownloadPresentation;
+        $presentation->addDownloadedPresenatation($dowloadPresentation);
+        $dowloadPresentation->setNumberOfSlides(count($presentation->getSlides()));
+        $this->em->persist($dowloadPresentation);
+        $this->em->persist($presentation);
+        $this->em->flush();
+        return ['success' => true];
+    }
+
+    public function getDownloadedPresentation(Presentation $presentation)
+    {
+        return $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\DownloadPresentation', 'd')
+            ->where("d.presentation = :presentation")
+            ->setParameter("presentation", $presentation)
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 }
