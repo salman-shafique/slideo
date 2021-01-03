@@ -58,6 +58,8 @@ class EditorApiController extends AbstractController
                 array_push($presentationsInCookies, $presentation->getPresentationId());
                 $newCookie = new Cookie("presentations", JWTService::encode($presentationsInCookies), 0);
                 $response->headers->setCookie($newCookie);
+            } else {
+                $response->headers->clearCookie("presentations");
             }
             return $response;
         }
