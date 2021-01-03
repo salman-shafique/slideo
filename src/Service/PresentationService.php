@@ -166,4 +166,16 @@ class PresentationService
             ->getQuery()
             ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
+
+    public function getOneDownloadedPresentation(string $downloadPresentationId)
+    {
+        return $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\DownloadPresentation', 'd')
+            ->where("d.id = :downloadPresentationId")
+            ->setParameter("downloadPresentationId", $downloadPresentationId)
+            ->getQuery()
+            ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
 }

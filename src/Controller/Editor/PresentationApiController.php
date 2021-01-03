@@ -57,6 +57,19 @@ class PresentationApiController extends AbstractController
     }
 
     /**
+     * @Route("/download/get/{presenationId}/{downloadPresentationId}")
+     */
+    public function getOneDownloadedPresentation(string $presenationId, string $downloadPresentationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($presenationId, $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $presentationService->getOneDownloadedPresentation($downloadPresentationId);
+
+        return new JsonResponse($r);
+    }
+
+    /**
      * @Route("/save/slide")
      */
     public function saveSlide(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
