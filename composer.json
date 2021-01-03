@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "ext-pdo": "*",
         "easycorp/easyadmin-bundle": "^3.1",
+        "firebase/php-jwt": "^5.2",
         "friendsofsymfony/jsrouting-bundle": "^2.6",
         "gedmo/doctrine-extensions": "^2.4",
         "knpuniversity/oauth2-client-bundle": "^2.3",
