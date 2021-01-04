@@ -4,6 +4,8 @@ import constants from "Editor/js/constants";
  */
 
 export default function getTransform(g) {
+    if(!g) return;
+    
     let allTransforms = {};
     for (let index = 0; index < g.transform.baseVal.length; index++) {
         let transform = g.transform.baseVal.getItem(index);

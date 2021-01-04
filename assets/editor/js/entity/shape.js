@@ -32,7 +32,7 @@ export default function shape(slideId, shapeId) {
      */
     this.el = () => slide(this.slideId).documentElement().querySelector("g[shape_id='" + this.shapeId + "']");
 
-    this.remove = function () {
+    this.remove = () => {
         if (this.el()) {
             this.el().classList.add("d-none");
             this.data().active = "false";

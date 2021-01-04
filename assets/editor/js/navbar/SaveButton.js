@@ -41,7 +41,7 @@ export function saveChanges(callback = null) {
                 }
 
                 if (i == slides.length - 1)
-                    if (callback) {
+                    if (typeof callback == "function") {
                         callback()
                     }
 
