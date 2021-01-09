@@ -65,6 +65,7 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
 
     // Text colors
     if (shape.text_theme_color != 0)
+        // theme colored
         if (shape.text_rgb) {
             table.style.color = 'rgb(' + shape.text_rgb.replace(/ /g, ",") + ")";
         }

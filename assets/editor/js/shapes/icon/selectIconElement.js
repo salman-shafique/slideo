@@ -13,5 +13,5 @@ export default function selectIconElement(event) {
     let shape_ = shape(session.CURRENT_SLIDE, shapeId);
     let shapeData = shape_.data();
     sidebar().open("Icons_Tool");
-    addToIconsBar(shapeData.keyword, shapeData.rgb);
+    addToIconsBar(shapeData.keyword);
 }
