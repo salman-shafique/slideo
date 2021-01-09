@@ -120,8 +120,8 @@ class PresentationService
                 $newShape->setData($shapeData);
                 $slide->addShape($newShape);
 
-                array_push($newShapes, $this->serializer->normalize($newShape));
                 $this->em->persist($newShape);
+                array_push($newShapes, $this->serializer->normalize($newShape));
             }
         } else {
             // Shapes
