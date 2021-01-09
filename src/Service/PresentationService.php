@@ -60,24 +60,19 @@ class PresentationService
 
         return $content;
     }
-    private function updateColorTemplate($colorTemplateJson)
+    private function updateColorTemplate($colorTemplateJson, ColorTemplate $colorTemplate)
     {
-        /**  @var ColorTemplateRepository $colorTemplateRepository */
-        $colorTemplateRepository = $this->em->getRepository(ColorTemplate::class);
-        $colorTemplate = $colorTemplateRepository->findOneBy(["id" => $colorTemplateJson['id']]);
+        $colorTemplate->setACCENT1($colorTemplateJson['aCCENT1']);
+        $colorTemplate->setACCENT2($colorTemplateJson['aCCENT2']);
+        $colorTemplate->setACCENT3($colorTemplateJson['aCCENT3']);
+        $colorTemplate->setACCENT4($colorTemplateJson['aCCENT4']);
+        $colorTemplate->setACCENT5($colorTemplateJson['aCCENT5']);
+        $colorTemplate->setACCENT6($colorTemplateJson['aCCENT6']);
+        $colorTemplate->setBACKGROUND1($colorTemplateJson['bACKGROUND1']);
+        $colorTemplate->setBACKGROUND2($colorTemplateJson['bACKGROUND2']);
+        $colorTemplate->setTEXT1($colorTemplateJson['tEXT1']);
+        $colorTemplate->setTEXT2($colorTemplateJson['tEXT2']);
 
-        if ($colorTemplate) {
-            $colorTemplate->setACCENT1($colorTemplateJson['aCCENT1']);
-            $colorTemplate->setACCENT2($colorTemplateJson['aCCENT2']);
-            $colorTemplate->setACCENT3($colorTemplateJson['aCCENT3']);
-            $colorTemplate->setACCENT4($colorTemplateJson['aCCENT4']);
-            $colorTemplate->setACCENT5($colorTemplateJson['aCCENT5']);
-            $colorTemplate->setACCENT6($colorTemplateJson['aCCENT6']);
-            $colorTemplate->setBACKGROUND1($colorTemplateJson['bACKGROUND1']);
-            $colorTemplate->setBACKGROUND2($colorTemplateJson['bACKGROUND2']);
-            $colorTemplate->setTEXT1($colorTemplateJson['tEXT1']);
-            $colorTemplate->setTEXT2($colorTemplateJson['tEXT2']);
-        }
         $this->em->persist($colorTemplate);
         $this->em->flush();
     }
@@ -98,12 +93,13 @@ class PresentationService
             $this->updateContent($analyzedContent['originalSentence']);
         }
 
-        // Color template
-        $this->updateColorTemplate($slideJson['colorTemplate']);
-
         /**  @var SlideRepository $slideRepository */
         $slideRepository = $this->em->getRepository(Slide::class);
         $slide = $slideRepository->findOneBy(["id" => $slideJson['id']]);
+
+        // Color template
+        $colorTemplate = $slide->getColorTemplate();
+        $this->updateColorTemplate($slideJson['colorTemplate'], $colorTemplate);
 
         $newShapes = [];
         if ($slideJson['style']['id'] != $slide->getStyle()->getId()) {
@@ -131,12 +127,12 @@ class PresentationService
             // Shapes
             foreach ($slideJson['shapes'] as $shape) {
                 $newShape = $this->updateContent($shape);
-                array_push($newShapes, $this->serializer->normalize($newShape));
-
                 if (!isset($shape['id'])) {
                     $slide->addShape($newShape);
                     $this->em->persist($newShape);
                 }
+
+                array_push($newShapes, $this->serializer->normalize($newShape));
             }
         }
 
