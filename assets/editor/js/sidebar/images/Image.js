@@ -11,7 +11,8 @@ export default function Image({ imageData }) {
             if (
                 alt.includes("h1image|") ||
                 alt == "slidetitleimage" ||
-                alt == "newimage"
+                alt == "newimage" || 
+                alt == "image"
             ) {
                 const shapeId = session.SELECTED_ELEMENTS[0].shapeId;
                 selectH1Image(session.CURRENT_SLIDE, shapeId, imageData);
