@@ -1,19 +1,19 @@
 <div id="profileMenu" class="">
   <a id="PresentationsLink" class="profile-screen-link active" href="#">
-    <i class="fas fa-images mr-2"></i>My Presentations
+    <i class="fas fa-images ml-4"></i>{% trans %}My_Presentations{% endtrans %}
   </a>
   <a id="ProfileLink" class="profile-screen-link" href="#">
-    <i class="fas fa-user mr-2"></i>Profile
+    <i class="fas fa-user ml-4"></i>{% trans %}My_Profile{% endtrans %}
   </a>
   <a id="PlanLink" class="profile-screen-link d-none" href="#">
-    <i class="fas fa-check-circle mr-2"></i>Plan
+    <i class="fas fa-check-circle ml-4"></i>{% trans %}My_Plan{% endtrans %}
   </a>
   <a id="BillingLink" class="profile-screen-link d-none" href="#">
-    <i class="fas fa-money-bill mr-2"></i>Billing
+    <i class="fas fa-money-bill ml-4"></i>{% trans %}My_Billing{% endtrans %}
   </a>
   <a id="EmailLink" class="profile-screen-link" href="#">
-    <i class="fas fa-envelope mr-2"></i>Notifications
+    <i class="fas fa-envelope ml-4"></i>{% trans %}My_Notifications{% endtrans %}
   </a>
-  <a id="Logout" class="text-danger mt-2" href="{{path('app_logout')}}">Logout
+  <a id="Logout" class="text-danger ml-5" href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}
   </a>
 </div>

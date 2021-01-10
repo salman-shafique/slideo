@@ -22,6 +22,10 @@ docker-compose stop
 docker-compose -f docker-compose.dev.yml up -d
 docker-compose -f docker-compose.dev.yml stop
 ```
+#### Before yarn watch
+```
+docker exec -ti slideo_symfony bash
+```
 
 ### 4. Setup the project
 ```

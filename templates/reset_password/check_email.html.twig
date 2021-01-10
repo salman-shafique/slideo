@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Password Reset Email Sent
+{% block title %}{% trans %}Title_Email_Sent_Succesfully{% endtrans %}
 {% endblock %}
 
 {% block body %}
@@ -9,19 +9,15 @@
   <footer class="footer mt-0">
     <div class="footer_top py-5 px-0 mt-0">
       <div class="container py-5">
-        <div class="row justify-content-center gallery-item">
+        <div class="dir-rtl row justify-content-center gallery-item">
           <div class="col-12 p-5">
             <p style="text-align:center">
             </p>
-            <h1 class="text-center">Check your emails</h1>
+            <h1 class="text-center">{% trans %}Title_Email_Sent_Succesfully{% endtrans %}</h1>
           </div>
 
-          <p>An email has been sent that contains a link that you can click to reset your password. This link will expire in
-            {{ tokenLifetime|date('g') }}
-            hour(s).</p>
-          <p>If you don't receive an email please check your spam folder or
-            <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
-
+          <p>{% trans %}Text_Email_Sent_Succesfully{% endtrans %} {{ tokenLifetime|date('g') }} {% trans %}Text_hour{% endtrans %}</p>
+          <p>{% trans %}Text_Email_Link_Expire{% endtrans %} <a href="{{ path('app_forgot_password_request') }}">{% trans %}Text_Try_Again{% endtrans %}</a>.</p>
         </div>
       </div>
     </div>

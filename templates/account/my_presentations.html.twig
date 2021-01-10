@@ -1,13 +1,12 @@
 <div id="PresentationsTab" class="profile-tab">
-  <h1 class="tab-header">
-    My Presentations
+  <h1 class="tab-header">{% trans %}My_Presentations{% endtrans %}
   </h1>
   <div id="PresentationsGallery" class="row medium-bottom-margin">
 
     <a href="{{path('editor')}}" id="PptCreate" class="presentation-thumb">
       <div class="fully-centered text-center">
         <i class="fas fa-plus ppt-add-icon"></i>
-        <p class="small-top-margin small-bottom-margin">Create a new presentation</p>
+        <p class="small-top-margin small-bottom-margin">{% trans %}Create_New_Presentation{% endtrans %}</p>
       </div>
     </a>
 
@@ -18,11 +17,10 @@
             <span>
               {{presentation.slides|length}}
             </span>
-            <br/>
-            Slides
+            <br/>{% trans %}Slides_Amount{% endtrans %}
           </div>
           <p class="ppt-title ppt-title">{{presentation.title}}</p>
-          <p class="ppt-last-modified text-secondary no-margin">Created:
+          <p class="ppt-last-modified text-secondary no-margin">{% trans %}Created{% endtrans %}:
             <span class="modified-datetime">{{presentation.created|date("F jS \\a\\t g:ia")}}</span>
           </p>
           <i class="fas fa-trash-alt ppt-remove" presentation-id="{{presentation.presentationId}}"></i>
@@ -34,9 +32,9 @@
   <div class="card text-center account-upgrade">
     <div class="card-body">
       <div>
-        <h2 class="card-title medium-bottom-margin">Need more presentations?</h2>
-        <h5 class="card-text medium-bottom-margin">Upgrade your account to get unlimited presentations & features!</h5>
-        <a href="#" class="btn btn-primary upgrade-button">UPGRADE MY ACCOUNT</a>
+        <h2 class="card-title medium-bottom-margin">{% trans %}Title_Need_More_Presentations{% endtrans %}</h2>
+        <h5 class="card-text medium-bottom-margin">{% trans %}Text_Upgrade_Account{% endtrans %}</h5>
+        <a href="{{path('pricing')}}" class="btn btn-primary upgrade-button">{% trans %}BTN_Upgrade_My_Account{% endtrans %}</a>
       </div>
     </div>
   </div>
