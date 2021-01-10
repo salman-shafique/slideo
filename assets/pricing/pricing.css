@@ -40,7 +40,7 @@ body {
 
 .toggle-option.active {
 	background-color: rgb(255, 255, 255);
-	box-shadow: rgba(0, 0, 0, 0.03) 0px 100px 80px, rgba(0, 0, 0, 0.02) 0px 41.7776px 33.4221px, rgba(0, 0, 0, 0.02) 0px 22.3363px 17.869px, rgba(0, 0, 0, 0.016) 0px 12.5216px 10.0172px, rgba(0, 0, 0, 0.01) 0px 6.6501px 5.32008px, rgba(0, 0, 0, 0.008) 0px 2.76726px 2.21381px;
+/*	box-shadow: rgba(0, 0, 0, 0.03) 0px 100px 80px, rgba(0, 0, 0, 0.02) 0px 41.7776px 33.4221px, rgba(0, 0, 0, 0.02) 0px 22.3363px 17.869px, rgba(0, 0, 0, 0.016) 0px 12.5216px 10.0172px, rgba(0, 0, 0, 0.01) 0px 6.6501px 5.32008px, rgba(0, 0, 0, 0.008) 0px 2.76726px 2.21381px; */
 }
 
 .toggle-text-main {
@@ -74,7 +74,7 @@ body {
 
 #Pricing_Plans {
 	width: 75%;
-	margin-left: 25%;
+	margin-right: 25%;
 }
 
 .pricing-table {
@@ -123,7 +123,7 @@ body {
 .pricing-header {
 	font-weight: 600;
     color: black;
-    font-size: 22px;
+    font-size: 32px;
     width: 100%;
     word-break: break-word;
     margin: auto;
@@ -131,8 +131,9 @@ body {
 }
 
 .price-plan-description {
-	font-size: 11px;
-	color: grey;
+    font-size: 13px;
+    color: grey;
+    padding: 10px 20px;
 }
 
 .plan-desc {
@@ -149,18 +150,22 @@ body {
 }
 
 .pricing-price {
-	display: block;
-	font-size: 48px;
-	position: relative;
-	width: fit-content;
-	margin: auto;
+    display: block;
+    font-size: 55px;
+    position: relative;
+    width: fit-content;
+    margin: 0 20%;
 }
 
 .pricing-price .currency {
-	font-size: 20px;
+    font-size: 14px;
     position: absolute;
-    left: -40px;
-    top: 5px;
+    left: -35px;
+    top: 33px;
+}
+
+.price-details {
+    padding: 20px 0 20px 0px;
 }
 
 .pricing-price .plan-duration {
@@ -173,18 +178,18 @@ body {
 }
 
 .pricing-price .original-price {
-	color: var(--landing-action);
-	font-size: 12px;
-	position: absolute;
-	background-color: lightpink;
-	padding: 4px 8px;
-	border-radius: 20px;
-	width: fit-content;
-	max-width: 80px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	top: -5px;
+    color: var(--landing-action);
+    font-size: 10px;
+    position: absolute;
+    background-color: lightpink;
+    padding: 4px 8px;
+    border-radius: 20px;
+    width: fit-content;
+    /* max-width: 80px; */
+    white-space: nowrap;
+    overflow: hidden;
+    /* text-overflow: ellipsis; */
+    top: -5px;
 }
 
 .price-btn {
@@ -204,32 +209,31 @@ body {
 }
 
 .parameter .table-content {
-	width: calc(100% - 30px);
+	width: calc(100% - 25px);
 	font-weight: bold;
-	text-align: left;
+	text-align: right;
 }
 
 .table-content {
 	max-width: calc(100% - 30px);
 	width: 100%;
     display: inline-block;
-    margin-right: 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     line-height: 20px;
-	font-size: 15px;
+	font-size: 18px;
 	text-align: center;
 }
 
 .content-info {
-	display: inline-block;
-    font-size: 20px;
-	cursor: help;
+    display: inline-block;
+    font-size: 16px;
+    cursor: help;
 }
 
 #Price_Plans_Table .col-3 {
-    padding: 10px 15px;
+    padding: 15px 15px;
 }
 
 #Price_Plans_Table .row:not(.header-row):hover {
@@ -273,4 +277,12 @@ body {
 .faq-img-content {
 	width: 100%;
 	margin: 24px 0;
+}
+
+.amount {
+    padding: 0 5px;
+}
+
+.header-row{
+	margin-top: 20px;
 }

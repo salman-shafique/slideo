@@ -58,12 +58,13 @@ body {
 }
 
 .profile-screen-link {
-    margin: 3px 12px;
+    margin: 10px 12px;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 20px;
     color: black !important;
     display: block;
-    padding: 8px;
+    padding: 10px;
+    TEXT-ALIGN: RIGHT;
 }
 
 .profile-screen-link.active, .profile-screen-link:hover {
@@ -84,10 +85,12 @@ body {
     font-size: 20px;
     position: relative;
     background-color: var(--footer-background);
+    TEXT-ALIGN: RIGHT;
 }
 
 .tab-header {
     padding: 20px 30px;
+    text-align: right;
 }
 
 #thumbnail {
@@ -102,7 +105,7 @@ body {
 
 .account-upgrade {
     background-color: lightgrey;
-    margin: 18px -24px;
+    margin: 50px -24px 0;
 }
 
 .upgrade-button {
@@ -178,7 +181,7 @@ body {
     border-radius: 20px;
     border: 4px dashed var(--control-button);
     color: var(--control-button);
-    max-height: 170px;
+    min-height: 180px;
     cursor: pointer;
 }
 

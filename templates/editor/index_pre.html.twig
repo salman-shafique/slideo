@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {% trans %}Editor{% endtrans %}
+  {% trans %}Title_Slide_New_Design{% endtrans %}
 {% endblock %}
 
 {% block style %}
@@ -12,13 +12,13 @@
 
   <div class="row justify-content-center rtl m-0">
     <div class="col-11 col-sm-8">
-      <h1 class="text-center font-weight-bold" style="margin-bottom:10px;font-size: 80px;">עיצוב מצגת אוטומטי</h1>
-      <h2 class="text-center" style="font-size: 40px; margin-bottom:20px;">רשמו כאן טקסט, והוא יהפוך לשקף מעוצב:</h2>
+      <h1 class="text-center font-weight-bold" style="margin-bottom:10px;font-size: 80px;">{% trans %}Title_Slide_New_Design{% endtrans %}</h1>
+      <h2 class="text-center" style="font-size: 40px; margin-bottom:20px;">  {% trans %}Subtitle_Slide_New_Design{% endtrans %}</h2>
       <div class="form-group mb-0 mt-3">
-        <input id="slideTitle" type="text" class="form-control data-hj-whitelist" placeholder="{% trans %}Slide title{% endtrans %}">
+        <input id="slideTitle" type="text" class="form-control data-hj-whitelist" placeholder="{% trans %}Text_Slide_Title_Placeholder{% endtrans %}">
       </div>
       <div class="form-group">
-        <div class="border p-1 inline-editor" style="width: 100%;background-color:rgb(241, 241, 241);">
+        <div class="d-none border p-1 inline-editor" style="width: 100%;background-color:rgb(241, 241, 241);">
           <i class="fas fa-align-left border p-2" id="entry_to_ltr" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="LTR"></i>
           <i class="fas fa-align-right border p-2" id="entry_to_rtl" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="RTL"></i>
           <i class="fas fa-remove-format border p-2" id="entry_remove_format" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="הסר את הפורמט"></i>
@@ -27,10 +27,8 @@
         <div id="area" class="col-12 border pt-2" contenteditable autofocus></div>
       </div>
       <div class="text-center mb-3">
-        <button class="btn btn-danger bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px;" style="cursor:pointer">
-          <span>{% trans %}
-            Create slide
-            {% endtrans %}</span>
+        <button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px; font-size: 28px;" style="cursor:pointer">
+          <span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
         </button>
       </div>
     </div>

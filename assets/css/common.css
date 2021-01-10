@@ -1,7 +1,7 @@
 .vertically-centered {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+    position: relative;
+    top: 5%;
+    /* transform: translateY(-50%); */
 }
 
 .horizontally-centered {
@@ -42,8 +42,8 @@
 }
 
 .section {
-	margin-top: 80px!important;
-	margin-bottom: 80px!important;
+    margin-top: 7% !important;
+    margin-bottom: 10% !important;
 }
 
 .section-header {
@@ -115,4 +115,26 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
     border-radius: 10px;
+}
+
+.rtl, .rtl * {
+    direction: rtl;
+    text-align: right;
+}
+
+.ltr, .ltr * {
+    direction: ltr;
+    text-align: left;
+}
+
+.rtl-center{
+    direction: rtl;
+    text-align: center;	
+}
+
+.btn-feature {
+    margin: 40px -15px 0 0;
+    background: none;
+    border: none;
+    padding: 0px;
 }

@@ -1,8 +1,260 @@
 # translations/messages.he.yaml
+#
+#
+# Home Page Translations
+#
+# Top Menu
+Account: החשבון שלי
+Sign_Up : הירשם
+
+# Header
+Main_Header_Title: עיצוב מצגת אוטומטי
+Main_Header_Subtitle: בינה מלאכותית לעיצוב שקפים לפי התוכן שלך
+BTN_Try_Now: התחל עכשיו
+# Features
+Feature_1_Title: התוכן שלך הופך לעיצוב
+Feature_1_Description: מערכת מושלמת עבור מעצבי מצגות. כל כך פשוט שתוכלו להשתמש בה מיד, ללא הכשרה. ואם יש לכם שאלה, הצוות שלנו כאן כדי לעזור!
+Feature_2_Title: עיצוב שקפים אוטומטי
+Feature_2_Description: כלים ליצירת מצגת שהופכים משימות מורכבות למספר קליקים. אפשר להיפרד מהתבניות הישנות ולהגיד שלום ליצירת מצגת בלחיצה אחת, באופן מקוון.
+Feature_3_Title: כל המצגות במקום אחד
+Feature_3_Description: שמרו את כל התוכן, הגופנים, הלוגואים ופלטות הצבעים שלך במקום אחד, כך שתמיד תוכלו לעדכן את המצגת שלכם. צרו סביבת עבודה אישית כדי לשמור על התוכן שלכם מסודר.
+Feature_4_Title: שומרים על המותג שלכם
+Feature_4_Description: ערכו באופן חופשי את התמונות, הצבעים והאייקונים, כך שיתאימו למותג שלכם. צפו בתוכן שלכם מתעורר לחיים בעיצוב אפקטיבי שמתאים בדיוק למסר שלכם!
+# About-us
+About_us_Title: מי אנחנו
+About_us_Description: אנחנו סטארט-אפ במימון עצמי הממוקם בישראל. אנחנו יודעים שמצגות צריכות להיות מעוצבות יותר וקלות ליצירה, לכן בנינו כלי שבונה מצגת באופן אוטומטי - לפי התוכן שלך. בלי תבניות עיצוב מוכנות מראש, בלי למלא תיבות טקסט וובלי "תהליך יצירתי ארוך". כל מה שצריך לעשות הוא להקליד או להדביק את הטקסט שלך - ולראות כיצד התוכן שלך מתעורר לחיים והופך לשקף מעוצב. נסה עכשיו, ונשמח לדעת איך אנחנו יכולים לשפר אותו עבורך, כדי שהמצגות שלך ייראו טוב יותר.
+# Footer
+Menu_Quicklinks: קישורים
+#
+#
+#
+# Pricing Page Translations
+# Header
+Pricing_Header_Title: בחרו תכנית שמתאימה לכם
+Pricing_Header_Subtitle: קבלו יותר מהחשבון שלכם ועצבו מצגות לפי מה שמתאים לכם 
+BTN_Monthly: מחיר לחודש
+BTN_Annually: מחיר לשנה
+Text_Save_20: חסכון של 20%
+Text_Insteadof: במקום
+BTN_Try_14_Days: נסה חינם ל-14 יום!
+
+
+# Columns
+
+# FREE Plan
+Free_Plan_Title: חופשי
+Free_Plan_Description: מתאים לכל מי שרוצה ליצור מצגות קצרות ומעוצבות.
+Free_Plan_Price_month: 0
+Free_Plan_Price_year: 0
+
+# Basic Plan
+Basic_Plan_Title: אישי
+Basic_Plan_Description: מתאים למשתמש המקצועי, ליצירת מצגות ארוכות, שנראות מעולה.
+Basic_Plan_Price_month: 49
+Basic_Plan_Price_year: 39
+
+# Premium Plan
+Premium_Plan_Title: עסקי
+Premium_Plan_Description: מתאים לכל ארגון, ליצירת מצגות ממותגות מתוך קבצים קיימים באופן אוטומטי.
+Premium_Plan_Price_month: 175
+Premium_Plan_Price_year: 139
+
+
+# Columns
+# Headers and Details
+BTN_Register_Now: הרשם עכשיו!
+Time_month: לחודש
+Time_year: לשנה
+Currency_Local: ש"ח
+Billed_Monthly: מחיר במנוי מתחדש, לכל חודש. <br>ניתן לבטל בכל זמן.
+Billed_Yearly: מחיר לחודש, בתשלום מראש לשנה. <br>ניתן לבטל בכל זמן.
+Unlimited: ללא הגבלה
+Coming_Soon: בקרוב...
+Text_Free: חינם. <br> לתמיד.
+
+
+# Pricing Features
+# Section 1
+Section_1_Title_Account: סביבת עבודה
+#
+Num_of_Presentations: מצגות
+Num_of_Presentations_popup: כמות המצגות המקסימלית לשמירה בחשבון. צריך עוד מצגות? אפשר לדבר איתנו.
+Num_of_Slides: שקפים
+Num_of_Slides_popup: פופאפ מספר שקפים
+Auto_Save: שמירה אוטומטית
+Auto_Save_popup: פופאפ שמירה אוטומטית
+Download_PPTX: הורדה לקובץ PPTX
+Download_PPTX_popup: פופאפ הורדת PPTX
+Download_PDF: הורדה לקובץ PDF
+Download_PDF_popup: פופאפ הורדת PDF
+Download_Google_Slides: הורדה ל-Google Slides
+Download_Google_Slides_popup: שמירת גוגל סליידס פופאפ
+
+
+# Section 2
+Section_2_Title_Designs: כלי עיצוב
+#
+Designs_Basic: עיצובים בסיסיים
+Designs_Basic_popup: פופאפ עיצובים בסיסיים
+Designs_All_Premium: כל העיצובים
+Designs_All_Premium_popup: פופאפ עיצובים מתקדמים
+Layouts_Select: פריסת שקפים
+Layouts_Select_popup: פופאפ פריסת שקפים
+Library_Images: קטלוג תמונות
+Library_Images_popup: פופאפ ספריית תמונות
+Library_Icons: קטלוג אייקונים
+Library_Icons_popup: פופאפ אייקונים
+Preview_Full_Screen: תצוגה מקדימה
+Preview_Full_Screen_popup: פופאפ תצוגה מקדימה
+
+# Section 3
+Section_3_Title_Analysis: ניתוח תוכן
+#
+Auto_Content_Analysis: ניתוח תוכן אוטומטי
+Auto_Content_Analysis_popup: פופאפ ניתוח תוכן אוטומטי
+Auto_Slides_Split: פיצול שקפים אוטומטי
+Auto_Slides_Split_popup: פופאפ פיצול שקפים
+Multi_Language_Support: תמיכה בריבוי שפות
+Multi_Language_Support_popup: פופאפ ריבוי שפות
+Upload_DOCX: העלאת מסמך WORD
+Upload_DOCX_popup: ניתוח מסמך WORD פופאפ
+Upload_PPTX: העלאת מצגת PPTX
+Upload_PPTX_popup: פופאפ ניתוח מצגת קיימת
+Tables_Support: עיצוב טבלאות
+Tables_Support_popup: פופאפ טבלאות
+Graphs_Support: עיצוב גרפים
+Graphs_Support_popup: עיצוב גרפים פופאפ
+
+# Section 4
+Section_4_Title_Branding: המותג שלך
+#
+Colors_Templates: שינוי צבעים
+Colors_Templates_popup: פופאפ שינוי צבעים
+Upload_Logo: העלאת לוגו
+Upload_Logo_popup: פופאפ העלאת לוגו
+Upload_Images: העלאת תמונות
+Upload_Images_popup: פופאפ העלאת תמונות
+Upload_Icons: העלאת אייקונים
+Upload_Icons_popup: פופאפ העלאת אייקונים
+Slide_Number: מספר שקף
+Slide_Number_popup: מספרי שקפים פופאפ
+Slides_Footer: טקסט תחתון
+Slides_Footer_popup: פופאפ טקסט תחתון
+
+
+# FAQs
+FAQ: שאלות נפוצות
+Question_1: מי אתם, ולמה יצרתם את Slideo?
+Answer_1: בשנים האחרונות, אנחנו מלמדים ארגונים, עסקים ואנשי חינוך לבנות מצגות אפקטיביות.<br> אחרי שראיתו מקרוב ועזרנו לפתור את הבעיות של בניית מצגת אפקטיבית - החלטנו לבנות כלי אוטומטי שמטפל ברוב נקודות הקושי של בוני מצגות:</p><ul><li>עבודה עם תבניות מיושנות</li><li>שקפים עמוסים שקשה לקרוא</li><li>שקפים שנראים כמו "העתק / הדבק" ממסמכים</li><li>השקעה של זמן ארוך בתהליך עיצוב מצגת</li></ul>ועוד...<p>המטרה שלנו היא לאפשר לך להפוך כל תוכן לעיצוב אפקטיבי, בלחיצת כפתור.
+
+Question_2: יש לכם גרסה חינמית?
+Answer_2: כן, החשבון החופשי שלנו הוא חינם, לתמיד. אם יש לך צורך בעיצוב וניהול של יותר מצגות, או ביצירה אוטומטית של מצגת מעוצבת ממסמך WORD או מצגת PPTX - מומלץ לעבור אל אחד מהמסלולים בתשלום.
+
+Question_3: אם אני רוצה לשנות או לבטל מנוי?
+Answer_3: אם שילמת עבור מנוי שנתי במהלך 30 הימים האחרונים ואתה צריך לבטל את חשבונך, אתה זכאי להחזר יחסי. אנו נחזיר לך אוטומטית את היתרה מהרכישה המקורית שלך. אם יש לך שאלות, אתה תמיד יכול לפנות אל support@slideo.co.il
+
+Question_4: איך יוצרים אתכם קשר?
+Answer_4: למידע נוסף אפשר ליצור קשר באימייל contact@slideo.com ולצרף את השאלות או שלכם.
+
+
+# Registration Page - Open New Account
+Title_Open_New_Account: פתיחת חשבון חדש
+Subtitle_Open_New_Account: התחל ליצור מצגות מעוצבות בתוך כמה דקות.
+BTN_Open_New_Account: פתח חשבון
+Already_have_an_account: כבר יש לך חשבון?
+Log_in: התחברות
+
+
+# Login Page - Your Account
+Account_Log_in: התחברות לחשבון שלך
+Subtitle_Account_Log_in: חזור אל המצגות והעיצובים שלך, והמשך ליצור מצגות חדשות.
+Dont_have_an_account: אין לך חשבון?
+BTN_Sign_Up: הרשמה
+Forgot_password: שכחת סיסמה?
+
+
+# Password Reset
+Title_Reset_Password: סיסמה חדשה לחשבון שלך
+Text_Enter_your_Email: רשום את כתובת האימייל שלך, ונשלח לך קישור ליצירת סיסמה חדשה.
+BTN_Send_Password_Reset_Email: שלחו לי אימייל ליצירת סיסמה חדשה
+
+
+# Password Reset Email Sent
+Title_Email_Sent_Succesfully: האימייל נשלח בהצלחה!
+Text_Email_Sent_Succesfully:  שלחנו אימייל לכתובת שלך, עם קישור ליצירת סיסמה חדשה. הקישור בתוקף למשך 60 דקות / 
+Text_Email_Link_Expire: אם לא קיבלת אימייל, מומלץ לבדוק את תיבת הספאם או
+Text_Try_Again: לנסות שוב
+Text_hour: שעה
+
+
+#Pre-Editor Page - One Slide Form
+Title_Slide_New_Design: עיצוב שקף ראשון
+Subtitle_Slide_New_Design: רשמו כאן טקסט, והוא יהפוך לשקף מעוצב.
+Text_Slide_Title_Placeholder: צריך כותרת לשקף? (לא חובה)
+BTN_Create_Slide_Design: עצבו את השקף שלי
+
+
+# EDITOR PAGE
+My_Presentations: המצגות שלי
+All_Changes_Saved: כל השינויים נשמרו
+
+Got_Feedback: שלח לנו משוב!
+Help_Us_Improve: עזרו לנו להשתפר
+
+# Icons
+Please_Select_Icon: בחר אייקון בשקף<br> או <br>השתמש בתיבת החיפוש
+
+# Images
+Please_Select_Image: בחר תמונה בשקף<br> או <br>השתמש בתיבת החיפוש
+My_Images: התמונות שלי
+
+
+
+
+
+
+# MY ACCOUNT PAGE
+#
+Edit: לערוך
+Update: עדכן
+
+# Side Menu
+My_Profile: פרופיל
+My_Notifications: התראות ומיילים
+My_Plan: המנוי שלי
+My_Billing: תשלומים
+
+
+# Presentations Page
+Create_New_Presentation: התחל מצגת חדשה
+Slides_Amount: שקפים
+Created: נוצר
+
+
+#Profile 
+My_Thumbnail: תמונה
+My_Name: שם מלא
+
+
+# NOTIFICATIONS
+Product_Updates: שלחו לי עידכונים למייל
+Browser_Notifications: הצג התראות בדפדפן
+
+
+# UPGRADE BANNER
+Title_Need_More_Presentations: צריך עוד מצגות?
+Text_Upgrade_Account: שדרג את החשבון שלך וקבל יותר מצגות, כלי עיצוב ופיצ'רים מתקדמים!
+BTN_Upgrade_My_Account: שדרג את החשבון 
+
+
+
+
+
+
 Login: התחברות
 Log in: התחברות
 Language: שפה
-Home : בית
+Home : דף הבית
 Editor : עיצוב מצגת
 Contact : איש קשר
 Welcome : ברוך הבא
@@ -12,20 +264,20 @@ Pricing: מחירון
 Forgot password? : שכחת ססמא?
 Don't have an account? : אין לך חשבון?
 Already have an account?: כבר יש לך חשבון?
-Sign Up : הירשם
+
 Continue with Google : המשך עם גוגל
 Continue with Facebook : המשך עם פייסבוק
 OR : אוֹ
 Full name : שם מלא
 Email : אימייל
 Password : סיסמה
-Password again : סיסמא בשנית
+Password again : שוב את הסיסמה
 Coming soon : בקרוב
 Design a presentation automatically... : עצב מצגת באופן אוטומטי ...
 Your text becomes effective design - easily!: הטקסט שלך הופך לעיצוב יעיל - בקלות!
 Try free : נסה בחינם
 Auto design: עיצוב אוטומטי
-This will be the fastest presentation you have built.: זו תהיה המצגת הכי מהירה שבניתם.
+This will be the fastest presentation you have ever built.: זו תהיה המצגת הכי מהירה שלכם.
 Without compromising on a flexible and user-friendly design experience that will take the construction of your presentation to the next level.: מבלי להתפשר על חווית עיצוב גמישה וידידותית, שתיקח את בניית המצגת שלכם לרמה הבאה.
 Unique design templates: תבניות עיצוב ייחודיות
 Give your content visual meaning.: תנו לתוכן שלכם משמעות ויזואלית.
@@ -46,7 +298,14 @@ Our organization paid insane amounts, to make relatively simple presentations, u
 Ariel Segev : אריאל שגב
 I had no previous experience with building presentations, and I was able to easily create an excellent presentation, which looks like the end of the road - while having my lunch ... : לא היה לי ניסיון קודם עם בניית מצגות, והצלחתי ליצור בקלות מצגת מעולה, שנראית סוף הדרך - תוך כדי ארוחת הצהריים שלי...
 
-Presentation design made simple : עיצוב מצגת בקלות
+# Header
+Designed Presentations. Automatically. : עיצוב מצגת אוטומטי
+The easiest way to turn your content into stunning presentations and amaze your audience.<br>Get started now, no account required.: מערכת הבינה המלאכותית שלנו תהפוך את התוכן שלך למצגת מעוצבת.
+Try Now: התחל עכשיו
+
+
+We're a self-funded startup based in Israel. We know presentations should be more visually appealing and easy to create, so we built a tool to make your content - create your presentation. No templates, no placeholders and no need for "Long creative process". Simply type or paste your text - and watch your slides come to life, as our tool creates design around it. Give it a try, and let us know how we can improve it for you, so your presentations can look better. : אנחנו סטארט-אפ במימון עצמי הממוקם בישראל. אנחנו יודעים שמצגות צריכות להיות מעוצבות יותר וקלות ליצירה, לכן בנינו כלי שבונה מצגת באופן אוטומטי - לפי התוכן שלך. בלי תבניות עיצוב מוכנות מראש, בלי למלא תיבות טקסט וובלי "תהליך יצירתי ארוך". כל מה שצריך לעשות הוא להקליד או להדביק את הטקסט שלך - ולראות כיצד התוכן שלך מתעורר לחיים והופך לשקף מעוצב. נסה עכשיו, ונשמח לדעת איך אנחנו יכולים לשפר אותו עבורך, כדי שהמצגות שלך ייראו טוב יותר.
+About Us: מי אנחנו?
 
 
 # Add New Slide Popup
@@ -58,6 +317,8 @@ Create Slide: עיצוב אוטומטי
 Slides created: השקפים נוצרו
 All Changes Saved: כל השינויים נשמרו
 
+Add your content...: הוסף את תוכן השקף...
+Slide title: כותרת השקף
 New Presentation: מצגת חדש
 Preview: תצוגה מקדימה
 Download: הורדה
@@ -90,4 +351,5 @@ Billing: חשבוניות ותשלום
 email notifications: התראות אימייל
 Logout : להתנתק
 
+Create slide: עצבו את השקף שלי
 

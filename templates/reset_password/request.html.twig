@@ -7,11 +7,11 @@
   <footer class="footer mt-0">
     <div class="footer_top px-0 mt-0">
       <div class="container">
-        <div class="row justify-content-center gallery-item">
+        <div class="dir-rtl row justify-content-center gallery-item">
           <div class="col-12 p-5">
             <p style="text-align:center">
             </p>
-            <h1 class="text-center">Reset your password</h1>
+            <h1 class="text-center">{% trans %}Title_Reset_Password{% endtrans %}</h1>
           </div>
 
           {% if app.request.hasPreviousSession %}
@@ -22,11 +22,10 @@
           {{ form_start(requestForm, {'attr': {'class': 'col-10 col-sm-6 col-lg-4 text-center'}})  }}
           {{ form_row(requestForm.email, {'attr': {'class': 'form-control mb-1'}}) }}
           <div>
-            <small>
-              Enter your email address and we we will send you a link to reset your password.
+            <small>{% trans %}Text_Enter_your_Email{% endtrans %}
             </small>
           </div>
-          <button type="submit" class="btn btn-info col-12 mt-2">Send password reset email</button>
+          <button type="submit" class="btn btn-info col-12 mt-2">{% trans %}BTN_Send_Password_Reset_Email{% endtrans %}</button>
 
           {{ form_end(requestForm) }}
 
