@@ -203,9 +203,13 @@ class PresentationService
 
         $currentDownloadId = $jsonFile['current_download_id'];
 
-        $this->saveBase64File("presentations/$uniquefolder/$now.pptx", $jsonFile['pptx']);
-        $this->saveBase64File("presentations/$uniquefolder/$now.png", $jsonFile['png']);
-        $this->saveBase64File("presentations/$uniquefolder/$now.pdf", $jsonFile['pdf']);
+        $name = $jsonFile['name'];
+        $unique1 = uniqid();
+        $unique2 = uniqid();
+        $unique3 = uniqid();
+        $this->saveBase64File("presentations/$uniquefolder/$name-$unique1.pptx", $jsonFile['pptx']);
+        $this->saveBase64File("presentations/$uniquefolder/$name-$unique2.png", $jsonFile['png']);
+        $this->saveBase64File("presentations/$uniquefolder/$name-$unique3.pdf", $jsonFile['pdf']);
 
         /** @var DownloadPresentation $downloadPresentation */
         $downloadPresentation = $this->em
@@ -217,9 +221,9 @@ class PresentationService
             ->getQuery()
             ->getOneOrNullResult();
 
-        $downloadPresentation->setPptxFile("/presentations/$uniquefolder/$now.pptx");
-        $downloadPresentation->setPdfFile("/presentations/$uniquefolder/$now.pdf");
-        $downloadPresentation->setPrevFile("/presentations/$uniquefolder/$now.png");
+        $downloadPresentation->setPptxFile("/presentations/$uniquefolder/$name-$unique1.pptx");
+        $downloadPresentation->setPrevFile("/presentations/$uniquefolder/$name-$unique2.png");
+        $downloadPresentation->setPdfFile("/presentations/$uniquefolder/$name-$unique3.pdf");
         $downloadPresentation->setCompleted(true);
 
         $this->em->persist($downloadPresentation);
