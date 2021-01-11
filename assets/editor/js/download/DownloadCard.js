@@ -3,9 +3,9 @@ import apiService from "Editor/js/utils/apiService";
 import preloader from "Editor/js/components/preloader";
 
 
-export default function DownloadCard({ downloadCardDetail, presentationId }) {
+export default function DownloadCard({ downloadCardDetail, presentationId, check = false }) {
 
-    if (!downloadCardDetail.completed)
+    if (check && !downloadCardDetail.completed)
         setInterval(() => {
             apiService({
                 url: "/api/presentation/download/get/" + presentationId + "/" + downloadCardDetail.id,
@@ -20,7 +20,6 @@ export default function DownloadCard({ downloadCardDetail, presentationId }) {
                 }
             });
         }, 5000);
-
 
     const pptxButton = downloadCardDetail.pptxFile ?
         <a href={downloadCardDetail.pptxFile} target="_blank">

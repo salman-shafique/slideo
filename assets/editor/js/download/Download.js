@@ -17,13 +17,17 @@ export default function Download({ presentationId }) {
                 success: (downloadPresentations) => {
                     if (downloadPresentations.length > 0) {
                         const tmp = [];
+                        let check = false;
                         downloadPresentations.forEach((downloadCardDetail, i) => {
                             tmp.push(
                                 <DownloadCard
                                     downloadCardDetail={downloadCardDetail}
                                     presentationId={presentationId}
-                                    key={i} />
+                                    key={i}
+                                    check={!downloadCardDetail.completed && !check} />
                             );
+                            if (!downloadCardDetail.completed && !check)
+                                check = true;
                         });
                         setDownloadCards(tmp);
                     }
