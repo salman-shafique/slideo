@@ -86,7 +86,6 @@ class Slide
 
     /**
      * @ORM\OneToOne(targetEntity=Content::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $background;
 
