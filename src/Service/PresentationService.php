@@ -77,6 +77,7 @@ class PresentationService
         $this->em->flush();
     }
 
+
     public function saveSlide(Request $request)
     {
         $slideJson = $request->request->get("slide");
@@ -100,9 +101,14 @@ class PresentationService
         // Color template
         $colorTemplate = $slide->getColorTemplate();
         $this->updateColorTemplate($slideJson['colorTemplate'], $colorTemplate);
+        // Background
+        $background = $slide->getBackground();
+        $background->setData($slideJson['background']['data']);
+        $this->em->persist($background);
 
         $newShapes = [];
         if ($slideJson['style']['id'] != $slide->getStyle()->getId()) {
+            // The style is changed on the frontend
             // Style
             /** @var StyleRepository $styleRepository */
             $styleRepository = $this->em->getRepository(Style::class);
@@ -121,7 +127,6 @@ class PresentationService
                 $slide->addShape($newShape);
 
                 $this->em->persist($newShape);
-                array_push($newShapes, $this->serializer->normalize($newShape));
             }
         } else {
             // Shapes
@@ -131,13 +136,14 @@ class PresentationService
                     $slide->addShape($newShape);
                     $this->em->persist($newShape);
                 }
-
-                array_push($newShapes, $this->serializer->normalize($newShape));
             }
         }
 
         $this->em->persist($slide);
         $this->em->flush();
+
+        foreach ($slide->getShapes() as $shape)
+            array_push($newShapes, $this->serializer->normalize($shape));
 
         return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
     }

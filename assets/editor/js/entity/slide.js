@@ -351,6 +351,7 @@ export default function slide(slideId) {
         if (!chunkDesigns[String(slideData.style.id)]) {
             slideData.style.shapes = slideData.shapes;
             slideData.style.colorTemplate = slideData.colorTemplate;
+            slideData.style.background = slideData.background;
             chunkDesigns[String(slideData.style.id)] = Object.assign({}, slideData.style);
         }
 
@@ -360,6 +361,7 @@ export default function slide(slideId) {
         slideData.style = chunkDesigns[String(designData.id)];
         slideData.shapes = chunkDesigns[String(designData.id)].shapes;
         slideData.colorTemplate = chunkDesigns[String(designData.id)].colorTemplate;
+        slideData.background = chunkDesigns[String(designData.id)].background;
 
         this.updateOnPage();
     }
