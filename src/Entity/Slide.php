@@ -85,7 +85,8 @@ class Slide
     private $isActive = true;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Content::class)
+     * @ORM\OneToOne(targetEntity=Content::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $background;
 
