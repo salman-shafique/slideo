@@ -10,36 +10,36 @@
 {% endblock %}
 
 {% block body %}
-  <div id="Section_Pricing" class="row no-margin section">
+<div id="Section_Pricing" class="row no-margin section">
     <div class="container">
       <div class="row no-margin">
         <div class="offset-lg-3 col-lg-6 offset-md-2 col-md-8 col-12 no-padding medium-bottom-margin">
           <div class="medium-bottom-margin">
-            <h1 class="section-header centered-contents">{% trans %}Choose your plan{% endtrans %}</h1>
-            <p class="opening-paragraph  centered-contents medium-bottom-margin">{% trans %}All plans include all video editing features, auto subtitles, unlimited projects, and unlimited rendering{% endtrans %}</p>
+            <h1 class="section-header centered-contents">{% trans %}Pricing_Header_Title{% endtrans %}</h1>
+            <p class="opening-paragraph  centered-contents medium-bottom-margin">{% trans %}Pricing_Header_Subtitle{% endtrans %}</p>
           </div>
         </div>
 
         <div class="col-12 medium-bottom-margin">
           <div id="PlanDurationToggle" class="toggle-container">
             <div class="toggle-sub-container">
-              <div id="Opt_Monthly" class="toggle-option active">
-                <span class="toggle-text-main clamp-2">{% trans %}Monthly{% endtrans %}</span>
-              </div>
               <div id="Opt_Annually" class="toggle-option">
-                <span class="toggle-text-main clamp-2">{% trans %}Annually{% endtrans %}</span>
-                <span class="toggle-text-sub clamp-2">{% trans %}Save 20%{% endtrans %}</span>
+                <span class="toggle-text-main clamp-2">{% trans %}BTN_Annually{% endtrans %}</span>
+                <span class="toggle-text-sub clamp-2">{% trans %}Text_Save_20{% endtrans %}</span>
+              </div>
+              <div id="Opt_Monthly" class="toggle-option active">
+                <span class="toggle-text-main clamp-2">{% trans %}BTN_Monthly{% endtrans %}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div id="Pricing_Plans_Resp" class="col-12 medium-top-margin d-xl-none d-block">
+<!--          <div id="Pricing_Plans_Resp" class="col-12 medium-top-margin d-xl-none d-block">
           <div class="resp-plan medium-bottom-margin collapsed">
             <div class="row">
               <div class="col-lg-9 col-md-8 col-6 parameter">
                 <div class="vertically-centered">
-                  <strong>{% trans %}Personal{% endtrans %}</strong>
+                  <strong>{% trans %}Free_Plan_Title{% endtrans %}</strong>
                 </div>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
@@ -47,7 +47,7 @@
                   <strong>$30</strong>
                   <i class="fas fa-sort-down plan-toggle vertically-centered"></i>
                   <p class="text-grey plan-dur small-top-margin">/
-                    {% trans %}month{% endtrans %}</p>
+                    {% trans %}Time_month{% endtrans %}</p>
                 </div>
               </div>
             </div>
@@ -58,12 +58,12 @@
             </div><br class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-12">
-                <p class="text-grey">{% trans %}The Basics{% endtrans %}</p>
+                <p class="text-grey">{% trans %}Section_1_Title_Account{% endtrans %}</p>
               </div>
             </div><hr class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>{% trans %}10 mins{% endtrans %}</p>
@@ -71,28 +71,29 @@
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div><br class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-12">
-                <p class="text-grey">{% trans %}The Basics{% endtrans %}</p>
+                <p class="text-grey">{% trans %}Section_1_Title_Account{% endtrans %}</p>
               </div>
-            </div><hr class="plan-details collapse">
+            </div>
+            <hr class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -102,7 +103,7 @@
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -112,7 +113,7 @@
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -133,7 +134,7 @@
                   <strong>$120</strong>
                   <i class="fas fa-sort-down plan-toggle vertically-centered"></i>
                   <p class="text-grey plan-dur small-top-margin">/
-                    {% trans %}month{% endtrans %}</p>
+                    {% trans %}Time_month{% endtrans %}</p>
                 </div>
               </div>
             </div>
@@ -144,41 +145,41 @@
             </div><br class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-12">
-                <p class="text-grey">The Basics</p>
+                <p class="text-grey">Section_1_Title_Account</p>
               </div>
             </div><hr class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div><br class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-12">
-                <p class="text-grey">{% trans %}The Basics{% endtrans %}</p>
+                <p class="text-grey">{% trans %}Section_1_Title_Account{% endtrans %}</p>
               </div>
             </div><hr class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -188,7 +189,7 @@
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -198,7 +199,7 @@
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -218,8 +219,7 @@
                 <div class="vertically-centered">
                   <strong>$175</strong>
                   <i class="fas fa-sort-down plan-toggle vertically-centered"></i>
-                  <p class="text-grey plan-dur small-top-margin">/{% trans %}
-                    month{% endtrans %}</p>
+                  <p class="text-grey plan-dur small-top-margin">/{% trans %}Time_month{% endtrans %}</p>
                 </div>
               </div>
             </div>
@@ -230,41 +230,41 @@
             </div><br class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-12">
-                <p class="text-grey">{% trans %}The Basics{% endtrans %}</p>
+                <p class="text-grey">{% trans %}Section_1_Title_Account{% endtrans %}</p>
               </div>
             </div><hr class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
-                <p>{% trans %}10 mins{% endtrans %}</p>
+                <p>{% trans %}1{% endtrans %}</p>
               </div>
             </div><br class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-12">
-                <p class="text-grey">{% trans %}The Basics{% endtrans %}</p>
+                <p class="text-grey">{% trans %}Section_1_Title_Account{% endtrans %}</p>
               </div>
             </div><hr class="plan-details collapse">
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -274,7 +274,7 @@
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -284,7 +284,7 @@
             </div>
             <div class="row plan-details collapse">
               <div class="col-lg-9 col-md-8 col-6 parameter">
-                <p>{% trans %}Video Length{% endtrans %}</p>
+                <p>{% trans %}Num_of_Presentations{% endtrans %}</p>
               </div>
               <div class="col-lg-3 col-md-4 col-6 value">
                 <p>
@@ -294,198 +294,213 @@
             </div>
           </div>
         </div>
+-->
 
-        <div class="col-12 medium-top-margin d-xl-block d-none">
+
+
+        <div class="rtl col-12 medium-top-margin d-xl-block d-none">
           <div id="Pricing_Plans" class="panel pricing-table">
             <div class="pricing-plan">
               <div class="price-head small-bottom-margin">
                 <img src="/Images/media.png" alt="" class="pricing-img">
-                <h2 class="pricing-header small-bottom-margin clamp-2">{% trans %}PERSONAL{% endtrans %}</h2>
+                <h2 class="pricing-header small-bottom-margin clamp-2">{% trans %}Free_Plan_Title{% endtrans %}</h2>
               </div>
               <div class="plan-desc clamp-4">
-                <p class="price-plan-description no-margin">{% trans %}Perfect for one off quick projects under 10 minutes and 50MB with watermark{% endtrans %}</p>
+                <p class="price-plan-description no-margin">{% trans %}Free_Plan_Description{% endtrans %}</p>
               </div>
               <div class="price-details">
                 <span class="pricing-price">
-                  <sup class="currency">USD</sup>
-                  <span class="amount amt-monthly">30</span>
-                  <span class="amount amt-annually collapse">20</span>
-                  <sub class="plan-duration horizontal-text-clip">/{% trans %}mo.{% endtrans %}</sub>
-                  <span class="original-price annually collapse">USD 30</span>
+                  <sup class="currency">{% trans %}Currency_Local{% endtrans %}</sup>
+                  <span class="amount amt-monthly">0</span>
+                  <span class="amount amt-annually collapse">0</span>
+                  <sub class="plan-duration horizontal-text-clip">/{% trans %}Time_month{% endtrans %}</sub>
+                  <!-- <span class="original-price annually collapse">{% trans %}Currency_Local{% endtrans %} 100</span> -->
                 </span>
-                <p class="price-summary small-bottom-margin monthly-summary">{% trans %}Billed USD 30 per user monthly{% endtrans %}</p>
-                <p class="price-summary small-bottom-margin annually-summary collapse">{% trans %}Billed USD 240 per user annually{% endtrans %}</p>
+                <p class="price-summary small-bottom-margin monthly-summary">{% trans %}Text_Free{% endtrans %}</p>
+                <p class="price-summary small-bottom-margin annually-summary collapse">{% trans %}Text_Free{% endtrans %}</p>
               </div>
 
               <a href="{{path('app_register')}}">
-                <button class="btn btn-primary btn-full price-btn horizontal-text-clip">{% trans %}Register Now!{% endtrans %}</button>
-              </a>
-            </div>
-
-            <div class="pricing-plan">
-              <div class="price-head small-bottom-margin">
-                <img src="/Images/intrinsic.png" alt="" class="pricing-img">
-                <h2 class="pricing-header small-bottom-margin clamp-2">{% trans %}SMALL TEAM{% endtrans %}</h2>
-              </div>
-              <div class="plan-desc clamp-4">
-                <p class="price-plan-description no-margin">{% trans %}For individuals and small teams who need a simple online video editing{% endtrans %}</p>
-              </div>
-              <div class="price-details">
-                <span class="pricing-price">
-                  <sup class="currency">USD</sup>
-                  <span class="amount amt-monthly">120</span>
-                  <span class="amount amt-annually collapse">80</span>
-                  <sub class="plan-duration horizontal-text-clip">/{% trans %}mo.{% endtrans %}</sub>
-                  <span class="original-price annually collapse">USD 120</span>
-                </span>
-                <p class="price-summary small-bottom-margin monthly-summary">{% trans %}Billed USD 120 per user monthly{% endtrans %}</p>
-                <p class="price-summary small-bottom-margin annually-summary collapse">{% trans %}Billed USD 960 per user annually{% endtrans %}</p>
-              </div>
-
-              <a href="{{path('app_register')}}">
-                <button class="btn btn-primary btn-full price-btn horizontal-text-clip">{% trans %}Register Now!{% endtrans %}</button>
+                <button class="btn btn-primary btn-full price-btn horizontal-text-clip">{% trans %}BTN_Register_Now{% endtrans %}</button>
               </a>
             </div>
 
             <div class="pricing-plan highlight">
               <div class="price-head small-bottom-margin">
-                <img src="/Images/yellowMedia.png" alt="" class="pricing-img">
-                <h2 class="pricing-header small-bottom-margin clamp-2">{% trans %}ENTERPRISE{% endtrans %}</h2>
+                <img src="/Images/intrinsic.png" alt="" class="pricing-img">
+                <h2 class="pricing-header small-bottom-margin clamp-2">{% trans %}Basic_Plan_Title{% endtrans %}</h2>
               </div>
-
               <div class="plan-desc clamp-4">
-                <p class="price-plan-description no-margin">{% trans %}For larger teams who need advanced brand and collaboration control{% endtrans %}</p>
+                <p class="price-plan-description no-margin">{% trans %}Basic_Plan_Description{% endtrans %}</p>
               </div>
               <div class="price-details">
                 <span class="pricing-price">
-                  <sup class="currency">USD</sup>
-                  <span class="amount amt-monthly">175</span>
-                  <span class="amount amt-annually collapse">150</span>
-                  <sub class="plan-duration horizontal-text-clip">/{% trans %}mo.{% endtrans %}</sub>
-                  <span class="original-price annually collapse">USD 175</span>
+                  <sup class="currency">{% trans %}Currency_Local{% endtrans %}</sup>
+                  <span class="amount amt-monthly">49</span>
+                  <span class="amount amt-annually collapse">{% trans %}Basic_Plan_Price_year{% endtrans %}</span>
+                  <sub class="plan-duration horizontal-text-clip">/{% trans %}Time_month{% endtrans %}</sub>
+                  <span class="original-price annually collapse">{% trans %}Text_Insteadof{% endtrans %} {% trans %}Basic_Plan_Price_month{% endtrans %} {% trans %}Currency_Local{% endtrans %}  </span>
                 </span>
-                <p class="price-summary small-bottom-margin monthly-summary">{% trans %}Billed USD 175 per user monthly{% endtrans %}</p>
-                <p class="price-summary small-bottom-margin annually-summary collapse">{% trans %}Billed USD 18K per user annually{% endtrans %}</p>
+                <p class="price-summary small-bottom-margin monthly-summary">{% trans %}Billed_Monthly{% endtrans %}</p>
+                <p class="price-summary small-bottom-margin annually-summary collapse">{% trans %}Billed_Yearly{% endtrans %}</p>
               </div>
 
               <a href="{{path('app_register')}}">
-                <button class="btn btn-primary btn-full price-btn horizontal-text-clip">{% trans %}Register Now!{% endtrans %}</button>
+                <button class="btn btn-primary btn-full price-btn horizontal-text-clip">{% trans %}BTN_Try_14_Days{% endtrans %}</button>
+              </a>
+            </div>
+
+            <div class="pricing-plan">
+              <div class="price-head small-bottom-margin">
+                <img src="/Images/yellowMedia.png" alt="" class="pricing-img">
+                <h2 class="pricing-header small-bottom-margin clamp-2">{% trans %}Premium_Plan_Title{% endtrans %}</h2>
+              </div>
+
+              <div class="plan-desc clamp-4">
+                <p class="price-plan-description no-margin">{% trans %}Premium_Plan_Description{% endtrans %}</p>
+              </div>
+              <div class="price-details">
+                <span class="pricing-price">
+                  <sup class="currency">{% trans %}Currency_Local{% endtrans %}</sup>
+                  <span class="amount amt-monthly">{% trans %}Premium_Plan_Price_month{% endtrans %}</span>
+                  <span class="amount amt-annually collapse">{% trans %}Premium_Plan_Price_year{% endtrans %}</span>
+                  <sub class="plan-duration horizontal-text-clip">/{% trans %}Time_month{% endtrans %}</sub>
+                  <span class="original-price annually collapse">{% trans %}Text_Insteadof{% endtrans %} {% trans %}Premium_Plan_Price_month{% endtrans %} {% trans %}Currency_Local{% endtrans %} </span>
+                </span>
+                <p class="price-summary small-bottom-margin monthly-summary">{% trans %}Billed_Monthly{% endtrans %}</p>
+                <p class="price-summary small-bottom-margin annually-summary collapse">{% trans %}Billed_Yearly{% endtrans %}</p>
+              </div>
+              <a href="{{path('app_register')}}">
+                <button class="btn btn-primary btn-full price-btn horizontal-text-clip">{% trans %}BTN_Try_14_Days{% endtrans %}</button>
               </a>
             </div>
           </div>
         </div>
+
+
         <div id="Price_Plans_Table" class="col-12 d-xl-block d-none">
-          <div class="row no-margin header-row">
-            <div class="col-3 row-header">{% trans %}The Basics{% endtrans %}</div>
+          <div class="rtl row no-margin header-row">
+            <div class="col-3 row-header">{% trans %}Section_1_Title_Account{% endtrans %}</div>
             <div class="col-3 row-header"></div>
             <div class="col-3 row-header"></div>
             <div class="col-3 row-header highlight"></div>
           </div>
-          <div class="row no-margin">
+          <div class="rtl row no-margin">
             <div class="col-3 parameter">
-              <span class="table-content">{% trans %}Video Length{% endtrans %}</span>
-              <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
+              <span class="table-content">{% trans %}Num_of_Presentations{% endtrans %}</span>
+              <span data-toggle="tooltip" title="{% trans %}Num_of_Presentations_popup{% endtrans %}" data-placement="bottom">
                 <i class="fas fa-info-circle content-info"></i>
               </span>
             </div>
             <div class="col-3">
-              <span class="table-content">{% trans %}10 mins{% endtrans %}</span>
+              <span class="table-content">{% trans %}1{% endtrans %}</span>
             </div>
             <div class="col-3">
-              <span class="table-content">{% trans %}25 mins{% endtrans %}</div>
+              <span class="table-content">{% trans %}20{% endtrans %}</div>
               <div class="col-3">
-                <span class="table-content">{% trans %}2 hours{% endtrans %}</div>
+                <span class="table-content">{% trans %}100{% endtrans %}</div>
               </div>
-              <div class="row no-margin">
+              <div class="rtl row no-margin">
                 <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Projects{% endtrans %}</span>
+                  <span class="table-content">{% trans %}Num_of_Slides{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Num_of_Slides_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}25{% endtrans %}</span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}1,000{% endtrans %}</span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Unlimited{% endtrans %}</span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Auto_Save{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Auto_Save_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Download_PPTX{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Download_PPTX_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Download_PDF{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Download_PDF_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"><i class="fas fa-check"></i></span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Download_Google_Slides{% endtrans %}</span>
                   <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
                     <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
-                  <span class="table-content">{% trans %}unlimited{% endtrans %}</span>
+                  <span class="table-content"></span>
                 </div>
                 <div class="col-3">
-                  <span class="table-content">{% trans %}unlimited{% endtrans %}</span>
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}</span>
                 </div>
                 <div class="col-3">
-                  <span class="table-content">{% trans %}unlimited{% endtrans %}</span>
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}</span>
                 </div>
               </div>
-              <div class="row no-margin">
-                <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Storage{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
-                    <i class="fas fa-info-circle content-info"></i>
-                  </span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">2 GB</span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">20 GB</span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">100 GB</span>
-                </div>
-              </div>
-              <div class="row no-margin">
-                <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Downloads{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
-                    <i class="fas fa-info-circle content-info"></i>
-                  </span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">{% trans %}unlimited{% endtrans %}</span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">{% trans %}unlimited{% endtrans %}</span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">{% trans %}unlimited{% endtrans %}</span>
-                </div>
-              </div>
-              <div class="row no-margin header-row">
-                <div class="col-3 row-header">{% trans %}Subtitles{% endtrans %}</div>
+              <div class="rtl row no-margin header-row">
+                <div class="col-3 row-header">{% trans %}Section_2_Title_Designs{% endtrans %}</div>
                 <div class="col-3 row-header"></div>
                 <div class="col-3 row-header"></div>
                 <div class="col-3 row-header highlight"></div>
               </div>
-              <div class="row no-margin">
+              <div class="rtl row no-margin">
                 <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Auto Subtitles{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
+                  <span class="table-content">{% trans %}Colors_Templates{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Colors_Templates_popup{% endtrans %}" data-placement="bottom">
                     <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
                     <i class="fas fa-check"></i>
-                  </span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">
-                    <i class="fas fa-minus"></i>
-                  </span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="row no-margin">
-                <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}SRT Subtitles Downloads{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
-                    <i class="fas fa-info-circle content-info"></i>
-                  </span>
-                </div>
-                <div class="col-3">
-                  <span class="table-content">
-                    <i class="fas fa-minus"></i>
                   </span>
                 </div>
                 <div class="col-3">
@@ -499,21 +514,21 @@
                   </span>
                 </div>
               </div>
-              <div class="row no-margin">
+<div class="rtl row no-margin">
                 <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Video Localization Tools{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
+                  <span class="table-content">{% trans %}Layouts_Select{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Layouts_Select_popup{% endtrans %}" data-placement="bottom">
                     <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-check"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-check"></i>
                   </span>
                 </div>
                 <div class="col-3">
@@ -522,22 +537,137 @@
                   </span>
                 </div>
               </div>
-              <div class="row no-margin header-row">
-                <div class="col-3 row-header">{% trans %}Brand Tools{% endtrans %}</div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Library_Images{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Library_Images_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Library_Icons{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Library_Icons_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Preview_Full_Screen{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Preview_Full_Screen_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Designs_Basic{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Designs_Basic_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Designs_All_Premium{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Designs_All_Premium_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content"></span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              
+              <div class="rtl row no-margin header-row">
+                <div class="col-3 row-header">{% trans %}Section_3_Title_Analysis{% endtrans %}</div>
                 <div class="col-3 row-header"></div>
                 <div class="col-3 row-header"></div>
                 <div class="col-3 row-header highlight"></div>
               </div>
-              <div class="row no-margin">
+              <div class="rtl row no-margin">
                 <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Brand Kit{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
+                  <span class="table-content">{% trans %}Auto_Content_Analysis{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Auto_Content_Analysis_popup{% endtrans %}" data-placement="bottom">
                     <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-check"></i>
                   </span>
                 </div>
                 <div class="col-3">
@@ -551,21 +681,21 @@
                   </span>
                 </div>
               </div>
-              <div class="row no-margin">
+              <div class="rtl row no-margin">
                 <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Custom Colors{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
+                  <span class="table-content">{% trans %}Auto_Slides_Split{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Auto_Slides_Split_popup{% endtrans %}" data-placement="bottom">
                     <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-check"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-check"></i>
                   </span>
                 </div>
                 <div class="col-3">
@@ -574,21 +704,21 @@
                   </span>
                 </div>
               </div>
-              <div class="row no-margin">
+              <div class="rtl row no-margin">
                 <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Custom Fonts{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
+                  <span class="table-content">{% trans %}Multi_Language_Support{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Multi_Language_Support_popup{% endtrans %}" data-placement="bottom">
                     <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-check"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                     <i class="fas fa-check"></i>
                   </span>
                 </div>
                 <div class="col-3">
@@ -597,26 +727,202 @@
                   </span>
                 </div>
               </div>
-              <div class="row no-margin">
+              <div class="rtl row no-margin">
                 <div class="col-3 parameter">
-                  <span class="table-content">{% trans %}Custom Watermarks{% endtrans %}</span>
-                  <span data-toggle="tooltip" title="{% trans %}Popover Text{% endtrans %}" data-placement="bottom">
+                  <span class="table-content">{% trans %}Upload_DOCX{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Upload_DOCX_popup{% endtrans %}" data-placement="bottom">
                     <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Upload_PPTX{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Upload_PPTX_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
-                    <i class="fas fa-minus"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Tables_Support{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Tables_Support_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Graphs_Support{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Graphs_Support_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+              </div>
+
+              <div class="rtl row no-margin header-row">
+                <div class="col-3 row-header">{% trans %}Section_4_Title_Branding{% endtrans %}</div>
+                <div class="col-3 row-header"></div>
+                <div class="col-3 row-header"></div>
+                <div class="col-3 row-header highlight"></div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Upload_Logo{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Upload_Logo_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
                   </span>
                 </div>
                 <div class="col-3">
                   <span class="table-content">
                     <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Upload_Images{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Upload_Images_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Upload_Icons{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Upload_Icons_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+                            <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Slide_Number{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Upload_Icons_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="rtl row no-margin">
+                <div class="col-3 parameter">
+                  <span class="table-content">{% trans %}Slides_Footer{% endtrans %}</span>
+                  <span data-toggle="tooltip" title="{% trans %}Slides_Footer_popup{% endtrans %}" data-placement="bottom">
+                    <i class="fas fa-info-circle content-info"></i>
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
+                  </span>
+                </div>
+                <div class="col-3">
+                  <span class="table-content">{% trans %}Coming_Soon{% endtrans %}
                   </span>
                 </div>
               </div>
@@ -624,12 +930,13 @@
           </div>
         </div>
       </div>
-      <div id="Section_FAQ" class="row no-margin">
+
+      <div id="Section_FAQ" class="row no-margin ">
         <div class="container">
-          <div class="row">
+          <div class="rtl row">
             <div class="col-lg-4 col-12">
               <div class="FAQ-title">
-                <h2>{% trans %}Frequently Asked Questions{% endtrans %}</h2>
+                <h2>{% trans %}FAQ{% endtrans %}</h2>
               </div>
             </div>
             <div class="col-lg-8 col-12">
@@ -638,33 +945,27 @@
                   <div class="panel-heading p-3 mb-3" role="tab" id="heading0">
                     <h3 class="panel-title">
                       <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0">
-                        {% trans %}Who are you and why did you create VEED?{% endtrans %}<i class="fas fa-chevron-down"></i>
+                        {% trans %}Question_1{% endtrans %} <i class="fas fa-chevron-down"></i>
                       </a>
                     </h3>
                   </div>
                   <div id="collapse0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading0">
                     <div class="panel-body px-3 mb-4">
-                      <p>{% trans %}With Solodev CMS, you and your visitors will benefit from a finely-tuned technology stack that drives the highest levels of site performance, speed and engagement - and contributes more to your bottom line. Our users fell in love with:{% endtrans %}</p>
-                      <ul>
-                        <li>{% trans %}Light speed deployment on the most secure and stable cloud infrastructure available on the market.{% endtrans %}</li>
-                        <li>{% trans %}Scalability – pay for what you need today and add-on options as you grow.{% endtrans %}</li>
-                        <li>{% trans %}All of the bells and whistles of other enterprise CMS options but without the design limitations - this CMS simply lets you realize your creative visions.{% endtrans %}</li>
-                        <li>{% trans %}Amazing support backed by a team of Solodev pros – here when you need them.{% endtrans %}</li>
-                      </ul>
-                    </div>
+                      <p>{% trans %}Answer_1{% endtrans %}</p>
+                      </div>
                   </div>
                 </div>
                 <div class="panel panel-default line">
                   <div class="panel-heading p-3 mb-3" role="tab" id="heading1">
                     <h3 class="panel-title">
                       <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                        {% trans %}Why Should I pay you?{% endtrans %}<i class="fas fa-chevron-down"></i>
+                        {% trans %}Question_2{% endtrans %} <i class="fas fa-chevron-down"></i>
                       </a>
                     </h3>
                   </div>
                   <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
                     <div class="panel-body px-3 mb-4">
-                      <p>{% trans %}Our software is expensive to run and maintain. Our whole team is currently earning around the minimum wage in London, and we’re investing our time and energy into building and running tools that make a difference to content creators. If you’re trying to save money, feel free to check out our free plan.{% endtrans %}</p>
+                      <p>{% trans %}Answer_2{% endtrans %}</p>
                     </div>
                   </div>
                 </div>
@@ -672,13 +973,13 @@
                   <div class="panel-heading p-3 mb-3" role="tab" id="heading2">
                     <h3 class="panel-title">
                       <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                        {% trans %}What does the Watermark look like?{% endtrans %}<i class="fas fa-chevron-down"></i>
+                        {% trans %}Question_3{% endtrans %} <i class="fas fa-chevron-down"></i>
                       </a>
                     </h3>
                   </div>
                   <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
                     <div class="panel-body px-3 mb-4">
-                      <p>{% trans %}The watermark is shown in the corner of videos that are created on the free plan. As a self-funded startup, this watermark is important in helping us grow. But as you’ll see below, it doesn’t distract from your content. To remove the watermark, you can choose one of our PRO plans.{% endtrans %}</p>
+                      <p>{% trans %}Answer_3{% endtrans %}</p>
                     </div>
                   </div>
                 </div>
@@ -686,13 +987,13 @@
                   <div class="panel-heading p-3 mb-3" role="tab" id="heading3">
                     <h3 class="panel-title">
                       <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                        {% trans %}What is Brand Kit?{% endtrans %}<i class="fas fa-chevron-down"></i>
+                        {% trans %}Question_4{% endtrans %} <i class="fas fa-chevron-down"></i>
                       </a>
                     </h3>
                   </div>
                   <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
                     <div class="panel-body px-3 mb-4">
-                      <p>{% trans %}Brand Kit allows you to add custom brand fonts, colors, images, and watermarks and reuse them across all projects effortlessly.{% endtrans %}</p>
+                      <p>{% trans %}Answer_4{% endtrans %}</p>
                     </div>
                   </div>
                 </div>

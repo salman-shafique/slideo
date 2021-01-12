@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {% trans %}Log in{% endtrans %}
+  {% trans %}Account_Log_in{% endtrans %}
 {% endblock %}
 
 
@@ -9,11 +9,12 @@
   <footer class="footer mt-0">
     <div class="footer_top px-0 mt-0">
       <div class="container">
-        <div class="row justify-content-center gallery-item">
+        <div class="dir-rtl row justify-content-center gallery-item">
           <div class="col-12 p-5">
             <p style="text-align:center">
             </p>
-            <h1 class="text-center">{% trans %}Log in{% endtrans %}</h1>
+            <h1 class="text-center">{% trans %}Account_Log_in{% endtrans %}</h1>
+            <p class="text-center">{% trans %}Subtitle_Account_Log_in{% endtrans %}</p>
           </div>
 
           {% if error %}
@@ -28,11 +29,10 @@
             <input class="form-control mb-1" type="password" name="password" placeholder="{% trans %}Password{% endtrans %}" required/>
             <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <button type="submit" class="btn btn-info col-12 mt-2">{% trans %}Login{% endtrans %}</button>
-            <p class=" my-2">{% trans %}Don't have an account?{% endtrans %}
-              <a href="{{path('app_register')}}">{% trans %}Sign up{% endtrans %}</a>
+            <p class=" my-2">{% trans %}Dont_have_an_account{% endtrans %} <a href="{{path('app_register')}}">{% trans %}BTN_Sign_Up{% endtrans %}</a>
             </p>
             <a href="{{path('app_forgot_password_request')}}">
-              <p class="text-danger my-2" style="font-size:0.7rem">{% trans %}Forgot password?{% endtrans %}</p>
+              <p class="text-danger my-2" style="font-size:0.7rem">{% trans %}Forgot_password{% endtrans %}</p>
             </a>
           </form>
           <div class="col-12"></div>

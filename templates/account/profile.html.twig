@@ -1,9 +1,9 @@
 <div id="ProfileTab" class="profile-tab collapse">
-  <h1 class="tab-header medium-bottom-margin">My Profile</h1>
+  <h1 class="tab-header medium-bottom-margin">{% trans %}My_Profile{% endtrans %}</h1>
   <div class="row info-component">
     <div class="col-md-2 col-sm-6 col-12">
       <div class="vertically-centered">
-        <span>Thumbnail</span>
+        <span>{% trans %}My_Thumbnail{% endtrans %}</span>
       </div>
     </div>
     <div class="col-md-9 col-sm-6 col-12">
@@ -14,7 +14,7 @@
             <input type="file" accept="image/*" name="image" id="thumbnailUploadInput" class="" required>
           </div>
           <div class="input-group-append mr-3">
-            <button class="btn btn-outline-secondary" id="thumbnailUploadButton" type="submit">Upload</button>
+            <button class="btn btn-outline-secondary" id="thumbnailUploadButton" type="submit">{% trans %}Upload{% endtrans %}</button>
           </div>
           Max 200kb
         </div>
@@ -22,7 +22,7 @@
     </div>
     <div class="col-md-1 d-md-block d-none">
       <div class="vertically-centered text-right profile-update-image">
-        <span href="#" class="text-primary info-action-link">Edit</span>
+        <span href="#" class="text-primary info-action-link">{% trans %}Edit{% endtrans %}</span>
       </div>
     </div>
     <i class="fas fa-edit d-md-none d-block resp-modify vertically-centered profile-update-image" title="Edit"></i>
@@ -30,7 +30,7 @@
   <div class="row info-component">
     <div class="col-md-2 col-sm-6 col-12">
       <div class="vertically-centered">
-        <span>Name</span>
+        <span>{% trans %}My_Name{% endtrans %}</span>
       </div>
     </div>
     <div class="col-md-9 col-sm-6 col-12">
@@ -44,7 +44,7 @@
           <div class="input-group mb-3">
             <input id="fullnameInput" type="text" class="form-control" value="{{app.user.fullname}}">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" id="fullnameButton" type="button">Update</button>
+              <button class="btn btn-outline-secondary" id="fullnameButton" type="button">{% trans %}Update{% endtrans %}</button>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
     </div>
     <div class="col-md-1 d-md-block d-none">
       <div class="vertically-centered text-right">
-        <span href="#" class="text-primary info-action-link profile-update-fullname">Edit</span>
+        <span href="#" class="text-primary info-action-link profile-update-fullname">{% trans %}Edit{% endtrans %}</span>
       </div>
     </div>
     <i class="fas fa-edit d-md-none d-block resp-modify vertically-centered profile-update-fullname" title="Edit"></i>
@@ -60,7 +60,7 @@
   <div class="row info-component">
     <div class="col-md-2 col-sm-6 col-12">
       <div class="vertically-centered">
-        <span>Email</span>
+        <span>{% trans %}Email{% endtrans %}</span>
       </div>
     </div>
     <div class="col-md-9 col-sm-6 col-12">
@@ -82,7 +82,7 @@
     </div>
     <div class="col-md-1 d-md-block d-none">
       <div class="vertically-centered text-right">
-        <span href="#" class="text-primary info-action-link profile-update-email">Edit</span>
+        <span href="#" class="text-primary info-action-link profile-update-email">{% trans %}Edit{% endtrans %}</span>
       </div>
     </div>
     <i class="fas fa-edit d-md-none d-block resp-modify vertically-centered profile-update-email" title="Edit"></i>

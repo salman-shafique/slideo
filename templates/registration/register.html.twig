@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {% trans %}Sign up{% endtrans %}
+  {% trans %}Title_Open_New_Account{% endtrans %}
 {% endblock %}
 
 {% block body %}
@@ -9,11 +9,12 @@
   <footer class="footer mt-0">
     <div class="footer_top px-0 mt-0">
       <div class="container">
-        <div class="row justify-content-center gallery-item">
+        <div class="dir-rtl row justify-content-center gallery-item">
           <div class="col-12 p-5">
             <p style="text-align:center">
             </p>
-            <h1 class="text-center">{% trans %}Sign up{% endtrans %}</h1>
+            <h1 class="text-center">{% trans %}Title_Open_New_Account{% endtrans %}</h1>
+            <p class="text-center">{% trans %}Subtitle_Open_New_Account{% endtrans %}</p>
           </div>
 
           {% include "components/social-logins.html.twig" with {'class':'col-10 col-sm-6 col-lg-4 mb-2'} %}
@@ -24,9 +25,9 @@
           {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-1' }})}}
           {{ form_row(registrationForm.plainPassword.first, {'attr': {'class': 'form-control mb-1' } }) }}
           {{ form_row(registrationForm.plainPassword.second, {'attr': {'class': 'form-control mb-1' } }) }}
-          <button type="submit" class="btn btn-info col-12 mt-2">{% trans %}Sign up{% endtrans %}</button>
-          <p class=" my-2">{% trans %}Already have an account?{% endtrans %}
-            <a href="{{path('app_login')}}">{% trans %}Log in{% endtrans %}</a>
+          <button type="submit" class="btn btn-info col-12 mt-2">{% trans %}BTN_Open_New_Account{% endtrans %}</button>
+          <p class=" my-2">{% trans %}Already_have_an_account{% endtrans %}
+            <a href="{{path('app_login')}}">{% trans %}Log_in{% endtrans %}</a>
           </p>
 
           {{ form_end(registrationForm) }}

@@ -10,13 +10,16 @@ body {
 }
 
 #Home_Section {
-    margin-top: 80px;
+	margin-top: 50px;
+	direction: rtl;
 }
 
 #Home_Section .btn {
-	padding: 10px 8px;
-    font-size: 15px;
-	margin: 4px 8px;
+    padding: 14px 24px;
+    font-size: 20px;
+    margin: 10px 8px;
+    background: #9c2c99;
+	color: #ffffff;
 }
 
 @media (min-width: 992px) {
@@ -34,6 +37,7 @@ body {
 #Main_Image {
 	max-width: 100%;
 	max-height: 600px;
+	margin-top: 30px;
 }
 
 .tool-set {
@@ -185,4 +189,8 @@ body {
 .container {
 	padding-left: 28px;
 	padding-right: 28px;
+}
+
+.dir-rtl{
+	direction: rtl;
 }
