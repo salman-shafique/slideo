@@ -11,15 +11,15 @@ import reduceFontSize from "./reduceFontSize";
 export default function arrangeForeignObject(foreignObject, shape, text, direction) {
     let table = foreignObject.querySelector("table");
 
-    // Vertical alignment
-    if (shape.vertical_anchor == "1") {
-        table.style.top = "0";
-        table.querySelector("td").setAttribute("valign", "top");
-    }
-    if (shape.vertical_anchor == "4") {
-        table.style.bottom = "0";
-        table.querySelector("td").setAttribute("valign", "bottom");
-    }
+    // Vertical alignment TODO
+    // if (shape.vertical_anchor == "1") {
+    table.style.top = "0";
+    table.querySelector("td").setAttribute("valign", "top");
+    // }
+    // if (shape.vertical_anchor == "4") {
+    //     table.style.bottom = "0";
+    //     table.querySelector("td").setAttribute("valign", "bottom");
+    // }
 
     // Default h-alignment 2 - center - from python
     table.style.textAlign = constants.ALIGNMENTS[shape.alignment];
@@ -65,6 +65,7 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
 
     // Text colors
     if (shape.text_theme_color != 0)
+        // theme colored
         if (shape.text_rgb) {
             table.style.color = 'rgb(' + shape.text_rgb.replace(/ /g, ",") + ")";
         }

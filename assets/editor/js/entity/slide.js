@@ -254,6 +254,24 @@ export default function slide(slideId) {
                 createNewImage(shape_.data);
             } else if (shape_.data.alt == "newicon") {
                 createNewIcon(shape_.data);
+            } else if (shape_.data.alt == "image") {
+                // handle the builtin images
+                if (!shape_.data.keyword && !shape_.data.image) {
+                    const imagePlaceholderUrl =
+                        shape(this.slideId, shape_.data.shape_id)
+                            .el()
+                            .querySelector("image")
+                            .getAttribute("xlink:href");
+
+                    shape_.data.image = {
+                        url: imagePlaceholderUrl,
+                        keyword: ""
+                    }
+                    shape_.data.keyword = "";
+                };
+                h1Image(this.slideId, shape_.data.shape_id, shape_.data.keyword);
+                // Add event listener
+                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
             }
 
             const shapeCls = shape(this.slideId, shape_.data.shape_id);
@@ -333,6 +351,7 @@ export default function slide(slideId) {
         if (!chunkDesigns[String(slideData.style.id)]) {
             slideData.style.shapes = slideData.shapes;
             slideData.style.colorTemplate = slideData.colorTemplate;
+            slideData.style.background = slideData.background;
             chunkDesigns[String(slideData.style.id)] = Object.assign({}, slideData.style);
         }
 
@@ -342,6 +361,7 @@ export default function slide(slideId) {
         slideData.style = chunkDesigns[String(designData.id)];
         slideData.shapes = chunkDesigns[String(designData.id)].shapes;
         slideData.colorTemplate = chunkDesigns[String(designData.id)].colorTemplate;
+        slideData.background = chunkDesigns[String(designData.id)].background;
 
         this.updateOnPage();
     }
@@ -371,9 +391,6 @@ export default function slide(slideId) {
 
     this.insertCustomStyles = () => {
         const styles = reactToDOM(<style>{`
-        g.SlideGroup g.Page{
-            fill: transparent
-        }
         .draggable:hover {
             cursor: pointer;
             outline: solid cyan 20px;

@@ -15,7 +15,8 @@ export default function iconInit(slideId, shapeId, keyword) {
             },
             success: (response) => {
                 if (response.success) {
-                    let shapeData = shape(response.slideId, response.shapeId).data();
+                    const shapeData = shape(response.slideId, response.shapeId).data();
+                    if(!shapeData) return;
                     shapeData.icon = response.icons[0];
                     shapeData.keyword = response.keyword;
                     selectIcon(response.slideId, response.shapeId);

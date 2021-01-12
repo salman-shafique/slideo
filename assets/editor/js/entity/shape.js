@@ -32,7 +32,7 @@ export default function shape(slideId, shapeId) {
      */
     this.el = () => slide(this.slideId).documentElement().querySelector("g[shape_id='" + this.shapeId + "']");
 
-    this.remove = function () {
+    this.remove = () => {
         if (this.el()) {
             this.el().classList.add("d-none");
             this.data().active = "false";
@@ -80,7 +80,7 @@ export default function shape(slideId, shapeId) {
         const slide_ = slide(this.slideId);
         const content = slide_.slideData().analyzedContent[contentNumber].h1.data;
         if (content.text.trim() != newText.trim()) {
-            content.text = newText;
+            this.data().text = content.text = newText;
 
             const iconG = slide_.page().querySelector("g[alt$='icon|" + contentNumber + "']");
             if (iconG) {
@@ -119,7 +119,7 @@ export default function shape(slideId, shapeId) {
         const contentNumber = this.data().alt.split("|").pop();
         const content = slide(this.slideId).slideData().analyzedContent[contentNumber].originalSentence.data;
         if (content.text.trim() != newText.trim()) {
-            content.text = newText;
+            this.data().text = content.text = newText;
             autosizeForeignObject(this.el().querySelector("foreignObject"));
             relocateResizeCircleContainer(this.el());
         }
@@ -136,7 +136,7 @@ export default function shape(slideId, shapeId) {
         if (content.text == newText) return;
         if (newText.trim() == constants.SLIDE_TITLE_PLACEHOLDER.trim()) return;
 
-        content.text = newText;
+        this.data().text = content.text = newText;
         const slideTitleImageG = slide_.page().querySelector("g[alt='slidetitleimage']");
         if (slideTitleImageG) {
             // page has the slidetitleimage
@@ -162,7 +162,7 @@ export default function shape(slideId, shapeId) {
         if (content.text == newText) return;
         if (newText.trim() == constants.SLIDE_SUBTITLE_PLACEHOLDER.trim()) return;
 
-        content.text = newText;
+        this.data().text = content.text = newText;
         autosizeForeignObject(this.el().querySelector("foreignObject"));
         relocateResizeCircleContainer(this.el());
 
@@ -178,7 +178,7 @@ export default function shape(slideId, shapeId) {
         if (!content.text) return;
 
         if (content.text.trim() != newText.trim()) {
-            content.text = newText;
+            this.data().text = content.text = newText;
             autosizeForeignObject(this.el().querySelector("foreignObject"));
             relocateResizeCircleContainer(this.el());
         }

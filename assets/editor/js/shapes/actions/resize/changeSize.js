@@ -18,6 +18,10 @@ export default function changeSize(event) {
     const area = getMouseDiffArea(mouseDiff);
 
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
+        // Ignore line
+        if (selectedEl.shape.classList.contains("com.sun.star.drawing.LineShape"))
+            return;
+
         let mvX;
         let mvY;
 

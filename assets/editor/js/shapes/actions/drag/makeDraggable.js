@@ -13,7 +13,7 @@ import constants from "Editor/js/constants";
 export default function makeDraggable(contentDocument) {
     // Insert the rect in order to make all spaces draggable
     const rect = reactToDOM(
-        <rect x="0" y="0" width={constants.SVG_WIDTH()} height={constants.SVG_HEIGHT()} fill="transparent"/>,
+        <rect x="0" y="0" width={constants.SVG_WIDTH()} height={constants.SVG_HEIGHT()} fill="white"/>,
         null,
         "http://www.w3.org/2000/svg"
     )

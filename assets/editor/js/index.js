@@ -37,6 +37,3 @@ window.onerror = (r)=>{
     console.error(r);
 }
 
-// Enable close tab warning
-window.onbeforeunload = () => "";
-

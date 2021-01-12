@@ -84,6 +84,12 @@ class Style
      */
     private $colorTemplate;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Content::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $background;
+
     public function __construct()
     {
         $this->shapes = new ArrayCollection();
@@ -234,6 +240,18 @@ class Style
     public function setColorTemplate(ColorTemplate $colorTemplate): self
     {
         $this->colorTemplate = $colorTemplate;
+
+        return $this;
+    }
+
+    public function getBackground(): ?Content
+    {
+        return $this->background;
+    }
+
+    public function setBackground(Content $background): self
+    {
+        $this->background = $background;
 
         return $this;
     }

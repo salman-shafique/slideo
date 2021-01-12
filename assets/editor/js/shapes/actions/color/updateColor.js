@@ -21,9 +21,17 @@ export default function updateColor(g) {
     this.fillGradientStop0 = function (color) {
 
         let stop = this.g.querySelector('g[id]>g>defs stop[offset="0"]');
-        if (!stop) return;
-        stop.style.color = color;
-        stop.style.stopColor = color;
+        if (stop) {
+            stop.style.color = color;
+            stop.style.stopColor = color;
+            return;
+        }
+        // Todo
+        // const paths = this.g.querySelectorAll("g[clip-path]>path");
+        // for (let index = 0; index < Math.round(paths.length / 2); index++) {
+        //     const path = paths[index];
+
+        // }
     }
 
     /**

@@ -92,5 +92,5 @@ __pycache__
 !/public/icons/nothing-found.png
 /public/styles/*
 /public/layouts/*
-
+/public/presentations/*
 /public/uploads/*

@@ -11,7 +11,10 @@ window.addEventListener("shape.released", (event) => {
 
   const alt = g.getAttribute("alt");
   const td = g.querySelector("td");
-  const newText = td.innerHTML = td.innerText;
+
+  const newText = td.innerText.trim().replace(/\n/g,'');
+  td.innerHTML = "";
+  td.append(newText);
 
   if (alt.includes("h1|")) {
     // Update the H1

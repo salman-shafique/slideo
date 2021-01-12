@@ -31,22 +31,53 @@ class PresentationApiController extends AbstractController
 
 
     /**
-     * @Route("/download")
+     * @Route("/download/start/{presenationId}")
      */
-    public function downloadPresentation(Request $request, FlaskService $flaskService)
+    public function downloadPresentation(string $presenationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
     {
-        // $presentationId = $request->request->get("presentationId");
-        // $request->request->add(['id' => $presentation->getId()]);
+        $presentation = $presentationSecurity->getPresentation($presenationId, $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        // $download = $flaskService->call(
-        //     "Presentation",
-        //     "download",
-        //     $request->request->all()
-        // );
+        $r = $presentationService->downloadStart($presentation);
 
-        // return new JsonResponse($download);
-        return new JsonResponse([]);
+        return new JsonResponse($r);
     }
+
+    /**
+     * @Route("/download/get/{presenationId}")
+     */
+    public function getDownloadedPresentation(string $presenationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($presenationId, $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $presentationService->getDownloadedPresentation($presentation);
+
+        return new JsonResponse($r);
+    }
+
+    /**
+     * @Route("/download/get/{presenationId}/{downloadPresentationId}")
+     */
+    public function getOneDownloadedPresentation(string $presenationId, string $downloadPresentationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($presenationId, $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $presentationService->getOneDownloadedPresentation($downloadPresentationId);
+
+        return new JsonResponse($r);
+    }
+
+    /**
+     * @Route("/flask/save")
+     */
+    public function saveFromFlask(Request $request, PresentationService $presentationService)
+    {
+        $presentationService->saveFromFlask($request);
+        return new JsonResponse(["Thanks flask"]);
+    }
+
     /**
      * @Route("/save/slide")
      */

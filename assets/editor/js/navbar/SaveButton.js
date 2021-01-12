@@ -5,14 +5,14 @@ import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
-
+import toastr from "Editor/js/components/toastr";
 
 const preloader_ = preloader();
 
-export function saveChanges() {
+export function saveChanges(callback = null) {
     const slides = session.PRESENTATION.slides;
 
-    slides.forEach(aSlide => {
+    slides.forEach((aSlide, i) => {
         preloader_.show();
 
         const slide_ = slide(aSlide.slideId);
@@ -25,7 +25,7 @@ export function saveChanges() {
             const shape_ = shape(aSlide.slideId, aShape.data.shape_id);
             shape_.saveTransforms(SVG_WIDTH, SVG_HEIGHT);
         });
-        
+
         apiService({
             url: "/api/presentation/save/slide",
             data: {
@@ -39,6 +39,12 @@ export function saveChanges() {
                         slideData.shapes.push(newShape)
                     });
                 }
+
+                if (i == slides.length - 1)
+                    if (typeof callback == "function") {
+                        callback()
+                    }
+
                 preloader_.hide();
             }
         })

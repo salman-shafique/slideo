@@ -75,10 +75,10 @@ class SlideService
         $colorTemplateOfSlide->setTEXT2($colorTemplateOfStyle->getTEXT2());
         $slide->setColorTemplate($colorTemplateOfSlide);
 
+        $backgroundOfSlide = $style->getBackground();
         $background = new Content();
         $background->setKeyword('background');
-        $background->setData(['bg' => 'foo', 'type' => 'bar']);
-
+        $background->setData($backgroundOfSlide->getData());
         $slide->setBackground($background);
 
         $this->em->persist($background);

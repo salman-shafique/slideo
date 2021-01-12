@@ -166,14 +166,25 @@ body {
     cursor: pointer;
 }
 
+.ppt-download {
+    position: absolute;
+    bottom: 20px;
+    visibility: hidden;
+    right: 25px;
+    cursor: pointer;
+}
+
 .presentation-thumb:hover .presentation-thumb-img {
     box-shadow: -6px 6px 12px 0 #7e7e7e;
 }
-.presentation-thumb:hover {
+.presentation-thumb:hover * {
     text-decoration: none;
 }
 
 .presentation-thumb:hover .ppt-remove {
+    visibility: visible;
+}
+.presentation-thumb:hover .ppt-download {
     visibility: visible;
 }
 

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\ColorTemplate;
 use App\Entity\Content;
+use App\Entity\DownloadPresentation;
 use App\Entity\Slide;
 use App\Entity\Presentation;
 use App\Entity\Style;
@@ -12,7 +13,7 @@ use App\Repository\ContentRepository;
 use App\Repository\ColorTemplateRepository;
 use App\Repository\SlideRepository;
 use App\Repository\StyleRepository;
-use App\Security\PresentationSecurity;
+use App\Service\FlaskService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,12 +21,14 @@ class PresentationService
 {
     private $em;
     private $serializer;
+    private $flaskService;
 
 
-    public function __construct(EntityManagerInterface $em, SerializerService $serializer)
+    public function __construct(EntityManagerInterface $em, SerializerService $serializer, FlaskService $flaskService)
     {
         $this->em = $em;
         $this->serializer = $serializer;
+        $this->flaskService = $flaskService;
     }
 
     public function create(?User $user, string $sessionId): Presentation
@@ -57,27 +60,23 @@ class PresentationService
 
         return $content;
     }
-    private function updateColorTemplate($colorTemplateJson)
+    private function updateColorTemplate($colorTemplateJson, ColorTemplate $colorTemplate)
     {
-        /**  @var ColorTemplateRepository $colorTemplateRepository */
-        $colorTemplateRepository = $this->em->getRepository(ColorTemplate::class);
-        $colorTemplate = $colorTemplateRepository->findOneBy(["id" => $colorTemplateJson['id']]);
+        $colorTemplate->setACCENT1($colorTemplateJson['aCCENT1']);
+        $colorTemplate->setACCENT2($colorTemplateJson['aCCENT2']);
+        $colorTemplate->setACCENT3($colorTemplateJson['aCCENT3']);
+        $colorTemplate->setACCENT4($colorTemplateJson['aCCENT4']);
+        $colorTemplate->setACCENT5($colorTemplateJson['aCCENT5']);
+        $colorTemplate->setACCENT6($colorTemplateJson['aCCENT6']);
+        $colorTemplate->setBACKGROUND1($colorTemplateJson['bACKGROUND1']);
+        $colorTemplate->setBACKGROUND2($colorTemplateJson['bACKGROUND2']);
+        $colorTemplate->setTEXT1($colorTemplateJson['tEXT1']);
+        $colorTemplate->setTEXT2($colorTemplateJson['tEXT2']);
 
-        if ($colorTemplate) {
-            $colorTemplate->setACCENT1($colorTemplateJson['aCCENT1']);
-            $colorTemplate->setACCENT2($colorTemplateJson['aCCENT2']);
-            $colorTemplate->setACCENT3($colorTemplateJson['aCCENT3']);
-            $colorTemplate->setACCENT4($colorTemplateJson['aCCENT4']);
-            $colorTemplate->setACCENT5($colorTemplateJson['aCCENT5']);
-            $colorTemplate->setACCENT6($colorTemplateJson['aCCENT6']);
-            $colorTemplate->setBACKGROUND1($colorTemplateJson['bACKGROUND1']);
-            $colorTemplate->setBACKGROUND2($colorTemplateJson['bACKGROUND2']);
-            $colorTemplate->setTEXT1($colorTemplateJson['tEXT1']);
-            $colorTemplate->setTEXT2($colorTemplateJson['tEXT2']);
-        }
         $this->em->persist($colorTemplate);
         $this->em->flush();
     }
+
 
     public function saveSlide(Request $request)
     {
@@ -95,15 +94,21 @@ class PresentationService
             $this->updateContent($analyzedContent['originalSentence']);
         }
 
-        // Color template
-        $this->updateColorTemplate($slideJson['colorTemplate']);
-
         /**  @var SlideRepository $slideRepository */
         $slideRepository = $this->em->getRepository(Slide::class);
         $slide = $slideRepository->findOneBy(["id" => $slideJson['id']]);
 
+        // Color template
+        $colorTemplate = $slide->getColorTemplate();
+        $this->updateColorTemplate($slideJson['colorTemplate'], $colorTemplate);
+        // Background
+        $background = $slide->getBackground();
+        $background->setData($slideJson['background']['data']);
+        $this->em->persist($background);
+
         $newShapes = [];
         if ($slideJson['style']['id'] != $slide->getStyle()->getId()) {
+            // The style is changed on the frontend
             // Style
             /** @var StyleRepository $styleRepository */
             $styleRepository = $this->em->getRepository(Style::class);
@@ -121,25 +126,115 @@ class PresentationService
                 $newShape->setData($shapeData);
                 $slide->addShape($newShape);
 
-                array_push($newShapes, $this->serializer->normalize($newShape));
                 $this->em->persist($newShape);
             }
         } else {
             // Shapes
             foreach ($slideJson['shapes'] as $shape) {
                 $newShape = $this->updateContent($shape);
-                array_push($newShapes, $this->serializer->normalize($newShape));
-
                 if (!isset($shape['id'])) {
                     $slide->addShape($newShape);
                     $this->em->persist($newShape);
                 }
             }
         }
-        
+
         $this->em->persist($slide);
         $this->em->flush();
 
+        foreach ($slide->getShapes() as $shape)
+            array_push($newShapes, $this->serializer->normalize($shape));
+
         return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
+    }
+
+    public function downloadStart(Presentation $presentation)
+    {
+        $dowloadPresentation = new DownloadPresentation;
+        $presentation->addDownloadedPresenatation($dowloadPresentation);
+        $dowloadPresentation->setNumberOfSlides(count($presentation->getSlides()));
+        $this->em->persist($dowloadPresentation);
+        $this->em->persist($presentation);
+        $this->em->flush();
+
+        // invoke the flask server
+        $this->flaskService->call("Presentation", "start_downloads", []);
+        return ['success' => true];
+    }
+
+    public function getDownloadedPresentation(Presentation $presentation)
+    {
+        return $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\DownloadPresentation', 'd')
+            ->where("d.presentation = :presentation")
+            ->setParameter("presentation", $presentation)
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
+    public function getOneDownloadedPresentation(string $downloadPresentationId)
+    {
+        return $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\DownloadPresentation', 'd')
+            ->where("d.id = :downloadPresentationId")
+            ->setParameter("downloadPresentationId", $downloadPresentationId)
+            ->getQuery()
+            ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
+    private function saveBase64File(string $filepath, string $base64)
+    {
+        $content = base64_decode($base64);
+        $file = fopen($filepath, "wb");
+        fwrite($file, $content);
+        fclose($file);
+    }
+
+    public function saveFromFlask(Request $request)
+    {
+        if (!$request->request->get("A2A3EF62A0498A46531B71DBD6969004")) return ["success" => false];
+        if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11") return ["success" => false];
+
+        $path = $request->request->get('path');
+        $jsonFile = json_decode(file_get_contents("http://slideo_flask$path"), true);
+
+        $now = time();
+        $uniquefolder = hash('md2', $now);
+        if (!is_dir("presentations/$uniquefolder"))
+            mkdir("presentations/$uniquefolder", 0777, true);
+
+        $currentDownloadId = $jsonFile['current_download_id'];
+
+        $name = $jsonFile['name'];
+        $unique1 = uniqid();
+        $unique2 = uniqid();
+        $unique3 = uniqid();
+        $this->saveBase64File("presentations/$uniquefolder/$name-$unique1.pptx", $jsonFile['pptx']);
+        $this->saveBase64File("presentations/$uniquefolder/$name-$unique2.png", $jsonFile['png']);
+        $this->saveBase64File("presentations/$uniquefolder/$name-$unique3.pdf", $jsonFile['pdf']);
+
+        /** @var DownloadPresentation $downloadPresentation */
+        $downloadPresentation = $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\DownloadPresentation', 'd')
+            ->where("d.id = :id")
+            ->setParameter("id", $currentDownloadId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $downloadPresentation->setPptxFile("/presentations/$uniquefolder/$name-$unique1.pptx");
+        $downloadPresentation->setPrevFile("/presentations/$uniquefolder/$name-$unique2.png");
+        $downloadPresentation->setPdfFile("/presentations/$uniquefolder/$name-$unique3.pdf");
+        $downloadPresentation->setCompleted(true);
+
+        $this->em->persist($downloadPresentation);
+        $this->em->flush();
+
+        return ["success" => true];
     }
 }

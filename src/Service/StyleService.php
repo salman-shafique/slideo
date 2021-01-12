@@ -91,8 +91,16 @@ class StyleService
         $colorTemplate->setTEXT1($colorTemplateData['TEXT_1']);
         $colorTemplate->setTEXT2($colorTemplateData['TEXT_2']);
         $style->setColorTemplate($colorTemplate);
-        
         $this->em->persist($colorTemplate);
+
+        
+        $backgroundData = $jsonFile["background"];
+        $background = new Content;
+        $background->setData($backgroundData);
+        $background->setKeyword("background");
+        $this->em->persist($background);
+        $style->setBackground($background);
+
         $this->em->persist($style);
         $this->em->flush();
 

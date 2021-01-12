@@ -37,7 +37,8 @@ class PresentationSecurity
                 }
             } else {
                 if ($sessionId == $presentation->getSessionId()) {
-                    return $presentation;
+                    if (!$presentation->getOwner())
+                        return $presentation;
                 }
             }
         }

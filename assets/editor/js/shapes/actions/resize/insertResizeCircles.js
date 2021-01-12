@@ -24,7 +24,7 @@ export default function insertResizeCircles(g) {
         "http://www.w3.org/2000/svg"
     )
 
-    const resizeEls = [];
+    let resizeEls = [];
     resizeEls.push(<line key={"tl"} direction="tl" strokeWidth={"50"} x1={x} y1={y} x2={x + width} y2={y}
         style={{ "stroke": "gray", "strokeWidth": "50" }}
     />);
@@ -49,6 +49,10 @@ export default function insertResizeCircles(g) {
         resizeEls.push(<ResizeCirle g={g} cx={x + width / 2} cy={y + height} direction="b" key={"b"} />);
         resizeEls.push(<ResizeCirle g={g} cx={x} cy={y + height / 2} direction="l" key={"l"} />);
     }
+
+    // Line element
+    if (g.classList.contains("com.sun.star.drawing.LineShape"))
+        resizeEls = resizeEls.slice(0, 4);
 
     slide(session.CURRENT_SLIDE).slideG().appendChild(resizeCircleContainer);
     ReactDOM.render(resizeEls, resizeCircleContainer);
