@@ -45,19 +45,19 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
     return (
         <div className="col-12 my-3 py-3 border">
             <div className="row m-0">
-                <div className="col-1 d-flex justify-content-center align-items-center">#{downloadCardDetail.id}</div>
-                <div className="col-12 col-sm-3 d-flex justify-content-center align-items-center">
+                <div className="col-1 d-flex justify-content-center align-items-center mt-0"></div>
+                <div downloadid={downloadCardDetail.id} className="col-12 col-sm-3 d-flex justify-content-center align-items-center mt-0">
                     <img style={{ maxHeight: "100px" }} src={imgSrc} />
                 </div>
-                <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center">{downloadCardDetail.numberOfSlides}</div>
-                <div className="col-4 col-sm-2 d-flex justify-content-center align-items-center">{downloadCardDetail.created.date.slice(0, -10)}</div>
-                <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center">
+                <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center mt-0">{downloadCardDetail.numberOfSlides}</div>
+                <div className="col-4 col-sm-2 d-flex justify-content-center align-items-center mt-0">{downloadCardDetail.created.date.slice(0, -10)}</div>
+                <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center mt-0">
                     <span className="badge badge-success">Free</span>
                 </div>
-                <div className="col-3 col-sm-2 d-flex justify-content-center align-items-center">
+                <div className="col-3 col-sm-2 d-flex justify-content-center align-items-center mt-0">
                     {pdfButton}
                 </div>
-                <div className="col-3 col-sm-2 d-flex justify-content-center align-items-center">
+                <div className="col-3 col-sm-2 d-flex justify-content-center align-items-center mt-0">
                     {pptxButton}
                 </div>
             </div>
