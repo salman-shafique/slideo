@@ -12,13 +12,30 @@
 
     {% for presentation in app.user.presentations|reverse  %}
       {% if presentation.isActive %}
-        <a href="{{path('editor')}}/{{presentation.presentationId}}" class="presentation-thumb">
-          <div class="presentation-thumb-img">
-            <span>
-              {{presentation.slides|length}}
-            </span>
-            <br/>{% trans %}Slides_Amount{% endtrans %}
-          </div>
+        <div class="presentation-thumb">
+          <a href="{{path('editor')}}/{{presentation.presentationId}}">
+
+            {% set imgUrl = "" %}
+            {% if presentation.downloadedPresenatations|length > 0 %}
+              {% set last = presentation.downloadedPresenatations|last %}
+              {% if last.prevFile %}
+                {% set imgUrl = last.prevFile %}
+              {% endif %}
+            {% endif %}
+
+
+            <div class="presentation-thumb-img">
+              {% if imgUrl %}
+                <img src="{{last.prevFile}}"/>
+              {% else %}
+                <span>
+                  {{presentation.slides|length}}
+                </span>
+                <br/>
+                {% trans %}Slides_Amount{% endtrans %}
+              {% endif %}
+            </div>
+          </a>
           <p class="ppt-title ppt-title">{{presentation.title}}</p>
           <p class="ppt-last-modified text-secondary no-margin">{% trans %}Created{% endtrans %}:
             <span class="modified-datetime">{{presentation.created|date("F jS \\a\\t g:ia")}}</span>

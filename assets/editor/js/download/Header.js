@@ -9,10 +9,10 @@ export default function Header() {
                 <div className="col-1 d-flex justify-content-center align-items-center"></div>
                 <div className="col-3 d-flex justify-content-center align-items-center">
                 </div>
-                <div className="col-1 d-flex justify-content-center align-items-center">Slides</div>
-                <div className="col-2 d-flex justify-content-center align-items-center">Download request date</div>
+                <div className="col-1 d-flex justify-content-center align-items-center">שקפים</div>
+                <div className="col-2 d-flex justify-content-center align-items-center">תאריך בקשת הורדה</div>
                 <div className="col-1 d-flex justify-content-center align-items-center">
-                    Price
+                    מחיר
                 </div>
                 <div className="col-2 d-flex justify-content-center align-items-center">
                 </div>
