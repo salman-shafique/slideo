@@ -19,7 +19,7 @@ const download = () => {
 export default function DownloadButton() {
     return (
         <button onClick={download} className="btn btn-danger bevel-btn horizontal-text-clip">
-            <i className="fas fa-download"></i> הורדה
+            <i className="fas fa-download mr-2"></i> הורדה
         </button>
     )
 }

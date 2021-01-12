@@ -22,10 +22,26 @@ export default function sidebar() {
 
     /**
      * 
+     */
+    this.closeAll = () => {
+        const currActiveTab = select("#ToolsTray .tool.active-tool");
+        if (!currActiveTab) return;
+        const currActiveTablId = currActiveTab.getAttribute("id");
+        const currActivePanelId = currActiveTablId.replace("Tool", "Panel");
+
+        const currActivePanel = select("#" + currActivePanelId);
+        currActivePanel.classList.add("collapse");
+        select("#ActionsPanel").classList.add("closed");
+        select("#MainPanel").classList.add("expanded");
+        select("#" + currActiveTablId).classList.remove("active-tool");
+    }
+
+    /**
+     * 
      * @param {string} id 
      */
     this.close = (id) => {
-        let currActivePanel = select("#" + id.replace("Tool", "Panel"));
+        const currActivePanel = select("#" + id.replace("Tool", "Panel"));
         currActivePanel.classList.add("collapse");
         select("#ActionsPanel").classList.add("closed");
         select("#MainPanel").classList.add("expanded");
@@ -38,9 +54,9 @@ export default function sidebar() {
      */
     this.open = (id) => {
         // Open new tab
-        let newActivePanel = select("#" + id.replace("Tool", "Panel"));
+        const newActivePanel = select("#" + id.replace("Tool", "Panel"));
 
-        let allPanels = selectAll(".action-panel");
+        const allPanels = selectAll(".action-panel");
         allPanels.forEach(e => e.classList.add("collapse"));
         newActivePanel.classList.remove("collapse");
 

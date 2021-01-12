@@ -391,9 +391,6 @@ export default function slide(slideId) {
 
     this.insertCustomStyles = () => {
         const styles = reactToDOM(<style>{`
-        g.SlideGroup g.Page{
-            fill: transparent
-        }
         .draggable:hover {
             cursor: pointer;
             outline: solid cyan 20px;
