@@ -147,6 +147,9 @@ body {
 .presentation-thumb-img span{
     font-size: 70px;
 }
+.presentation-thumb-img img{
+    width: 100%;
+}
 
 
 .ppt-title {
