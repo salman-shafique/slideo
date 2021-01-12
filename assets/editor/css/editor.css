@@ -690,3 +690,7 @@ object[id^="prev_"] {
 	cursor: pointer;
 	outline: solid cyan 70px !important;
 }
+
+#sideBarImagesEmpty {
+	width: 100%;
+}
