@@ -91,9 +91,15 @@ class User implements UserInterface
      */
     private $notifications;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UploadedImage::class, mappedBy="owner")
+     */
+    private $uploadedImages;
+
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
+        $this->uploadedImages = new ArrayCollection();
     }
 
     public function __toString()
@@ -313,6 +319,36 @@ class User implements UserInterface
         // set the owning side of the relation if necessary
         if ($notifications->getOwner() !== $this) {
             $notifications->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UploadedImage[]
+     */
+    public function getUploadedImages(): Collection
+    {
+        return $this->uploadedImages;
+    }
+
+    public function addUploadedImage(UploadedImage $uploadedImage): self
+    {
+        if (!$this->uploadedImages->contains($uploadedImage)) {
+            $this->uploadedImages[] = $uploadedImage;
+            $uploadedImage->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUploadedImage(UploadedImage $uploadedImage): self
+    {
+        if ($this->uploadedImages->removeElement($uploadedImage)) {
+            // set the owning side to null (unless already changed)
+            if ($uploadedImage->getOwner() === $this) {
+                $uploadedImage->setOwner(null);
+            }
         }
 
         return $this;
