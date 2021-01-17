@@ -67,7 +67,7 @@ class ImageService
          * @var User $user
          */
         $user = $this->security->getUser();
-        if (!$user) return  ['success' => false, 'descr' => 'Not authorized'];
+        if (!$user) return  ['success' => false, 'descr' => 'Please login first'];
 
         $addedImages = [];
         /** @var UploadedFile $image */
@@ -120,7 +120,7 @@ class ImageService
          * @var User $user
          */
         $user = $this->security->getUser();
-        if (!$user) return  ['success' => false, 'descr' => 'Not authorized'];
+        if (!$user) return [];
 
         $uploadedImages = $this->em
             ->createQueryBuilder()
@@ -143,7 +143,7 @@ class ImageService
          * @var User $user
          */
         $user = $this->security->getUser();
-        if (!$user) return  ['success' => false, 'descr' => 'Not authorized'];
+        if (!$user) return  ['success' => false, 'descr' => 'Please login first'];
 
         /**
          * @var UploadedImage $uploadedImage
