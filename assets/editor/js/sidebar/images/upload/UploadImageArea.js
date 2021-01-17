@@ -67,10 +67,11 @@ export default function UploadImageArea({ images }) {
 
     return (
         <div>
-            {renderedImages}
-            <h1>{userImages.length} images</h1>
+            <div className="row m-0 py-4">
+                {renderedImages}
+            </div>
+
             <img className="upload-animation" src="/Images/download_anim.gif" />
-            <h6 className="text-dark small-top-margin small-bottom-margin">Start adding Your Files</h6>
             <p className="text-dark">Upload files from your Computer<br />5 mb per image</p>
             <input multiple id="userImageUploadInput" onChange={upload} className="d-none" type="file" accept="image/*" />
             <button onClick={() => {

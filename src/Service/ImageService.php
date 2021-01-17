@@ -76,6 +76,11 @@ class ImageService
             if ($mimeType != "image") continue;
             if ($image->getSize() > 5000000) continue;
 
+            $uploadedImage = new UploadedImage;
+            list($width, $height) = getimagesize($image);
+            $uploadedImage->setWidth((int)$width);
+            $uploadedImage->setHeight((int)$height);
+
             $newFilename = uniqid("image_", true) . '.' . $image->guessClientExtension();
             $uniqueFolder = uniqid("", true);
             $image->move(
@@ -83,16 +88,20 @@ class ImageService
                 $newFilename
             );
             $url = "/uploads/$uniqueFolder/$newFilename";
-            $uploadedImage = new UploadedImage;
             $uploadedImage->setUrl($url);
+
+
             $user->addUploadedImage($uploadedImage);
+
             $this->em->persist($uploadedImage);
             $this->em->flush();
 
             array_push($addedImages, [
                 "id" => $uploadedImage->getId(),
                 "url" => $url,
-                "isActive" => True
+                "isActive" => True,
+                "width" => $width,
+                "height" => $height
             ]);
         }
 
