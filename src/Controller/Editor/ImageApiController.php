@@ -51,4 +51,16 @@ class ImageApiController extends AbstractController
         $r = $imageService->userImagesGet();
         return new JsonResponse($r);
     }
+
+    /**
+     * @Route("/userimages/delete/{imageId}")
+     */
+    public function deleteUserImage(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, ImageService $imageService, string $imageId)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $imageService->deleteUserImage($imageId);
+        return new JsonResponse($r);
+    }
 }

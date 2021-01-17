@@ -2,11 +2,16 @@ import React from "react";
 import apiService from "Editor/js/utils/apiService";
 import toastr from "Editor/js/components/toastr";
 import preloader from "Editor/js/components/preloader";
-import UploadedImage from "./UploadedImage";
 
 
 const preloader_ = preloader();
-export default function UploadImageArea({ images }) {
+export default function UploadedImage({ image, rmImage }) {
+
+    return <div>
+        {image.url}
+        {/* <img src={image.url} /> */}
+        <button onClick={() => { rmImage(image) }}>del</button>
+    </div>;
 
     const [userImages, setUserImages] = React.useState([]);
 
@@ -37,6 +42,7 @@ export default function UploadImageArea({ images }) {
             contentType: false, // to upload blob image
             success: (r) => {
                 if (r.success) {
+
                     setUserImages(userImages.concat(r.addedImages))
                 } else {
                     toastr.error(r.descr, "Oops");
@@ -48,26 +54,9 @@ export default function UploadImageArea({ images }) {
 
     }
 
-    const rmImage = (image) => {
-        apiService({
-            url: "/api/editor/image/userimages/delete/" + image.id,
-        });
-        image.isActive = false;
-        setUserImages(userImages.filter((e) => e.isActive));
-    }
-
-    const renderedImages = [];
-    if (userImages.length > 0)
-        userImages.forEach((image, i) => {
-            if (image.isActive)
-                renderedImages.push(
-                    <UploadedImage image={image} key={i} rmImage={rmImage} />
-                )
-        });
 
     return (
         <div>
-            {renderedImages}
             <h1>{userImages.length} images</h1>
             <img className="upload-animation" src="/Images/download_anim.gif" />
             <h6 className="text-dark small-top-margin small-bottom-margin">Start adding Your Files</h6>

@@ -67,9 +67,9 @@ class ImageService
          * @var User $user
          */
         $user = $this->security->getUser();
-        if ($user) return  ['success' => false, 'descr' => 'Not authorized'];
+        if (!$user) return  ['success' => false, 'descr' => 'Not authorized'];
 
-        $addedImages = 0;
+        $addedImages = [];
         /** @var UploadedFile $image */
         foreach ($images as $image) {
             $mimeType = explode("/", $image->getMimeType())[0];
@@ -83,23 +83,80 @@ class ImageService
                 $newFilename
             );
             $url = "/uploads/$uniqueFolder/$newFilename";
-            $Image = new UploadedImage;
-            $Image->setUrl($url);
-            $this->em->persist($Image);
-            $user->addUploadedImage($Image);
-            $addedImages++;
+            $uploadedImage = new UploadedImage;
+            $uploadedImage->setUrl($url);
+            $user->addUploadedImage($uploadedImage);
+            $this->em->persist($uploadedImage);
+            $this->em->flush();
+
+            array_push($addedImages, [
+                "id" => $uploadedImage->getId(),
+                "url" => $url,
+                "isActive" => True
+            ]);
         }
 
         $this->em->persist($user);
         $this->em->flush();
 
-        if ($addedImages > 0)
-            return ["success" => true, "descr" => "$addedImages added"];
+        if (count($addedImages) > 0)
+            return ["success" => true, "addedImages" => $addedImages];
         else
             return ["success" => false, "descr" => "No images added"];
     }
-    
+
     public function userImagesGet()
     {
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+        if (!$user) return  ['success' => false, 'descr' => 'Not authorized'];
+
+        $uploadedImages = $this->em
+            ->createQueryBuilder()
+            ->select('image')
+            ->from('App\Entity\UploadedImage', 'image')
+            ->where("image.isActive = :isActive")
+            ->setParameter("isActive", True)
+            // Owner
+            ->andWhere("image.owner = :owner")
+            ->setParameter("owner", $user)
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        return $uploadedImages;
+    }
+
+    public function deleteUserImage(string $imageId)
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+        if (!$user) return  ['success' => false, 'descr' => 'Not authorized'];
+
+        /**
+         * @var UploadedImage $uploadedImage
+         */
+        $uploadedImage = $this->em
+            ->createQueryBuilder()
+            ->select('image')
+            ->from('App\Entity\UploadedImage', 'image')
+            ->where("image.isActive = :isActive")
+            ->setParameter("isActive", True)
+            ->andWhere("image.id = :imageId")
+            ->setParameter("imageId", $imageId)
+            // Owner
+            ->andWhere("image.owner = :owner")
+            ->setParameter("owner", $user)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if ($uploadedImage) {
+            $uploadedImage->setIsActive(false);
+            $this->em->persist($uploadedImage);
+            $this->em->flush();
+        }
     }
 }
