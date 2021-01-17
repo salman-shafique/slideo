@@ -9,6 +9,7 @@ import React from "react";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import selectEl from "Editor/js/shapes/actions/drag/utils/selectEl";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
+import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 
 let addedIconCounter = 0;
 
@@ -61,5 +62,8 @@ export default function createNewIcon(iconData) {
     // Select icon
     selectIcon(session.CURRENT_SLIDE, newShapeData.data.shape_id)
 
+    // Insert color filters
+    colorFilters(newIconShape).init();
+    
     addedIconCounter++;
 }

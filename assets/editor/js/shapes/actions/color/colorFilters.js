@@ -23,7 +23,7 @@ export default function colorFilters(g) {
         filterContainer.appendChild(shapeFilterContainer);
 
         let filter;
-        if (alt.includes("icon|")) {
+        if (alt.includes("icon|") || alt == "newicon") {
             let floodColor = "#fff";
             if (!g.getAttribute("icon_theme_color")) {
                 let rgb = g.getAttribute("rgb");
