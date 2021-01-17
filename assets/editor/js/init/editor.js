@@ -1,10 +1,7 @@
-import "Editor/js/dependencies/spectrum-colorpicker2.min";
-import toHex from "Editor/js/sidebar/colors/toHex";
 jQuery(function () {
 	updateCustomGalleries();
 	// Event Handler that dictates what happens on clicking on a tool, active or otherwise
 	var bgUpload = false;
-	var colorDrag = false;
 
 	$(".control-button").click(function () {
 		$(this).closest(".action-panel").find(".control-overlay-layout").removeClass("closed");
@@ -75,26 +72,6 @@ jQuery(function () {
 		$(this).addClass("active");
 	});
 
-	$("#colorPickerContainer").delegate(".sp-alpha", "mousedown", function () {
-		colorDrag = true;
-	});
-
-	$("#colorPickerContainer").delegate(".sp-alpha", "mousemove", function () {
-		if (colorDrag) {
-			var currColor = $("#changeColor").val();
-			$("#Colors_Panel").find(".main-section").find(".color.active").attr("data-color", currColor);
-			$("#Colors_Panel").find(".main-section").find(".color.active").css("background-color", currColor);
-		}
-	});
-
-	$("body").delegate("#colorPickerContainer", "mouseup", function () {
-		if ($("#colorPickerContainer").find(".sp-thumb-el.sp-thumb-light.sp-thumb-active").length > 0) {
-			var currColor = $("#changeColor").val();
-			$("#Colors_Panel").find(".main-section").find(".color.active").attr("data-color", currColor);
-			$("#Colors_Panel").find(".main-section").find(".color.active").css("background-color", currColor);
-			colorDrag = false;
-		}
-	});
 });
 
 function addNewCustomImage(gallerySelector, imageURL) {

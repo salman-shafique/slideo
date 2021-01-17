@@ -18,7 +18,6 @@ export default function startDrag(event) {
     // Allow resize circles clicks
     if (g.getAttribute("role") == "resize-circles") return;
 
-    let shapeId = g.getAttribute("shape_id");
     if (!g.classList.contains("draggable")) {
         // Deselect all
         deSelectAll();
@@ -26,10 +25,7 @@ export default function startDrag(event) {
     };
 
     selectEl(event);
-    if (event.ctrlKey) {
-    } else {
-        deSelectAll(shapeId)
-    }
+
     updateAllTransforms();
 
     session.SAVED_MOUSE_POS = getMousePosition(event);
