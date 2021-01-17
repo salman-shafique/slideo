@@ -1,0 +1,14 @@
+branchName: '${issue.number}-${issue.title}'
+silent: false
+gitSafeReplacementChar: '_'
+autoCloseIssue: true
+openPR: true
+branches:
+  - label: feature
+    prefix: feature/
+  - label: fix
+    prefix: fix/
+  - label: bug
+    prefix: bugfix/
+  - label: '*'
+    prefix: issue/
