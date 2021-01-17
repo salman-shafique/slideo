@@ -8,6 +8,8 @@ import findKeyword from "../utils/findKeyword";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import constants from "Editor/js/constants";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
+import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
+
 
 export default function shape(slideId, shapeId) {
     if (!(this instanceof shape)) return new shape(...arguments);
@@ -220,6 +222,19 @@ export default function shape(slideId, shapeId) {
             parseFloat(savedAllTransforms.translate.startingF)
         )
 
+    }
+
+    /**
+     * Update the SVGGElement attributes according to saved data
+     */
+    this.updateAttrs = () => {
+        const g = this.el();
+        const data = this.data();
+        // For now we only need to update color attributes
+        validColorAttributes.forEach(colorAttributeName => {
+            if (data[colorAttributeName])
+                g.setAttribute(colorAttributeName, data[colorAttributeName]);
+        });
     }
 }
 

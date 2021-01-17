@@ -26,7 +26,7 @@ const themeColorNames = [
     "TEXT_2",
 ]
 
-const validAttributes = [
+const validColorAttributes = [
     "fill_theme_color",
     "fill_gradient_stop_0",
     "fill_gradient_stop_1",
@@ -54,8 +54,8 @@ const updateColorTemplate = (newColor) => {
  */
 const getThemeColorNameOfShape = (g) => {
 
-    for (let index = 0; index < validAttributes.length; index++) {
-        const attributeName = validAttributes[index];
+    for (let index = 0; index < validColorAttributes.length; index++) {
+        const attributeName = validColorAttributes[index];
         const attr = g.getAttribute(attributeName);
         if (attr) {
             const themeColorName = attr.split(" ")[0];
@@ -81,7 +81,7 @@ const setThemeColor = (g, attrName, newThemeColorName) => {
  */
 const setThemeColorNameOfShape = (g, newThemeColorName) => {
     const shapeType = getShapeType(g);
-    validAttributes.forEach(attrName => {
+    validColorAttributes.forEach(attrName => {
         if (g.hasAttribute(attrName)) {
             setThemeColor(g, attrName, newThemeColorName);
         } else if (attrName == "icon_theme_color") {
@@ -109,6 +109,7 @@ const changeThemeColorOfShapes = (newThemeColorName) => {
 
 export {
     themeColorNames,
+    validColorAttributes,
     updateColorTemplate,
     setThemeColorNameOfShape,
     getThemeColorNameOfShape,
