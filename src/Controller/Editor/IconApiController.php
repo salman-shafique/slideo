@@ -12,12 +12,12 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
- * @Route("/api/editor/icon")
+ * @Route("/api/editor/icon",methods={"POST"})
  */
-class IconController extends AbstractController
+class IconApiController extends AbstractController
 {
     /**
-     * @Route("/find",methods={"POST"})
+     * @Route("/find")
      */
     public function find(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, IconService $iconService)
     {
@@ -29,7 +29,7 @@ class IconController extends AbstractController
     }
 
     /**
-     * @Route("/changeColor", methods={"POST"})
+     * @Route("/changeColor")
      */
     public function changeColor(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, IconService $iconService)
     {
