@@ -87,8 +87,7 @@ class GoogleAuthenticator extends SocialAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        $targetUrl = $this->router->generate('index');
-        return new RedirectResponse($targetUrl);
+        return new RedirectResponse("/account");
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
