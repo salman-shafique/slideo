@@ -706,6 +706,7 @@ object[id^="prev_"] {
 	max-width: 100%;
 	width: auto;
 	cursor:pointer;
+	padding: 10px;
 }
 
 .uploaded-image-delete {

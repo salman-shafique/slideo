@@ -17,7 +17,6 @@ export default function UploadImageArea({ images }) {
             mounted.current = true;
         }
     });
-    ///api/editor/image/upload
 
     const upload = (e) => {
         const input = e.target;
