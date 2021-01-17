@@ -66,8 +66,8 @@ export default function UploadImageArea({ images }) {
         });
 
     return (
-        <div>
-            <div className="row m-0 py-4">
+        <div className="py-5 ">
+            <div className="row m-0">
                 {renderedImages}
             </div>
 
