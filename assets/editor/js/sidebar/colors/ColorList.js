@@ -11,18 +11,23 @@ export default function ColorList() {
     }
 
     const getThemeColorNameOfShape = (g) => {
-
+        return "ACCENT_1";
     }
 
     const mounted = React.useRef();
     React.useEffect(() => {
         if (!mounted.current) {
             window.addEventListener("shape.selected", (event) => {
-
-                const g = event.data.shape;
-                console.log(session.SELECTED_ELEMENTS.length, "on color list");
-                if (session.SELECTED_ELEMENTS.length == 1)
+                if (session.SELECTED_ELEMENTS.length == 1) {
+                    const g = event.data.shape;
+                    const themeColorOfShape = getThemeColorNameOfShape(g);
+                    document.querySelector("div.color[color-name='" + themeColorOfShape + "']").click();
                     console.log("change");
+                    return;
+                } else {
+                    $(".colors-container>.active.color").removeClass("active");
+                    $("#colorPickerContainer").hide();
+                }
 
             });
             mounted.current = true;

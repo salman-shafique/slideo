@@ -52,7 +52,7 @@ export default function ColorInput() {
 
 
     return (
-        <div id="colorPickerContainer" className="medium-top-margin row m-0 justify-content-center">
+        <div id="colorPickerContainer" className="medium-top-margin row m-0 justify-content-center" style={{ display: "none" }}>
             <div className="col-10">
                 <input id="changeColor" className="collapse" defaultValue="#ffffff" />
             </div>
