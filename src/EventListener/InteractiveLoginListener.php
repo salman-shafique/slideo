@@ -29,12 +29,18 @@ class InteractiveLoginListener
         /** @var Request $request */
         $request = $event->getRequest();
         $cookies = $request->cookies->all();
+
+        /**
+         * @var User $user
+         */
+        $user = $event->getAuthenticationToken()->getUser();
+
+        // Save the presentations
         if (isset($cookies['presentations'])) {
             $jwt = $cookies['presentations'];
             $presentationsInCookies = JWTService::decode($jwt);
             if ($presentationsInCookies)
                 if (count($presentationsInCookies) > 0) {
-                    $user = $event->getAuthenticationToken()->getUser();
 
                     $query = $this->em->createQueryBuilder()
                         ->select('p')
@@ -56,6 +62,5 @@ class InteractiveLoginListener
                     $this->em->flush();
                 }
         }
-
     }
 }

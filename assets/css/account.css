@@ -137,18 +137,18 @@ body {
 .presentation-thumb-img {
     width: 100%;
     box-shadow: -4px 4px 8px 0 #3e3e3e;
-    height: 160px;
-    display: grid;
     align-items: center;
     text-align: center;
     color: gray;
     text-decoration: none !important;
 }
 .presentation-thumb-img span{
-    font-size: 70px;
+    font-size: 60px;
 }
 .presentation-thumb-img img{
-    width: 100%;
+    width: auto;
+    height: auto;
+    max-width: 100%;
 }
 
 

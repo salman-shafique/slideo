@@ -1,0 +1,5 @@
+.download-thumbnail {
+    border: 1px solid darkgrey;
+    max-height: 100px;
+    border-radius: 5px;
+}
