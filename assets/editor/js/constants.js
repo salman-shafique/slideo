@@ -65,7 +65,8 @@ const constants = {
     SHAPE_TYPES: {
         TEXTBOX: 0,
         IMAGE: 1,
-        AUTO_SHAPE: 2
+        AUTO_SHAPE: 2,
+        ICON: 3
     },
     MAX_SLIDE_CAPACITY: 8,
     SLIDE_TITLE_PLACEHOLDER: "Add your slide title here",

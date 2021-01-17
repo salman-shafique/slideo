@@ -2,31 +2,24 @@ import React from "react";
 import ColorInput from "./ColorInput";
 import ColorCircle from "./ColorCircle";
 import session from "Editor/js/session";
+import { getThemeColorNameOfShape, themeColorNames } from "./utils";
 
 
 export default function ColorList() {
-
-    const setThemeColorNameOfShape = (g, newThemeColorName) => {
-
-    }
-
-    const getThemeColorNameOfShape = (g) => {
-        return "ACCENT_1";
-    }
 
     const mounted = React.useRef();
     React.useEffect(() => {
         if (!mounted.current) {
             window.addEventListener("shape.selected", (event) => {
+
+                $(".colors-container>.active.color").removeClass("active");
+                $("#colorPickerContainer").hide();
                 if (session.SELECTED_ELEMENTS.length == 1) {
                     const g = event.data.shape;
                     const themeColorOfShape = getThemeColorNameOfShape(g);
-                    document.querySelector("div.color[color-name='" + themeColorOfShape + "']").click();
-                    console.log("change");
-                    return;
-                } else {
-                    $(".colors-container>.active.color").removeClass("active");
-                    $("#colorPickerContainer").hide();
+                    if (!themeColorOfShape) return;
+
+                    document.querySelector("div.color[color-name='" + themeColorOfShape.themeColorName + "']").click();
                 }
 
             });
@@ -35,18 +28,7 @@ export default function ColorList() {
     });
 
     const circles = [];
-    [
-        "ACCENT_1",
-        "ACCENT_2",
-        "ACCENT_3",
-        "ACCENT_4",
-        "ACCENT_5",
-        "ACCENT_6",
-        "BACKGROUND_1",
-        "BACKGROUND_2",
-        "TEXT_1",
-        "TEXT_2",
-    ].forEach(colorName => {
+    themeColorNames.forEach(colorName => {
         circles.push(
             <ColorCircle key={colorName} colorName={colorName} />
         )

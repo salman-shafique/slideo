@@ -1,26 +1,15 @@
 import React from "react";
 import "Editor/js/dependencies/spectrum-colorpicker2.min";
-import reactToDOM from "Editor/js/utils/reactToDOM";
 import colorTemplate from "Editor/js/entity/colorTemplate";
 import session from "Editor/js/session";
 
-
+import {updateColorTemplate} from "./utils";
 
 export default function ColorInput() {
 
     const mounted = React.useRef();
     React.useEffect(() => {
         if (!mounted.current) {
-            const updateColorTemplate = () => {
-                const activeCircle = document.querySelector("#Colors_Panel .main-section .color.active");
-
-                const newColor = $("#changeColor").val();
-                const colorName = activeCircle.getAttribute("color-name");
-                let tmp = {};
-                tmp[colorName] = newColor;
-                colorTemplate(session.CURRENT_SLIDE).changeColors(tmp);
-            }
-
             // Initialize Color Picker
             $("#changeColor").spectrum({
                 type: "flat",
@@ -32,9 +21,7 @@ export default function ColorInput() {
                 showAlpha: false,
                 move: (color) => {
                     let currColor = color.toHexString();
-                    $("#Colors_Panel").find(".main-section").find(".color.active").attr("data-color", currColor);
-                    $("#Colors_Panel").find(".main-section").find(".color.active").css("background-color", currColor);
-                    updateColorTemplate();
+                    updateColorTemplate(currColor);
                 }
             });
 

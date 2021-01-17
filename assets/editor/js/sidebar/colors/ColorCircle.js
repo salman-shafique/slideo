@@ -1,24 +1,20 @@
 import React from "react";
-import session from "Editor/js/session";
-import colorTemplate from "Editor/js/entity/colorTemplate";
 import "Editor/js/dependencies/spectrum-colorpicker2.min";
-
+import { getThemeColor, changeThemeColorOfShapes } from "./utils";
 
 export default function ColorCircle({ colorName }) {
-
-    const getThemeColor = () => {
-        return colorTemplate(session.CURRENT_SLIDE).getColor(colorName);
-    }
 
     const selectColor = (e) => {
         $(".colors-container>.active.color").removeClass("active");
         e.target.classList.add("active");
 
-        const themeColor = getThemeColor();
+        const themeColor = getThemeColor(colorName);
         $("#changeColor").val(themeColor);
         $("#changeColor").spectrum("set", themeColor);
         $("#colorPickerContainer").show();
 
+        // Change color logic
+        changeThemeColorOfShapes(colorName)
     }
 
     return (

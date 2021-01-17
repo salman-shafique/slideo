@@ -66,7 +66,6 @@ export default function colorTemplate(slideId) {
 
         colors = this.getAllColors();
 
-
         const documentElement = slide(slideId).documentElement();
 
         Object.keys(colors).forEach(colorName => {
