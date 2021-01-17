@@ -4,6 +4,8 @@ import getTransform from "./getTransform";
 import Events from "Editor/js/Events";
 import getSizeAttributes from "./getSizeAttributes";
 import getShapeType from "./getShapeType";
+import deSelectAll from "./deSelectAll";
+
 /**
  * 
  * @param {MouseEvent} event
@@ -27,6 +29,10 @@ export default function selectEl(event) {
     Object.assign(selectedEl, getTransform(g));
     session.SELECTED_ELEMENTS.push(selectedEl);
 
+    if (event.ctrlKey) {
+    } else {
+        deSelectAll(shapeId)
+    }
     // Trigger selection event
     Events.shape.selected({ 'shape': g });
 

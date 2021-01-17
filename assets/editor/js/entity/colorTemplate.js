@@ -20,6 +20,16 @@ export default function colorTemplate(slideId) {
         return colors;
     }
 
+    this.getColor = (themeColorName) => {
+        const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
+        let color = null;
+        Object.keys(colorTemplate_).forEach(colorName => {
+            if (this.rigthColorName(colorName) == themeColorName)
+                color = colorTemplate_[colorName];
+        });
+        return color;
+    }
+
     this.rigthColorName = (wrongColorName) => {
         const dic = {
             "aCCENT1": "ACCENT_1",
@@ -55,7 +65,6 @@ export default function colorTemplate(slideId) {
             this.updateColors(colors);
 
         colors = this.getAllColors();
-
 
         const documentElement = slide(slideId).documentElement();
 

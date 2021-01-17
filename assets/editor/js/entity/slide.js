@@ -277,6 +277,8 @@ export default function slide(slideId) {
             const shapeCls = shape(this.slideId, shape_.data.shape_id);
             g = shapeCls.el();
             if (g) {
+                // Update the SVG attributes
+                shapeCls.updateAttrs();
                 // initialize the transform
                 initializeG(g);
                 // Move to saved position
