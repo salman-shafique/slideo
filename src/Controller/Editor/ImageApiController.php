@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * @Route("/api/editor/image",methods={"POST"})
  */
-class ImageController extends AbstractController
+class ImageApiController extends AbstractController
 {
     /**
      * @Route("/h1Image")
@@ -29,7 +29,7 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/userimages/upload")
+     * @Route("/upload")
      */
     public function userImagesUpload(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, ImageService $imageService)
     {
@@ -41,14 +41,26 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/userimages/get")
+     * @Route("/userimages")
      */
     public function userImagesGet(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, ImageService $imageService)
     {
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $r = $imageService->userImagesGet($this->getUser());
+        $r = $imageService->userImagesGet();
+        return new JsonResponse($r);
+    }
+
+    /**
+     * @Route("/userimages/delete/{imageId}")
+     */
+    public function deleteUserImage(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, ImageService $imageService, string $imageId)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $imageService->deleteUserImage($imageId);
         return new JsonResponse($r);
     }
 }
