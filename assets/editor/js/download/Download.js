@@ -3,7 +3,7 @@ import apiService from "Editor/js/utils/apiService";
 import preloader from "Editor/js/components/preloader";
 import DownloadCard from "./DownloadCard";
 import Header from "./Header";
-
+import "./style.css";
 
 
 export default function Download({ presentationId }) {
