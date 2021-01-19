@@ -1,6 +1,6 @@
 import session from "Editor/js/session";
 import shape from "Editor/js/entity/shape";
-
+import "./actions";
 
 const releaseTextbox = (event) => {
   /**

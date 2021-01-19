@@ -25,8 +25,8 @@ let addedTextboxCounter = {
  *  yGrid : number,
  *  heightGrid : number,
  *  widthGrid : number,
- *  fontSize : number,
- *  fontWeight : number,
+ *  font_size : number,
+ *  font_weight : number,
  *  text : String ,
  *  size : "XL" | "L" | "MD" | "SM"
  * }} textboxData 

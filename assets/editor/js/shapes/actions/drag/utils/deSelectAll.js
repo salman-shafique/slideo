@@ -1,5 +1,6 @@
 import deSelectEl from "./deSelectEl";
 import session from "Editor/js/session";
+import Events from "Editor/js/Events";
 
 /**
  * 
@@ -14,4 +15,6 @@ export default function deSelectAll(except = null) {
         } else
             deSelectEl(selectedEl.shapeId);
     });
+    if (!except)
+        Events.shape.allReleased();
 }
