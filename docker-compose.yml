@@ -8,10 +8,11 @@ services:
       - ./:/var/www/app
       - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     ports:
-      - "5500:8000"
-    driver: "json-file"
-    options:
-        max-size: "50m"
+      - "5500:8000"       
+    logging:
+      driver: "json-file"
+      options:
+          max-size: "50m"
     env_file:
       - .env
     restart: always
