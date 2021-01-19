@@ -1,6 +1,7 @@
 import session from "Editor/js/session";
 import shape from "Editor/js/entity/shape";
 
+
 // Deselect textbox here
 window.addEventListener("shape.released", (event) => {
   /**
@@ -12,7 +13,7 @@ window.addEventListener("shape.released", (event) => {
   const alt = g.getAttribute("alt");
   const td = g.querySelector("td");
 
-  const newText = td.innerText.trim().replace(/\n/g,' ');
+  const newText = td.innerText.trim().replace(/\n/g, ' ');
   td.innerHTML = "";
   td.append(newText);
 
@@ -37,7 +38,9 @@ window.addEventListener("shape.released", (event) => {
     shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setText(newText);
   }
 
-  if (g.classList.contains("text_editing"))
+  if (g.classList.contains("text_editing")) {
     g.classList.remove("text_editing");
+    td.removeAttribute("contenteditable");
+  }
 
 })

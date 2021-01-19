@@ -79,6 +79,4 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     // Add content text            
     table.querySelector("td").innerText = text;
 
-    // change content handlers
-    table.querySelector("td").setAttribute("contenteditable", "true");
 }
