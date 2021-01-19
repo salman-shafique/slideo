@@ -53,3 +53,11 @@ window.addEventListener("shape.drag.started", () => {
     releaseTextbox({ data: { shape: selectedEl.shape } });
   });
 });
+// Deselect textbox when resize started
+window.addEventListener("shape.resize.started", () => {
+  session.SELECTED_ELEMENTS.forEach(selectedEl => {
+    releaseTextbox({ data: { shape: selectedEl.shape } });
+  });
+});
+
+
