@@ -13,7 +13,7 @@ function ItalicBtn() {
      * 
      * @param {SVGGElement} g 
      */
-    const isItalic = (g) => {
+    const isItalicText = (g) => {
         const shapeId = g.getAttribute("shape_id");
         const shape_ = shape(session.CURRENT_SLIDE, shapeId);
         return shape_.data().italic?.toLowerCase() == "true";
@@ -28,7 +28,7 @@ function ItalicBtn() {
 
             const g = event.data.shape;
             if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX) 
-                setItalicSelected(isItalic(g));
+                setItalicSelected(isItalicText(g));
             
         });
         window.addEventListener("shape.allReleased", () => {

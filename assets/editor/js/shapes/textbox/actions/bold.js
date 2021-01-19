@@ -13,7 +13,7 @@ function BoldBtn() {
      * 
      * @param {SVGGElement} g 
      */
-    const isBold = (g) => {
+    const isBoldText = (g) => {
         const shapeId = g.getAttribute("shape_id");
         const shape_ = shape(session.CURRENT_SLIDE, shapeId);
         return shape_.data().font_weight == "700";
@@ -28,7 +28,7 @@ function BoldBtn() {
 
             const g = event.data.shape;
             if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX) 
-                setBoldSelected(isBold(g));
+                setBoldSelected(isBoldText(g));
             
         });
         window.addEventListener("shape.allReleased", () => {
