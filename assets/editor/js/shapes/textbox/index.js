@@ -2,8 +2,7 @@ import session from "Editor/js/session";
 import shape from "Editor/js/entity/shape";
 
 
-// Deselect textbox here
-window.addEventListener("shape.released", (event) => {
+const releaseTextbox = (event) => {
   /**
   * @type {SVGGElement} g
   */
@@ -16,6 +15,11 @@ window.addEventListener("shape.released", (event) => {
   const newText = td.innerText.trim().replace(/\n/g, ' ');
   td.innerHTML = "";
   td.append(newText);
+
+  if (g.classList.contains("text_editing")) {
+    g.classList.remove("text_editing");
+    td.removeAttribute("contenteditable");
+  }
 
   if (alt.includes("h1|")) {
     // Update the H1
@@ -38,9 +42,14 @@ window.addEventListener("shape.released", (event) => {
     shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setText(newText);
   }
 
-  if (g.classList.contains("text_editing")) {
-    g.classList.remove("text_editing");
-    td.removeAttribute("contenteditable");
-  }
+}
 
-})
+// Deselect textbox here
+window.addEventListener("shape.released", releaseTextbox);
+
+// Deselect textbox when drag started
+window.addEventListener("shape.drag.started", () => {
+  session.SELECTED_ELEMENTS.forEach(selectedEl => {
+    releaseTextbox({ data: { shape: selectedEl.shape } });
+  });
+});
