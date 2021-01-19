@@ -402,9 +402,6 @@ export default function slide(slideId) {
         .text_editing *{
             pointer-events:all !important;
         }
-        .text_editing table{
-            background-color:rgba(255,255,255,0.9);
-        }
         foreignObject { overflow: visible; }
         foreignObject table {
             position: fixed;
