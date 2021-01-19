@@ -1,7 +1,6 @@
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
-import { saveChanges } from "Editor/js/navbar/SaveButton";
-
+import session from "Editor/js/session";
 
 /**
  * 
@@ -15,7 +14,8 @@ export default function keyboardListener(contentDocument) {
                 deSelectAll()
                 break;
             case "Delete":
-                deleteShapes();
+                if (!session.TEXT_EDITING)
+                    deleteShapes();
                 break;
             default:
                 break;

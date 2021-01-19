@@ -23,4 +23,5 @@ export default function selectTextboxElement(event) {
   const td = g.querySelector("td");
   td.setAttribute("contenteditable", "true");
   td.focus();
+  session.TEXT_EDITING = true;
 }

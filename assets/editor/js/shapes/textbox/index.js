@@ -20,6 +20,7 @@ const releaseTextbox = (event) => {
     g.classList.remove("text_editing");
     td.removeAttribute("contenteditable");
   }
+  session.TEXT_EDITING = false;
 
   if (alt.includes("h1|")) {
     // Update the H1

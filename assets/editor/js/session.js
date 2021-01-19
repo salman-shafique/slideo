@@ -35,6 +35,10 @@ let session = {
      */
     SHAPE_STATE: null,
     /**
+     * @type {boolean} TEXT_EDITING
+     */
+    TEXT_EDITING: false,
+    /**
      * @type {string} SCALING_DIRECTION - lt,t,rt,r,rb,b,lb,l
      */
     SCALING_DIRECTION: null
