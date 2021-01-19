@@ -1,1 +1,2 @@
 import "./bold";
+import "./italic";
