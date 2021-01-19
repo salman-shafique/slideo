@@ -450,6 +450,19 @@ export default function slide(slideId) {
         .d-none {
             display:none !important
         }
+        foreignObject.bounding_box:hover:after{
+            content: "✎";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 1051px;
+            -webkit-text-stroke-width: 40px;
+            -webkit-text-stroke-color: dimgray;
+            color: white;
+            display: grid;
+            align-items: center;
+            text-align: center;
+        }
         `}</style>,
             null,
             "http://www.w3.org/2000/svg"
