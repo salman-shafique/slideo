@@ -2,7 +2,7 @@ import session from "Editor/js/session";
 import shape from "Editor/js/entity/shape";
 import "./actions";
 
-const releaseTextbox = (event) => {
+const cancelEditing = (event) => {
   /**
   * @type {SVGGElement} g
   */
@@ -45,20 +45,28 @@ const releaseTextbox = (event) => {
 
 }
 
-// Deselect textbox here
-window.addEventListener("shape.released", releaseTextbox);
+// Cancel editing here
+window.addEventListener("shape.released", cancelEditing);
 
-// Deselect textbox when drag started
+// Cancel editing when drag started
 window.addEventListener("shape.drag.started", () => {
   session.SELECTED_ELEMENTS.forEach(selectedEl => {
-    releaseTextbox({ data: { shape: selectedEl.shape } });
+    cancelEditing({ data: { shape: selectedEl.shape } });
   });
 });
-// Deselect textbox when resize started
+// Cancel editing when resize started
 window.addEventListener("shape.resize.started", () => {
   session.SELECTED_ELEMENTS.forEach(selectedEl => {
-    releaseTextbox({ data: { shape: selectedEl.shape } });
+    cancelEditing({ data: { shape: selectedEl.shape } });
   });
 });
 
+// Cancel editing when multiple elements selected
+window.addEventListener("shape.selected", () => {
+  if (session.SELECTED_ELEMENTS.length > 1) {
+    session.SELECTED_ELEMENTS.forEach(selectedEl => {
+      cancelEditing({ data: { shape: selectedEl.shape } });
+    });
+  }
+});
 
