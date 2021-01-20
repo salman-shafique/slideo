@@ -26,4 +26,7 @@ export default function toggleKeyword(keyword) {
     const iconContainerToShow = select('#Icons_Panel div.icon-container[data-keyword="' + keyword + '"]');
     if (iconContainerToShow)
         iconContainerToShow.style.display = "";
+
+    // Empty list
+    document.querySelector("#sideBarIconsEmpty").style.display = "none";
 }
