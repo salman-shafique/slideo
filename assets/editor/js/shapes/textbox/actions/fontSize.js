@@ -6,6 +6,7 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
+import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 
 function FontSize() {
     const [selectedFontsize, setSelectedFontsize] = React.useState(null); // In pixels - integer
@@ -17,21 +18,25 @@ function FontSize() {
     const getFontSize = (g) => {
         const shapeId = g.getAttribute("shape_id");
         const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-        return parseInt(shape_.data().font_size);
+        const startingA = getTransform(g).scale.startingA;
+        return parseInt(parseInt(shape_.data().font_size) * startingA);
     }
 
+    const updateDropdown = () => {
+        if (session.SELECTED_ELEMENTS.length != 1) {
+            setSelectedFontsize(null);
+            return;
+        };
+        const g = session.SELECTED_ELEMENTS[0].shape;
+        if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX)
+            setSelectedFontsize(getFontSize(g));
+    }
+
+
     React.useEffect(() => {
-        window.addEventListener("shape.selected", (event) => {
-            if (session.SELECTED_ELEMENTS.length != 1) {
-                setSelectedFontsize(null);
-                return;
-            };
-
-            const g = event.data.shape;
-            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX)
-                setSelectedFontsize(getFontSize(g));
-
-        });
+        window.addEventListener("shape.selected", updateDropdown);
+        window.addEventListener("shape.resize.ended", updateDropdown);
+        window.addEventListener("shape.drag.ended", updateDropdown);
         window.addEventListener("shape.allReleased", () => {
             setSelectedFontsize(null);
         });
@@ -44,13 +49,15 @@ function FontSize() {
      * @param {string} newValue 
      */
     const set = (g, newValue) => {
-
         const shapeId = g.getAttribute("shape_id");
         const shape_ = shape(session.CURRENT_SLIDE, shapeId);
 
         const data = shape_.data();
         data.font_size = newValue;
-        g.querySelector("table").style.fontSize = newValue + "px";
+
+        const startingA = getTransform(g).scale.startingA;
+
+        g.querySelector("table").style.fontSize = parseInt(newValue / startingA) + "px";
         autosizeForeignObject(g.querySelector("foreignObject"));
         relocateResizeCircleContainer(g);
     }
