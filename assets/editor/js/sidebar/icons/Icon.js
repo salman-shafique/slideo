@@ -2,9 +2,13 @@ import React from "react";
 import session from "Editor/js/session";
 import selectIcon from "Editor/js/shapes/icon/selectIcon";
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
+import highlightIcon from "Editor/js/shapes/icon/highlightIcon";
+
 
 export default function Icon({ iconData }) {
     const onClick = () => {
+        highlightIcon(iconData);
+        
         if (session.SELECTED_ELEMENTS.length == 1) {
             const g = session.SELECTED_ELEMENTS[0].shape;
             const alt = g.getAttribute("alt");
@@ -20,6 +24,6 @@ export default function Icon({ iconData }) {
     }
 
     return (
-        <img onClick={onClick} className={"icon-item col-4 py-2 rounded"} src={iconData.url} />
+        <img onClick={onClick} iconid={iconData.id} className={"icon-item col-4 py-2 rounded"} src={iconData.url} />
     )
 }

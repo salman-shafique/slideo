@@ -470,6 +470,9 @@ body {
 .icon-item {
 	cursor: pointer;
 }
+.icon-item.active {
+	background-color: darkgray;
+}
 
 #Custom_Images_Header {
 	text-align: left!important;
