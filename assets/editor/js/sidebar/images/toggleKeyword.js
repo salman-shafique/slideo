@@ -25,4 +25,8 @@ export default function toggleKeyword(keyword) {
     const imageContainerToShow = select('#Images_Panel div.image-container[data-keyword="' + keyword + '"]');
     if (imageContainerToShow)
         imageContainerToShow.style.display = "";
+
+
+    // Empty list
+    select("#sideBarImagesEmpty").style.display = "none";
 }

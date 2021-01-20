@@ -470,6 +470,9 @@ body {
 .icon-item {
 	cursor: pointer;
 }
+.icon-item.active {
+	background-color: darkgray;
+}
 
 #Custom_Images_Header {
 	text-align: left!important;
@@ -680,6 +683,10 @@ object[id^="prev_"] {
 	cursor: pointer;
 }
 
+.new-image-item.active {
+	background-color: darkgray;
+}
+
 .image-container {
 	width: 100%;
 }
@@ -705,7 +712,7 @@ object[id^="prev_"] {
 	height: auto;
 	max-width: 100%;
 	width: auto;
-	cursor:pointer;
+	cursor: pointer;
 	padding: 10px;
 }
 
