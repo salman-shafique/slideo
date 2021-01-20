@@ -63,6 +63,7 @@ export default function createNewTextbox(textboxData) {
             "margin_bottom_ratio": "0.006666666666666667",
             "direction": "rtl",
             "sizeRatio": 1,
+            "font_size_optimized": "true"
         }
     }
     Object.assign(newShapeData.data, textboxData);

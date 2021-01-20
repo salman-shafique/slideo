@@ -1,6 +1,4 @@
 import constants from "Editor/js/constants";
-import reduceFontSize from "./reduceFontSize";
-
 /**
  * 
  * @param {SVGForeignObjectElement} foreignObject 
@@ -54,11 +52,8 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     // Direction
     table.style.direction = direction;
 
-    if (!shape.sizeRatio)
-        shape.sizeRatio = reduceFontSize(foreignObject);
-
+    // Font size
     table.style.fontSize = shape.font_size + "px";
-    //font_size = shape.sizeRatio * constants.SVG_HEIGHT() / parseFloat(shape.scale);
 
     // bold
     table.style.fontWeight = shape.font_weight;
