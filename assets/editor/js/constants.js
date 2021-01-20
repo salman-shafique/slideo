@@ -53,6 +53,8 @@ const constants = {
         RIGHT: "3",
         JUSTIFY: "4",
     },
+    PT_TO_PIXEL: 494 / 14,
+    PIXEL_TO_PT: 14 / 494,
     GOLDEN_RATIO: (1 + Math.sqrt(5)) / 2,
     IS_CHROME: /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
     TRANSFORM: {
