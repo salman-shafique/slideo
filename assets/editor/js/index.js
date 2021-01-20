@@ -33,7 +33,6 @@ import "Editor/js/components/Confetti";
 
 window.onerror = (r)=>{
     preloader().forceHide();
-    toastr.error("OOps... Something went wrong on our side...");
     console.error(r);
 }
 
