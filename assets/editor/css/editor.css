@@ -680,6 +680,10 @@ object[id^="prev_"] {
 	cursor: pointer;
 }
 
+.new-image-item.active {
+	background-color: darkgray;
+}
+
 .image-container {
 	width: 100%;
 }
@@ -705,7 +709,7 @@ object[id^="prev_"] {
 	height: auto;
 	max-width: 100%;
 	width: auto;
-	cursor:pointer;
+	cursor: pointer;
 	padding: 10px;
 }
 
