@@ -28,6 +28,9 @@ export default function endDrag(event) {
         }
     }
 
+    // Update saved transfroms for next actions
+    updateAllTransforms();
+
     if (session.SHAPE_STATE == "DRAGGING") {
         dragPreventDefault(g, true);
         // Trigger event
@@ -38,9 +41,6 @@ export default function endDrag(event) {
         // Trigger event
         Events.shape.resize.ended();
     }
-
-    // Update saved transfroms for next actions
-    updateAllTransforms();
 
     session.SAVED_MOUSE_POS =
         session.SHAPE_STATE =

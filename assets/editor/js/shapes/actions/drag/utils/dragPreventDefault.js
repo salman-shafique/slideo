@@ -10,7 +10,7 @@ export default function dragPreventDefault(g, clear = null) {
         return;
     }
 
-    // Prevenet event defaults
+    // Prevent event defaults
     if (!g.ownerDocument.querySelector("svg").classList.contains("dragging"))
         g.ownerDocument.querySelector("svg").classList.add("dragging");
     g.ownerDocument.addEventListener("selectstart", disableTextSelect);

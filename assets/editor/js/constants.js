@@ -47,8 +47,14 @@ const constants = {
         "1": 'left',
         "2": 'center',
         "3": 'right',
-        "4": 'justify'
+        "4": 'justify',
+        LEFT: "1",
+        CENTER: "2",
+        RIGHT: "3",
+        JUSTIFY: "4",
     },
+    PT_TO_PIXEL: 494 / 14,
+    PIXEL_TO_PT: 14 / 494,
     GOLDEN_RATIO: (1 + Math.sqrt(5)) / 2,
     IS_CHROME: /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
     TRANSFORM: {
