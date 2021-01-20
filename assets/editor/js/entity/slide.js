@@ -209,8 +209,6 @@ export default function slide(slideId) {
                     arrangeForeignObject(foreignObject, shape_.data, text, direction);
                     g.innerHTML = "";
                     g.appendChild(foreignObject);
-                    // Add event listener
-                    shape(this.slideId, shape_.data.shape_id).addEvent("dblclick", selectTextboxElement);
                 }
             }
 
@@ -294,6 +292,7 @@ export default function slide(slideId) {
         // Add event listeners
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
+        this.contentDocument().addEventListener("mouseup", selectTextboxElement)
 
         // Color template
         colorTemplate(this.slideId).changeColors();
@@ -403,13 +402,23 @@ export default function slide(slideId) {
         .text_editing *{
             pointer-events:all !important;
         }
-        .text_editing table{
-            background-color:rgba(255,255,255,0.1);
-        }
         foreignObject { overflow: visible; }
         foreignObject table {
             position: fixed;
             word-break: break-word;
+        }
+        g:not(.text_editing)>foreignObject.bounding_box:hover:after{
+            content: "✎";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 1051px;
+            -webkit-text-stroke-width: 40px;
+            -webkit-text-stroke-color: dimgray;
+            color: white;
+            display: grid;
+            align-items: center;
+            text-align: center;
         }
 
         /* Resize elements */

@@ -5,11 +5,13 @@ import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
-import toastr from "Editor/js/components/toastr";
+import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
 const preloader_ = preloader();
 
 export function saveChanges(callback = null) {
+    deSelectAll();
+
     const slides = session.PRESENTATION.slides;
 
     slides.forEach((aSlide, i) => {

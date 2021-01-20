@@ -1,6 +1,4 @@
 import constants from "Editor/js/constants";
-import reduceFontSize from "./reduceFontSize";
-
 /**
  * 
  * @param {SVGForeignObjectElement} foreignObject 
@@ -35,12 +33,12 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
 
     // Underline
     let text_decoration;
-    shape.underline == "True" ? text_decoration = "underline" : text_decoration = '';
+    shape.underline.toLowerCase() == "true" ? text_decoration = "underline" : text_decoration = '';
     table.style.textDecoration = text_decoration;
 
     // Italic
     let font_style;
-    shape.italic == "True" ? font_style = "italic" : font_style = '';
+    shape.italic.toLowerCase() == "true" ? font_style = "italic" : font_style = '';
     table.style.fontStyle = font_style;
 
     // Why?
@@ -54,11 +52,8 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     // Direction
     table.style.direction = direction;
 
-    if (!shape.sizeRatio)
-        shape.sizeRatio = reduceFontSize(foreignObject);
-
+    // Font size
     table.style.fontSize = shape.font_size + "px";
-    //font_size = shape.sizeRatio * constants.SVG_HEIGHT() / parseFloat(shape.scale);
 
     // bold
     table.style.fontWeight = shape.font_weight;
@@ -79,6 +74,4 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     // Add content text            
     table.querySelector("td").innerText = text;
 
-    // change content handlers
-    table.querySelector("td").setAttribute("contenteditable", "true");
 }

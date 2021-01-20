@@ -1,8 +1,8 @@
 import session from "Editor/js/session";
 import shape from "Editor/js/entity/shape";
+import "./actions";
 
-// Deselect textbox here
-window.addEventListener("shape.released", (event) => {
+const cancelEditing = (event) => {
   /**
   * @type {SVGGElement} g
   */
@@ -12,9 +12,15 @@ window.addEventListener("shape.released", (event) => {
   const alt = g.getAttribute("alt");
   const td = g.querySelector("td");
 
-  const newText = td.innerText.trim().replace(/\n/g,' ');
+  const newText = td.innerText.trim().replace(/\n/g, ' ');
   td.innerHTML = "";
   td.append(newText);
+
+  if (g.classList.contains("text_editing")) {
+    g.classList.remove("text_editing");
+    td.removeAttribute("contenteditable");
+  }
+  session.TEXT_EDITING = false;
 
   if (alt.includes("h1|")) {
     // Update the H1
@@ -37,7 +43,30 @@ window.addEventListener("shape.released", (event) => {
     shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setText(newText);
   }
 
-  if (g.classList.contains("text_editing"))
-    g.classList.remove("text_editing");
+}
 
-})
+// Cancel editing here
+window.addEventListener("shape.released", cancelEditing);
+
+// Cancel editing when drag started
+window.addEventListener("shape.drag.started", () => {
+  session.SELECTED_ELEMENTS.forEach(selectedEl => {
+    cancelEditing({ data: { shape: selectedEl.shape } });
+  });
+});
+// Cancel editing when resize started
+window.addEventListener("shape.resize.started", () => {
+  session.SELECTED_ELEMENTS.forEach(selectedEl => {
+    cancelEditing({ data: { shape: selectedEl.shape } });
+  });
+});
+
+// Cancel editing when multiple elements selected
+window.addEventListener("shape.selected", () => {
+  if (session.SELECTED_ELEMENTS.length > 1) {
+    session.SELECTED_ELEMENTS.forEach(selectedEl => {
+      cancelEditing({ data: { shape: selectedEl.shape } });
+    });
+  }
+});
+
