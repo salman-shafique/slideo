@@ -58,6 +58,12 @@ export default function changeSize(event) {
                 // Image crop
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.IMAGE) {
                     diff = parseInt((mouseDiff.y) / selectedEl.scale.startingA / selectedEl.size.height * 100);
+
+                    // 10% safe zone
+                    if (selectedEl.crop.lb.startingY - (selectedEl.crop.lt.startingY + diff) <= 10) return;
+                    // Limits
+                    if (selectedEl.crop.lt.startingY + diff < 0) return;
+
                     selectedEl.shape.querySelector("image").style.clipPath = `polygon(
                         ${selectedEl.crop.lt.startingX}% ${selectedEl.crop.lt.startingY + diff}%, 
                         ${selectedEl.crop.rt.startingX}% ${selectedEl.crop.rt.startingY + diff}%, 
@@ -81,6 +87,12 @@ export default function changeSize(event) {
                 // Image crop
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.IMAGE) {
                     diff = parseInt((mouseDiff.x) / selectedEl.scale.startingA / selectedEl.size.width * 100);
+
+                    // 10% safe zone
+                    if (selectedEl.crop.rt.startingX + diff - selectedEl.crop.lt.startingX <= 10) return;
+                    // Limits
+                    if (selectedEl.crop.rt.startingX + diff > 100) return;
+
                     selectedEl.shape.querySelector("image").style.clipPath = `polygon(
                         ${selectedEl.crop.lt.startingX}% ${selectedEl.crop.lt.startingY}%, 
                         ${selectedEl.crop.rt.startingX + diff}% ${selectedEl.crop.rt.startingY}%, 
@@ -103,6 +115,12 @@ export default function changeSize(event) {
                 // Image crop
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.IMAGE) {
                     diff = parseInt((mouseDiff.y) / selectedEl.scale.startingA / selectedEl.size.height * 100);
+
+                    // 10% safe zone
+                    if (selectedEl.crop.rb.startingY + diff - selectedEl.crop.rt.startingY <= 10) return;
+                    // Limits
+                    if (selectedEl.crop.rb.startingY + diff > 100) return;
+
                     selectedEl.shape.querySelector("image").style.clipPath = `polygon(
                         ${selectedEl.crop.lt.startingX}% ${selectedEl.crop.lt.startingY}%, 
                         ${selectedEl.crop.rt.startingX}% ${selectedEl.crop.rt.startingY}%, 
@@ -129,6 +147,12 @@ export default function changeSize(event) {
                 // Image crop
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.IMAGE) {
                     diff = parseInt((mouseDiff.x) / selectedEl.scale.startingA / selectedEl.size.width * 100);
+
+                    // 10% safe zone
+                    if (selectedEl.crop.rt.startingX - (selectedEl.crop.lt.startingX + diff) <= 10) return;
+                    // Limits
+                    if (selectedEl.crop.lt.startingX + diff < 0) return;
+
                     selectedEl.shape.querySelector("image").style.clipPath = `polygon(
                         ${selectedEl.crop.lt.startingX + diff}% ${selectedEl.crop.lt.startingY}%, 
                         ${selectedEl.crop.rt.startingX}% ${selectedEl.crop.rt.startingY}%, 
@@ -204,39 +228,8 @@ export default function changeSize(event) {
                 }
                 break;
             default: break;
-
         }
-
     });
-
-    return;
-    switch (direction) {
-        case "lt":
-
-            break;
-        case "t":
-            break;
-        case "rt":
-            break;
-        case "r":
-            break;
-        case "rb":
-            break;
-        case "b":
-            break;
-        case "lb":
-            break;
-        case "l":
-            break;
-        default:
-            break;
-    }
-    session.SELECTED_ELEMENTS.forEach(selectedEl => {
-
-    });
-
-
-
 }
 
 /**
