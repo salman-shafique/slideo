@@ -6,6 +6,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import ResizeCirle from "./ResizeCirle";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
+import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
 
 /**
  * 
@@ -60,5 +61,6 @@ export default function insertResizeCircles(g) {
     slide(session.CURRENT_SLIDE).slideG().appendChild(resizeCircleContainer);
     ReactDOM.render(resizeEls, resizeCircleContainer);
 
+    relocateResizeCircleContainer(g);
     return resizeCircleContainer;
 }
