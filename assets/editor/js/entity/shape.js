@@ -8,6 +8,7 @@ import findKeyword from "../utils/findKeyword";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import constants from "Editor/js/constants";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
+import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
 
 
@@ -210,7 +211,8 @@ export default function shape(slideId, shapeId) {
         const savedAllTransforms = data.allTransforms;
         if (!savedAllTransforms) return;
 
-        const allTransforms = getTransform(this.el());
+        const g = this.el();
+        const allTransforms = getTransform(g);
 
         allTransforms.scale.transform.setScale(
             parseFloat(savedAllTransforms.scale.startingA),
@@ -222,6 +224,15 @@ export default function shape(slideId, shapeId) {
             parseFloat(savedAllTransforms.translate.startingF)
         )
 
+        // Cropped image
+        if (getShapeType(g) == constants.SHAPE_TYPES.IMAGE) {
+            g.querySelector("image").style.clipPath = `polygon(
+                ${savedAllTransforms.crop.lt.startingX}% ${savedAllTransforms.crop.lt.startingY}%, 
+                ${savedAllTransforms.crop.rt.startingX}% ${savedAllTransforms.crop.rt.startingY}%, 
+                ${savedAllTransforms.crop.rb.startingX}% ${savedAllTransforms.crop.rb.startingY}%, 
+                ${savedAllTransforms.crop.lb.startingX}% ${savedAllTransforms.crop.lb.startingY}%
+            )`;
+        }
     }
 
     /**
