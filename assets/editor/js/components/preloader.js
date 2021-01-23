@@ -1,15 +1,14 @@
 import "Editor/css/preloader.css";
 
-const preloaderEl = document.querySelector(".preloader-container");
-
 let registeredEvents = 0;
 function preloaderClass() {
     if (!(this instanceof preloaderClass)) return new preloaderClass(...arguments);
+    const preloaderEl = document.querySelector(".preloader-container");
     this.show = () => {
         registeredEvents++;
         if (preloaderEl.classList.contains("d-none")) {
-            preloaderEl.classList.remove("d-none");
             preloaderEl.classList.add("d-flex");
+            preloaderEl.classList.remove("d-none");
         }
     }
     this.hide = () => {
