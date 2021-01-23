@@ -81,30 +81,40 @@ export function relocateResizeCircleContainer(g) {
                 break;
             case "rl":
                 resizeEl.setAttribute("x1",
-                    sizeAttr.x + sizeAttr.width
+                    sizeAttr.x +
+                    sizeAttr.width +
+                    (clipPath.rt.startingX - 100) / 100 * sizeAttr.width
                 );
                 resizeEl.setAttribute("y1",
-                    sizeAttr.y + clipPath.rt.startingY * sizeAttr.height / 100
+                    sizeAttr.y +
+                    clipPath.rt.startingY / 100 * sizeAttr.height
                 );
                 resizeEl.setAttribute("x2",
-                    sizeAttr.x + sizeAttr.width
+                    sizeAttr.x +
+                    sizeAttr.width +
+                    (clipPath.rb.startingX - 100) / 100 * sizeAttr.width
                 );
                 resizeEl.setAttribute("y2",
-                    sizeAttr.y + sizeAttr.height
+                    sizeAttr.y +
+                    sizeAttr.height +
+                    (clipPath.rb.startingY - 100) / 100 * sizeAttr.height
                 );
                 break;
             case "bl":
                 resizeEl.setAttribute("x1",
-                    sizeAttr.x + sizeAttr.width
+                    sizeAttr.x +
+                    sizeAttr.width
                 );
                 resizeEl.setAttribute("y1",
-                    sizeAttr.y + sizeAttr.height
+                    sizeAttr.y +
+                    sizeAttr.height
                 );
                 resizeEl.setAttribute("x2",
                     sizeAttr.x
                 );
                 resizeEl.setAttribute("y2",
-                    sizeAttr.y + sizeAttr.height
+                    sizeAttr.y +
+                    sizeAttr.height
                 );
                 break;
             case "ll":
@@ -112,13 +122,15 @@ export function relocateResizeCircleContainer(g) {
                     sizeAttr.x
                 );
                 resizeEl.setAttribute("y1",
-                    sizeAttr.y + sizeAttr.height
+                    sizeAttr.y +
+                    sizeAttr.height
                 );
                 resizeEl.setAttribute("x2",
                     sizeAttr.x
                 );
                 resizeEl.setAttribute("y2",
-                    sizeAttr.y + clipPath.rt.startingY * sizeAttr.height / 100
+                    sizeAttr.y +
+                    clipPath.rt.startingY * sizeAttr.height / 100
                 );
                 break;
             case "lt":
@@ -126,23 +138,28 @@ export function relocateResizeCircleContainer(g) {
                     sizeAttr.x
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + clipPath.lt.startingY * sizeAttr.height / 100
+                    sizeAttr.y +
+                    clipPath.lt.startingY * sizeAttr.height / 100
                 );
                 break;
             case "rt":
                 resizeEl.setAttribute("cx",
-                    sizeAttr.x + sizeAttr.width
+                    sizeAttr.x +
+                    sizeAttr.width
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + clipPath.rt.startingY * sizeAttr.height / 100
+                    sizeAttr.y +
+                    clipPath.rt.startingY * sizeAttr.height / 100
                 );
                 break;
             case "rb":
                 resizeEl.setAttribute("cx",
-                    sizeAttr.x + sizeAttr.width
+                    sizeAttr.x +
+                    sizeAttr.width
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + sizeAttr.height
+                    sizeAttr.y +
+                    sizeAttr.height
                 );
                 break;
             case "lb":
@@ -150,31 +167,38 @@ export function relocateResizeCircleContainer(g) {
                     sizeAttr.x
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + sizeAttr.height
+                    sizeAttr.y +
+                    sizeAttr.height
                 );
                 break;
             case "t":
                 resizeEl.setAttribute("cx",
-                    sizeAttr.x + sizeAttr.width / 2
+                    sizeAttr.x +
+                    sizeAttr.width / 2
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + clipPath.lt.startingY * sizeAttr.height / 100
+                    sizeAttr.y +
+                    clipPath.lt.startingY * sizeAttr.height / 100
                 );
                 break;
             case "r":
                 resizeEl.setAttribute("cx",
-                    sizeAttr.x + sizeAttr.width
+                    sizeAttr.x +
+                    sizeAttr.width
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + (sizeAttr.height + clipPath.rt.startingY * sizeAttr.height / 100) / 2
+                    sizeAttr.y +
+                    (sizeAttr.height + clipPath.rt.startingY * sizeAttr.height / 100) / 2
                 );
                 break;
             case "b":
                 resizeEl.setAttribute("cx",
-                    sizeAttr.x + sizeAttr.width / 2
+                    sizeAttr.x +
+                    sizeAttr.width / 2
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + sizeAttr.height
+                    sizeAttr.y +
+                    sizeAttr.height
                 );
                 break;
             case "l":
@@ -182,7 +206,8 @@ export function relocateResizeCircleContainer(g) {
                     sizeAttr.x
                 );
                 resizeEl.setAttribute("cy",
-                    sizeAttr.y + sizeAttr.height / 2
+                    sizeAttr.y +
+                    sizeAttr.height / 2
                 );
                 break;
             default:
