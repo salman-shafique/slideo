@@ -32,7 +32,7 @@ import "Editor/js/components/Confetti";
 
 
 window.onerror = (r)=>{
-    preloader().forceHide();
+    preloader.forceHide();
     console.error(r);
 }
 

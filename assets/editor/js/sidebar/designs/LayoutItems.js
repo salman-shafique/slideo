@@ -4,7 +4,7 @@ import slide from "Editor/js/entity/slide";
 import LayoutItem from "./LayoutItem";
 import preloader from "Editor/js/components/preloader";
 
-const preloader_ = preloader();
+
 export default function LayoutItems() {
 
     const [layouts, setLayouts] = React.useState({});
@@ -36,7 +36,7 @@ export default function LayoutItems() {
 
             if (layouts[direction][capacity].length == 0) {
                 layouts[direction][capacity].push(null);
-                preloader_.show();
+                preloader.show();
                 apiService({
                     "url": "/api/layout/get",
                     "data": {
@@ -47,7 +47,7 @@ export default function LayoutItems() {
                         layouts[direction][capacity] = r;
                         setLayouts(layouts);
                         arrangeLayoutItems(layouts[direction][capacity]);
-                        preloader_.hide();
+                        preloader.hide();
                     }
                 });
             }

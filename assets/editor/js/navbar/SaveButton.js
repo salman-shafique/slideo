@@ -7,15 +7,15 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
-const preloader_ = preloader();
 
 export function saveChanges(callback = null) {
     deSelectAll();
 
     const slides = session.PRESENTATION.slides;
 
+    preloader.show();
+    console.log("preloader.show()");
     slides.forEach((aSlide, i) => {
-        preloader_.show();
 
         const slide_ = slide(aSlide.slideId);
         const svg = slide_.contentDocument().querySelector("svg");
@@ -33,6 +33,7 @@ export function saveChanges(callback = null) {
             data: {
                 slide: aSlide
             },
+            //async: false,
             success: (r) => {
                 if (r.success) {
                     const slideData = slide(r.slideId).slideData();
@@ -47,10 +48,11 @@ export function saveChanges(callback = null) {
                         callback()
                     }
 
-                preloader_.hide();
             }
         })
     });
+    preloader.hide();
+    console.log("preloader.hide()");
 }
 
 
