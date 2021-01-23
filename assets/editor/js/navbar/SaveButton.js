@@ -14,7 +14,6 @@ export function saveChanges(callback = null) {
     const slides = session.PRESENTATION.slides;
 
     preloader.show();
-    console.log("preloader.show()");
     slides.forEach((aSlide, i) => {
 
         const slide_ = slide(aSlide.slideId);
@@ -33,7 +32,7 @@ export function saveChanges(callback = null) {
             data: {
                 slide: aSlide
             },
-            //async: false,
+            async: false,
             success: (r) => {
                 if (r.success) {
                     const slideData = slide(r.slideId).slideData();
@@ -52,7 +51,6 @@ export function saveChanges(callback = null) {
         })
     });
     preloader.hide();
-    console.log("preloader.hide()");
 }
 
 
