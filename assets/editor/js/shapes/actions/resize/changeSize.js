@@ -56,6 +56,20 @@ export default function changeSize(event) {
 
                     relocateResizeCircleContainer(selectedEl.shape);
                 }
+                // Image crop
+                if (selectedEl.shapeType == constants.SHAPE_TYPES.IMAGE) {
+                    let diff = parseInt((mouseDiff.y) / selectedEl.size.height * 100);
+
+                    selectedEl.shape.querySelector("image").style.clipPath = `polygon(
+                        ${selectedEl.crop.lt.startingX}% ${selectedEl.crop.lt.startingY + diff}%, 
+                        ${selectedEl.crop.rt.startingX}% ${selectedEl.crop.rt.startingY + diff}%, 
+                        ${selectedEl.crop.rb.startingX}% ${selectedEl.crop.rb.startingY}%, 
+                        ${selectedEl.crop.lb.startingX}% ${selectedEl.crop.lb.startingY}%
+                    )`;
+                    relocateResizeCircleContainer(selectedEl.shape);
+
+                }
+
                 break;
             case "r":
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {

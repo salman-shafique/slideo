@@ -1,12 +1,15 @@
 import constants from "Editor/js/constants";
+import getShapeType from "./getShapeType";
+import getClipPath from "Editor/js/shapes/actions/resize/utils/getClipPath";
 /**
  * @param {SVGGElement} g
  */
 
 export default function getTransform(g) {
-    if(!g) return;
-    
+    if (!g) return;
+
     let allTransforms = {};
+    // transforms
     for (let index = 0; index < g.transform.baseVal.length; index++) {
         let transform = g.transform.baseVal.getItem(index);
         if (transform.type == constants.TRANSFORM.TRANSLATE)
@@ -25,5 +28,10 @@ export default function getTransform(g) {
                 transform: transform
             };
     }
+    
+    // crop for images
+    if (getShapeType(g) == constants.SHAPE_TYPES.IMAGE)
+        allTransforms.crop = getClipPath(g)
+
     return allTransforms;
 }

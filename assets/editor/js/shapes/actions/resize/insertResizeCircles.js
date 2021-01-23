@@ -1,9 +1,11 @@
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import session from "Editor/js/session";
+import constants from "Editor/js/constants";
 import slide from "Editor/js/entity/slide";
 import React from "react";
 import ReactDOM from "react-dom";
 import ResizeCirle from "./ResizeCirle";
+import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 
 /**
  * 
@@ -43,7 +45,8 @@ export default function insertResizeCircles(g) {
     resizeEls.push(<ResizeCirle g={g} cx={x + width} cy={y + height} direction="rb" key={"rb"} />);
     resizeEls.push(<ResizeCirle g={g} cx={x} cy={y + height} direction="lb" key={"lb"} />);
 
-    if (g.querySelector("foreignObject")) {
+    const shapeType = getShapeType(g);
+    if ([constants.SHAPE_TYPES.TEXTBOX, constants.SHAPE_TYPES.IMAGE].includes(shapeType)) {
         resizeEls.push(<ResizeCirle g={g} cx={x + width / 2} cy={y} direction="t" key={"t"} />);
         resizeEls.push(<ResizeCirle g={g} cx={x + width} cy={y + height / 2} direction="r" key={"r"} />);
         resizeEls.push(<ResizeCirle g={g} cx={x + width / 2} cy={y + height} direction="b" key={"b"} />);

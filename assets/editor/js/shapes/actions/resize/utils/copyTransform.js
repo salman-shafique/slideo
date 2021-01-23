@@ -2,7 +2,7 @@ import constants from "Editor/js/constants";
 import slide from "Editor/js/entity/slide";
 import session from "Editor/js/session";
 import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
-
+import getClipPath from "Editor/js/shapes/actions/resize/utils/getClipPath";
 
 /**
  * 
@@ -54,15 +54,17 @@ export function relocateResizeCircleContainer(g) {
     const resizeCircleContainer = slide(session.CURRENT_SLIDE).slideG().querySelector('g[shape_id="' + shapeId + '"][role="resize-circles"]');
 
     copyTransform(g, resizeCircleContainer);
-    
+
     const sizeAttr = getSizeAttributes(g);
+    const clipPath = getClipPath(g);
+
     resizeCircleContainer.children.forEach(resizeEl => {
         switch (resizeEl.getAttribute("direction")) {
             case "tl":
                 resizeEl.setAttribute("x1", sizeAttr.x);
-                resizeEl.setAttribute("y1", sizeAttr.y);
+                resizeEl.setAttribute("y1", sizeAttr.y + clipPath.rt.startingY * sizeAttr.height / 100);
                 resizeEl.setAttribute("x2", sizeAttr.x + sizeAttr.width);
-                resizeEl.setAttribute("y2", sizeAttr.y);
+                resizeEl.setAttribute("y2", sizeAttr.y + clipPath.rt.startingY * sizeAttr.height / 100);
                 break;
             case "rl":
                 resizeEl.setAttribute("x1", sizeAttr.x + sizeAttr.width);
@@ -84,11 +86,11 @@ export function relocateResizeCircleContainer(g) {
                 break;
             case "lt":
                 resizeEl.setAttribute("cx", sizeAttr.x);
-                resizeEl.setAttribute("cy", sizeAttr.y);
+                resizeEl.setAttribute("cy", sizeAttr.y + clipPath.lt.startingY * sizeAttr.height / 100);
                 break;
             case "rt":
                 resizeEl.setAttribute("cx", sizeAttr.x + sizeAttr.width);
-                resizeEl.setAttribute("cy", sizeAttr.y);
+                resizeEl.setAttribute("cy", sizeAttr.y + clipPath.rt.startingY * sizeAttr.height / 100);
                 break;
             case "rb":
                 resizeEl.setAttribute("cx", sizeAttr.x + sizeAttr.width);
@@ -100,7 +102,7 @@ export function relocateResizeCircleContainer(g) {
                 break;
             case "t":
                 resizeEl.setAttribute("cx", sizeAttr.x + sizeAttr.width / 2);
-                resizeEl.setAttribute("cy", sizeAttr.y);
+                resizeEl.setAttribute("cy", sizeAttr.y + clipPath.lt.startingY * sizeAttr.height / 100);
                 break;
             case "r":
                 resizeEl.setAttribute("cx", sizeAttr.x + sizeAttr.width);

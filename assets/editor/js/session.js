@@ -23,6 +23,7 @@ let session = {
      *  translate: {transform:SVGTransform,startingE:number,startingF: number}
      *  scale: {transform:SVGTransform, startingA: number}
      *  rotate: {transform:SVGTransform}
+     *  crop: {lt: {startingX:number, startingY:number},rt: {startingX:number, startingY:number},rb: {startingX:number, startingY:number},lb: {startingX:number, startingY:number}}
      * }[]}
      */
     SELECTED_ELEMENTS: [],
