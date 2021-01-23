@@ -9,18 +9,18 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
 
 export function saveChanges(callback = null) {
+    preloader.show();
+
     deSelectAll();
 
     const slides = session.PRESENTATION.slides;
 
-    preloader.show();
     slides.forEach((aSlide, i) => {
 
         const slide_ = slide(aSlide.slideId);
         const svg = slide_.contentDocument().querySelector("svg");
         const SVG_WIDTH = constants.SVG_WIDTH(svg);
         const SVG_HEIGHT = constants.SVG_HEIGHT(svg);
-
 
         aSlide.shapes.forEach(aShape => {
             const shape_ = shape(aSlide.slideId, aShape.data.shape_id);
@@ -44,7 +44,8 @@ export function saveChanges(callback = null) {
 
                 if (i == slides.length - 1)
                     if (typeof callback == "function") {
-                        callback()
+                        preloader.hide();
+                        callback();
                     }
 
             }
