@@ -7,7 +7,7 @@ import constants from "Editor/js/constants";
 import selectH1Image from "Editor/js/shapes/image/selectH1Image";
 import createNewImage from "Editor/js/shapes/image/createNewImage";
 
-const preloader_ = preloader();
+
 export default function UploadedImage({ image, rmImage }) {
 
     const addImage = () => {

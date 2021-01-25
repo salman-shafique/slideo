@@ -11,7 +11,7 @@ import "Editor/js/entry";
 import preloader from "Editor/js/components/preloader";
 
 (function () {
-    preloader().hide();
+    preloader.hide();
 })()
 
 

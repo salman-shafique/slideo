@@ -5,7 +5,7 @@ import preloader from "Editor/js/components/preloader";
 import UploadedImage from "./UploadedImage";
 
 
-const preloader_ = preloader();
+
 export default function UploadImageArea({ images }) {
 
     const [userImages, setUserImages] = React.useState([]);
@@ -22,7 +22,7 @@ export default function UploadImageArea({ images }) {
         const input = e.target;
         if (input.files.length == 0) return;
 
-        preloader_.show();
+        preloader.show();
         const data = new FormData();
 
         input.files.forEach(file => {
@@ -40,7 +40,7 @@ export default function UploadImageArea({ images }) {
                 } else {
                     toastr.error(r.descr, "Oops");
                 }
-                preloader_.hide();
+                preloader.hide();
                 input.value = "";
             }
         });

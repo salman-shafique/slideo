@@ -4,7 +4,7 @@ import slide from "Editor/js/entity/slide";
 import DesignItem from "./DesignItem";
 import preloader from "Editor/js/components/preloader";
 
-const preloader_ = preloader();
+
 export default function DesignItems() {
 
     const [designs, setDesigns] = React.useState({});
@@ -38,7 +38,7 @@ export default function DesignItems() {
             if (designs[direction][capacity].length == 0) {
                 designs[direction][capacity].push(null);
 
-                preloader_.show();
+                preloader.show();
                 apiService({
                     "url": "/api/style/get",
                     "data": {
@@ -49,7 +49,7 @@ export default function DesignItems() {
                         designs[direction][capacity] = r;
                         setDesigns(designs);
                         arrangeDesignItems(designs[direction][capacity]);
-                        preloader_.hide();
+                        preloader.hide();
                     }
                 })
                 return;

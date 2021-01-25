@@ -38,7 +38,7 @@ export default function create_slides() {
 
     status.update("Slides creating...");
 
-    preloader().show();
+    preloader.show();
     apiService({
         url: "/api/editor/create/slides",
         data: {
@@ -56,7 +56,7 @@ export default function create_slides() {
             status.update("Slides created...");
             
             sidebar().open("Design_Tool");
-            preloader().hide();
+            preloader.hide();
         }
     });
     reset_next_slide();

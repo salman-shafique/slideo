@@ -16,6 +16,7 @@ export default function toggleKeyword(keyword) {
 
     // search-keyword
     const searchKeyword = select('#Icons_Panel div[data-keyword="' + keyword + '"].search-keyword');
+    if(!searchKeyword) return;
     searchKeyword.style.opacity = "1";
     searchKeyword.style.display = "";
     searchKeyword.classList.add("active");

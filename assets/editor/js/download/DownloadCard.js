@@ -14,7 +14,7 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
                         latestDownloadCardDetail.pdfFile != downloadCardDetail.pdfFile ||
                         latestDownloadCardDetail.prevFile != downloadCardDetail.prevFile
                     ) {
-                        preloader().show();
+                        preloader.show();
                         location.reload();
                     }
                 }

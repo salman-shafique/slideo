@@ -31,7 +31,7 @@ export default function Download({ presentationId }) {
                         });
                         setDownloadCards(tmp);
                     }
-                    preloader().hide();
+                    preloader.hide();
                 }
             });
             mounted.current = true;
@@ -39,7 +39,7 @@ export default function Download({ presentationId }) {
     });
 
     const startNewDownload = () => {
-        preloader().show();
+        preloader.show();
         apiService({
             url: "/api/presentation/download/start/" + presentationId,
             success: (r) => {
