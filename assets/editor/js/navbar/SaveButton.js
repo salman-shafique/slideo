@@ -6,6 +6,7 @@ import shape from "Editor/js/entity/shape";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
+import base64 from "Editor/js/utils/base64";
 
 
 export function saveChanges(callback = null) {
@@ -26,10 +27,12 @@ export function saveChanges(callback = null) {
                 shape_.saveTransforms(SVG_WIDTH, SVG_HEIGHT);
             });
 
+
+            const encoded = base64.encode(JSON.stringify(aSlide));
             apiService({
                 url: "/api/presentation/save/slide",
                 data: {
-                    slide: aSlide
+                    slide: encoded
                 },
                 async: false,
                 success: (r) => {
@@ -40,7 +43,6 @@ export function saveChanges(callback = null) {
                             slideData.shapes.push(newShape)
                         });
                     }
-
                     if (i == slides.length - 1)
                         if (typeof callback == "function") {
                             preloader.hide();

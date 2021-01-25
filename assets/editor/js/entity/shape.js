@@ -191,6 +191,7 @@ export default function shape(slideId, shapeId) {
         const data = this.data();
         if (data.active == "false") return;
         data.allTransforms = getTransform(this.el());
+        if (!data.allTransforms) return;
 
         if (data.allTransforms.translate)
             delete data.allTransforms.translate.transform;

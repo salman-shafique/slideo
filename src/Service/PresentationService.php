@@ -80,8 +80,8 @@ class PresentationService
 
     public function saveSlide(Request $request)
     {
-        $slideJson = $request->request->get("slide");
-
+        $slideBase64 = $request->request->get("slide");
+        $slideJson = json_decode(base64_decode($slideBase64), true);
         $this->updateContent($slideJson['slideTitle']);
         $this->updateContent($slideJson['slideTitleImage']);
         $this->updateContent($slideJson['subTitle']);
@@ -106,7 +106,6 @@ class PresentationService
         $background->setData($slideJson['background']['data']);
         $this->em->persist($background);
 
-        $newShapes = [];
         if ($slideJson['style']['id'] != $slide->getStyle()->getId()) {
             // The style is changed on the frontend
             // Style
@@ -142,8 +141,13 @@ class PresentationService
         $this->em->persist($slide);
         $this->em->flush();
 
-        foreach ($slide->getShapes() as $shape)
-            array_push($newShapes, $this->serializer->normalize($shape));
+        $newShapes = [];
+        foreach ($slide->getShapes() as $shape) {
+            $normalized = $this->serializer->normalize($shape);
+            unset($normalized['slide']);
+            unset($normalized['style']);
+            array_push($newShapes, $normalized);
+        }
 
         return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
     }
