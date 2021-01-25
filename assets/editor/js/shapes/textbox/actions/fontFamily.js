@@ -14,8 +14,10 @@ function FontFamily() {
      */
     const getFontFamily = (g) => {
         const shapeId = g.getAttribute("shape_id");
-        const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-        return shape_.data().font_family.replace(/(Bold)|(bold)/g, "");
+        const data = shape(session.CURRENT_SLIDE, shapeId).data();
+        if (data)
+            return data.font_family.replace(/(Bold)|(bold)/g, "");
+        return "Arial";
     }
 
     const updateDropdown = () => {

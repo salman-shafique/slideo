@@ -15,8 +15,10 @@ function ItalicBtn() {
      */
     const isItalicText = (g) => {
         const shapeId = g.getAttribute("shape_id");
-        const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-        return shape_.data().italic?.toLowerCase() == "true";
+        const data = shape(session.CURRENT_SLIDE, shapeId).data();
+        if (data)
+            return data.italic?.toLowerCase() == "true";
+        return false;
     }
 
     React.useEffect(() => {

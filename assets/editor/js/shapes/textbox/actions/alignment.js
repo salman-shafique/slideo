@@ -15,8 +15,10 @@ function AlignmentBtn() {
      */
     const getAlignment = (g) => {
         const shapeId = g.getAttribute("shape_id");
-        const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-        return shape_.data().alignment;
+        const data = shape(session.CURRENT_SLIDE, shapeId).data();
+        if (data)
+            return data.alignment;
+        return "2";
     }
 
     React.useEffect(() => {
