@@ -199,7 +199,7 @@ export default function slide(slideId) {
                 direction = content.direction;
                 Object.assign(shape_.data, content);
             } else if (shape_.data.alt == "newtextbox") {
-                createNewTextbox(shape_.data);
+                createNewTextbox(shape_.data, this.slideId);
             }
             if (text) {
                 // Append foreignObjects
@@ -249,9 +249,9 @@ export default function slide(slideId) {
                 // Add event listener
                 shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
             } else if (shape_.data.alt == "newimage") {
-                createNewImage(shape_.data);
+                createNewImage(shape_.data, this.slideId);
             } else if (shape_.data.alt == "newicon") {
-                createNewIcon(shape_.data);
+                createNewIcon(shape_.data, this.slideId);
             } else if (shape_.data.alt == "image") {
                 // handle the builtin images
                 if (!shape_.data.keyword && !shape_.data.image) {

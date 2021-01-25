@@ -42,7 +42,7 @@ export default function getClipPath(g) {
         // try to get from data
         const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
         const data = shape_.data();
-        if (data.allTransforms && data.allTransforms.crop) 
+        if (data && data.allTransforms && data.allTransforms.crop) 
             clipPath = data.allTransforms.crop;
         
     }
