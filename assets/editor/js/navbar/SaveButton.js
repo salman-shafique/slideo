@@ -10,48 +10,48 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
 export function saveChanges(callback = null) {
     preloader.show();
-
     deSelectAll();
-
     const slides = session.PRESENTATION.slides;
 
-    slides.forEach((aSlide, i) => {
+    setTimeout(() => {
+        slides.forEach((aSlide, i) => {
 
-        const slide_ = slide(aSlide.slideId);
-        const svg = slide_.contentDocument().querySelector("svg");
-        const SVG_WIDTH = constants.SVG_WIDTH(svg);
-        const SVG_HEIGHT = constants.SVG_HEIGHT(svg);
+            const slide_ = slide(aSlide.slideId);
+            const svg = slide_.contentDocument().querySelector("svg");
+            const SVG_WIDTH = constants.SVG_WIDTH(svg);
+            const SVG_HEIGHT = constants.SVG_HEIGHT(svg);
 
-        aSlide.shapes.forEach(aShape => {
-            const shape_ = shape(aSlide.slideId, aShape.data.shape_id);
-            shape_.saveTransforms(SVG_WIDTH, SVG_HEIGHT);
-        });
+            aSlide.shapes.forEach(aShape => {
+                const shape_ = shape(aSlide.slideId, aShape.data.shape_id);
+                shape_.saveTransforms(SVG_WIDTH, SVG_HEIGHT);
+            });
 
-        apiService({
-            url: "/api/presentation/save/slide",
-            data: {
-                slide: aSlide
-            },
-            async: false,
-            success: (r) => {
-                if (r.success) {
-                    const slideData = slide(r.slideId).slideData();
-                    slideData.shapes = [];
-                    r.newShapes.forEach(newShape => {
-                        slideData.shapes.push(newShape)
-                    });
-                }
-
-                if (i == slides.length - 1)
-                    if (typeof callback == "function") {
-                        preloader.hide();
-                        callback();
+            apiService({
+                url: "/api/presentation/save/slide",
+                data: {
+                    slide: aSlide
+                },
+                async: false,
+                success: (r) => {
+                    if (r.success) {
+                        const slideData = slide(r.slideId).slideData();
+                        slideData.shapes = [];
+                        r.newShapes.forEach(newShape => {
+                            slideData.shapes.push(newShape)
+                        });
                     }
 
-            }
-        })
-    });
-    preloader.hide();
+                    if (i == slides.length - 1)
+                        if (typeof callback == "function") {
+                            preloader.hide();
+                            callback();
+                        }
+
+                }
+            });
+        });
+        preloader.hide();
+    }, 50)
 }
 
 
