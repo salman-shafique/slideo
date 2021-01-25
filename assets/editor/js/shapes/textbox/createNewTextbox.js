@@ -31,7 +31,7 @@ let addedTextboxCounter = {
  *  size : "XL" | "L" | "MD" | "SM"
  * }} textboxData 
  */
-export default function createNewTextbox(textboxData) {
+export default function createNewTextbox(textboxData, slideId = session.CURRENT_SLIDE) {
 
     const x = constants.SVG_WIDTH() / 12 * textboxData.xGrid + (addedTextboxCounter[textboxData.size] % 5) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * textboxData.yGrid + (addedTextboxCounter[textboxData.size] % 5) * constants.SVG_HEIGHT() / 48;
@@ -78,7 +78,7 @@ export default function createNewTextbox(textboxData) {
         "http://www.w3.org/2000/svg"
     );
 
-    const slide_ = slide(session.CURRENT_SLIDE);
+    const slide_ = slide(slideId);
     const foreignObject = createForeignObject(slide_.contentDocument(), { x: newShapeData.data.x, y: newShapeData.data.y, width: newShapeData.data.width, height: newShapeData.data.height });
     arrangeForeignObject(foreignObject, newShapeData.data, textboxData.text, "rtl");
     newTextboxShape.appendChild(foreignObject);

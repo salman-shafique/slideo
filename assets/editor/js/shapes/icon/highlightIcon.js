@@ -46,5 +46,7 @@ window.addEventListener("shape.selected", () => {
     if (getShapeType(g) != constants.SHAPE_TYPES.ICON) return;
 
     const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
-    highlightIcon(shape_.data().icon);
+    const data = shape_.data();
+    if (data)
+        highlightIcon(data.icon);
 })

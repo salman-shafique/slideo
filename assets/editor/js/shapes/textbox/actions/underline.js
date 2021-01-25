@@ -15,8 +15,10 @@ function UnderlineBtn() {
      */
     const isUnderlineText = (g) => {
         const shapeId = g.getAttribute("shape_id");
-        const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-        return shape_.data().underline?.toLowerCase() == "true";
+        const data = shape(session.CURRENT_SLIDE, shapeId).data();
+        if (data)
+            return data.underline?.toLowerCase() == "true";
+        return false;
     }
 
     React.useEffect(() => {

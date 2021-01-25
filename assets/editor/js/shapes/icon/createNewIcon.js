@@ -13,7 +13,7 @@ import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 
 let addedIconCounter = 0;
 
-export default function createNewIcon(iconData) {
+export default function createNewIcon(iconData, slideId = session.CURRENT_SLIDE) {
 
     const x = constants.SVG_WIDTH() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_HEIGHT() / 48;
@@ -44,13 +44,13 @@ export default function createNewIcon(iconData) {
         "http://www.w3.org/2000/svg"
     );
 
-    const slide_ = slide(session.CURRENT_SLIDE);
+    const slide_ = slide(slideId);
     // Insert to page
     slide_.page().appendChild(newIconShape);
     slide_.appendNewShape(newShapeData);
 
     // Make clickable
-    shape(session.CURRENT_SLIDE, newShapeData.data.shape_id).addEvent("click", selectIconElement);
+    shape(slideId, newShapeData.data.shape_id).addEvent("click", selectIconElement);
 
     // Transforms
     initializeG(newIconShape);
@@ -60,10 +60,10 @@ export default function createNewIcon(iconData) {
     selectEl({ target: { parentElement: newIconShape } })
 
     // Select icon
-    selectIcon(session.CURRENT_SLIDE, newShapeData.data.shape_id)
+    selectIcon(slideId, newShapeData.data.shape_id)
 
     // Insert color filters
     colorFilters(newIconShape).init();
-    
+
     addedIconCounter++;
 }

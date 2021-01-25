@@ -12,7 +12,7 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
 let addedImageCounter = 0;
 
-export default function createNewImage(imageData) {
+export default function createNewImage(imageData,slideId = session.CURRENT_SLIDE) {
     const x = constants.SVG_WIDTH() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT() / 48;
     const width = constants.SVG_WIDTH() / 12 * 8;
@@ -41,13 +41,13 @@ export default function createNewImage(imageData) {
         null,
         "http://www.w3.org/2000/svg"
     );
-    const slide_ = slide(session.CURRENT_SLIDE);
+    const slide_ = slide(slideId);
     // Insert to page
     slide_.page().appendChild(newImageShape);
     slide_.appendNewShape(newShapeData);
 
     // Make clickable
-    shape(session.CURRENT_SLIDE, newShapeData.data.shape_id).addEvent("click", selectImageElement);
+    shape(slideId, newShapeData.data.shape_id).addEvent("click", selectImageElement);
 
     // Transforms
     initializeG(newImageShape);

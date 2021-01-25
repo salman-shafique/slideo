@@ -20,9 +20,10 @@ window.addEventListener("shape.selected", () => {
     const g = session.SELECTED_ELEMENTS[0].shape;
     if (getShapeType(g) == constants.SHAPE_TYPES.ICON) {
         const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
-        const keyword = shape_.data().keyword;
-        if (keyword)
-            toggleKeyword(keyword);
+        const data = shape_.data();
+        if(!data) return;
+        if (data.keyword)
+            toggleKeyword(data.keyword);
 
         return;
     };

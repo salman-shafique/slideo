@@ -17,9 +17,12 @@ function FontSize() {
      */
     const getFontSize = (g) => {
         const shapeId = g.getAttribute("shape_id");
-        const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-        const startingA = getTransform(g).scale.startingA;
-        return parseInt(parseInt(shape_.data().font_size) * startingA);
+        const data = shape(session.CURRENT_SLIDE, shapeId).data();
+        if (data) {
+            const startingA = getTransform(g).scale.startingA;
+            return parseInt(parseInt(data.font_size) * startingA);
+        }
+        return 494;
     }
 
     const updateDropdown = () => {

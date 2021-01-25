@@ -15,8 +15,10 @@ function BoldBtn() {
      */
     const isBoldText = (g) => {
         const shapeId = g.getAttribute("shape_id");
-        const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-        return shape_.data().font_weight == "700";
+        const data = shape(session.CURRENT_SLIDE, shapeId).data();
+        if (data)
+            return data.font_weight == "700";
+        return false;
     }
 
     React.useEffect(() => {
@@ -27,9 +29,9 @@ function BoldBtn() {
             };
 
             const g = event.data.shape;
-            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX) 
+            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX)
                 setBoldSelected(isBoldText(g));
-            
+
         });
         window.addEventListener("shape.allReleased", () => {
             setBoldSelected(false);
