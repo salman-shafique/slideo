@@ -1,12 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
-import slide from "Editor/js/entity/slide";
 
-function AlignmentBtn() {
+export default function AlignmentBtn() {
     const [alignmentSelected, setAlignmentSelected] = React.useState(constants.ALIGNMENTS.CENTER);
 
     /**
@@ -99,6 +97,3 @@ function AlignmentBtn() {
         </>
     )
 }
-
-
-ReactDOM.render(<AlignmentBtn />, document.getElementById("AlignmentBtn"));

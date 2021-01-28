@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
 
-function ItalicBtn() {
+export default function ItalicBtn() {
     const [italicSelected, setItalicSelected] = React.useState(false);
 
     /**
@@ -69,6 +68,3 @@ function ItalicBtn() {
         <button onClick={italic} className={"btn btn-" + (italicSelected ? "primary" : "secondary")}><i>I</i></button>
     )
 }
-
-
-ReactDOM.render(<ItalicBtn />, document.getElementById("ItalicBtn"));

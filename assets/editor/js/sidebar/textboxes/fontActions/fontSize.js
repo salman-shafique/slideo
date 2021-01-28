@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
@@ -8,7 +7,7 @@ import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObjec
 import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 
-function FontSize() {
+export default function FontSize() {
     const [selectedFontsize, setSelectedFontsize] = React.useState(null); // In pixels - integer
 
     /**
@@ -110,6 +109,3 @@ function FontSize() {
         </select>
     )
 }
-
-
-ReactDOM.render(<FontSize />, document.getElementById("FontSize"));

@@ -1,6 +1,6 @@
 import React from "react";
 import Textboxes from "./addTextbox/Textboxes";
-
+import FontActions from "./fontActions/FontActions";
 
 
 export default function TextboxPanel() {
@@ -12,7 +12,9 @@ export default function TextboxPanel() {
             </div>
             <div className="main-section">
                 <div id="sideBarText" className="images-gallery custom-scrollbar vertical-scroll">
-                    <div id="sideBarTextOptions" style={{ width: "100%", display: "none" }}>options here</div>
+                    <div id="sideBarTextOptions" style={{ width: "100%", display: "none" }}>
+                        <FontActions />
+                    </div>
                     <div id="sideBarTextEmpty">
                         Please select a text
                     </div>

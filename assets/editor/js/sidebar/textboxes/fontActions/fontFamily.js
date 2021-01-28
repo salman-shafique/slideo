@@ -1,11 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
-function FontFamily() {
+export default function FontFamily() {
     const [selectedFontFamily, setSelectedFontFamily] = React.useState(null);
 
     /**
@@ -122,6 +121,3 @@ function FontFamily() {
         </select>
     )
 }
-
-
-ReactDOM.render(<FontFamily />, document.getElementById("FontFamily"));
