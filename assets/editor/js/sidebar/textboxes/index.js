@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Textboxes from "./Textboxes";
-
+import TextboxPanel from "./TextboxPanel";
 
 ReactDOM.render(
-    <Textboxes />,
+    <TextboxPanel />,
     document.getElementById("Text_Panel")
 )
 
