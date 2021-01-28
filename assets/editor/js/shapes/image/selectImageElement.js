@@ -13,6 +13,6 @@ export default function selectImageElement(event) {
     const shapeId = g.getAttribute("shape_id");
     const shape_ = shape(session.CURRENT_SLIDE, shapeId);
     const shapeData = shape_.data();
-    sidebar().open("Images_Tool");
+    sidebar.open("Images_Tool");
     addToImagesBar(shapeData.keyword);
 }

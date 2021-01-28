@@ -55,7 +55,7 @@ export default function create_slides() {
             });
             status.update("Slides created...");
             
-            sidebar().open("Design_Tool");
+            sidebar.open("Design_Tool");
             preloader.hide();
         }
     });

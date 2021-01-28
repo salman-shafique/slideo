@@ -12,6 +12,6 @@ export default function selectIconElement(event) {
     let shapeId = g.getAttribute("shape_id");
     let shape_ = shape(session.CURRENT_SLIDE, shapeId);
     let shapeData = shape_.data();
-    sidebar().open("Icons_Tool");
+    sidebar.open("Icons_Tool");
     addToIconsBar(shapeData.keyword);
 }

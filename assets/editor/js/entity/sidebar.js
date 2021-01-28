@@ -1,10 +1,9 @@
-import slide from "Editor/js/entity/slide";
 import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import add_event from "Editor/js/utils/add_event";
 
-export default function sidebar() {
-    if (!(this instanceof sidebar)) return new sidebar(...arguments);
+function sidebarClass() {
+    if (!(this instanceof sidebarClass)) return new sidebarClass(...arguments);
 
     this.init = () => {
         add_event(".tool", "click", (event) => {
@@ -70,3 +69,6 @@ export default function sidebar() {
 
 }
 
+const sidebar = sidebarClass();
+
+export default sidebar;
