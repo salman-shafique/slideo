@@ -1,7 +1,7 @@
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
-
+import sidebar from "Editor/js/entity/sidebar";
 
 /**
  * 
@@ -24,4 +24,5 @@ export default function selectTextboxElement(event) {
   td.setAttribute("contenteditable", "true");
   td.focus();
   session.TEXT_EDITING = true;
+  sidebar.open("Text_Tool");
 }
