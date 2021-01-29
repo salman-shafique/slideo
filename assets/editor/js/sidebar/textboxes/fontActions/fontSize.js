@@ -94,7 +94,7 @@ export default function FontSize() {
             </option>
         )
     });
-    if (!selectedFontSizeAdded && selectedFontsize)
+    if (!selectedFontSizeAdded && selectedFontsize && selectedFontsize != "nothingSelected")
         options.push(
             <option
                 key={0}
@@ -102,6 +102,17 @@ export default function FontSize() {
                 {parseInt(selectedFontsize * constants.PIXEL_TO_PT)}
             </option>
         )
+
+    if (!selectedFontSizeAdded && !selectedFontsize)
+        setSelectedFontsize("nothingSelected")
+
+    options.push(
+        <option
+            key={"nothingSelected"}
+            value={"nothingSelected"}
+            disabled>
+        </option>
+    );
 
     return (
         <select key={selectedFontsize} defaultValue={selectedFontsize} onChange={fontsize}>
