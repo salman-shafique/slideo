@@ -5,7 +5,7 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
 
-export default function ItalicBtn() {
+export default function ItalicBtn(props) {
     const [italicSelected, setItalicSelected] = React.useState(false);
 
     /**
@@ -28,9 +28,9 @@ export default function ItalicBtn() {
             };
 
             const g = event.data.shape;
-            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX) 
+            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX)
                 setItalicSelected(isItalicText(g));
-            
+
         });
         window.addEventListener("shape.allReleased", () => {
             setItalicSelected(false);
@@ -65,6 +65,8 @@ export default function ItalicBtn() {
             setItalicSelected(!italicSelected);
     }
     return (
-        <button onClick={italic} className={"btn btn-" + (italicSelected ? "primary" : "secondary")}><i>I</i></button>
+        <button {...props} onClick={italic} className={"btn btn-" + (!italicSelected ? "light" : "secondary")}>
+            <i className="fas fa-italic"></i>
+        </button>
     )
 }

@@ -5,7 +5,7 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
 
-export default function UnderlineBtn() {
+export default function UnderlineBtn(props) {
     const [underlineSelected, setUnderlineSelected] = React.useState(false);
 
     /**
@@ -65,6 +65,8 @@ export default function UnderlineBtn() {
             setUnderlineSelected(!underlineSelected);
     }
     return (
-        <button onClick={underline} className={"btn btn-" + (underlineSelected ? "primary" : "secondary")}>U</button>
+        <button {...props} onClick={underline} className={"btn btn-" + (!underlineSelected ? "light" : "secondary")}>
+            <i className="fas fa-underline"></i>
+        </button>
     )
 }

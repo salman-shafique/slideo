@@ -4,7 +4,7 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
-export default function BoldBtn() {
+export default function BoldBtn(props) {
     const [boldSelected, setBoldSelected] = React.useState(false);
 
     /**
@@ -64,6 +64,8 @@ export default function BoldBtn() {
             setBoldSelected(!boldSelected);
     }
     return (
-        <button onClick={bold} className={"btn btn-" + (boldSelected ? "primary" : "secondary")}>B</button>
+        <button {...props} onClick={bold} className={"btn btn-" + (!boldSelected ? "light" : "secondary")}>
+            <i className="fas fa-bold"></i>
+        </button>
     )
 }

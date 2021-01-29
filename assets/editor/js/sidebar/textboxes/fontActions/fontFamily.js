@@ -4,7 +4,7 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
-export default function FontFamily() {
+export default function FontFamily(props) {
     const [selectedFontFamily, setSelectedFontFamily] = React.useState(null);
 
     /**
@@ -128,7 +128,7 @@ export default function FontFamily() {
     );
 
     return (
-        <select key={selectedFontFamily} defaultValue={selectedFontFamily} onChange={fontfamily}>
+        <select {...props} key={selectedFontFamily} defaultValue={selectedFontFamily} onChange={fontfamily}>
             {options}
         </select>
     )

@@ -7,7 +7,7 @@ import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObjec
 import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 
-export default function FontSize() {
+export default function FontSize(props) {
     const [selectedFontsize, setSelectedFontsize] = React.useState(null); // In pixels - integer
 
     /**
@@ -115,7 +115,7 @@ export default function FontSize() {
     );
 
     return (
-        <select key={selectedFontsize} defaultValue={selectedFontsize} onChange={fontsize}>
+        <select {...props} key={selectedFontsize} defaultValue={selectedFontsize} onChange={fontsize}>
             {options}
         </select>
     )
