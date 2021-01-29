@@ -106,14 +106,26 @@ export default function FontFamily() {
             </option>
         )
     });
-    if (!selectedFontFamilyAdded && selectedFontFamily)
+    if (!selectedFontFamilyAdded && selectedFontFamily && selectedFontFamily != "nothingSelected")
         options.push(
             <option
-                key={0}
+                key={"selected"}
                 value={selectedFontFamily}>
                 {selectedFontFamily}
             </option>
         )
+
+    if (!selectedFontFamilyAdded && !selectedFontFamily)
+        setSelectedFontFamily("nothingSelected")
+
+    options.push(
+        <option
+            key={"nothingSelected"}
+            value={"nothingSelected"}
+            disabled>
+
+        </option>
+    );
 
     return (
         <select key={selectedFontFamily} defaultValue={selectedFontFamily} onChange={fontfamily}>

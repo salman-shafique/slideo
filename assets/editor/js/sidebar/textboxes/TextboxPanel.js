@@ -7,16 +7,16 @@ export default function TextboxPanel() {
 
     return (
         <>
-            <div className="search-section p-3 text-center text-white h3">
+            <div className="search-section p-3 m-0 text-center text-white h3">
                 Text
             </div>
             <div className="main-section">
-                <div id="sideBarText" className="images-gallery custom-scrollbar vertical-scroll">
+                <div id="sideBarText" className="custom-scrollbar vertical-scroll">
                     <div id="sideBarTextOptions" style={{ width: "100%", display: "none" }}>
                         <FontActions />
                     </div>
                     <div id="sideBarTextEmpty">
-                        Please select a text
+                        <i>No text box selected...</i>
                     </div>
                 </div>
                 <div className="control-overlay-layout closed" style={{ backgroundColor: "#484848" }}>

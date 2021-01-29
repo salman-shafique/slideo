@@ -9,13 +9,13 @@ import FontFamily from "./fontFamily";
 export default function FontActions() {
 
     return (
-        <>
+        <div className="row m-0 p-3">
+            <FontFamily />
             <BoldBtn />
             <ItalicBtn />
             <UnderlineBtn />
             <AlignmentBtn />
             <FontSize />
-            <FontFamily />
-        </>
+        </div>
     )
 }

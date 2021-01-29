@@ -468,10 +468,10 @@ body {
 }
 
 #sideBarTextEmpty {
-	color: white;
+	color: gray;
 	text-align: center;
-	font-size: x-large;
 	width: 100%;
+	font-size: 20px;
 }
 
 .icon-item {
