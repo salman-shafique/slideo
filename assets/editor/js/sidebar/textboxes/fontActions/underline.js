@@ -1,40 +1,39 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
-import slide from "Editor/js/entity/slide";
 
-function BoldBtn() {
-    const [boldSelected, setBoldSelected] = React.useState(false);
+
+export default function UnderlineBtn(props) {
+    const [underlineSelected, setUnderlineSelected] = React.useState(false);
 
     /**
      * 
      * @param {SVGGElement} g 
      */
-    const isBoldText = (g) => {
+    const isUnderlineText = (g) => {
         const shapeId = g.getAttribute("shape_id");
         const data = shape(session.CURRENT_SLIDE, shapeId).data();
         if (data)
-            return data.font_weight == "700";
+            return data.underline?.toLowerCase() == "true";
         return false;
     }
 
     React.useEffect(() => {
         window.addEventListener("shape.selected", (event) => {
             if (session.SELECTED_ELEMENTS.length != 1) {
-                setBoldSelected(false);
+                setUnderlineSelected(false);
                 return;
             };
 
             const g = event.data.shape;
-            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX)
-                setBoldSelected(isBoldText(g));
-
+            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX) 
+                setUnderlineSelected(isUnderlineText(g));
+            
         });
         window.addEventListener("shape.allReleased", () => {
-            setBoldSelected(false);
+            setUnderlineSelected(false);
         });
     }, []);
 
@@ -42,33 +41,32 @@ function BoldBtn() {
     /**
      * 
      * @param {SVGGElement} g 
-     * @param {boolean} isBold 
+     * @param {boolean} isUnderline 
      */
-    const set = (g, isBold) => {
+    const set = (g, isUnderline) => {
         const shapeId = g.getAttribute("shape_id");
         const shape_ = shape(session.CURRENT_SLIDE, shapeId);
 
-        shape_.data().font_weight = (isBold ? "700" : "400");
-        g.querySelector("table").style.fontWeight = (isBold ? "700" : "400");
+        shape_.data().underline = (isUnderline ? "true" : "false");
+        g.querySelector("table").style.textDecoration = (isUnderline ? "underline" : "");
 
     }
 
-    const bold = () => {
+    const underline = () => {
         let changed = false;
         session.SELECTED_ELEMENTS.forEach(selectedEl => {
             if (getShapeType(selectedEl.shape) == constants.SHAPE_TYPES.TEXTBOX) {
-                set(selectedEl.shape, !boldSelected)
+                set(selectedEl.shape, !underlineSelected)
                 changed = true;
             }
         });
 
         if (changed)
-            setBoldSelected(!boldSelected);
+            setUnderlineSelected(!underlineSelected);
     }
     return (
-        <button onClick={bold} className={"btn btn-" + (boldSelected ? "primary" : "secondary")}>B</button>
+        <button {...props} onClick={underline} className={"btn btn-" + (!underlineSelected ? "light" : "secondary")}>
+            <i className="fas fa-underline"></i>
+        </button>
     )
 }
-
-
-ReactDOM.render(<BoldBtn />, document.getElementById("BoldBtn"));

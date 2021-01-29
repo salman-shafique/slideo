@@ -288,7 +288,7 @@ body {
 
 .control-overlay-layout, .backdrop-overlay-layout {
 	position: absolute;
-	width: calc(100% - 2px);
+	width: 100%;
 	top: 0;
 	height: -webkit-fill-available;
 	z-index: 3;
@@ -465,6 +465,14 @@ body {
 	color: white;
 	text-align: center;
 	font-size: x-large;
+}
+
+#sideBarTextEmpty {
+	margin-top: 20px;
+	color: gray;
+	text-align: center;
+	width: 100%;
+	font-size: 20px;
 }
 
 .icon-item {

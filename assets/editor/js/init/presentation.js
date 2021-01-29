@@ -9,7 +9,7 @@ jQuery(function () {
         url: "/api/presentation/init",
         success: (response) => {
             presentation().init(response);
-            sidebar().init();
+            sidebar.init();
             preloader.hide();
         }
     });

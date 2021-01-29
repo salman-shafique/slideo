@@ -1,12 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
-import slide from "Editor/js/entity/slide";
 
-function AlignmentBtn() {
+export default function AlignmentBtn(props) {
     const [alignmentSelected, setAlignmentSelected] = React.useState(constants.ALIGNMENTS.CENTER);
 
     /**
@@ -93,12 +91,21 @@ function AlignmentBtn() {
     }
     return (
         <>
-            <button onClick={leftAlignment} className={"btn btn-" + (alignmentSelected == constants.ALIGNMENTS.LEFT ? "primary" : "secondary")}>L</button>
-            <button onClick={centerAlignment} className={"btn btn-" + (alignmentSelected == constants.ALIGNMENTS.CENTER ? "primary" : "secondary")}>C</button>
-            <button onClick={rightAlignment} className={"btn btn-" + (alignmentSelected == constants.ALIGNMENTS.RIGHT ? "primary" : "secondary")}>R</button>
+            <div className="col-4 p-0 text-center">
+                <button onClick={leftAlignment} className={"btn btn-" + (alignmentSelected != constants.ALIGNMENTS.LEFT ? "light" : "secondary")}>
+                    <i className="fas fa-align-left"></i>
+                </button>
+            </div>
+            <div className="col-4 p-0 text-center">
+                <button onClick={centerAlignment} className={"btn btn-" + (alignmentSelected != constants.ALIGNMENTS.CENTER ? "light" : "secondary")}>
+                    <i className="fas fa-align-center"></i>
+                </button>
+            </div>
+            <div className="col-4 p-0 text-center">
+                <button onClick={rightAlignment} className={"btn btn-" + (alignmentSelected != constants.ALIGNMENTS.RIGHT ? "light" : "secondary")}>
+                    <i className="fas fa-align-right"></i>
+                </button>
+            </div>
         </>
     )
 }
-
-
-ReactDOM.render(<AlignmentBtn />, document.getElementById("AlignmentBtn"));

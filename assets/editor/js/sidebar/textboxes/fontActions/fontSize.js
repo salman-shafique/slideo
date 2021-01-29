@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
@@ -8,7 +7,7 @@ import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObjec
 import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 
-function FontSize() {
+export default function FontSize(props) {
     const [selectedFontsize, setSelectedFontsize] = React.useState(null); // In pixels - integer
 
     /**
@@ -95,7 +94,7 @@ function FontSize() {
             </option>
         )
     });
-    if (!selectedFontSizeAdded && selectedFontsize)
+    if (!selectedFontSizeAdded && selectedFontsize && selectedFontsize != "nothingSelected")
         options.push(
             <option
                 key={0}
@@ -104,12 +103,20 @@ function FontSize() {
             </option>
         )
 
+    if (!selectedFontSizeAdded && !selectedFontsize)
+        setSelectedFontsize("nothingSelected")
+
+    options.push(
+        <option
+            key={"nothingSelected"}
+            value={"nothingSelected"}
+            disabled>
+        </option>
+    );
+
     return (
-        <select key={selectedFontsize} defaultValue={selectedFontsize} onChange={fontsize}>
+        <select {...props} key={selectedFontsize} defaultValue={selectedFontsize} onChange={fontsize}>
             {options}
         </select>
     )
 }
-
-
-ReactDOM.render(<FontSize />, document.getElementById("FontSize"));

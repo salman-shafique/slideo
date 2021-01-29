@@ -1,11 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
-function FontFamily() {
+export default function FontFamily(props) {
     const [selectedFontFamily, setSelectedFontFamily] = React.useState(null);
 
     /**
@@ -107,21 +106,30 @@ function FontFamily() {
             </option>
         )
     });
-    if (!selectedFontFamilyAdded && selectedFontFamily)
+    if (!selectedFontFamilyAdded && selectedFontFamily && selectedFontFamily != "nothingSelected")
         options.push(
             <option
-                key={0}
+                key={"selected"}
                 value={selectedFontFamily}>
                 {selectedFontFamily}
             </option>
         )
 
+    if (!selectedFontFamilyAdded && !selectedFontFamily)
+        setSelectedFontFamily("nothingSelected")
+
+    options.push(
+        <option
+            key={"nothingSelected"}
+            value={"nothingSelected"}
+            disabled>
+
+        </option>
+    );
+
     return (
-        <select key={selectedFontFamily} defaultValue={selectedFontFamily} onChange={fontfamily}>
+        <select {...props} key={selectedFontFamily} defaultValue={selectedFontFamily} onChange={fontfamily}>
             {options}
         </select>
     )
 }
-
-
-ReactDOM.render(<FontFamily />, document.getElementById("FontFamily"));

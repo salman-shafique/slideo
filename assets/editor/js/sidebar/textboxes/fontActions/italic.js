@@ -1,40 +1,39 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 
 
-function UnderlineBtn() {
-    const [underlineSelected, setUnderlineSelected] = React.useState(false);
+export default function ItalicBtn(props) {
+    const [italicSelected, setItalicSelected] = React.useState(false);
 
     /**
      * 
      * @param {SVGGElement} g 
      */
-    const isUnderlineText = (g) => {
+    const isItalicText = (g) => {
         const shapeId = g.getAttribute("shape_id");
         const data = shape(session.CURRENT_SLIDE, shapeId).data();
         if (data)
-            return data.underline?.toLowerCase() == "true";
+            return data.italic?.toLowerCase() == "true";
         return false;
     }
 
     React.useEffect(() => {
         window.addEventListener("shape.selected", (event) => {
             if (session.SELECTED_ELEMENTS.length != 1) {
-                setUnderlineSelected(false);
+                setItalicSelected(false);
                 return;
             };
 
             const g = event.data.shape;
-            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX) 
-                setUnderlineSelected(isUnderlineText(g));
-            
+            if (getShapeType(g) == constants.SHAPE_TYPES.TEXTBOX)
+                setItalicSelected(isItalicText(g));
+
         });
         window.addEventListener("shape.allReleased", () => {
-            setUnderlineSelected(false);
+            setItalicSelected(false);
         });
     }, []);
 
@@ -42,33 +41,32 @@ function UnderlineBtn() {
     /**
      * 
      * @param {SVGGElement} g 
-     * @param {boolean} isUnderline 
+     * @param {boolean} isItalic 
      */
-    const set = (g, isUnderline) => {
+    const set = (g, isItalic) => {
         const shapeId = g.getAttribute("shape_id");
         const shape_ = shape(session.CURRENT_SLIDE, shapeId);
 
-        shape_.data().underline = (isUnderline ? "true" : "false");
-        g.querySelector("table").style.textDecoration = (isUnderline ? "underline" : "");
+        shape_.data().italic = (isItalic ? "true" : "false");
+        g.querySelector("table").style.fontStyle = (isItalic ? "italic" : "");
 
     }
 
-    const underline = () => {
+    const italic = () => {
         let changed = false;
         session.SELECTED_ELEMENTS.forEach(selectedEl => {
             if (getShapeType(selectedEl.shape) == constants.SHAPE_TYPES.TEXTBOX) {
-                set(selectedEl.shape, !underlineSelected)
+                set(selectedEl.shape, !italicSelected)
                 changed = true;
             }
         });
 
         if (changed)
-            setUnderlineSelected(!underlineSelected);
+            setItalicSelected(!italicSelected);
     }
     return (
-        <button onClick={underline} className={"btn btn-" + (underlineSelected ? "primary" : "secondary")}>U</button>
+        <button {...props} onClick={italic} className={"btn btn-" + (!italicSelected ? "light" : "secondary")}>
+            <i className="fas fa-italic"></i>
+        </button>
     )
 }
-
-
-ReactDOM.render(<UnderlineBtn />, document.getElementById("UnderlineBtn"));

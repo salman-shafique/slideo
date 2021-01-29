@@ -10,7 +10,7 @@ export default function DownloadButton() {
     const SlideContainer = document.getElementById("SlideContainer");
     let status = null;
     const preview = () => {
-        sidebar().closeAll();
+        sidebar.closeAll();
         deSelectAll();
         SlideContainer.classList.add("full-screen");
 
