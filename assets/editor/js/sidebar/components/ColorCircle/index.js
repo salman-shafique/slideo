@@ -47,7 +47,7 @@ export default function ColorCirle({ SHAPE_TYPE }) {
                 colorCircles_.push(<br key={"br" + i} />);
 
             colorCircles_.push(
-                <SingleColor key={i} color={color} setCurrentColor={setCurrentColor} />
+                <SingleColor key={i} color={color} setCurrentColor={setCurrentColor} SHAPE_TYPE={SHAPE_TYPE} />
             )
         });
         setColorCirles(colorCircles_);
@@ -71,11 +71,9 @@ export default function ColorCirle({ SHAPE_TYPE }) {
                     color = toHex(shape_.data().font_color);
                 }
 
-                console.log(color);
-                if (color)
-                    setCurrentColor(color.toLowerCase());
-                else
-                    setCurrentColor("#ffffff");
+                color
+                    ? setCurrentColor(color.toLowerCase())
+                    : setCurrentColor("#ffffff");
             }
 
         });
