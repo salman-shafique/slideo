@@ -10,6 +10,12 @@ export default function SingleColor({ color, setCurrentColor }) {
         setCurrentColor(color);
     }
     return (
-        <div onClick={selectColor} className="color-circle-single" style={{ backgroundColor: color }}></div>
+        <div
+            onClick={selectColor}
+            className="color-circle-single"
+            style={{
+                backgroundColor: color,
+                border: (color == "#ffffff") ? "solid lightgray 1px" : "none"
+            }}></div>
     )
 }

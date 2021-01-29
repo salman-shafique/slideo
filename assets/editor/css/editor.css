@@ -468,6 +468,7 @@ body {
 }
 
 #sideBarTextEmpty {
+	margin-top: 20px;
 	color: gray;
 	text-align: center;
 	width: 100%;

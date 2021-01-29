@@ -5,7 +5,8 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
-
+import { getThemeColor, getThemeColorNameOfShape } from "Editor/js/sidebar/colors/utils";
+import toHex from "Editor/js/sidebar/colors/toHex";
 
 const colorList = [
     "#ff914d",
@@ -34,36 +35,53 @@ const colorList = [
     "#000000"
 ];
 
-export default function ColorCirle(SHAPE_TYPE) {
+export default function ColorCirle({ SHAPE_TYPE }) {
     const [opened, setOpened] = React.useState(false);
-    const [currentColor, setCurrentColor] = React.useState("#fff");
+    const [currentColor, setCurrentColor] = React.useState("#ffffff");
     const [colorCirles, setColorCirles] = React.useState([]);
 
     React.useEffect(() => {
         const colorCircles_ = [];
         colorList.forEach((color, i) => {
             if (i % 6 == 0)
-                colorCircles_.push(<br key={"br"+i} />);
+                colorCircles_.push(<br key={"br" + i} />);
 
             colorCircles_.push(
                 <SingleColor key={i} color={color} setCurrentColor={setCurrentColor} />
             )
         });
         setColorCirles(colorCircles_);
-        // window.addEventListener("shape.selected", (event) => {
-        //     if (session.SELECTED_ELEMENTS.length != 1) {
-        //         setAlignmentSelected(null);
-        //         return;
-        //     };
 
-        //     const g = event.data.shape;
-        //     if (getShapeType(g) == SHAPE_TYPE)
-        //         setAlignmentSelected(getAlignment(g));
+        window.addEventListener("shape.selected", (event) => {
+            if (session.SELECTED_ELEMENTS.length != 1) {
+                setCurrentColor("#ffffff");
+                return;
+            };
 
-        // });
-        // window.addEventListener("shape.allReleased", () => {
-        //     setAlignmentSelected(null);
-        // });
+            const g = event.data.shape;
+            if (getShapeType(g) == SHAPE_TYPE) {
+                const themeColor = getThemeColorNameOfShape(g);
+                let color;
+                if (themeColor) {
+                    // theme colored before
+                    color = getThemeColor(themeColor.themeColorName);
+                } else {
+                    // Static colored
+                    const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
+                    color = toHex(shape_.data().font_color);
+                }
+
+                console.log(color);
+                if (color)
+                    setCurrentColor(color.toLowerCase());
+                else
+                    setCurrentColor("#ffffff");
+            }
+
+        });
+        window.addEventListener("shape.allReleased", () => {
+            setCurrentColor("#ffffff");
+        });
     }, []);
 
     return (
@@ -71,7 +89,11 @@ export default function ColorCirle(SHAPE_TYPE) {
             <div
                 className="main-circle color-circle-single"
                 onClick={() => setOpened(!opened)}
-                style={{ backgroundColor: currentColor }}
+                style={{
+                    backgroundColor: currentColor,
+                    border: (currentColor == "#ffffff") ? "solid lightgray 1px" : "none"
+                }}
+
             >
             </div>
             <div className="color-circles" style={{ display: opened ? 'block' : 'none' }}>

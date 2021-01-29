@@ -1,4 +1,10 @@
 export default function toHex(color = "") {
+    if (!color) return null;
+
+    if (color.split(" ").length == 3)
+        // Stored color format
+        color = 'rgb(' + color.replace(/ /g, ",") + ")";
+
     color = color.trim().replace(/ /g, "");
     // Hex already
     if (color[0] == "#")
@@ -19,13 +25,6 @@ export default function toHex(color = "") {
         b = parseInt(b).toString(16).toUpperCase();
         if (b.length == 1) b = "0" + b;
 
-        const el = document.createElement('textarea');
-        el.value = "#" + r + g + b + a;
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-
-        return "#" + r + g + b + a;
+        return "#" + r + g + b;
     }
 }
