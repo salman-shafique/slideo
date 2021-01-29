@@ -5,6 +5,7 @@ import UnderlineBtn from "./underline";
 import AlignmentBtn from "./alignment";
 import FontSize from "./fontSize";
 import FontFamily from "./fontFamily";
+import ColorCircle from "Editor/js/sidebar/components/ColorCircle";
 
 export default function FontActions() {
 
@@ -24,10 +25,10 @@ export default function FontActions() {
                 <div className="col-12 my-2"></div>
                 <AlignmentBtn />
             </div>
-            <div className="col-4 row m-0 p-0">
+            <div className="col-4 row m-0 p-0 position-static">
                 <FontSize className="form-control form-control-lg border-0" />
                 <div className="col-12 my-2"></div>
-                color
+                <ColorCircle />
             </div>
         </div>
     )

@@ -11,8 +11,8 @@ export default function TextboxPanel() {
                 Text
             </div>
             <div className="main-section">
-                <div id="sideBarText" className="custom-scrollbar vertical-scroll">
-                    <div id="sideBarTextOptions" style={{ width: "100%", display: "none" }}>
+                <div id="sideBarText" className="custom-scrollbar vertical-scroll" style={{display:"initial"}}>
+                    <div id="sideBarTextOptions" style={{ width: "100%", display: "none",position:"relative" }}>
                         <FontActions />
                     </div>
                     <div id="sideBarTextEmpty">
