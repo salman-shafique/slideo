@@ -24,9 +24,10 @@ export default function FontActions() {
                 <div className="col-12 my-2"></div>
                 <AlignmentBtn />
             </div>
-            <div className="col-4">
-
-                <FontSize />
+            <div className="col-4 row m-0 p-0">
+                <FontSize className="form-control form-control-lg border-0" />
+                <div className="col-12 my-2"></div>
+                color
             </div>
         </div>
     )
