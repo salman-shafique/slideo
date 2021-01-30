@@ -21,6 +21,7 @@ export default function colorTemplate(slideId) {
     }
 
     this.getColor = (themeColorName) => {
+        if (!themeColorName) return null;
         const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
         let color = null;
         Object.keys(colorTemplate_).forEach(colorName => {
@@ -57,65 +58,5 @@ export default function colorTemplate(slideId) {
         });
     }
 
-
-    this.changeColors = (colors = null) => {
-        if (!slide(this.slideId).documentElement()) return;
-
-        if (colors)
-            this.updateColors(colors);
-
-        colors = this.getAllColors();
-
-        const documentElement = slide(slideId).documentElement();
-
-        Object.keys(colors).forEach(colorName => {
-            let color = colors[colorName];
-            /**
-             * @type {Array<SVGGElement>} gs
-             */
-            let gs;
-            // fill_theme_color
-            gs = selectAll("g.SlideGroup g.Page g[fill_theme_color^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillThemeColor(color));
-
-            // fill_gradient_stop_0
-            gs = selectAll("g.SlideGroup g.Page g[fill_gradient_stop_0^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillGradientStop0(color));
-
-            // fill_gradient_stop_1
-            gs = selectAll("g.SlideGroup g.Page g[fill_gradient_stop_1^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillGradientStop1(color));
-
-            // Background
-            /**
-             * @type {SVGGElement} background
-             */
-            let background = select("g.SlideGroup g.Page g.Background", documentElement);
-            if (background) {
-                updateColor(background).background(colorName, color);
-            }
-
-            // text_theme_color
-            gs = selectAll("g.SlideGroup g.Page g[text_theme_color^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillText(color));
-
-            // icon_theme_color
-            gs = selectAll("g.SlideGroup g.Page g[icon_theme_color^='" + colorName + "']", documentElement);
-            gs.forEach((g) => updateColor(g).fillIcon(color));
-
-        });
-    }
-
-    this.updateColorCirles = () => {
-        const colorCirles = selectAll("#Colors_Panel .main-section .color");
-
-        const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
-        colorCirles.forEach(colorCirle => {
-            const colorName = colorCirle.getAttribute("color-name");
-            const color = colorTemplate_[(colorName.charAt(0).toLowerCase() + colorName.slice(1)).replace("_", "")];
-            colorCirle.setAttribute("data-color", color);
-            colorCirle.style.backgroundColor = color;
-        });
-    }
 }
 

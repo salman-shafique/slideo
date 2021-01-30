@@ -468,7 +468,7 @@ body {
 	font-size: x-large;
 }
 
-#sideBarTextEmpty {
+#sideBarTextEmpty,#sideBarShapeEmpty {
 	margin-top: 20px;
 	color: gray;
 	text-align: center;

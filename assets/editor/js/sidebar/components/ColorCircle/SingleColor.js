@@ -4,10 +4,11 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 import hexToRgb from "Editor/js/sidebar/colors/hexToRgb";
-import updateColor from "Editor/js/shapes/actions/color/updateColor";
+import toHex from "Editor/js/sidebar/colors/toHex";
+import { getThemeColor } from "Editor/js/sidebar/colors/utils";
 
 
-export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE }) {
+export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
     const selectColor = () => {
         if (session.SELECTED_ELEMENTS.length < 1) return;
         session.SELECTED_ELEMENTS.forEach(selectedEl => {
@@ -23,16 +24,39 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE }) {
                     g.removeAttribute("text_theme_color");
 
                     data.font_color = rgb;
-                    shape_.el().querySelector("table").style.color = color;
-               
+                    g.querySelector("table").style.color = color;
+
                 } else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON) {
                     if (data.icon_theme_color)
                         delete data.icon_theme_color;
                     g.removeAttribute("icon_theme_color");
-                    
+
                     data.rgb = rgb;
-                    const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId+" feFlood");
+                    const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
                     feFlood.style.floodColor = color;
+                } else if (SHAPE_TYPE == constants.SHAPE_TYPES.AUTO_SHAPE) {
+                    if (FILL_TYPE == constants.FILL_TYPES.SOLID_FILL) {
+                        if (data.fill_theme_color)
+                            delete data.fill_theme_color;
+                        g.removeAttribute("fill_theme_color");
+
+                        const path = g.querySelector("path");
+                        path.style.fill = color;
+                        data.fill_rgb = rgb;
+
+                    } else if (FILL_TYPE == constants.FILL_TYPES.GRADIENT_FILL) {
+                        let stop_;
+                        for (let i = 0; i < 2; i++)
+                            if (GRADIENT_STOP === i) {
+                                data[`fill_gradient_stop_${i}_rgb`] = rgb;
+                                stop_ = g.querySelector(`g defs stop[offset="${i}"]`);
+                                if (stop_) {
+                                    stop_.style.color = color;
+                                    stop_.style.stopColor = color;
+                                }
+                            }
+
+                    }
                 }
             }
         });

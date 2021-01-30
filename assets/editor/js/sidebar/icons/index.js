@@ -37,4 +37,4 @@ window.addEventListener("shape.selected", () => {
 })
 
 
-ReactDOM.render(<ColorCircle SHAPE_TYPE={constants.SHAPE_TYPES.ICON} />, document.getElementById("Icon_color"));
+ReactDOM.render(<ColorCircle key={"icon"} SHAPE_TYPE={constants.SHAPE_TYPES.ICON} />, document.getElementById("Icon_color"));
