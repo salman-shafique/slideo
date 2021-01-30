@@ -36,19 +36,6 @@ const validColorAttributes = [
 ];
 
 
-const updateColorTemplate = (newColor) => {
-
-    const activeCircle = document.querySelector("#Colors_Panel .main-section .color.active");
-    activeCircle.setAttribute("data-color", newColor);
-    activeCircle.style.backgroundColor = newColor;
-
-    const colorName = activeCircle.getAttribute("color-name");
-    let tmp = {};
-    tmp[colorName] = newColor;
-    colorTemplate(session.CURRENT_SLIDE).changeColors(tmp);
-}
-
-
 /**
  * 
  * @param {SVGGElement} g 
@@ -70,50 +57,9 @@ const getThemeColorNameOfShape = (g) => {
 }
 
 
-
-const setThemeColor = (g, attrName, newThemeColorName) => {
-    g.setAttribute(attrName, newThemeColorName);
-    const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
-    shape_.data()[attrName] = newThemeColorName;
-}
-/**
- * 
- * @param {SVGGElement} g 
- */
-const setThemeColorNameOfShape = (g, newThemeColorName) => {
-    const shapeType = getShapeType(g);
-    validColorAttributes.forEach(attrName => {
-        if (g.hasAttribute(attrName)) {
-            setThemeColor(g, attrName, newThemeColorName);
-        } else if (attrName == "icon_theme_color") {
-            if (shapeType == constants.SHAPE_TYPES.ICON)
-                setThemeColor(g, attrName, newThemeColorName);
-        } else if (attrName == "text_theme_color") {
-            if (shapeType == constants.SHAPE_TYPES.TEXTBOX)
-                setThemeColor(g, attrName, newThemeColorName);
-        }
-    });
-    colorTemplate(session.CURRENT_SLIDE).changeColors();
-}
-
-/**
- * 
- * @param {String} newThemeColorName like ACCENT_1
- */
-const changeThemeColorOfShapes = (newThemeColorName) => {
-    if (session.SELECTED_ELEMENTS.length > 0)
-        session.SELECTED_ELEMENTS.forEach(selectedEl => {
-            const g = selectedEl.shape;
-            setThemeColorNameOfShape(g, newThemeColorName);
-        });
-}
-
 export {
     themeColorNames,
     validColorAttributes,
-    updateColorTemplate,
-    setThemeColorNameOfShape,
     getThemeColorNameOfShape,
     getThemeColor,
-    changeThemeColorOfShapes
 }
