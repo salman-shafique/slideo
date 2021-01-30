@@ -329,7 +329,7 @@ export default function slide(slideId) {
         session.CURRENT_SLIDE = this.slideId;
 
         // Update the color circles
-        colorTemplate(this.slideId).updateColorCirles();
+        colorTemplate(this.slideId).updateColorCircles();
 
         // Dispatch the selection event
         Events.slide.display({ slideId: this.slideId });

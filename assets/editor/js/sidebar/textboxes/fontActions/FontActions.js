@@ -29,7 +29,7 @@ export default function FontActions() {
             <div className="col-4 row m-0 p-0 position-static">
                 <FontSize className="form-control form-control-lg border-0" />
                 <div className="col-12 my-2"></div>
-                <ColorCircle SHAPE_TYPE={constants.SHAPE_TYPES.TEXTBOX} />
+                <ColorCircle key={"text"} SHAPE_TYPE={constants.SHAPE_TYPES.TEXTBOX} />
             </div>
         </div>
     )

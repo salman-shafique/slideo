@@ -106,15 +106,15 @@ export default function colorTemplate(slideId) {
         });
     }
 
-    this.updateColorCirles = () => {
-        const colorCirles = selectAll("#Colors_Panel .main-section .color");
+    this.updateColorCircles = () => {
+        const colorCircles = selectAll("#Colors_Panel .main-section .color");
 
         const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
-        colorCirles.forEach(colorCirle => {
-            const colorName = colorCirle.getAttribute("color-name");
+        colorCircles.forEach(colorCircle => {
+            const colorName = colorCircle.getAttribute("color-name");
             const color = colorTemplate_[(colorName.charAt(0).toLowerCase() + colorName.slice(1)).replace("_", "")];
-            colorCirle.setAttribute("data-color", color);
-            colorCirle.style.backgroundColor = color;
+            colorCircle.setAttribute("data-color", color);
+            colorCircle.style.backgroundColor = color;
         });
     }
 }

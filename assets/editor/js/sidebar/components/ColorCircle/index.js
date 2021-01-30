@@ -35,10 +35,10 @@ const colorList = [
     "#000000"
 ];
 
-export default function ColorCirle({ SHAPE_TYPE }) {
+export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
     const [opened, setOpened] = React.useState(false);
     const [currentColor, setCurrentColor] = React.useState("#ffffff");
-    const [colorCirles, setColorCirles] = React.useState([]);
+    const [colorCircles, setColorCircles] = React.useState([]);
 
     React.useEffect(() => {
         const colorCircles_ = [];
@@ -50,7 +50,7 @@ export default function ColorCirle({ SHAPE_TYPE }) {
                 <SingleColor key={i} color={color} setCurrentColor={setCurrentColor} SHAPE_TYPE={SHAPE_TYPE} />
             )
         });
-        setColorCirles(colorCircles_);
+        setColorCircles(colorCircles_);
 
         window.addEventListener("shape.selected", (event) => {
             if (session.SELECTED_ELEMENTS.length != 1) {
@@ -72,6 +72,8 @@ export default function ColorCirle({ SHAPE_TYPE }) {
                         color = toHex(shape_.data().font_color);
                     else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON)
                         color = toHex(shape_.data().rgb);
+                    // else if (SHAPE_TYPE == constants.SHAPE_TYPES.AUTO_SHAPE)
+                    //     color = toHex(shape_.data().rgb);
                 }
 
                 color
@@ -99,7 +101,7 @@ export default function ColorCirle({ SHAPE_TYPE }) {
             >
             </div>
             <div className="color-circles" style={{ display: opened ? 'block' : 'none' }}>
-                {colorCirles}
+                {colorCircles}
             </div>
         </div>
     )

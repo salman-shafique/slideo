@@ -77,6 +77,7 @@ class Presentation
 
     /**
      * @ORM\OneToMany(targetEntity=DownloadPresentation::class, mappedBy="presentation")
+     * @Ignore()
      */
     private $downloadedPresenatations;
 
