@@ -68,7 +68,10 @@ export default function ColorCirle({ SHAPE_TYPE }) {
                 } else {
                     // Static colored
                     const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
-                    color = toHex(shape_.data().font_color);
+                    if (SHAPE_TYPE == constants.SHAPE_TYPES.TEXTBOX)
+                        color = toHex(shape_.data().font_color);
+                    else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON)
+                        color = toHex(shape_.data().rgb);
                 }
 
                 color
@@ -78,12 +81,13 @@ export default function ColorCirle({ SHAPE_TYPE }) {
 
         });
         window.addEventListener("shape.allReleased", () => {
+            setOpened(false);
             setCurrentColor("#ffffff");
         });
     }, []);
 
     return (
-        <div key={SHAPE_TYPE} className="color-circle-container col-12 text-center position-static">
+        <div key={SHAPE_TYPE} className="color-circle-container p-0 col-12 text-center position-static">
             <div
                 className="main-circle color-circle-single"
                 onClick={() => setOpened(!opened)}

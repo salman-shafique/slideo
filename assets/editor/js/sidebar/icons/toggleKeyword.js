@@ -12,7 +12,7 @@ export default function toggleKeyword(keyword) {
     allIconContainers.forEach(e => e.style.display = "none");
     // search-keyword
     const keywordsToDisable = selectAll('#Icons_Panel div[data-keyword].search-keyword');
-    keywordsToDisable.forEach(e => e.style.opacity = "0.7");
+    keywordsToDisable.forEach(e => e.style.opacity = "0.5");
 
     // search-keyword
     const searchKeyword = select('#Icons_Panel div[data-keyword="' + keyword + '"].search-keyword');

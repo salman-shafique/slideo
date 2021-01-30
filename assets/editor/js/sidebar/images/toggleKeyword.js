@@ -11,7 +11,7 @@ export default function toggleKeyword(keyword) {
     allImageContainers.forEach(e => e.style.display = "none");
     // search-keyword
     const keywordsToDisable = selectAll('#Images_Panel div[data-keyword].search-keyword');
-    keywordsToDisable.forEach(e => e.style.opacity = "0.7");
+    keywordsToDisable.forEach(e => e.style.opacity = "0.5");
 
     // search-keyword
     const searchKeyword = select('#Images_Panel div[data-keyword="' + keyword + '"].search-keyword');
