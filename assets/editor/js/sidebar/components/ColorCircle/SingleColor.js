@@ -7,7 +7,7 @@ import hexToRgb from "Editor/js/sidebar/colors/hexToRgb";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
 
 
-export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE }) {
+export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
     const selectColor = () => {
         if (session.SELECTED_ELEMENTS.length < 1) return;
         session.SELECTED_ELEMENTS.forEach(selectedEl => {
@@ -24,15 +24,36 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE }) {
 
                     data.font_color = rgb;
                     shape_.el().querySelector("table").style.color = color;
-               
+
                 } else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON) {
                     if (data.icon_theme_color)
                         delete data.icon_theme_color;
                     g.removeAttribute("icon_theme_color");
-                    
+
                     data.rgb = rgb;
-                    const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId+" feFlood");
+                    const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
                     feFlood.style.floodColor = color;
+                } else if (SHAPE_TYPE == constants.SHAPE_TYPES.AUTO_SHAPE) {
+                    if (FILL_TYPE == constants.FILL_TYPES.SOLID_FILL) {
+                        if (data.fill_theme_color)
+                            delete data.fill_theme_color;
+                        g.removeAttribute("fill_theme_color");
+
+                        const path = g.querySelector("path");
+                        path.style.fill = color;
+                        data.fill_rgb = rgb;
+
+                    } else if (FILL_TYPE == constants.FILL_TYPES.GRADIENT_FILL) {
+                        if (GRADIENT_STOP === 0)
+                            data.fill_gradient_stop_0_rgb
+                                ? color = toHex(data.fill_gradient_stop_0_rgb)
+                                : color = getThemeColor(data.fill_gradient_stop_0)
+
+                        else if (GRADIENT_STOP === 1)
+                            data.fill_gradient_stop_1_rgb
+                                ? color = toHex(data.fill_gradient_stop_1_rgb)
+                                : color = getThemeColor(data.fill_gradient_stop_1)
+                    }
                 }
             }
         });

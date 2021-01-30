@@ -47,7 +47,13 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
                 colorCircles_.push(<br key={"br" + i} />);
 
             colorCircles_.push(
-                <SingleColor key={i} color={color} setCurrentColor={setCurrentColor} SHAPE_TYPE={SHAPE_TYPE} />
+                <SingleColor
+                    key={i}
+                    color={color}
+                    setCurrentColor={setCurrentColor}
+                    SHAPE_TYPE={SHAPE_TYPE}
+                    FILL_TYPE={FILL_TYPE}
+                    GRADIENT_STOP={GRADIENT_STOP} />
             )
         });
         setColorCircles(colorCircles_);
@@ -85,7 +91,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
                                 : color = getThemeColor(data.fill_gradient_stop_1)
                     }
                 }
-                
+
                 if (!color) {
                     const themeColor = getThemeColorNameOfShape(g);
                     if (themeColor)

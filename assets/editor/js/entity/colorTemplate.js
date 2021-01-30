@@ -60,15 +60,20 @@ export default function colorTemplate(slideId) {
 
 
     this.changeColors = (colors = null) => {
-        if (!slide(this.slideId).documentElement()) return;
+        const slide_ = slide(this.slideId);
+        if (!slide_.documentElement()) return;
 
         if (colors)
             this.updateColors(colors);
 
         colors = this.getAllColors();
 
-        const documentElement = slide(slideId).documentElement();
+        const documentElement = slide_.documentElement();
 
+        // From data
+        console.log(slide_.slideData().shapes);
+        
+        // From G
         Object.keys(colors).forEach(colorName => {
             let color = colors[colorName];
             /**
@@ -105,6 +110,7 @@ export default function colorTemplate(slideId) {
             gs.forEach((g) => updateColor(g).fillIcon(color));
 
         });
+
     }
 
     this.updateColorCircles = () => {
