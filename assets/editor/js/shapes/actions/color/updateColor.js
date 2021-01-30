@@ -74,12 +74,9 @@ export default function updateColor(g) {
     /**
      */
     this.background = (slideId) => {
-        
-        const documentElement = slide_.documentElement();
-        let background = select("g.SlideGroup g.Page g.Background", documentElement);
-
-
-
+        return;
+        const documentElement = slide(slideId).documentElement();
+        let background = documentElement.querySelector("g.SlideGroup g.Page g.Background");
         let path, stop;
         if (this.g.getAttribute("fill_theme_color")) {
             // fill_theme_color
