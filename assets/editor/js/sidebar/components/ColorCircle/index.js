@@ -5,6 +5,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
+import slide from "Editor/js/entity/slide";
 import { getThemeColor, getThemeColorNameOfShape } from "Editor/js/sidebar/colors/utils";
 import toHex from "Editor/js/sidebar/colors/toHex";
 
@@ -35,7 +36,7 @@ const colorList = [
     "#000000"
 ];
 
-export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
+export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACKGROUND }) {
     const [opened, setOpened] = React.useState(false);
     const [currentColor, setCurrentColor] = React.useState("#ffffff");
     const [colorCircles, setColorCircles] = React.useState([]);
@@ -53,11 +54,42 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
                     setCurrentColor={setCurrentColor}
                     SHAPE_TYPE={SHAPE_TYPE}
                     FILL_TYPE={FILL_TYPE}
-                    GRADIENT_STOP={GRADIENT_STOP} />
+                    GRADIENT_STOP={GRADIENT_STOP}
+                    BACKGROUND={BACKGROUND} />
             )
         });
         setColorCircles(colorCircles_);
 
+        if (BACKGROUND) {
+            window.addEventListener("slide.display", (event) => {
+                const slideId = event.data.slideId;
+                const slide_ = slide(slideId);
+                const slideData = slide_.slideData();
+                const background = slideData.background.data;
+
+                let color;
+                if (background.type == "solidFill") {
+                    console.log(background.color);
+                    color = getThemeColor(background.color);
+                    if (!color)
+                        color = toHex("#" + background.color);
+                } else if (background.type == "gradFill") {
+                    for (let i = 0; i < 2; i++) {
+                        if (GRADIENT_STOP === i) {
+                            color = getThemeColor(background.stops[i].color);
+                            if (!color)
+                                color = toHex("#" + background.stops[i].color);
+                            break;
+                        }
+                    }
+                }
+                
+                color
+                    ? setCurrentColor(color.toLowerCase())
+                    : setCurrentColor("#ffffff");
+            });
+            return;
+        };
         window.addEventListener("shape.selected", (event) => {
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setCurrentColor("#ffffff");

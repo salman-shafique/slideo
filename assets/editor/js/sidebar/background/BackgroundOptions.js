@@ -4,84 +4,64 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
 import getFillType from "Editor/js/shapes/actions/color/getFillType";
+import slide from "Editor/js/entity/slide";
 
 
 export default function BackgroundOptions() {
-    return "bg opt";
-    const [allSame, setAllSame] = React.useState(false);
-    const [fillType, setFillType] = React.useState(null);
-
+    const [background, setBackground] = React.useState(null);
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", () => {
-            let storedFillType = null;
-            let allSame_ = true;
-            session.SELECTED_ELEMENTS.forEach(selectedEl => {
-                if (getShapeType(selectedEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE) {
-                    const fillType_ = getFillType(selectedEl.shape);
-                    if (storedFillType == null)
-                        storedFillType = fillType_;
-
-                    if (storedFillType != fillType_)
-                        allSame_ = false;
-                }
-            });
-
-            allSame_
-                ? setFillType(storedFillType)
-                : setFillType(null)
-
-            setAllSame(allSame_);
+        window.addEventListener("slide.display", (event) => {
+            const slideId = event.data.slideId;
+            const slide_ = slide(slideId);
+            const slideData = slide_.slideData();
+            setBackground(slideData.background.data);
         });
     }, []);
 
+    if (!background) return "";
+
     return (
         <>
-            <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "" : "d-none")}>
-                <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.SOLID_FILL ? "" : "d-none")}>
+            <div className={"row mx-0 mt-3 bg-white rounded "}>
+                <div className={"row col-12 m-0 p-0 " + (background.type == "solidFill" ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
-                        Fill color:
+                        SELECT COLOR
                     </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
-                            key="solidFill"
-                            SHAPE_TYPE={constants.SHAPE_TYPES.AUTO_SHAPE}
+                            key="bgSolidFill"
                             FILL_TYPE={constants.FILL_TYPES.SOLID_FILL}
+                            BACKGROUND
+                        />
+                    </div>
+                </div>
+                <div className={"row col-12 m-0 p-0 " + (background.type == "gradFill" ? "" : "d-none")}>
+                    <div className="col-9 d-flex align-items-center">
+                        SELECT COLOR
+                    </div>
+                    <div className="col-3 position-static pt-1">
+                        <ColorCircle
+                            key="bgGradFill0"
+                            FILL_TYPE={constants.FILL_TYPES.GRADIENT_FILL}
+                            GRADIENT_STOP={0}
+                            BACKGROUND
                         />
                     </div>
                     <div className="col-9 d-flex align-items-center">
-                        Opacity:
-                </div>
-                    <div className="col-3 position-static pt-1">
-                        Opacity slider
-                </div>
-                </div>
-                <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.GRADIENT_FILL ? "" : "d-none")}>
-                    <div className="col-9 d-flex align-items-center">
-                        Stop 0:
-                    </div>
-                    <div className="col-3 position-static pt-1">
-                        <ColorCircle
-                            key="gradFill0"
-                            SHAPE_TYPE={constants.SHAPE_TYPES.AUTO_SHAPE}
-                            FILL_TYPE={constants.FILL_TYPES.GRADIENT_FILL}
-                            GRADIENT_STOP={0} />
-                    </div>
-                    <div className="col-9 d-flex align-items-center">
-                        Stop 1:
+                        SELECT COLOR
                 </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
-                            key="gradFill1"
-                            SHAPE_TYPE={constants.SHAPE_TYPES.AUTO_SHAPE}
+                            key="bgGradFill1"
                             FILL_TYPE={constants.FILL_TYPES.GRADIENT_FILL}
-                            GRADIENT_STOP={1} />
+                            GRADIENT_STOP={1}
+                            BACKGROUND
+                        />
                     </div>
                 </div>
             </div>
-            <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "d-none" : "")}>
-                Multiple shapes with different fill types selected
-            </div>
+
         </>
     )
 }
