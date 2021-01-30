@@ -45,29 +45,17 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
                         data.fill_rgb = rgb;
 
                     } else if (FILL_TYPE == constants.FILL_TYPES.GRADIENT_FILL) {
-                        if (GRADIENT_STOP === 0) {
-                            if (data.fill_gradient_stop_0)
-                                delete data.fill_gradient_stop_0;
-                            g.removeAttribute("fill_gradient_stop_0");
-
-                            data.fill_gradient_stop_0_rgb = rgb;
-                            const stop0 = g.querySelector('g defs stop[offset="0"]');
-                            if (stop0) {
-                                stop0.style.color = color;
-                                stop0.style.stopColor = color;
+                        let stop_;
+                        for (let i = 0; i < 2; i++)
+                            if (GRADIENT_STOP === i) {
+                                data[`fill_gradient_stop_${i}_rgb`] = rgb;
+                                stop_ = g.querySelector(`g defs stop[offset="${i}"]`);
+                                if (stop_) {
+                                    stop_.style.color = color;
+                                    stop_.style.stopColor = color;
+                                }
                             }
-                        } else if (GRADIENT_STOP === 1) {
-                            if (data.fill_gradient_stop_1)
-                                delete data.fill_gradient_stop_1;
-                            g.removeAttribute("fill_gradient_stop_1");
 
-                            data.fill_gradient_stop_1_rgb = rgb;
-                            const stop1 = g.querySelector('g defs stop[offset="1"]');
-                            if (stop1) {
-                                stop1.style.color = color;
-                                stop1.style.stopColor = color;
-                            }
-                        }
                     }
                 }
             }

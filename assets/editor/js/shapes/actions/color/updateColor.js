@@ -1,4 +1,5 @@
 import shape from "Editor/js/entity/shape";
+import slide from "Editor/js/entity/slide";
 import getShapeType from "../drag/utils/getShapeType";
 import constants from "Editor/js/constants";
 import { getThemeColor, getThemeColorNameOfShape } from "Editor/js/sidebar/colors/utils";
@@ -36,16 +37,32 @@ export default function updateColor(g) {
                     path.style.fill = color;
                 } else if (fillType == constants.FILL_TYPES.GRADIENT_FILL) {
 
-                    let fill_gradient_stop_0_rgb;
-                    if (data.fill_gradient_stop_0_rgb) {
-                        fill_gradient_stop_0_rgb = toHex(data.fill_gradient_stop_0_rgb);
-                    } else if (data.fill_gradient_stop_0) {
-                        fill_gradient_stop_0_rgb = getThemeColor(data.fill_gradient_stop_0);
-                        if (!fill_gradient_stop_0_rgb)
-                            fill_gradient_stop_0_rgb = getThemeColor(this.g.getAttribute("fill_gradient_stop_0"));
+                    let hex_, stop_;
+                    for (let i = 0; i < 2; i++) {
+
+                        if (data[`fill_gradient_stop_${i}_rgb`]) {
+                            hex_ = toHex(data[`fill_gradient_stop_${i}_rgb`]);
+                        } else if (data[`fill_gradient_stop_${i}`]) {
+                            hex_ = getThemeColor(data[`fill_gradient_stop_${i}`]);
+                            if (!hex_)
+                                hex_ = getThemeColor(this.g.getAttribute(`fill_gradient_stop_${i}`));
+
+                            // Theme colors to RGB
+                            if (hex_)
+                                data[`fill_gradient_stop_${i}_rgb`] = hexToRgb(hex_)
+                        }
+
+                        // Rm if they exists
+                        if (data[`fill_gradient_stop_${i}`])
+                            delete data[`fill_gradient_stop_${i}`];
+                        g.removeAttribute(`fill_gradient_stop_${i}`);
+
+                        stop_ = this.g.querySelector(`g defs stop[offset="${i}"]`);
+                        if (stop_) {
+                            stop_.style.color = hex_;
+                            stop_.style.stopColor = hex_;
+                        }
                     }
-                    if (!fill_gradient_stop_0_rgb) return;
-                    console.log(fill_gradient_stop_0_rgb);
                 }
 
                 break;
@@ -55,48 +72,14 @@ export default function updateColor(g) {
     }
 
     /**
-     * @param {string} color 
      */
-    this.fillThemeColor = function (color) {
-        let path = this.g.querySelector("g[id]>path");
-        if (!path) return;
-        path.style.fill = color;
-    }
+    this.background = (slideId) => {
+        
+        const documentElement = slide_.documentElement();
+        let background = select("g.SlideGroup g.Page g.Background", documentElement);
 
-    /**
-     * @param {string} color 
-     */
-    this.fillGradientStop0 = function (color) {
 
-        let stop = this.g.querySelector('g[id]>g>defs stop[offset="0"]');
-        if (stop) {
-            stop.style.color = color;
-            stop.style.stopColor = color;
-            return;
-        }
-        // Todo
-        // const paths = this.g.querySelectorAll("g[clip-path]>path");
-        // for (let index = 0; index < Math.round(paths.length / 2); index++) {
-        //     const path = paths[index];
 
-        // }
-    }
-
-    /**
-     * @param {string} color 
-     */
-    this.fillGradientStop1 = function (color) {
-        let stop = this.g.querySelector('g[id]>g>defs stop[offset="1"]');
-        if (!stop) return;
-        stop.style.color = color;
-        stop.style.stopColor = color;
-    }
-
-    /**
-     * @param {string} colorName 
-     * @param {string} color 
-     */
-    this.background = function (colorName, color) {
         let path, stop;
         if (this.g.getAttribute("fill_theme_color")) {
             // fill_theme_color
@@ -127,24 +110,5 @@ export default function updateColor(g) {
             }
         }
     }
-    /**
-     * @param {string} color 
-     */
-    this.fillText = function (color) {
-        let table = this.g.querySelector('g table');
-        if (!table) return;
-        table.style.color = color;
-    }
-
-    /**
-     * @param {string} color 
-     */
-    this.fillIcon = function (color) {
-        const shapeId = this.g.getAttribute("shape_id");
-        const colorFilter = this.g.ownerSVGElement.querySelector("#color_filter_" + shapeId);
-        const feFlood = colorFilter.querySelector('feFlood');
-        feFlood.style.floodColor = color;
-    }
-
 }
 

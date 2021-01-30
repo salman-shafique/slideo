@@ -277,6 +277,9 @@ export default function slide(slideId) {
 
         });
 
+        // Background
+        updateColor().background(this.slideId);
+
         this.display();
 
         // Add event listeners

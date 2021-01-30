@@ -58,57 +58,5 @@ export default function colorTemplate(slideId) {
         });
     }
 
-
-    this.changeColors = (colors = null) => {
-        const slide_ = slide(this.slideId);
-        if (!slide_.documentElement()) return;
-
-        if (colors)
-            this.updateColors(colors);
-
-        colors = this.getAllColors();
-
-        const documentElement = slide_.documentElement();
-
-        // background - later
-        Object.keys(colors).forEach(colorName => {
-            let color = colors[colorName];
-            /**
-             * @type {Array<SVGGElement>} gs
-             */
-            let gs;
-            // fill_theme_color
-            gs = selectAll("g.SlideGroup g.Page g[fill_theme_color^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillThemeColor(color));
-
-            // fill_gradient_stop_0
-            gs = selectAll("g.SlideGroup g.Page g[fill_gradient_stop_0^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillGradientStop0(color));
-
-            // fill_gradient_stop_1
-            gs = selectAll("g.SlideGroup g.Page g[fill_gradient_stop_1^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillGradientStop1(color));
-
-            // Background
-            /**
-             * @type {SVGGElement} background
-             */
-            let background = select("g.SlideGroup g.Page g.Background", documentElement);
-            if (background) {
-                updateColor(background).background(colorName, color);
-            }
-
-            // text_theme_color
-            gs = selectAll("g.SlideGroup g.Page g[text_theme_color^='" + colorName + "']:not(.Background)", documentElement);
-            gs.forEach((g) => updateColor(g).fillText(color));
-
-            // icon_theme_color
-            gs = selectAll("g.SlideGroup g.Page g[icon_theme_color^='" + colorName + "']", documentElement);
-            gs.forEach((g) => updateColor(g).fillIcon(color));
-
-        });
-
-    }
-
 }
 
