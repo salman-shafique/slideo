@@ -8,7 +8,7 @@ import "./searchBox";
 
 const showEmptyList = () => {
     $('#Icons_Panel div[data-keyword].search-keyword').removeClass("active");
-    $('#Icons_Panel div[data-keyword].search-keyword').css("opacity", "0.7");
+    $('#Icons_Panel div[data-keyword].search-keyword').css("opacity", "0.5");
     $('#sideBarIcons div[data-keyword].icon-container').hide();
     document.querySelector("#sideBarIconsEmpty").style.display = "";
 }

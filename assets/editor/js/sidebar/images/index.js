@@ -8,7 +8,7 @@ import "./upload";
 
 const showEmptyList = () => {
     $('#Images_Panel div[data-keyword].search-keyword').removeClass("active");
-    $('#Images_Panel div[data-keyword].search-keyword').css("opacity", "0.7");
+    $('#Images_Panel div[data-keyword].search-keyword').css("opacity", "0.5");
     $('#sideBarImages div[data-keyword].image-container').hide();
     document.querySelector("#sideBarImagesEmpty").style.display = "";
 }

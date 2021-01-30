@@ -216,7 +216,7 @@ body {
 
 .search-section input {
 	border: none;
-	height: 38px;
+	height: inherit;
 	font-size: 18px;
 }
 
@@ -417,7 +417,7 @@ body {
 }
 
 .search-keyword {
-	background-color: #fff;
+	background-color: lightgray;
 	border-radius: 5px;
 	margin: 5px;
 	padding: 3px 10px;
@@ -637,6 +637,7 @@ object[id^="prev_"] {
 
 ::-webkit-scrollbar {
 	width: 10px;
+	height: 10px;
 	border-radius: 10px;
 }
 
