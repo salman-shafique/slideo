@@ -4,3 +4,4 @@ import "./icons";
 import "./designs";
 import "./textboxes";
 import "./shapes";
+import "./background";
