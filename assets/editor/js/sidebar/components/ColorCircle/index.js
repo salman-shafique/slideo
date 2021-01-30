@@ -83,7 +83,7 @@ export default function ColorCirle({ SHAPE_TYPE }) {
     }, []);
 
     return (
-        <div key={SHAPE_TYPE} className="color-circle-container col-12 text-center position-static">
+        <div key={SHAPE_TYPE} className="color-circle-container p-0 col-12 text-center position-static">
             <div
                 className="main-circle color-circle-single"
                 onClick={() => setOpened(!opened)}

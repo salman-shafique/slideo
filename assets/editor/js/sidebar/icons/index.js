@@ -1,10 +1,12 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 import toggleKeyword from "./toggleKeyword";
 import "./searchBox";
-
+import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
 
 const showEmptyList = () => {
     $('#Icons_Panel div[data-keyword].search-keyword').removeClass("active");
@@ -21,7 +23,7 @@ window.addEventListener("shape.selected", () => {
     if (getShapeType(g) == constants.SHAPE_TYPES.ICON) {
         const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
         const data = shape_.data();
-        if(!data) return;
+        if (!data) return;
         if (data.keyword)
             toggleKeyword(data.keyword);
 
@@ -30,3 +32,6 @@ window.addEventListener("shape.selected", () => {
 
     showEmptyList();
 })
+
+
+ReactDOM.render(<ColorCircle SHAPE_TYPE={constants.SHAPE_TYPES.ICON} />, document.getElementById("Icon_color"));
