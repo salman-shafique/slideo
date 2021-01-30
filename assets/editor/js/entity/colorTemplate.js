@@ -21,6 +21,7 @@ export default function colorTemplate(slideId) {
     }
 
     this.getColor = (themeColorName) => {
+        if (!themeColorName) return null;
         const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
         let color = null;
         Object.keys(colorTemplate_).forEach(colorName => {

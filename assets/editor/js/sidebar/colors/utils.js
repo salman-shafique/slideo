@@ -10,7 +10,8 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
  * @param {String} colorName like ACCENT_1
  */
 const getThemeColor = (colorName) => {
-    return colorTemplate(session.CURRENT_SLIDE).getColor(colorName);
+    if (!colorName) return null;
+    return colorTemplate(session.CURRENT_SLIDE).getColor(colorName.split(" ")[0]);
 }
 
 const themeColorNames = [

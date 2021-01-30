@@ -32,18 +32,13 @@ export default function ShapeOptions() {
                 : setFillType(null)
 
             setAllSame(allSame_);
-            console.log(
-                "storedFillType", storedFillType,
-                "allSame_", allSame_);
         });
     }, []);
 
-    let attributes;
-
-    if (allSame) {
-        if (fillType == constants.FILL_TYPES.SOLID_FILL) {
-            attributes =
-                <>
+    return (
+        <>
+            <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "" : "d-none")}>
+                <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.SOLID_FILL ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
                         Fill color:
                     </div>
@@ -56,15 +51,12 @@ export default function ShapeOptions() {
                     </div>
                     <div className="col-9 d-flex align-items-center">
                         Opacity:
-                    </div>
+                </div>
                     <div className="col-3 position-static pt-1">
                         Opacity slider
-                    </div>
-                </>
-
-        } else if (fillType == constants.FILL_TYPES.GRADIENT_FILL) {
-            attributes =
-                <>
+                </div>
+                </div>
+                <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.GRADIENT_FILL ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
                         Stop 0:
                     </div>
@@ -77,7 +69,7 @@ export default function ShapeOptions() {
                     </div>
                     <div className="col-9 d-flex align-items-center">
                         Stop 1:
-                    </div>
+                </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
                             key="gradFill1"
@@ -85,16 +77,11 @@ export default function ShapeOptions() {
                             FILL_TYPE={constants.FILL_TYPES.GRADIENT_FILL}
                             GRADIENT_STOP={1} />
                     </div>
-                </>
-        }
-    }
-    else
-        attributes = "Multiple shapes with different fill types selected";
-
-
-    return (
-        <div className="row mx-0 mt-3 bg-white rounded">
-            {attributes}
-        </div>
+                </div>
+            </div>
+            <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "d-none" : "")}>
+                Multiple shapes with different fill types selected
+            </div>
+        </>
     )
 }

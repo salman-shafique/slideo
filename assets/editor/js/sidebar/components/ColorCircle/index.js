@@ -60,20 +60,37 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
 
             const g = event.data.shape;
             if (getShapeType(g) == SHAPE_TYPE) {
-                const themeColor = getThemeColorNameOfShape(g);
                 let color;
-                if (themeColor) {
-                    // theme colored before
-                    color = getThemeColor(themeColor.themeColorName);
-                } else {
-                    // Static colored
-                    const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
-                    if (SHAPE_TYPE == constants.SHAPE_TYPES.TEXTBOX)
-                        color = toHex(shape_.data().font_color);
-                    else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON)
-                        color = toHex(shape_.data().rgb);
-                    // else if (SHAPE_TYPE == constants.SHAPE_TYPES.AUTO_SHAPE)
-                    //     color = toHex(shape_.data().rgb);
+
+                // Static colored
+                const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
+                const data = shape_.data();
+
+                if (SHAPE_TYPE == constants.SHAPE_TYPES.TEXTBOX)
+                    color = toHex(data.font_color);
+                else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON)
+                    color = toHex(data.rgb);
+                else if (SHAPE_TYPE == constants.SHAPE_TYPES.AUTO_SHAPE) {
+                    if (FILL_TYPE == constants.FILL_TYPES.SOLID_FILL) {
+                        color = toHex(data.fill_rgb);
+                    } else if (FILL_TYPE == constants.FILL_TYPES.GRADIENT_FILL) {
+                        if (GRADIENT_STOP === 0)
+                            data.fill_gradient_stop_0_rgb
+                                ? color = toHex(data.fill_gradient_stop_0_rgb)
+                                : color = getThemeColor(data.fill_gradient_stop_0)
+
+                        else if (GRADIENT_STOP === 1)
+                            data.fill_gradient_stop_1_rgb
+                                ? color = toHex(data.fill_gradient_stop_1_rgb)
+                                : color = getThemeColor(data.fill_gradient_stop_1)
+                    }
+                }
+                
+                if (!color) {
+                    const themeColor = getThemeColorNameOfShape(g);
+                    if (themeColor)
+                        // theme colored before
+                        color = getThemeColor(themeColor.themeColorName);
                 }
 
                 color
@@ -96,9 +113,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP }) {
                 style={{
                     backgroundColor: currentColor,
                     border: (currentColor == "#ffffff") ? "solid lightgray 1px" : "none"
-                }}
-
-            >
+                }}>
             </div>
             <div className="color-circles" style={{ display: opened ? 'block' : 'none' }}>
                 {colorCircles}
