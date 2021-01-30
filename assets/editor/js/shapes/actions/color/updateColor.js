@@ -74,38 +74,40 @@ export default function updateColor(g) {
     /**
      */
     this.background = (slideId) => {
-        return;
-        const documentElement = slide(slideId).documentElement();
-        let background = documentElement.querySelector("g.SlideGroup g.Page g.Background");
-        let path, stop;
-        if (this.g.getAttribute("fill_theme_color")) {
-            // fill_theme_color
-            if (this.g.getAttribute("fill_theme_color").split(" ")[0] == colorName) {
-                path = this.g.querySelector("path");
-                if (path)
-                    path.style.fill = color;
-            }
-        }
-        if (this.g.getAttribute("fill_gradient_stop_0")) {
-            // fill_gradient_stop_0
-            if (this.g.getAttribute("fill_gradient_stop_0").split(" ")[0] == colorName) {
-                stop = this.g.querySelector('g defs stop[offset="0"]');
-                if (stop) {
-                    stop.style.color = color;
-                    stop.style.stopColor = color;
+        const slide_ = slide(slideId);
+        const slideData = slide_.slideData();
+        const background = slideData.background.data;
+        const documentElement = slide_.documentElement();
+        const g = documentElement.querySelector("g.SlideGroup g.Page g.Background");
+        if (!g) return;
+
+
+        let color;
+        if (background.type == "solidFill") {
+            color = getThemeColor(background.color);
+            if (!color)
+                color = toHex("#" + background.color);
+
+            let path = g.querySelector("path");
+            if (path && color)
+                path.style.fill = color;
+
+        } else if (background.type == "gradFill") {
+            for (let i = 0; i < 2; i++) {
+                color = getThemeColor(background.stops[i].color);
+                if (!color)
+                    color = toHex("#" + background.stops[i].color);
+
+                let stop_ = g.querySelector(`g defs stop[offset="${i}"]`);
+                if (stop_ && color) {
+                    stop_.style.color = color;
+                    stop_.style.stopColor = color;
                 }
+
             }
         }
-        if (this.g.getAttribute("fill_gradient_stop_1")) {
-            // fill_gradient_stop_1
-            if (this.g.getAttribute("fill_gradient_stop_1").split(" ")[0] == colorName) {
-                stop = this.g.querySelector('g defs stop[offset="1"]');
-                if (stop) {
-                    stop.style.color = color;
-                    stop.style.stopColor = color;
-                }
-            }
-        }
+
+
     }
 }
 

@@ -69,7 +69,6 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
 
                 let color;
                 if (background.type == "solidFill") {
-                    console.log(background.color);
                     color = getThemeColor(background.color);
                     if (!color)
                         color = toHex("#" + background.color);
