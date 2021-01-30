@@ -5,6 +5,6 @@ import ColorList from "./ColorList";
 
 const ColorListDiv = document.getElementById("ColorList");
 
-ReactDOM.render(<ColorList />, ColorListDiv);
+//ReactDOM.render(<ColorList />, ColorListDiv);
 
 
