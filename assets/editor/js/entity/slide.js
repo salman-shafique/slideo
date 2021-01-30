@@ -146,11 +146,13 @@ export default function slide(slideId) {
         // Show the loaded slide
         let slideData = this.slideData();
         slideData.shapes.forEach(shape_ => {
+            const shapeCls = shape(this.slideId, shape_.data.shape_id);
             if (shape_.data.active == "false") {
-                shape(this.slideId, shape_.data.shape_id).remove();
+                shapeCls.remove();
                 return;
             };
-            let contentNumber, foreignObject, text, direction, g, content;
+            const g = shapeCls.el();
+            let contentNumber, foreignObject, text, direction, content;
             // Built in textboxes
             if (shape_.data.alt.includes("h1|")) {
                 try {
@@ -159,9 +161,8 @@ export default function slide(slideId) {
                     shape_.data.text = text = content.text;
                     direction = content.direction;
                     Object.assign(shape_.data, content);
-
                 } catch {
-                    shape(this.slideId, shape_.data.shape_id).remove();
+                    shapeCls.remove();
                 }
             } else if (shape_.data.alt.includes("paragraph|")) {
                 try {
@@ -174,7 +175,7 @@ export default function slide(slideId) {
                         // Rm paragraph if it is same as h1
                         throw new DOMException();
                 } catch {
-                    shape(this.slideId, shape_.data.shape_id).remove();
+                    shapeCls.remove();
                 }
             } else if (shape_.data.alt == "slidetitle") {
                 content = slideData.slideTitle.data;
@@ -201,15 +202,11 @@ export default function slide(slideId) {
             } else if (shape_.data.alt == "newtextbox") {
                 createNewTextbox(shape_.data, this.slideId);
             }
-            if (text) {
-                // Append foreignObjects
-                g = shape(this.slideId, shape_.data.shape_id).el();
-                if (g) {
-                    foreignObject = createForeignObject(this.contentDocument(), shape_.data);
-                    arrangeForeignObject(foreignObject, shape_.data, text, direction);
-                    g.innerHTML = "";
-                    g.appendChild(foreignObject);
-                }
+            if (text && g) {
+                foreignObject = createForeignObject(this.contentDocument(), shape_.data);
+                arrangeForeignObject(foreignObject, shape_.data, text, direction);
+                g.innerHTML = "";
+                g.appendChild(foreignObject);
             }
 
             // Built in images icon - h1 - slidetitle
@@ -219,23 +216,18 @@ export default function slide(slideId) {
                 Object.assign(shape_.data, content);
                 iconInit(this.slideId, shape_.data.shape_id, content.keyword);
                 // Add event listener
-                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectIconElement);
+                shapeCls.addEvent("click", selectIconElement);
             } else if (shape_.data.alt.includes("h1image|")) {
                 contentNumber = shape_.data.alt.split("|")[1];
                 content = slideData.analyzedContent[contentNumber].h1Image.data;
                 Object.assign(shape_.data, content);
                 h1Image(this.slideId, shape_.data.shape_id, content.keyword);
                 // Add event listener
-                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
-
+                shapeCls.addEvent("click", selectImageElement);
             } else if (shape_.data.alt == "slidetitleimage") {
                 content = slideData.slideTitleImage.data;
                 if (!content.keyword && !content.image) {
-                    let slideTitleImagePlaceholderUrl =
-                        shape(this.slideId, shape_.data.shape_id)
-                            .el()
-                            .querySelector("image")
-                            .getAttribute("xlink:href");
+                    let slideTitleImagePlaceholderUrl = g.querySelector("image").getAttribute("xlink:href");
                     content = {
                         image: {
                             url: slideTitleImagePlaceholderUrl,
@@ -247,7 +239,7 @@ export default function slide(slideId) {
                 Object.assign(shape_.data, content);
                 h1Image(this.slideId, shape_.data.shape_id, content.keyword);
                 // Add event listener
-                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
+                shapeCls.addEvent("click", selectImageElement);
             } else if (shape_.data.alt == "newimage") {
                 createNewImage(shape_.data, this.slideId);
             } else if (shape_.data.alt == "newicon") {
@@ -255,11 +247,7 @@ export default function slide(slideId) {
             } else if (shape_.data.alt == "image") {
                 // handle the builtin images
                 if (!shape_.data.keyword && !shape_.data.image) {
-                    const imagePlaceholderUrl =
-                        shape(this.slideId, shape_.data.shape_id)
-                            .el()
-                            .querySelector("image")
-                            .getAttribute("xlink:href");
+                    const imagePlaceholderUrl = g.querySelector("image").getAttribute("xlink:href");
 
                     shape_.data.image = {
                         url: imagePlaceholderUrl,
@@ -269,11 +257,9 @@ export default function slide(slideId) {
                 };
                 h1Image(this.slideId, shape_.data.shape_id, shape_.data.keyword);
                 // Add event listener
-                shape(this.slideId, shape_.data.shape_id).addEvent("click", selectImageElement);
+                shapeCls.addEvent("click", selectImageElement);
             }
 
-            const shapeCls = shape(this.slideId, shape_.data.shape_id);
-            g = shapeCls.el();
             if (g) {
                 // Update the SVG attributes
                 shapeCls.updateAttrs();
@@ -283,6 +269,8 @@ export default function slide(slideId) {
                 shapeCls.moveToSavedPosition();
                 // initialize the filters
                 colorFilters(g).init(this.slideId);
+                // Update color
+                
             }
 
         });
@@ -292,10 +280,7 @@ export default function slide(slideId) {
         // Add event listeners
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
-        this.contentDocument().addEventListener("mouseup", selectTextboxElement)
-
-        // Color template
-        colorTemplate(this.slideId).changeColors();
+        this.contentDocument().addEventListener("mouseup", selectTextboxElement);
 
         // Autosize the foreignObjects
         selectAll("g[alt]>foreignObject.bounding_box", this.page()).forEach(foreignObject => {
@@ -327,9 +312,6 @@ export default function slide(slideId) {
 
         // Update the session CURRENT_SLIDE
         session.CURRENT_SLIDE = this.slideId;
-
-        // Update the color circles
-        colorTemplate(this.slideId).updateColorCircles();
 
         // Dispatch the selection event
         Events.slide.display({ slideId: this.slideId });

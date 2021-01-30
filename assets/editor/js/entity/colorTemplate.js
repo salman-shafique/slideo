@@ -70,10 +70,7 @@ export default function colorTemplate(slideId) {
 
         const documentElement = slide_.documentElement();
 
-        // From data
-        console.log(slide_.slideData().shapes);
-        
-        // From G
+        // background - later
         Object.keys(colors).forEach(colorName => {
             let color = colors[colorName];
             /**
@@ -113,16 +110,5 @@ export default function colorTemplate(slideId) {
 
     }
 
-    this.updateColorCircles = () => {
-        const colorCircles = selectAll("#Colors_Panel .main-section .color");
-
-        const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
-        colorCircles.forEach(colorCircle => {
-            const colorName = colorCircle.getAttribute("color-name");
-            const color = colorTemplate_[(colorName.charAt(0).toLowerCase() + colorName.slice(1)).replace("_", "")];
-            colorCircle.setAttribute("data-color", color);
-            colorCircle.style.backgroundColor = color;
-        });
-    }
 }
 
