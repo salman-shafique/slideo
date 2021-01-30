@@ -68,7 +68,10 @@ export default function ColorCirle({ SHAPE_TYPE }) {
                 } else {
                     // Static colored
                     const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
-                    color = toHex(shape_.data().font_color);
+                    if (SHAPE_TYPE == constants.SHAPE_TYPES.TEXTBOX)
+                        color = toHex(shape_.data().font_color);
+                    else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON)
+                        color = toHex(shape_.data().rgb);
                 }
 
                 color
@@ -78,6 +81,7 @@ export default function ColorCirle({ SHAPE_TYPE }) {
 
         });
         window.addEventListener("shape.allReleased", () => {
+            setOpened(false);
             setCurrentColor("#ffffff");
         });
     }, []);

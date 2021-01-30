@@ -423,6 +423,7 @@ body {
 	padding: 3px 10px;
 	display: flex;
 	cursor: pointer;
+	height: fit-content;
 }
 
 .keyword-dismiss, .search-click {

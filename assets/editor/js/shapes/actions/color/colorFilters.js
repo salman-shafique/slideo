@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import constants from "Editor/js/constants";
+import session from "Editor/js/session";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
+import shape from "Editor/js/entity/shape";
 
 /**
  * 
@@ -12,8 +14,10 @@ export default function colorFilters(g) {
 
     this.g = g;
 
-    this.init = () => {
+    this.init = (slideId = null) => {
         if (getShapeType(this.g) == constants.SHAPE_TYPES.TEXTBOX) return;
+        if (!slideId && !session.CURRENT_SLIDE) return;
+        if (!slideId) slideId = session.CURRENT_SLIDE;
 
         const shapeId = g.getAttribute("shape_id");
         const alt = g.getAttribute("alt");
@@ -26,7 +30,8 @@ export default function colorFilters(g) {
         if (alt.includes("icon|") || alt == "newicon") {
             let floodColor = "#fff";
             if (!g.getAttribute("icon_theme_color")) {
-                let rgb = g.getAttribute("rgb");
+                const shape_ = shape(slideId, shapeId);
+                const rgb = shape_.data().rgb;
                 if (rgb) floodColor = "rgb(" + rgb.replace(/ /g, ",") + ")";
             }
 

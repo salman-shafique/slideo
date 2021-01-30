@@ -282,7 +282,7 @@ export default function slide(slideId) {
                 // Move to saved position
                 shapeCls.moveToSavedPosition();
                 // initialize the filters
-                colorFilters(g).init();
+                colorFilters(g).init(this.slideId);
             }
 
         });
