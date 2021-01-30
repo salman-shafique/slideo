@@ -27,6 +27,7 @@ import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement"
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
 import createNewImage from "Editor/js/shapes/image/createNewImage";
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
+import updateColor from "Editor/js/shapes/actions/color/updateColor";
 
 
 const chunkDesigns = {};
@@ -270,7 +271,8 @@ export default function slide(slideId) {
                 // initialize the filters
                 colorFilters(g).init(this.slideId);
                 // Update color
-                
+                updateColor(g).init(this.slideId);
+
             }
 
         });

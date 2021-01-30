@@ -2,7 +2,6 @@ import React from "react";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
-import shape from "Editor/js/entity/shape";
 import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
 import getFillType from "Editor/js/shapes/actions/color/getFillType";
 
