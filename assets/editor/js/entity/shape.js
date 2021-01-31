@@ -11,6 +11,8 @@ import session from "Editor/js/session";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
+import getClipPath from "Editor/js/shapes/actions/resize/utils/getClipPath";
+
 
 /**
  * 
@@ -238,6 +240,8 @@ export default function shape(slideId, shapeId) {
 
         // Cropped image
         if (getShapeType(g) == constants.SHAPE_TYPES.IMAGE) {
+            if (!savedAllTransforms.crop)
+                savedAllTransforms.crop = getClipPath();
             g.querySelector("image").style.clipPath = `polygon(
                 ${savedAllTransforms.crop.lt.startingX}% ${savedAllTransforms.crop.lt.startingY}%, 
                 ${savedAllTransforms.crop.rt.startingX}% ${savedAllTransforms.crop.rt.startingY}%, 

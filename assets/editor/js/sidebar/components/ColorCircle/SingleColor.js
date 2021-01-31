@@ -72,7 +72,8 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
                         g.removeAttribute("fill_theme_color");
 
                         const path = g.querySelector("path");
-                        path.style.fill = color;
+						if(path)
+							path.style.fill = color;
                         data.fill_rgb = rgb;
 
                     } else if (FILL_TYPE == constants.FILL_TYPES.GRADIENT_FILL) {

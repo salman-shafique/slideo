@@ -34,9 +34,11 @@ export default function updateColor(g) {
                         if (!color)
                             color = getThemeColor(this.g.getAttribute("fill_theme_color"));
                     }
-                    if (!color) return;
-                    const path = this.g.querySelector("path");
-                    path.style.fill = color;
+                    if (color) {
+                        const path = this.g.querySelector("path");
+						if(path)
+							path.style.fill = color;
+                    }
                 } else if (fillType == constants.FILL_TYPES.GRADIENT_FILL) {
 
                     let hex_, stop_;
@@ -57,7 +59,7 @@ export default function updateColor(g) {
                         // Rm if they exists
                         if (data[`fill_gradient_stop_${i}`])
                             delete data[`fill_gradient_stop_${i}`];
-                        g.removeAttribute(`fill_gradient_stop_${i}`);
+                        this.g.removeAttribute(`fill_gradient_stop_${i}`);
 
                         stop_ = this.g.querySelector(`g defs stop[offset="${i}"]`);
                         if (stop_) {
@@ -70,9 +72,14 @@ export default function updateColor(g) {
                 // Opacity
                 // Set before - Rm them
                 const paths = this.g.querySelectorAll("path[fill-opacity]");
+                let tmpOpacity = 1;
                 if (paths)
                     paths.forEach(path => {
-                        path.removeAttribute("fill-opacity")
+                        if (tmpOpacity === 1) {
+                            tmpOpacity = parseFloat(path.getAttribute("fill-opacity"));
+                            this.g.style.opacity = tmpOpacity;
+                        }
+                        path.removeAttribute("fill-opacity");
                     });
 
                 if (data.shape_opacity != undefined)
@@ -82,7 +89,7 @@ export default function updateColor(g) {
                         this.g.style.opacity =
                         g.getAttribute("shape_opacity");
                 }
-                else data.shape_opacity = 1;
+                else data.shape_opacity = tmpOpacity;
 
                 break;
             default:
