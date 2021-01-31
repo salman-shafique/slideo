@@ -1,0 +1,8 @@
+.opacity-slider {
+    cursor: pointer;
+    width: 100%;
+}
+
+.opacity-slider:focus {
+    border: none
+}

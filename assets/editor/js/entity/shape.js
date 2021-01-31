@@ -7,16 +7,27 @@ import iconInit from "Editor/js/shapes/icon/iconInit";
 import findKeyword from "../utils/findKeyword";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import constants from "Editor/js/constants";
+import session from "Editor/js/session";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
 
-
+/**
+ * 
+ * @param {SVGGElement|String} slideId 
+ * @param {String} shapeId 
+ */
 export default function shape(slideId, shapeId) {
     if (!(this instanceof shape)) return new shape(...arguments);
 
-    this.slideId = slideId;
-    this.shapeId = shapeId;
+    if (slideId.tagName == "g") {
+        this.slideId = session.CURRENT_SLIDE;
+        this.shapeId = slideId.getAttribute("shape_id");
+    } else {
+        this.slideId = slideId;
+        this.shapeId = shapeId;
+    }
+
 
     /**
      * @returns {object} shapeData
