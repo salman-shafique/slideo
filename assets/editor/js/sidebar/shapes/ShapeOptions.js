@@ -7,7 +7,6 @@ import OpacitySlider from "Editor/js/sidebar/components/OpacitySlider/OpacitySli
 import getFillType from "Editor/js/shapes/actions/color/getFillType";
 
 export default function ShapeOptions() {
-    const [allSame, setAllSame] = React.useState(false);
     const [fillType, setFillType] = React.useState(null);
 
 
@@ -30,13 +29,12 @@ export default function ShapeOptions() {
                 ? setFillType(storedFillType)
                 : setFillType(null)
 
-            setAllSame(allSame_);
         });
     }, []);
 
     return (
         <>
-            <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "" : "d-none")}>
+            <div className={"row mx-0 mt-3 bg-white rounded "}>
                 <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.SOLID_FILL ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
                         SELECT COLOR
@@ -80,9 +78,6 @@ export default function ShapeOptions() {
                         SHAPE_TYPE={constants.SHAPE_TYPES.AUTO_SHAPE}
                     />
                 </div>
-            </div>
-            <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "d-none" : "")}>
-                Multiple shapes with different fill types selected
             </div>
         </>
     )

@@ -4,6 +4,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import { getOpacity } from "Editor/js/sidebar/components/OpacitySlider/utils";
+import shape from "Editor/js/entity/shape";
 
 
 export default function OpacitySlider({ SHAPE_TYPE }) {
@@ -26,7 +27,22 @@ export default function OpacitySlider({ SHAPE_TYPE }) {
     }, []);
 
     const updateOpacity = (event) => {
-        console.log(event.target.value);
+        const newOpacity = event.target.value;
+        session.SELECTED_ELEMENTS.forEach(selectedEl => {
+            if (getShapeType(selectedEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE) {
+                
+                // opacity set before - Rm them
+                const paths = selectedEl.shape.querySelectorAll("path[fill-opacity]");
+                if (paths)
+                    paths.forEach(path => {
+                        path.removeAttribute("fill-opacity")
+                    });
+
+                // Opacity will used seen on g element
+                selectedEl.shape.style.opacity = newOpacity;
+                shape(selectedEl.shape).data().shape_opacity = newOpacity;
+            }
+        });
     }
 
     return (

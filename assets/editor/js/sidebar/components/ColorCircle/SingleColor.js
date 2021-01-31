@@ -20,7 +20,7 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
             const background = slideData.background.data;
             const documentElement = slide_.documentElement();
             const g = documentElement.querySelector("g.SlideGroup g.Page g.Background");
-
+            // Handle if not g!
             if (background.type == "solidFill") {
                 // fill_theme_color
                 let path = g.querySelector("path");
