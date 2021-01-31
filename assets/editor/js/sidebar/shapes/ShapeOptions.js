@@ -37,7 +37,7 @@ export default function ShapeOptions() {
             <div className={"row mx-0 mt-3 bg-white rounded "}>
                 <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.SOLID_FILL ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
-                        SELECT COLOR
+                        Shape Color
                     </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
@@ -49,7 +49,7 @@ export default function ShapeOptions() {
                 </div>
                 <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.GRADIENT_FILL ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
-                        Stop 0:
+                        Shape Color - 1
                     </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
@@ -59,8 +59,8 @@ export default function ShapeOptions() {
                             GRADIENT_STOP={0} />
                     </div>
                     <div className="col-9 d-flex align-items-center">
-                        Stop 1:
-                </div>
+                        Shape Color - 2
+                    </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
                             key="gradFill1"

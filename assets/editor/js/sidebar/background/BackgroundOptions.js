@@ -15,7 +15,7 @@ export default function BackgroundOptions() {
             setBackground(slideData.background.data);
         });
     }, []);
-    
+
     if (!background) return "";
 
     return (
@@ -23,7 +23,7 @@ export default function BackgroundOptions() {
             <div className={"row mx-0 mt-3 bg-white rounded "}>
                 <div className={"row col-12 m-0 p-0 " + (background.type == "solidFill" ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
-                        SELECT COLOR
+                        Background Color
                     </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
@@ -35,7 +35,7 @@ export default function BackgroundOptions() {
                 </div>
                 <div className={"row col-12 m-0 p-0 " + (background.type == "gradFill" ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
-                        SELECT COLOR
+                        Background Color - 1
                     </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
@@ -46,7 +46,7 @@ export default function BackgroundOptions() {
                         />
                     </div>
                     <div className="col-9 d-flex align-items-center">
-                        SELECT COLOR
+                        Background Color - 2
                 </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
