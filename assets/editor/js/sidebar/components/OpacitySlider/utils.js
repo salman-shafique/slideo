@@ -8,11 +8,12 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
  * @param {SVGGElement} g 
  */
 export function getOpacity(g) {
-    const shapeId = g.getAttribute("shape_id");
-    const shape_ = shape(session.CURRENT_SLIDE, shapeId);
-    const data = shape_.data();
+    const data = shape(g).data();
+
+    console.log( parseFloat(data.shape_opacity));
     if (data.shape_opacity != undefined)
         return parseFloat(data.shape_opacity);
+
 
     if (g.getAttribute("shape_opacity"))
         return parseFloat(g.getAttribute("shape_opacity"));
