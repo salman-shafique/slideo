@@ -3,8 +3,8 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
+import OpacitySlider from "Editor/js/sidebar/components/OpacitySlider/OpacitySlider";
 import getFillType from "Editor/js/shapes/actions/color/getFillType";
-
 
 export default function ShapeOptions() {
     const [allSame, setAllSame] = React.useState(false);
@@ -39,7 +39,7 @@ export default function ShapeOptions() {
             <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "" : "d-none")}>
                 <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.SOLID_FILL ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
-                        Fill color:
+                        SELECT COLOR
                     </div>
                     <div className="col-3 position-static pt-1">
                         <ColorCircle
@@ -48,12 +48,6 @@ export default function ShapeOptions() {
                             FILL_TYPE={constants.FILL_TYPES.SOLID_FILL}
                         />
                     </div>
-                    <div className="col-9 d-flex align-items-center">
-                        Opacity:
-                </div>
-                    <div className="col-3 position-static pt-1">
-                        Opacity slider
-                </div>
                 </div>
                 <div className={"row col-12 m-0 p-0 " + (fillType === constants.FILL_TYPES.GRADIENT_FILL ? "" : "d-none")}>
                     <div className="col-9 d-flex align-items-center">
@@ -76,6 +70,15 @@ export default function ShapeOptions() {
                             FILL_TYPE={constants.FILL_TYPES.GRADIENT_FILL}
                             GRADIENT_STOP={1} />
                     </div>
+                </div>
+                <div className="col-3 d-flex align-items-center">
+                    Opacity:
+                </div>
+                <div className="col-9 position-static pt-1">
+                    <OpacitySlider
+                        key="shapeOpacity"
+                        SHAPE_TYPE={constants.SHAPE_TYPES.AUTO_SHAPE}
+                    />
                 </div>
             </div>
             <div className={"row mx-0 mt-3 bg-white rounded " + (allSame ? "d-none" : "")}>
