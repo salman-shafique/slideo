@@ -65,6 +65,23 @@ export default function updateColor(g) {
                     }
                 }
 
+                // Opacity
+                // Set before - Rm them
+                const paths = this.g.querySelectorAll("path[fill-opacity]");
+                if (paths)
+                    paths.forEach(path => {
+                        path.removeAttribute("fill-opacity")
+                    });
+
+                if (data.shape_opacity != undefined)
+                    this.g.style.opacity = data.shape_opacity;
+                else if (g.getAttribute("shape_opacity")) {
+                    data.shape_opacity =
+                        this.g.style.opacity =
+                        g.getAttribute("shape_opacity");
+                }
+                else data.shape_opacity = 1;
+
                 break;
             default:
                 break;

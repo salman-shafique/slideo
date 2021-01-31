@@ -30,14 +30,6 @@ export default function OpacitySlider({ SHAPE_TYPE }) {
         const newOpacity = event.target.value;
         session.SELECTED_ELEMENTS.forEach(selectedEl => {
             if (getShapeType(selectedEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE) {
-                
-                // opacity set before - Rm them
-                const paths = selectedEl.shape.querySelectorAll("path[fill-opacity]");
-                if (paths)
-                    paths.forEach(path => {
-                        path.removeAttribute("fill-opacity")
-                    });
-
                 // Opacity will used seen on g element
                 selectedEl.shape.style.opacity = newOpacity;
                 shape(selectedEl.shape).data().shape_opacity = newOpacity;

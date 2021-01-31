@@ -10,10 +10,8 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 export function getOpacity(g) {
     const data = shape(g).data();
 
-    console.log( parseFloat(data.shape_opacity));
     if (data.shape_opacity != undefined)
         return parseFloat(data.shape_opacity);
-
 
     if (g.getAttribute("shape_opacity"))
         return parseFloat(g.getAttribute("shape_opacity"));
