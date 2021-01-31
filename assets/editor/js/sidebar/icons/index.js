@@ -14,7 +14,6 @@ const showEmptyList = () => {
     $('#sideBarIcons div[data-keyword].icon-container').hide();
     document.querySelector("#sideBarIconsEmpty").style.display = "";
     document.querySelector("#Icon_color").style.display = "none";
-    document.querySelector("#Icon_color_text").style.display = "none !important";
 }
 
 // Show empty icon list when all released
@@ -31,7 +30,6 @@ window.addEventListener("shape.selected", () => {
 
 
         document.querySelector("#Icon_color").style.display = "";
-        document.querySelector("#Icon_color_text").style.display = "";
         return;
     };
 

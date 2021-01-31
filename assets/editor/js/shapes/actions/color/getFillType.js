@@ -12,7 +12,7 @@ export default function getFillType(g) {
 
     const shape_ = shape(session.CURRENT_SLIDE, g.getAttribute("shape_id"));
     const data = shape_.data();
-    if (!data.fill_type) return null;
+    if (!data || !data.fill_type) return null;
 
     const fillType = String(data.fill_type).split("")[0]
     if (["3", "GRADIENT"].includes(fillType))

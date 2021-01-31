@@ -20,8 +20,23 @@ export default function colorTemplate(slideId) {
         return colors;
     }
 
+    this.themeColorId = {
+        "5": "ACCENT_1",
+        "6": "ACCENT_2",
+        "7": "ACCENT_3",
+        "8": "ACCENT_4",
+        "9": "ACCENT_5",
+        "10": "ACCENT_6",
+        "14": "BACKGROUND_1",
+        "16": "BACKGROUND_2",
+        "13": "TEXT_1",
+        "15": "TEXT_2",
+    }
+	
     this.getColor = (themeColorName) => {
         if (!themeColorName) return null;
+        if (themeColorName.length <= 2 && this.themeColorId[themeColorName])
+            themeColorName = this.themeColorId[themeColorName]
         const colorTemplate_ = slide(this.slideId).slideData().colorTemplate;
         let color = null;
         Object.keys(colorTemplate_).forEach(colorName => {
