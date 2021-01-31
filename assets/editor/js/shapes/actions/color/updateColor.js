@@ -1,3 +1,4 @@
+import React from "react";
 import shape from "Editor/js/entity/shape";
 import slide from "Editor/js/entity/slide";
 import getShapeType from "../drag/utils/getShapeType";
@@ -6,6 +7,7 @@ import { getThemeColor, getThemeColorNameOfShape } from "Editor/js/sidebar/color
 import toHex from "Editor/js/sidebar/colors/toHex";
 import hexToRgb from "Editor/js/sidebar/colors/hexToRgb";
 import getFillType from "Editor/js/shapes/actions/color/getFillType";
+import reactToDOM from "Editor/js/utils/reactToDOM";
 
 export default function updateColor(g) {
     if (!(this instanceof updateColor)) return new updateColor(...arguments);
@@ -95,9 +97,23 @@ export default function updateColor(g) {
         const slideData = slide_.slideData();
         const background = slideData.background.data;
         const documentElement = slide_.documentElement();
-        const g = documentElement.querySelector("g.SlideGroup g.Page g.Background");
-        if (!g) return;
+        let g = documentElement.querySelector("g.SlideGroup g.Page g.Background");
 
+        if (!g) {
+            const page = slide_.page();
+            g = reactToDOM(
+                <g xmlns="http://www.w3.org/2000/svg" alt="Background" className="Background" fill_theme_color="NOT_THEME_COLOR (0)" fill_type="SOLID (1)">
+                    <path d="M 16933,19049 L 0,19049 0,0 33866,0 33866,19049 16933,19049 Z" stroke="none" />
+                </g>,
+                null,
+                "http://www.w3.org/2000/svg"
+            );
+            page.prepend(g);
+            if (background.type == "false") {
+                background.type = "solidFill";
+                background.color = "ffffff";
+            }
+        };
 
         let color;
         if (background.type == "solidFill") {
@@ -120,10 +136,8 @@ export default function updateColor(g) {
                     stop_.style.color = color;
                     stop_.style.stopColor = color;
                 }
-
             }
         }
-
 
     }
 }
