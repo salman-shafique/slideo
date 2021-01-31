@@ -11,7 +11,7 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
  */
 const getThemeColor = (colorName) => {
     if (!colorName) return null;
-    return colorTemplate(session.CURRENT_SLIDE).getColor(colorName.split(" ")[0]);
+    return colorTemplate(session.CURRENT_SLIDE).getColor(String(colorName).split(" ")[0]);
 }
 
 const themeColorNames = [
