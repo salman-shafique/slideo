@@ -13,7 +13,8 @@ export function getOpacity(g) {
     if (data.shape_opacity != undefined)
         return parseFloat(data.shape_opacity);
 
-    if (g.getAttribute("shape_opacity"))
+    const shapeOpacity = g.getAttribute("shape_opacity");
+    if (shapeOpacity && shapeOpacity != "0.0")
         return parseFloat(g.getAttribute("shape_opacity"));
 
     return 1;
