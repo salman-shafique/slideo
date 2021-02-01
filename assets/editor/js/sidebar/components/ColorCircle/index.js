@@ -149,7 +149,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
                 onClick={() => setOpened(!opened)}
                 style={{
                     backgroundColor: currentColor,
-                    border: (currentColor == "#ffffff") ? "solid lightgray 1px" : "none"
+                    border: "solid lightgray 1px"
                 }}>
             </div>
             <div className="color-circles" style={{ display: opened ? 'block' : 'none' }}>
