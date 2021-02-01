@@ -8,6 +8,7 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 /**
  * 
  * @param {String} colorName like ACCENT_1
+ * @returns {String} hex
  */
 const getThemeColor = (colorName) => {
     if (!colorName) return null;

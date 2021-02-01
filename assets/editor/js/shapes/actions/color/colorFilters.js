@@ -4,6 +4,9 @@ import constants from "Editor/js/constants";
 import session from "Editor/js/session";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
+import { getThemeColor, getThemeColorNameOfShape } from "Editor/js/sidebar/colors/utils";
+import toHex from "Editor/js/sidebar/colors/toHex";
+import hexToRgb from "Editor/js/sidebar/colors/hexToRgb";
 
 /**
  * 
@@ -29,10 +32,15 @@ export default function colorFilters(g) {
         let filter;
         if (alt.includes("icon|") || alt == "newicon") {
             let floodColor = "#fff";
-            if (!g.getAttribute("icon_theme_color")) {
+            const themeColorName = g.getAttribute("icon_theme_color");
+            if (!themeColorName) {
                 const shape_ = shape(slideId, shapeId);
                 const rgb = shape_.data().rgb;
                 if (rgb) floodColor = "rgb(" + rgb.replace(/ /g, ",") + ")";
+            } else {
+                const themeColor = getThemeColor(themeColorName);
+                if (themeColor)
+                    floodColor = themeColor
             }
 
             filter =
