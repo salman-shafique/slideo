@@ -78,18 +78,28 @@ const entryAnalyze = (nextEvent) => {
 
         let lines = [];
         let div;
+        let tmpLine = null;
         session.EDITOR.childNodes.forEach(node => {
             clear_mso_specials(node);
+            console.log(node);
             if (clear_text(node.innerText))
                 switch (node.tagName) {
                     case "UL":
                     case "OL":
+                        if (tmpLine !== null) {
+                            lines.push(tmpLine);
+                            tmpLine = null;
+                        }
                         node.childNodes.forEach(li => {
                             if (clear_text(li.innerText))
                                 lines.push(li);
                         });
                         break;
                     case "DIV":
+                        if (tmpLine !== null) {
+                            lines.push(tmpLine);
+                            tmpLine = null;
+                        }
                         // Can be pasted element
                         if (node.classList.length == 0 && !node.getAttribute("style")) {
                             if (node.querySelector("*[style]")) {
@@ -135,7 +145,18 @@ const entryAnalyze = (nextEvent) => {
                         } else
                             lines.push(node);
                         break;
+                    case "STRONG":
+                    case "SPAN":
+                        if (tmpLine === null)
+                            tmpLine = document.createElement("div")
+
+                        tmpLine.innerText += " " + clear_text(node.innerText)
+                        break;
                     default:
+                        if (tmpLine !== null) {
+                            lines.push(tmpLine);
+                            tmpLine = null;
+                        }
                         lines.push(node);
                         break;
                 }
@@ -150,6 +171,10 @@ const entryAnalyze = (nextEvent) => {
                         }
             }
         });
+        if (tmpLine !== null) {
+            lines.push(tmpLine);
+            tmpLine = null;
+        }
 
         let k = 0;
         let not_classified = [];
