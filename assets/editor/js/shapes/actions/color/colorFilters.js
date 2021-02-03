@@ -32,15 +32,19 @@ export default function colorFilters(g) {
         let filter;
         if (alt.includes("icon|") || alt == "newicon") {
             let floodColor = "#fff";
-            const themeColorName = g.getAttribute("icon_theme_color");
-            if (!themeColorName) {
-                const shape_ = shape(slideId, shapeId);
-                const rgb = shape_.data().rgb;
-                if (rgb) floodColor = "rgb(" + rgb.replace(/ /g, ",") + ")";
+
+            const shape_ = shape(slideId, shapeId);
+            const data = shape_.data();
+            const rgb = data.rgb;
+            if (rgb) {
+                floodColor = "rgb(" + rgb.replace(/ /g, ",") + ")";
             } else {
+                const themeColorName = g.getAttribute("icon_theme_color");
                 const themeColor = getThemeColor(themeColorName);
-                if (themeColor)
-                    floodColor = themeColor
+                if (themeColor) {
+                    floodColor = themeColor;
+                    data.rgb = hexToRgb(themeColor);
+                }
             }
 
             filter =
