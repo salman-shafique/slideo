@@ -13,7 +13,6 @@ const showEmptyList = () => {
     $('#Icons_Panel div[data-keyword].search-keyword').css("opacity", "0.5");
     $('#sideBarIcons div[data-keyword].icon-container').hide();
     document.querySelector("#sideBarIconsEmpty").style.display = "";
-    document.querySelector("#Icon_color").style.display = "none";
 }
 
 // Show empty icon list when all released
@@ -28,8 +27,6 @@ window.addEventListener("shape.selected", () => {
         if (data.keyword)
             toggleKeyword(data.keyword);
 
-
-        document.querySelector("#Icon_color").style.display = "";
         return;
     };
 
