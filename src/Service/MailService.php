@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\RawMessage;
 
 class MailService
 {
@@ -96,5 +97,9 @@ class MailService
         }
 
         return ["success" => false, "descr" => "Your security code has expired"];
+    }
+
+    public function sendMail(RawMessage $email){
+        $this->bus->dispatch($email);
     }
 }

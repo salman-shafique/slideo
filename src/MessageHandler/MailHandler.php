@@ -5,6 +5,8 @@ namespace App\MessageHandler;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\RawMessage;
 
 class MailHandler implements MessageHandlerInterface
 {
@@ -15,9 +17,8 @@ class MailHandler implements MessageHandlerInterface
         $this->mailer = $mailer;
     }
 
-    public function __invoke(TemplatedEmail $email)
+    public function __invoke(RawMessage $email)
     {
-        error_log("alp");
         $this->mailer->send($email);
     }
 }
