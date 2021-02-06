@@ -8,15 +8,33 @@ services:
       - ./:/var/www/app
       - /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     ports:
-      - "5500:8000"       
+      - "5500:8000"
     logging:
       driver: "json-file"
       options:
-          max-size: "50m"
+        max-size: "5m"
+        max-file: "5"
+    depends_on:
+      - slideo_rabbitmq
     env_file:
       - .env
     restart: always
     command: ["/bin/bash", "/var/www/app/docker/start.sh"]
+    
+  slideo_rabbitmq:
+    image: rabbitmq:3-management
+    container_name: slideo_rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=slideo 
+      - RABBITMQ_DEFAULT_PASS=df711f9a1119082a711a238acf944677
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "5"
+    ports:
+      - 5502:15672
     
 networks:
   default:
