@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        transports:
+            mail: '%env(MESSENGER_TRANSPORT_DSN)%'
+        routing:
+            'Symfony\Bridge\Twig\Mime\TemplatedEmail': mail

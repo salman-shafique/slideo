@@ -4,31 +4,25 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\EmailVerifier;
 use App\Service\TraitAware\EntityManagerAware;
 use App\Security\LoginFormAuthenticator;
+use App\Service\MailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RegistrationController extends AbstractController
 {
 
-    private $emailVerifier;
-
-    public function __construct(EmailVerifier $emailVerifier)
-    {
-        $this->emailVerifier = $emailVerifier;
-    }
 
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, \Swift_Mailer $mailer): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, MailService $mailService): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute("index");
@@ -73,27 +67,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-
-            $signatureComponents = $this->emailVerifier->getSignatureComponents(
-                'app_verify_email',
-                $user
-            );
-
-            $email = (new \Swift_Message('Please Confirm your Email - Slideo'))
-                ->setFrom('alperenberatdurmus@gmail.com')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'emails/registration/confirmation_email.html.twig',
-                        [
-                            'signedUrl' => $signatureComponents->getSignedUrl(),
-                            'expiresAt' => $signatureComponents->getExpiresAt()
-                        ]
-                    ),
-                    'text/html'
-                );
-
-            $mailer->send($email);
+            $mailService->sendVerificationMail($form->get("email")->getData());
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -109,24 +83,11 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/verify/email", name="app_verify_email")
+     * @Route("/verifyMail", methods={"GET"})
      */
-    public function verifyUserEmail(Request $request): Response
+    public function verifyMail(Request $request, MailService $mailService)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('error', $exception->getReason());
-
-            return $this->redirectToRoute('index');
-        }
-
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
-
-        return $this->redirectToRoute('index');
+        $r = $mailService->verifyMail($request);
+        return $this->redirect("/");
     }
 }
