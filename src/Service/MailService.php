@@ -51,7 +51,7 @@ class MailService
             ];
         });
         $email = (new TemplatedEmail())
-            ->from('alperenberatdurmus@gmail.com')
+            ->from('no-reply@slideo.co.il')
             ->to($mailAddress)
             ->subject('Slideo')
             ->htmlTemplate('emails/verification.html.twig')

@@ -23,7 +23,7 @@ do
 echo_ "Waiting for the Rabbit MQ server..."
 sleep 10s;
 done
-nohup php bin/console messenger:consume mail &
+nohup php bin/console messenger:consume mail -vv &
 
 start_server=$(symfony server:start -d | grep [OK])
 if [ "$start_server" == "" ]; then 
