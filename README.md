@@ -29,9 +29,6 @@ docker exec -ti slideo_symfony bash
 
 ### 4. Setup the project
 ```
-docker exec -ti slideo_symfony composer install
-docker exec -ti slideo_symfony yarn install
-docker exec -ti slideo_symfony yarn encore production
 docker exec -ti slideo_symfony php bin/console doctrine:database:create --if-not-exists
 docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n 
 docker exec -ti slideo_symfony php bin/console doctrine:fixtures:load --append
