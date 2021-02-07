@@ -6,9 +6,19 @@ import Header from "./Header";
 import "./style.css";
 
 
+let show = false;
 export default function Download({ presentationId }) {
     const [downloadCards, setDownloadCards] = React.useState([]);
-    const [NumberofDivs, setNumber] = React.useState([]);
+
+    const toggleFunc = () => {
+        const elements = document.querySelector("#downloadArea").children;
+        elements.forEach((element, i) => {
+            if (i > 2 && element.tagName != "P") {
+                element.style.display = show ? "" : "none";
+            }
+        });
+        show = !show;
+    }
 
     const mounted = React.useRef();
     React.useEffect(() => {
@@ -31,34 +41,13 @@ export default function Download({ presentationId }) {
                                 check = true;
                         });
                         setDownloadCards(tmp);
-                         
+                        toggleFunc();
                     }
                     preloader.hide();
                 }
             });
             mounted.current = true;
         }
-        var elements = document.querySelector("#downloadArea").children;
-        
-        for(var i = 0; i <  elements.length; i++){
-            if((i==0 || i==1 || i==2    ) || elements.item(i).classList.contains("toggleBtn") ){
-                continue;
-            }else {
-                elements.item(i).style.display ="none"
-                 
-                
-            }
-            
-        
-        }
-
-        if( elements.length <3){
-            document.querySelector(".toggleBtn").style.display="none"
-        }
-        
-        document.querySelector(".toggleBtn").addEventListener("click", ()=> {
-            document.querySelector(".toggleBtn").style.display="none";
-        })
     });
 
     const startNewDownload = () => {
@@ -71,47 +60,17 @@ export default function Download({ presentationId }) {
             }
         })
     }
-    
-    var elements = document.querySelector("#downloadArea").children; // getting all children of container
-
-    const setOnClickFunc = ()=> { //toggle function 
-        
-         
-        if(elements.item(4).style.display=="none") {
-            for(var i = 0; i < elements.length; i++){
-                if((i==0 || i==1 || i==2   ) || elements.item(i).classList.contains("toggleBtn")  ){
-                    
-                    continue;
-                }else {
-                    elements.item(i).style.display ="block"
-                     
-                    
-                }}
-        }else {
-                for(var i = 0; i < elements.length; i++){
-                    if((i==0 || i==1 || i==2    ) || elements.item(i).classList.contains("toggleBtn") ){
-                        continue;
-                    }else {
-                        elements.item(i).style.display ="none"
-                }
-            }
-        }
-  }
-
- 
 
     downloadCards.push(<Header key={downloadCards.length + 1} />);
     downloadCards.push(
-      
         <h1 className="col-12 text-center" key={downloadCards.length + 1}>
             <button onClick={startNewDownload} className="btn btn-info">התחל הורדה חדשה</button>
         </h1>
-      
     )
-
     downloadCards.reverse();
 
-    downloadCards.push(<div onClick={setOnClickFunc} className="toggleBtn">Show More</div>)
+    if (downloadCards.length >= 4)
+        downloadCards.push(<p key={"toggleBtn" + downloadCards.length} className="ml-4" style={{ cursor: "pointer" }} onClick={toggleFunc}>לחץ לצפייה בגרסאות קודמות</p>)
 
-    return downloadCards; 
+    return downloadCards;
 }
