@@ -56,7 +56,7 @@ export default function Download({ presentationId }) {
             url: "/api/presentation/download/start/" + presentationId,
             success: (r) => {
                 if (r.success)
-                    location.reload();
+                    location.href = `/editor/${presentationId}/download`;
             }
         })
     }
