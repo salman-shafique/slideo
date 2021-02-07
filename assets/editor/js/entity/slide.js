@@ -207,6 +207,7 @@ export default function slide(slideId) {
                 foreignObject = createForeignObject(this.contentDocument(), shape_.data);
                 arrangeForeignObject(foreignObject, shape_.data, text, direction);
                 g.innerHTML = "";
+                g.classList.add("no-outline");
                 g.appendChild(foreignObject);
             }
 
@@ -388,6 +389,13 @@ export default function slide(slideId) {
         }
         .text_editing *{
             pointer-events:all !important;
+        }
+        /* g>foreignObject outline bug */
+        .no-outline{
+            outline:none !important;
+        }
+        foreignObject.bounding_box:hover{
+            outline: solid cyan 20px;
         }
         foreignObject { overflow: visible; }
         foreignObject table {
