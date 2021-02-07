@@ -18,6 +18,9 @@ export default function startDrag(event) {
     // Allow resize circles clicks
     if (g.getAttribute("role") == "resize-circles") return;
 
+    // Allow text editing
+    if (session.TEXT_EDITING && event.target.tagName == "editing") return;
+
     if (!g.classList.contains("draggable")) {
         // Deselect all
         deSelectAll();

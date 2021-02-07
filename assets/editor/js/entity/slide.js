@@ -286,7 +286,7 @@ export default function slide(slideId) {
         // Add event listeners
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
-        this.contentDocument().addEventListener("mouseup", selectTextboxElement);
+        this.contentDocument().addEventListener("dblclick", selectTextboxElement);
 
         // Autosize the foreignObjects
         selectAll("g[alt]>foreignObject.bounding_box", this.page()).forEach(foreignObject => {
@@ -414,6 +414,10 @@ export default function slide(slideId) {
             display: grid;
             align-items: center;
             text-align: center;
+        }
+        editing.highlighted{
+            background-color: #3390ff;
+            color: white;
         }
 
         /* Resize elements */
