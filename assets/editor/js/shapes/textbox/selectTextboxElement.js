@@ -1,7 +1,6 @@
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
-import sidebar from "Editor/js/entity/sidebar";
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import React from "react";
 /**
@@ -46,9 +45,6 @@ export default function selectTextboxElement(event) {
     g.classList.add("text_editing");
 
   const td = g.querySelector("td");
-  //td.setAttribute("contenteditable", "true");
-  // td.focus();
   createTextNode(td);
   session.TEXT_EDITING = true;
-  sidebar.open("Text_Tool");
 }
