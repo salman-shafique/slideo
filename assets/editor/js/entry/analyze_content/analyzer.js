@@ -81,7 +81,6 @@ const entryAnalyze = (nextEvent) => {
         let tmpLine = null;
         session.EDITOR.childNodes.forEach(node => {
             clear_mso_specials(node);
-            console.log(node);
             if (clear_text(node.innerText))
                 switch (node.tagName) {
                     case "UL":

@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Enum\LanguagesEnum;
+use App\Service\MailService;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 
 class HomeController extends AbstractController
 {
@@ -49,4 +53,25 @@ class HomeController extends AbstractController
         return $this->render('pricing/index.html.twig');
     }
 
+    /**
+     * @Route("/contactUs",methods={"POST"})
+     */
+    public function contactUs(Request $request, MailService $mailService)
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
+            ->to("alperenberatdurmus@gmail.com")
+            //->addTo("elad.darmon@gmail.com")
+            ->subject('Slideo - Main page feedback')
+            ->htmlTemplate('emails/feedback.html.twig')
+            ->context([
+                'fullname' => $request->request->get("fullname"),
+                'email_' => $request->request->get("email"),
+                'subject' => $request->request->get("subject"),
+                'content' => $request->request->get("content")
+            ]);
+        $mailService->sendMail($email);
+
+        return new JsonResponse(["success" => true]);
+    }
 }
