@@ -1,20 +1,25 @@
-<h1>Welcome to Slideo</h1>
+{% extends "emails/base.html.twig" %}
 
-<h3>{{ email.toName }}</h3>
+{% block title %}Welcome to Slideo
+{% endblock %}
 
-<p>
-  <code>{{ email.to[0].address }}</code>
-</p>
 
-<p>
-  <a target="_blank" href="{{ host ~ "/verifyMail?" ~ secret.key ~ "=" ~ secret.value }}">
-    Click here to verify your email
-  </a>
-  <br/>
-  Copy and go to this url if the link above does not work.
-  <br/>
-  <pre>{{ host ~ "/verifyMail?" ~ secret.key ~ "=" ~ secret.value }}</pre>
-
-  <br/>
-  (This link is valid for 1 hour)
-</p>
+{% block body %}
+  <h3>{{ email.toName }}</h3>
+  <p>
+    <code>{{ email.to[0].address }}</code>
+  </p>
+  <p>
+    <a target="_blank" href="{{ host ~ "/verifyMail?" ~ secret.key ~ "=" ~ secret.value }}">
+      Click here to verify your email
+    </a>
+    <br/>
+    Copy and go to this url if the link above does not work.
+    <br/>
+    <br/>
+    <span>{{ host ~ "/verifyMail?" ~ secret.key ~ "=" ~ secret.value }}</span>
+    <br/>
+    <br/>
+    (This link is valid for 1 hour)
+  </p>
+{% endblock %}

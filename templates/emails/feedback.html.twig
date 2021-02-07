@@ -1,0 +1,19 @@
+{% extends "emails/base.html.twig" %}
+
+{% block title %}We have a feedback
+{% endblock %}
+
+{% block body %}
+  Full name:<br/>
+  {{fullname}}
+  <br/><br/>
+  Email:<br/>
+  {{email_}}
+  <br/><br/>
+  Subject:<br/>
+  {{subject}}
+  <br/><br/>
+  Content:<br/>
+  {{content}}
+  <br/><br/>
+{% endblock %}

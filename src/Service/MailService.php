@@ -12,6 +12,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\RawMessage;
+use Symfony\Component\Mime\Address;
 
 class MailService
 {
@@ -51,7 +52,7 @@ class MailService
             ];
         });
         $email = (new TemplatedEmail())
-            ->from('no-reply@slideo.co.il')
+            ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
             ->to($mailAddress)
             ->subject('Slideo')
             ->htmlTemplate('emails/verification.html.twig')
@@ -76,7 +77,7 @@ class MailService
             return ["success" => false, "descr" => "Not authorized"];
 
         $email = $user->getEmail();
-        
+
         $itemKey = "security.code.mail." . md5($email);
         $itemExists = $this->cache->hasItem($itemKey);
         if (!$itemExists)
@@ -99,7 +100,8 @@ class MailService
         return ["success" => false, "descr" => "Your security code has expired"];
     }
 
-    public function sendMail(RawMessage $email){
+    public function sendMail(RawMessage $email)
+    {
         $this->bus->dispatch($email);
     }
 }
