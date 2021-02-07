@@ -59,7 +59,7 @@ class MailService
             ->context([
                 'secret' => $secret,
                 'host' => getenv("APP_ENV") == "prod"
-                    ? "https://test.slideo.co.il"
+                    ? "https://www.slideo.co.il"
                     : "https://localhost:5500"
             ]);
         $this->bus->dispatch($email);

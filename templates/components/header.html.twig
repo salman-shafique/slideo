@@ -40,7 +40,7 @@
         </button>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item d-none">
       <a class="nav-link" href="{{path('pricing')}}">
         <button class="btn d-md-flex d-none">
           {% trans %}
@@ -49,7 +49,7 @@
         </button>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item d-none">
       <a class="nav-link" href="#" data-toggle="modal" data-target="#contact_us_modal">
         <button class="btn d-md-flex d-none">
           {% trans %}
@@ -65,10 +65,10 @@
         </a>
       </li>
       <!-- <li class="nav-item">
-                                                        <a class="nav-link" href="{{path('app_logout')}}">
-                                                          <button class="btn d-md-flex d-none">{% trans %}Logout{% endtrans %}</button>
-                                                        </a>
-                                                      </li> -->
+        <a class="nav-link" href="{{path('app_logout')}}">
+          <button class="btn d-md-flex d-none">{% trans %}Logout{% endtrans %}</button>
+        </a>
+      </li> -->
     {% else %}
       <li class="nav-item">
         <a class="nav-link" href="{{path('app_login')}}">
