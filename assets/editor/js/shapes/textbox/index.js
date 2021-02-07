@@ -10,7 +10,7 @@ const cancelEditing = (event) => {
   * @type {SVGGElement} g
   */
   const g = event.data.shape;
-  if (!getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
+  if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
 
   const alt = g.getAttribute("alt");
   const td = g.querySelector("td");
