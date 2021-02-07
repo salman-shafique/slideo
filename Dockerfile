@@ -21,7 +21,7 @@ RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 RUN symfony server:ca:install
 
 # PHP extensions
-ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync
 RUN install-php-extensions pdo_mysql zip intl opcache amqp
 

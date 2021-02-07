@@ -207,6 +207,7 @@ export default function slide(slideId) {
                 foreignObject = createForeignObject(this.contentDocument(), shape_.data);
                 arrangeForeignObject(foreignObject, shape_.data, text, direction);
                 g.innerHTML = "";
+                g.classList.add("no-outline");
                 g.appendChild(foreignObject);
             }
 
@@ -285,7 +286,7 @@ export default function slide(slideId) {
         // Add event listeners
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
-        this.contentDocument().addEventListener("mouseup", selectTextboxElement);
+        this.contentDocument().addEventListener("dblclick", selectTextboxElement);
 
         // Autosize the foreignObjects
         selectAll("g[alt]>foreignObject.bounding_box", this.page()).forEach(foreignObject => {
@@ -389,6 +390,13 @@ export default function slide(slideId) {
         .text_editing *{
             pointer-events:all !important;
         }
+        /* g>foreignObject outline bug */
+        .no-outline{
+            outline:none !important;
+        }
+        foreignObject.bounding_box:hover{
+            outline: solid cyan 20px;
+        }
         foreignObject { overflow: visible; }
         foreignObject table {
             position: fixed;
@@ -406,6 +414,10 @@ export default function slide(slideId) {
             display: grid;
             align-items: center;
             text-align: center;
+        }
+        editing.highlighted{
+            background-color: #3390ff;
+            color: white;
         }
 
         /* Resize elements */
