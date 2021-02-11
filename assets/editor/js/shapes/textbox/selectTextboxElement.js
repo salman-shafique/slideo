@@ -16,7 +16,12 @@ export const createTextNode = (td) => {
   td.appendChild(editing);
   editing.focus();
   editing.onkeydown = (e) => {
-    e.target.innerText = "";
+    const ltrChars = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF';
+    const rtlChars = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC';
+    const isAlpha = new RegExp('^[0-9' + ltrChars + rtlChars + ']{1}$');
+    
+    if (isAlpha.test(e.key) || ["Delete", "Backspace"].includes(e.key))
+      e.target.innerText = "";
     e.target.onkeydown = null;
     e.target.onmousedown = null;
     e.target.classList.remove("highlighted");
