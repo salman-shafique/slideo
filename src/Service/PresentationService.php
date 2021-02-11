@@ -207,16 +207,16 @@ class PresentationService
         $jsonFile = json_decode(file_get_contents("http://slideo_flask$path"), true);
 
         $now = time();
-        $uniquefolder = hash('md2', $now);
+        $uniquefolder = hash('sha256', $now);
         if (!is_dir("presentations/$uniquefolder"))
             mkdir("presentations/$uniquefolder", 0777, true);
 
         $currentDownloadId = $jsonFile['current_download_id'];
 
         $name = $jsonFile['name'];
-        $unique1 = uniqid();
-        $unique2 = uniqid();
-        $unique3 = uniqid();
+        $unique1 = hash('md2',uniqid());
+        $unique2 = hash('md2',uniqid());
+        $unique3 = hash('md2',uniqid());
         $this->saveBase64File("presentations/$uniquefolder/$name-$unique1.pptx", $jsonFile['pptx']);
         $this->saveBase64File("presentations/$uniquefolder/$name-$unique2.png", $jsonFile['png']);
         $this->saveBase64File("presentations/$uniquefolder/$name-$unique3.pdf", $jsonFile['pdf']);

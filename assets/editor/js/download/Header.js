@@ -15,9 +15,11 @@ export default function Header() {
                     מחיר
                 </div>
                 <div className="col-2 d-flex justify-content-center align-items-center">
+                    PDF
                 </div>
-                <div></div>
-                <div></div>
+                <div className="col-2 d-flex justify-content-center align-items-center">
+                    PPTX
+                </div>
             </div>
         </div>
     )

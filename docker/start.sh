@@ -17,6 +17,20 @@ if [ ! -z "$yarn_check" ]; then
     yarn install;
 fi;
 
+# If it is development enviroment, run yarn watch
+case $APP_ENV in
+  dev)
+    echo_ "Starting yarn watch";
+    nohup yarn watch &
+    ;;
+  prod)
+    echo_ "Starting yarn build";
+    yarn build;
+    ;;
+  *)
+    ;;
+esac;
+
 # Consume messages
 while [ $(curl -Is -w "%{http_code}" -L "http://slideo_rabbitmq:15672/" -o /dev/null) -ne "200" ]
 do
