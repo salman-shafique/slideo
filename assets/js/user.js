@@ -11,6 +11,7 @@ function userClass() {
                 this.userId = parseInt(this.userId);
             this.sessionId = user.getAttribute("session-id");
             this.inited = true;
+            user.remove();
         } else {
             setTimeout(this.loadUser, 50);
         }
