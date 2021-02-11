@@ -23,6 +23,9 @@ export default function DownloadButton() {
         });
     }
 
+    const closeModal = () => {
+        $("#downloadModal").modal("hide");
+    }
 
     return (
         <>
@@ -32,9 +35,9 @@ export default function DownloadButton() {
             <Modal id={"downloadModal"}>
                 <img src="/img/party.gif" />
                 <h3>Congratulations!</h3>
-                <h4>Your presentation is queued!</h4>
+                <h4>Your presentation is ready!</h4>
                 <a href={"/editor/" + location.pathname.split("/").pop() + "/download"} target="_blank">
-                    <button className="btn btn-info">
+                    <button onClick={closeModal} className="btn btn-info">
                         <i className="fas fa-download mr-2"></i>
                         Go to downloads page
                     </button>

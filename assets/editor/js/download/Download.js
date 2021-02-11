@@ -5,10 +5,14 @@ import DownloadCard from "./DownloadCard";
 import Header from "./Header";
 import "./style.css";
 import user from "../../../js/user";
+import Modal from "Editor/js/components/Modal";
+
+
 
 let show = false;
 export default function Download({ presentationId }) {
     const [downloadCards, setDownloadCards] = React.useState([]);
+    const [nextPageHref, setNextPageHref] = React.useState("/");
 
     const toggleFunc = () => {
         const elements = document.querySelector("#downloadCards").children;
@@ -20,35 +24,51 @@ export default function Download({ presentationId }) {
         show = !show;
     }
 
-    const mounted = React.useRef();
     React.useEffect(() => {
-        if (!mounted.current) {
-            apiService({
-                url: "/api/presentation/download/get/" + presentationId,
-                success: (downloadPresentations) => {
-                    if (downloadPresentations.length > 0) {
-                        const tmp = [];
-                        let check = false;
-                        downloadPresentations.forEach((downloadCardDetail, i) => {
-                            tmp.push(
-                                <DownloadCard
-                                    downloadCardDetail={downloadCardDetail}
-                                    presentationId={presentationId}
-                                    key={i}
-                                    check={!downloadCardDetail.completed && !check} />
-                            );
-                            if (!downloadCardDetail.completed && !check)
-                                check = true;
-                        });
-                        setDownloadCards(tmp);
-                        toggleFunc();
-                    }
-                    preloader.hide();
+        // Get download history
+        apiService({
+            url: "/api/presentation/download/get/" + presentationId,
+            success: (downloadPresentations) => {
+                if (downloadPresentations.length > 0) {
+                    const tmp = [];
+                    let check = false;
+                    downloadPresentations.forEach((downloadCardDetail, i) => {
+                        tmp.push(
+                            <DownloadCard
+                                downloadCardDetail={downloadCardDetail}
+                                presentationId={presentationId}
+                                key={i}
+                                check={!downloadCardDetail.completed && !check} />
+                        );
+                        if (!downloadCardDetail.completed && !check)
+                            check = true;
+                    });
+                    setDownloadCards(tmp);
+                    toggleFunc();
                 }
-            });
-            mounted.current = true;
-        }
-    });
+                preloader.hide();
+            }
+        });
+        // Disable all links
+        const linksInPage = document.querySelectorAll("a[href]:not(.continue)");
+        linksInPage.forEach(link => {
+            link.onclick = (event) => {
+                let nextLink;
+                event.path.forEach(path => {
+                    if (path.tagName == "A")
+                        if (path.getAttribute("href") && !nextLink)
+                            nextLink = path.getAttribute("href");
+                });
+                if (nextLink) {
+                    if (!["/login", "/register"].includes(nextLink)) {
+                        event.preventDefault();
+                        $('#downloadAlertModal').modal("show");
+                        setNextPageHref(nextLink);
+                    }
+                }
+            }
+        });
+    }, []);
 
     downloadCards.reverse();
 
@@ -75,11 +95,32 @@ export default function Download({ presentationId }) {
                     <a href="/register">
                         <button className="btn btn-info mt-3">
                             <i className="fas fa-check-circle mr-2"></i>
-                            Create free account
+                            Go to your presentations
                         </button>
                     </a>
                 </h3>
             }
+            <Modal id={"downloadAlertModal"}>
+                <div>
+                    <h2 className="my-5">Wait!</h2>
+                    <h3 className="mb-5">Leaving this page will <br />DELETE your presentation</h3>
+                    <h4 className="col-12 text-center">
+                        Save your presentations for later!
+                    <br />
+                        <a href="/register">
+                            <button className="btn btn-info mt-3">
+                                <i className="fas fa-check-circle mr-2"></i>
+                            Go to your presentations
+                        </button>
+                        </a>
+                    </h4>
+                    <a href={nextPageHref} className="continue">
+                        <p style={{ textDecoration: "underline" }}>
+                            Continue and do not save presentation
+                        </p>
+                    </a>
+                </div>
+            </Modal>
         </>
     );
 }
