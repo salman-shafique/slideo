@@ -42,9 +42,7 @@ class DownloadPresentationCrudController extends AbstractCrudController
             UrlField::new('pdfFile'),
             ImageField::new('prevFile'),
             IntegerField::new('numberOfSlides'),
-            BooleanField::new('completed'),
-            DateField::new('created')->hideOnForm(),
-            DateField::new('updated')->hideOnForm()
+            BooleanField::new('completed')
         ];
     }
 }
