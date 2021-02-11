@@ -12,7 +12,7 @@ function userClass() {
             this.sessionId = user.getAttribute("session-id");
             this.inited = true;
         } else {
-            setTimeout(this.loadUser, 100);
+            setTimeout(this.loadUser, 50);
         }
     }
     if (!this.inited)
