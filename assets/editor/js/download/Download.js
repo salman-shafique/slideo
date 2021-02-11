@@ -25,25 +25,27 @@ export default function Download({ presentationId }) {
     }
 
     React.useEffect(() => {
-        // Disable all links
-        const linksInPage = document.querySelectorAll("a[href]:not(.continue)");
-        linksInPage.forEach(link => {
-            link.onclick = (event) => {
-                let nextLink;
-                event.path.forEach(path => {
-                    if (path.tagName == "A")
-                        if (path.getAttribute("href") && !nextLink)
-                            nextLink = path.getAttribute("href");
-                });
-                if (nextLink) {
-                    if (!["/login", "/register"].includes(nextLink)) {
-                        event.preventDefault();
-                        $('#downloadAlertModal').modal("show");
-                        setNextPageHref(nextLink);
+        if (!user.userId) {
+            // Disable all links
+            const linksInPage = document.querySelectorAll("a[href]:not(.continue)");
+            linksInPage.forEach(link => {
+                link.onclick = (event) => {
+                    let nextLink;
+                    event.path.forEach(path => {
+                        if (path.tagName == "A")
+                            if (path.getAttribute("href") && !nextLink)
+                                nextLink = path.getAttribute("href");
+                    });
+                    if (nextLink) {
+                        if (!["/login", "/register"].includes(nextLink)) {
+                            event.preventDefault();
+                            $('#downloadAlertModal').modal("show");
+                            setNextPageHref(nextLink);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
         // Get download history
         apiService({
             url: "/api/presentation/download/get/" + presentationId,
@@ -89,22 +91,9 @@ export default function Download({ presentationId }) {
             }
             {user.userId
                 ? ""
-                : <h3 className="col-12 text-center">
-                    Save your presentations for later!
-                    <br />
-                    <a href="/register">
-                        <button className="btn btn-info mt-3">
-                            <i className="fas fa-check-circle mr-2"></i>
-                            Go to your presentations
-                        </button>
-                    </a>
-                </h3>
-            }
-            <Modal id={"downloadAlertModal"}>
-                <div>
-                    <h2 className="my-5">Wait!</h2>
-                    <h3 className="mb-5">Leaving this page will <br />DELETE your presentation</h3>
-                    <h4 className="col-12 text-center">
+                :
+                <>
+                    <h3 className="col-12 text-center">
                         Save your presentations for later!
                     <br />
                         <a href="/register">
@@ -113,14 +102,31 @@ export default function Download({ presentationId }) {
                             Go to your presentations
                         </button>
                         </a>
-                    </h4>
-                    <a href={nextPageHref} className="continue">
-                        <p style={{ textDecoration: "underline" }}>
-                            Continue and do not save presentation
+                    </h3>
+
+                    <Modal id={"downloadAlertModal"}>
+                        <div>
+                            <h2 className="my-5">Wait!</h2>
+                            <h3 className="mb-5">Leaving this page can <br />DELETE your presentation</h3>
+                            <h4 className="col-12 text-center">
+                                Save your presentations for later!
+                                <br />
+                                <a href="/register">
+                                    <button className="btn btn-info mt-3">
+                                        <i className="fas fa-check-circle mr-2"></i>
+                                        Save your presentations
+                                    </button>
+                                </a>
+                            </h4>
+                            <a href={nextPageHref} className="continue">
+                                <p style={{ textDecoration: "underline" }}>
+                                    Continue and do not save presentation
                         </p>
-                    </a>
-                </div>
-            </Modal>
+                            </a>
+                        </div>
+                    </Modal>
+                </>
+            }
         </>
     );
 }
