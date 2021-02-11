@@ -25,6 +25,25 @@ export default function Download({ presentationId }) {
     }
 
     React.useEffect(() => {
+        // Disable all links
+        const linksInPage = document.querySelectorAll("a[href]:not(.continue)");
+        linksInPage.forEach(link => {
+            link.onclick = (event) => {
+                let nextLink;
+                event.path.forEach(path => {
+                    if (path.tagName == "A")
+                        if (path.getAttribute("href") && !nextLink)
+                            nextLink = path.getAttribute("href");
+                });
+                if (nextLink) {
+                    if (!["/login", "/register"].includes(nextLink)) {
+                        event.preventDefault();
+                        $('#downloadAlertModal').modal("show");
+                        setNextPageHref(nextLink);
+                    }
+                }
+            }
+        });
         // Get download history
         apiService({
             url: "/api/presentation/download/get/" + presentationId,
@@ -47,25 +66,6 @@ export default function Download({ presentationId }) {
                     toggleFunc();
                 }
                 preloader.hide();
-            }
-        });
-        // Disable all links
-        const linksInPage = document.querySelectorAll("a[href]:not(.continue)");
-        linksInPage.forEach(link => {
-            link.onclick = (event) => {
-                let nextLink;
-                event.path.forEach(path => {
-                    if (path.tagName == "A")
-                        if (path.getAttribute("href") && !nextLink)
-                            nextLink = path.getAttribute("href");
-                });
-                if (nextLink) {
-                    if (!["/login", "/register"].includes(nextLink)) {
-                        event.preventDefault();
-                        $('#downloadAlertModal').modal("show");
-                        setNextPageHref(nextLink);
-                    }
-                }
             }
         });
     }, []);
