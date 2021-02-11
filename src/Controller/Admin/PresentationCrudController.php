@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 
 class PresentationCrudController extends AbstractCrudController
 {
@@ -24,20 +25,22 @@ class PresentationCrudController extends AbstractCrudController
         return Presentation::class;
     }
 
- 
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
-        ;
+            ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('owner')->hideOnForm(),
-            TextField::new('presentationId'),
+            UrlField::new('presentationId', 'Presentation')
+                ->formatValue(function ($value, $entity) {
+                    return "<a href='/editor/$value'>$value</a>";
+                }),
             TextField::new('title'),
             AssociationField::new('slides')->hideOnForm(),
             BooleanField::new('isActive'),
