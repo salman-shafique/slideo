@@ -12,7 +12,6 @@ import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
 import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import h1Image from "Editor/js/shapes/image/h1Image";
-import colorTemplate from "Editor/js/entity/colorTemplate";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/drag/makeDraggable";
 import iconInit from "Editor/js/shapes/icon/iconInit";
@@ -28,6 +27,7 @@ import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
 import createNewImage from "Editor/js/shapes/image/createNewImage";
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
+import preloader from "Editor/js/components/preloader";
 
 
 const chunkDesigns = {};
@@ -122,7 +122,9 @@ export default function slide(slideId) {
 
         // Init the slide - move etc
         add_event(main, "load", function () {
-            slide(this.dataset.slideId).initSlide();
+            preloader.show(
+                () => slide(this.dataset.slideId).initSlide()
+            );
         });
         document.getElementById("SlideContainer").appendChild(main);
 

@@ -1,6 +1,7 @@
 import React from "react";
 import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
+import preloader from "Editor/js/components/preloader";
 
 export default function DesignItem({ designData }) {
 
@@ -10,8 +11,9 @@ export default function DesignItem({ designData }) {
         if (designData.id == slideData.style.id) {
             return;
         }
-
+        preloader.show();
         currentSlide.changeDesign(designData);
+        preloader.hide();
     }
 
     return (
