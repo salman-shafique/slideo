@@ -17,6 +17,9 @@ export default function Modal({ id, children }) {
             <div className="modal-dialog modal-dialog-centered" role="document">
                 <div className="modal-content text-center" style={{ border: "none" }}>
                     <div className="modal-body">
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         {children}
                     </div>
                 </div>

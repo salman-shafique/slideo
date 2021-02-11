@@ -4,16 +4,16 @@ import preloader from "Editor/js/components/preloader";
 import DownloadCard from "./DownloadCard";
 import Header from "./Header";
 import "./style.css";
-
+import user from "../../../js/user";
 
 let show = false;
 export default function Download({ presentationId }) {
     const [downloadCards, setDownloadCards] = React.useState([]);
 
     const toggleFunc = () => {
-        const elements = document.querySelector("#downloadArea").children;
+        const elements = document.querySelector("#downloadCards").children;
         elements.forEach((element, i) => {
-            if (i > 2 && element.tagName != "P") {
+            if (i > 0) {
                 element.style.display = show ? "" : "none";
             }
         });
@@ -50,27 +50,36 @@ export default function Download({ presentationId }) {
         }
     });
 
-    const startNewDownload = () => {
-        preloader.show();
-        apiService({
-            url: "/api/presentation/download/start/" + presentationId,
-            success: (r) => {
-                if (r.success)
-                    location.href = `/editor/${presentationId}/download`;
-            }
-        })
-    }
-
-    downloadCards.push(<Header key={downloadCards.length + 1} />);
-    downloadCards.push(
-        <h1 className="col-12 text-center" key={downloadCards.length + 1}>
-            <button onClick={startNewDownload} className="btn btn-info">התחל הורדה חדשה</button>
-        </h1>
-    )
     downloadCards.reverse();
 
-    if (downloadCards.length >= 4)
-        downloadCards.push(<p key={"toggleBtn" + downloadCards.length} className="ml-4" style={{ cursor: "pointer" }} onClick={toggleFunc}>לחץ לצפייה בגרסאות קודמות</p>)
 
-    return downloadCards;
+    return (
+        <>
+            <h1 className="col-12 text-center" key={downloadCards.length + 1}>
+                My Downloads
+            </h1>
+            <Header />
+            <div id="downloadCards" className="col-12">
+                {downloadCards}
+            </div>
+
+            {downloadCards.length >= 2
+                ? <p key={"toggleBtn" + downloadCards.length} className="ml-4" style={{ cursor: "pointer" }} onClick={toggleFunc}>לחץ לצפייה בגרסאות קודמות</p>
+                : ""
+            }
+            {user.userId
+                ? ""
+                : <h3 className="col-12 text-center">
+                    Save your presentations for later!
+                    <br />
+                    <a href="/register">
+                        <button className="btn btn-info mt-3">
+                            <i className="fas fa-check-circle mr-2"></i>
+                            Create free account
+                        </button>
+                    </a>
+                </h3>
+            }
+        </>
+    );
 }
