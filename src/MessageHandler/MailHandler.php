@@ -22,6 +22,7 @@ class MailHandler implements MessageHandlerInterface
 
     public function __invoke(TemplatedEmail $email)
     {
+        return;
         $this->bodyRenderer->render($email);
         $r = $this->flaskService->call(
             "Mailer",
