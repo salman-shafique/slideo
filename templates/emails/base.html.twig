@@ -588,8 +588,8 @@
     <meta property="og:title" content="My First Campaign"/>
   </head>
   <!--[if mso]>
-        <body class="mso">
-      <![endif]-->
+              <body class="mso">
+            <![endif]-->
   <!--[if !mso]><!-->
   <body
     class="full-padding" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;">
@@ -635,11 +635,21 @@
                       <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
                         <h1 style="Margin-top: 0;Margin-bottom: 0;font-style: normal;font-weight: normal;color: #565656;font-size: 30px;line-height: 38px;text-align: center;">
                           <strong>
-                            {% block title %}Slideo
+                            {% block title %}
+                              {% if title is defined %}
+                                {{title}}
+                              {% else %}
+                                Slideo
+                              {% endif %}
                             {% endblock %}
                           </strong>
                         </h1>
-                        {% block body %}Slideo
+                        {% block body %}
+                          {% if body is defined %}
+                            {{body}}
+                          {% else %}
+                            Slideo
+                          {% endif %}
                         {% endblock %}
                       </div>
                     </div>
@@ -649,10 +659,7 @@
                     </div>
 
                     <div style="Margin-left: 20px;Margin-right: 20px;">
-                      <div class="btn btn--flat btn--large" style="Margin-bottom: 20px;text-align: center;">
- 
-                        
-                      </div>
+                      <div class="btn btn--flat btn--large" style="Margin-bottom: 20px;text-align: center;"></div>
                     </div>
 
                     <div style="Margin-left: 20px;Margin-right: 20px;">
