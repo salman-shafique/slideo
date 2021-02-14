@@ -58,10 +58,10 @@ class HomeController extends AbstractController
      */
     public function contactUs(Request $request, MailService $mailService)
     {
-        $email = (new TemplatedEmail())
+        $toAdmins = (new TemplatedEmail())
             ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
-            ->to("alperenberatdurmus@gmail.com")
-            //->addTo("elad.darmon@gmail.com")
+            ->to(new Address('alperenberatdurmus@gmail.com', 'Alperen'))
+            //->addTo(new Address('elad.darmon@gmail.com', 'Elad'))
             ->subject('Slideo - Main page feedback')
             ->htmlTemplate('emails/feedback.html.twig')
             ->context([
@@ -70,7 +70,17 @@ class HomeController extends AbstractController
                 'subject' => $request->request->get("subject"),
                 'content' => $request->request->get("content")
             ]);
-        $mailService->sendMail($email);
+        $toUser = (new TemplatedEmail())
+            ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
+            ->to(new Address($request->request->get("email"), $request->request->get("fullname")))
+            ->subject('We have got your feedback!')
+            ->htmlTemplate('emails/base.html.twig')
+            ->context([
+                'title' => "We have got your feedback!",
+                'body' => "Thanks for sharing your opinions. We will try to contact you as soon as possible."
+            ]);
+        $mailService->sendMail($toAdmins);
+        $mailService->sendMail($toUser);
 
         return new JsonResponse(["success" => true]);
     }
