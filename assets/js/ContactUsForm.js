@@ -5,7 +5,7 @@ import toastr from "Editor/js/components/toastr";
 function ContactUsForm() {
     const contactUs = (event) => {
         document.querySelector('#contact_us_modal button[data-dismiss="modal"]').click();
-        toastr.info("Thanks for your feedback!");
+        toastr.info("Your message has been sent!","Thanks for your feedback!");
         setTimeout(() => {
             event.target.reset();
         }, 1000);
