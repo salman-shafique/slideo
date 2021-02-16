@@ -54,7 +54,7 @@ class MailService
         $email = (new TemplatedEmail())
             ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
             ->to($mailAddress)
-            ->subject('Slideo')
+            ->subject('Please verify your email')
             ->htmlTemplate('emails/verification.html.twig')
             ->context([
                 'secret' => $secret,
