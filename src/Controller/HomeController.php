@@ -61,7 +61,7 @@ class HomeController extends AbstractController
         $toAdmins = (new TemplatedEmail())
             ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
             ->to(new Address('alperenberatdurmus@gmail.com', 'Alperen'))
-            //->addTo(new Address('elad.darmon@gmail.com', 'Elad'))
+            ->addTo(new Address('elad.darmon@gmail.com', 'Elad'))
             ->subject('Slideo - Main page feedback')
             ->htmlTemplate('emails/feedback.html.twig')
             ->context([
