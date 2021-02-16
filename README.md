@@ -12,31 +12,34 @@ docker-compose build
 ```
 
 ### 3. Start the container
-#### a. Production
 ```
-docker-compose up -d
-docker-compose stop
+docker-compose -f docker-compose.dev.yml up
 ```
-#### b. Development
-```
-docker-compose -f docker-compose.dev.yml up -d
-docker-compose -f docker-compose.dev.yml stop
-```
-#### Before yarn watch
-```
-docker exec -ti slideo_symfony bash
-```
-
-### 4. Setup the project
+### 4. Setup the database
 ```
 docker exec -ti slideo_symfony php bin/console doctrine:database:create --if-not-exists
-docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n 
-docker exec -ti slideo_symfony php bin/console doctrine:fixtures:load --append
-```
-
-### DATABASE_URL in .env file:
-```
-DATABASE_URL=mysql://user:pass@host.docker.internal/slideo?serverVersion=5.7
+docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n
 ```
 
 [Login Page](https://localhost:5500/login)
+### Others:
+#### Disable the PHP cache on development:
+`php.ini`
+```
+opcache.enable=0
+```
+Do not commit `php.ini` file.
+#### Openning a new terminal inside the docker container:
+```
+docker exec -ti slideo_symfony bash
+```
+#### Restarting the server
+Open a new terminal inside the docker container and run this:
+```
+bash docker/restart.sh
+```
+
+#### DATABASE_URL in `.env.local` file:
+```
+DATABASE_URL=mysql://user:pass@host.docker.internal/slideo?serverVersion=8.0
+```
