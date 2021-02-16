@@ -9,5 +9,6 @@ import "../css/landing.css";
 // Import JS
 import './bootstrap.bundle.min.js';
 import './sidenav-common.js';
+import './ContactUsForm';
 
  
