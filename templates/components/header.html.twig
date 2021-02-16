@@ -65,10 +65,10 @@
         </a>
       </li>
       <!-- <li class="nav-item">
-        <a class="nav-link" href="{{path('app_logout')}}">
-          <button class="btn d-md-flex d-none">{% trans %}Logout{% endtrans %}</button>
-        </a>
-      </li> -->
+              <a class="nav-link" href="{{path('app_logout')}}">
+                <button class="btn d-md-flex d-none">{% trans %}Logout{% endtrans %}</button>
+              </a>
+            </li> -->
     {% else %}
       <li class="nav-item">
         <a class="nav-link" href="{{path('app_login')}}">
@@ -84,15 +84,7 @@
   </ul>
 </nav>
 
-<div class="modal fade" id="contact_us_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <script>
-    const contactUs = (event) => {
-      document.querySelector('button[data-dismiss="modal"]').click();
-      setTimeout(() => {
-        event.target.reset();
-      }, 1000);
-    }
-  </script>
+<div class="modal fade" id="contact_us_modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header py-1">
@@ -101,23 +93,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="contact_us_form" onsubmit="contactUs(event)" action="/contactUs" method="POST" target="tmp_iframe">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" name="fullname" class="form-control" placeholder="שם מלא*" required>
-            </div>
-            <div class="form-group col-md-6">
-              <input type="email" name="email" class="form-control" placeholder="אימייל*" required>
-            </div>
-            <div class="form-group col-12">
-              <input type="text" name="subject" class="form-control" placeholder="נושא">
-            </div>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="content" rows="3" placeholder="אנא שתפו אותנו ברגשותיכם, מחשבותיכם והצעותיכם!" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary float-right">לִשְׁלוֹחַ!</button>
-        </form>
+        <span id="ContactUsForm">
+
+        </span>
         <iframe name="tmp_iframe" class="d-none" src="#"></iframe>
       </div>
     </div>
