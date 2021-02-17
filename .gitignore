@@ -94,3 +94,5 @@ __pycache__
 /public/layouts/*
 /public/presentations/*
 /public/uploads/*
+php.ini
+php.ini
