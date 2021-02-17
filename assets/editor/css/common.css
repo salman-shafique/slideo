@@ -130,7 +130,6 @@
 	box-shadow: 2px 2px 5px 1px grey;
 }
 
-
 .single-line {
 	overflow: hidden;
 	line-clamp: 1;
@@ -146,12 +145,14 @@
 	-o-box-orient: vertical;
 }
 
-
-
 /* IMPORTANT: ELEMENT ON WHICH THE FOLLOWING CLASS IS USED, MUST HAVE A MAX-WIDTH DEFINED */
 
 .horizontal-text-clip {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.cursor-pointer {
+	cursor: pointer;
 }
