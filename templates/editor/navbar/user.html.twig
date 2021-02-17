@@ -2,14 +2,13 @@
   <ul id="UserHolder" class="navbar-nav d-md-flex d-none">
     <div class="linked-user-nav-blocks d-inline-flex">
       <li class="nav-item">
-        <div id="ProfilePicture">
-          <p id="Initials" class="fully-centered centered-contents no-margin">{{app.user.firstLetters}}</p>
+        <div id="userMenuBars">
+          <i class="fas fa-bars text-dark"></i>
         </div>
       </li>
       <li id="NavUser" class="nav-item">
         <h5 id="Name" class="no-margin">{{app.user.fullname}}</h5>
         <p id="Email" class="d-inline no-margin">{{app.user.email}}</p>
-        <i class="fas fa-chevron-down float-right vertically-centered"></i>
       </li>
     </div>
     <div id="UserMenuDropdown" class="custom-dropdown d-none small-top-margin p-3">
