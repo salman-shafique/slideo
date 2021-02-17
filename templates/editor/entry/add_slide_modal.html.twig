@@ -2,11 +2,14 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="w-100">
-        <div class="form-group mb-0 mt-3">
-          <input id="slideTitle" type="text" class="form-control data-hj-whitelist" placeholder="Slide title">
+        <h2 class="text-center mb-0 mt-2">
+          Add a new slide
+        </h2>
+        <div class="form-group mb-0 ">
+          <input id="slideTitle" type="text" class="form-control data-hj-whitelist" placeholder="{% trans %}Text_Slide_Title_Placeholder{% endtrans %}">
         </div>
         <div class="form-group">
-          <div class="border p-1 inline-editor" style="width: 100%;background-color:rgb(241, 241, 241);">
+          <div class="border p-1 inline-editor d-none" style="width: 100%;background-color:rgb(241, 241, 241);">
             <i class="fas fa-align-left border p-2" id="entry_to_ltr" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="LTR"></i>
             <i class="fas fa-align-right border p-2" id="entry_to_rtl" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="RTL"></i>
             <i class="fas fa-remove-format border p-2" id="entry_remove_format" style="cursor:pointer" data-toggle="tooltip" data-placement="top" title="הסר את הפורמט"></i>
@@ -16,11 +19,10 @@
         </div>
         <div class="text-center mb-3">
           <button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px;" style="cursor:pointer">
-            <span>Create slide</span>
+            <span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
           </button>
         </div>
-        
-      <pre id="entry_result" class="d-none"></pre>
+        <pre id="entry_result" class="d-none"></pre>
       </div>
     </div>
   </div>

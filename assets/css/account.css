@@ -14,18 +14,6 @@ body {
     color: black;
 }
 
-#ProfilePicture {
-    width: 42px;
-    height: 42px;
-    background-color: skyblue;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-#Initials {
-    font-weight: bold;
-    overflow: hidden;
-}
 
 #UserHolder {
     width: 320px;

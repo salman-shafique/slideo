@@ -14,13 +14,6 @@ jQuery(function () {
 		$(this).closest(".action-panel").find(".backdrop-overlay-layout").addClass("collapse");
 	});
 
-	$(".linked-user-nav-blocks").mouseenter(function () {
-		$(".linked-user-nav-blocks").find("i").removeClass("text-light").addClass("text-dark");
-	});
-
-	$(".linked-user-nav-blocks").mouseout(function () {
-		$(".linked-user-nav-blocks").find("i").removeClass("text-dark").addClass("text-light");
-	});
 
 	$("body").delegate(".dropdown-closer", "click", function () {
 		var parentPanel = $(this).closest(".action-panel");

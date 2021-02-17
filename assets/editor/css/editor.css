@@ -10,17 +10,8 @@ body {
 	height: 64px;
 }
 
-#ProfilePicture {
-	width: 42px;
-	height: 42px;
-	background-color: skyblue;
-	border-radius: 10px;
-	padding: 5px;
-}
-
-#Initials {
-	font-weight: bold;
-	overflow: hidden;
+#userMenuBars{
+	font-size: 28px;
 }
 
 #UserHolder {

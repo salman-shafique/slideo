@@ -9,11 +9,16 @@ import appendKeyword from "./appendKeyword";
 
 add_event("#Images_Panel .keyword-search", "keyup", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
-        if (clear_text(event.target.value))
-            addToImagesBar(clear_text(event.target.value));
+        addToImagesBar(event.target.value);
         event.target.value = "";
     }
 })
+
+add_event("#Images_Panel .search-button", "click", () => {
+    const input = document.querySelector("#Images_Panel .keyword-search");
+    addToImagesBar(input.value);
+    input.value = "";
+});
 
 export function addToImagesBar(keyword) {
     keyword = clear_text(keyword);

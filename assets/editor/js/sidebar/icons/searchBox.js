@@ -9,11 +9,18 @@ import appendKeyword from "./appendKeyword";
 
 add_event("#Icons_Panel .keyword-search", "keyup", (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {
-        if (clear_text(event.target.value))
-            addToIconsBar(clear_text(event.target.value));
+        addToIconsBar(event.target.value);
         event.target.value = "";
     }
-})
+});
+
+add_event("#Icons_Panel .search-button", "click", () => {
+    const input = document.querySelector("#Icons_Panel .keyword-search");
+    addToIconsBar(input.value);
+    input.value = "";
+});
+
+
 
 export function addToIconsBar(keyword) {
     keyword = clear_text(keyword);

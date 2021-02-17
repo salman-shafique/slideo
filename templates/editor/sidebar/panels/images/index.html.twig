@@ -2,13 +2,18 @@
   <div class="search-section">
     <div class="input-group mb-2">
       <input type="text" class="form-control keyword-search" placeholder="{% trans %}Search all Images{% endtrans %}">
+      <div class="input-group-append">
+        <span class="input-group-text search-button cursor-pointer text-white bg-secondary">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
     </div>
     <div id="Keywords_list" class="keywords-list m-0 bg-white rounded"></div>
   </div>
   <div class="main-section">
     <div id="sideBarImages" class="images-gallery custom-scrollbar vertical-scroll">
       <div id="sideBarImagesEmpty">
-              {% trans %}Please_Select_Image{% endtrans %}
+        {% trans %}Please_Select_Image{% endtrans %}
       </div>
     </div>
     <div class="control-overlay-layout closed">
