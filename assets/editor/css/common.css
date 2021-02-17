@@ -146,12 +146,6 @@
 	-o-box-orient: vertical;
 }
 
-input#slideTitle {
-    padding: 20px 10px;
-    margin: 50px 0 20px;
-    font-size: 20px;
-    border: 1px solid lightgray;
-}
 
 
 /* IMPORTANT: ELEMENT ON WHICH THE FOLLOWING CLASS IS USED, MUST HAVE A MAX-WIDTH DEFINED */
