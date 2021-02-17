@@ -53,7 +53,7 @@
     {% else %}
       <user style="display:none" session-id={{app.session.id}}></user>
     {% endif %}
-    
+
     {% block header %}
       {% include "components/header.html.twig" %}
     {% endblock %}
@@ -69,17 +69,21 @@
     {% block script %}
       {{ encore_entry_script_tags('app') }}
     {% endblock %}
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148876191-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
 
-      gtag('config', 'UA-148876191-1');
-    </script>
+    {% if app.environment != "dev" %}
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148876191-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-148876191-1');
+      </script>
+    {% endif %}
+
   </body>
 
 </html>
