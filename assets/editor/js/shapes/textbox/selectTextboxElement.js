@@ -9,7 +9,7 @@ import React from "react";
  */
 export const createTextNode = (td) => {
   const textDiv = reactToDOM(
-    <div xmlns="http://www.w3.org/1999/xhtml" style={{transform: 'scale(20)', transformOrigin: 'top left', width: '600px', fontSize: '55px'}}>
+    <div xmlns="http://www.w3.org/1999/xhtml" style={{transform: 'scale(20)', transformOrigin: 'top left', width: 'calc(100% / 20)', fontSize: '55px'}}>
     </div>
   );
   const editing = reactToDOM(
