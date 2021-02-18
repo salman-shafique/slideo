@@ -8,22 +8,27 @@ import React from "react";
  * @param {HTMLElement} td 
  */
 export const createTextNode = (td) => {
-  const editing = reactToDOM(
-    <editing contentEditable className="highlighted"></editing>
+  const textDiv = reactToDOM(
+    <div xmlns="http://www.w3.org/1999/xhtml" style={{transform: 'scale(11.1)', transformOrigin: 'top left', width: '1000px', fontSize: '20px'}}>
+    </div>
   );
-  editing.innerText = td.innerText;
-  td.innerText = "";
-  td.style.transform = "scale(10) translate(-5100px, 310px)";
-  
-  
+  const textSvg = reactToDOM(
+    <svg viewBox="0 0 1000 400" width={1000} height={400} style={{fontSize: '80px'}}>
+    </svg>
+  );
   const textForeignObj = reactToDOM(
-    <foreignobject style={{fontSize: "100px"}}>
+    <foreignobject>
     </foreignobject>
   );
-
+  const editing = reactToDOM(
+    <editing contentEditable className="highlighted" style={{caretColor: "black", border: "none", outline: "none"}}></editing>
+  );
+  editing.innerText = td.innerText;
   textForeignObj.appendChild(editing);
-  console.log('working');
-  td.appendChild(textForeignObj);
+  textSvg.appendChild(textForeignObj);
+  textDiv.appendChild(textSvg);
+  td.innerText = "";
+  td.appendChild(textDiv);
   editing.focus();
   editing.onkeydown = (e) => {
     const ltrChars = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF';
