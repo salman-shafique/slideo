@@ -8,12 +8,21 @@ import React from "react";
  * @param {HTMLElement} td 
  */
 export const createTextNode = (td) => {
+  const fontScale = 20;
+  const tableParent = td.closest("table");
+  const tableFont = parseInt(tableParent.style.fontSize, 10);
+  const editorWidth = tableParent.offsetWidth / fontScale;
+
+  const textFontSize = `${1.9 * constants.PIXEL_TO_PT * tableFont}px`;
+  console.log('textfontsize', textFontSize);
+  console.log('constants pixel to point', constants.PIXEL_TO_PT)
   const textDiv = reactToDOM(      
-  <div style={{transform: 'scale(20)', transformOrigin: 'top center', fontSize: '55px', display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+  <div style={{transform: `scale(${fontScale})`, transformOrigin: 'top center', fontSize: textFontSize, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
   </div>
+
   );
   const editing = reactToDOM(
-    <editing contentEditable="true" className="highlighted" style={{caretColor: 'black', border: 'none', outline: 'none', width: '600px'}}>
+    <editing contentEditable="true" className="highlighted" style={{caretColor: 'black', border: 'none', outline: 'none', width: editorWidth}}>
     </editing>
   );
   editing.innerText = td.innerText;
