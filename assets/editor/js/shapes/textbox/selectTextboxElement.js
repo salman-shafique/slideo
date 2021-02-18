@@ -9,24 +9,17 @@ import React from "react";
  */
 export const createTextNode = (td) => {
   const textDiv = reactToDOM(
-    <div xmlns="http://www.w3.org/1999/xhtml" style={{transform: 'scale(11.1)', transformOrigin: 'top left', width: '1000px', fontSize: '20px'}}>
+    <div xmlns="http://www.w3.org/1999/xhtml" style={{transform: 'scale(20)', transformOrigin: 'top left', width: '600px', fontSize: '40px'}}>
     </div>
   );
-  const textSvg = reactToDOM(
-    <svg viewBox="0 0 1000 400" width={1000} height={400} style={{fontSize: '80px'}}>
-    </svg>
-  );
-  const textForeignObj = reactToDOM(
-    <foreignobject>
-    </foreignobject>
-  );
   const editing = reactToDOM(
-    <editing contentEditable className="highlighted" style={{caretColor: "black", border: "none", outline: "none"}}></editing>
+    <editing contentEditable="true" className="highlighted" style={{caretColor: 'black', border: 'none', outline: 'none'}}>
+    </editing>
   );
   editing.innerText = td.innerText;
-  textForeignObj.appendChild(editing);
-  textSvg.appendChild(textForeignObj);
-  textDiv.appendChild(textSvg);
+  console.log('editing:', editing)
+  textDiv.appendChild(editing);
+  console.log('td innertext:', td.innerText)
   td.innerText = "";
   td.appendChild(textDiv);
   editing.focus();
