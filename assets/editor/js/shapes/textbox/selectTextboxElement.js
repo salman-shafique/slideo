@@ -8,12 +8,12 @@ import React from "react";
  * @param {HTMLElement} td 
  */
 export const createTextNode = (td) => {
-  const textDiv = reactToDOM(
-    <div xmlns="http://www.w3.org/1999/xhtml" style={{transform: 'scale(20)', transformOrigin: 'top left', width: 'calc(100% / 20)', fontSize: '55px'}}>
-    </div>
+  const textDiv = reactToDOM(      
+  <div style={{transform: 'scale(20)', transformOrigin: 'top center', fontSize: '55px', display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+  </div>
   );
   const editing = reactToDOM(
-    <editing contentEditable="true" className="highlighted" style={{caretColor: 'black', border: 'none', outline: 'none'}}>
+    <editing contentEditable="true" className="highlighted" style={{caretColor: 'black', border: 'none', outline: 'none', width: '600px'}}>
     </editing>
   );
   editing.innerText = td.innerText;
