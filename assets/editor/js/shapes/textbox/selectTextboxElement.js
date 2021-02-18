@@ -1,7 +1,8 @@
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
-import reactToDOM from "Editor/js/utils/reactToDOM";
+import reactToDOM from "Editor/js/utils/reactToDOM";import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
+
 import React from "react";
 /**
  * 
@@ -9,9 +10,10 @@ import React from "react";
  */
 export const createTextNode = (td) => {
   const fontScale = 20;
+  const gParentAttributes = getSizeAttributes(td.closest('g'));
   const tableParent = td.closest("table");
   const tableFont = parseInt(tableParent.style.fontSize, 10);
-  const editorWidth = tableParent.offsetWidth / fontScale;
+  const editorWidth = gParentAttributes.width / fontScale;
 
   const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
   console.log('textfontsize', textFontSize);
