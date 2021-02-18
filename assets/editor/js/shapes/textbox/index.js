@@ -18,7 +18,8 @@ const cancelEditing = (event) => {
   const newText = td.innerText.trim().replace(/\n/g, ' ');
   td.innerHTML = "";
   td.append(newText);
-
+  
+  
   if (g.classList.contains("text_editing")) {
     g.classList.remove("text_editing");
     td.removeAttribute("contenteditable");

@@ -13,7 +13,17 @@ export const createTextNode = (td) => {
   );
   editing.innerText = td.innerText;
   td.innerText = "";
-  td.appendChild(editing);
+  td.style.transform = "scale(10) translate(-5100px, 310px)";
+  
+  
+  const textForeignObj = reactToDOM(
+    <foreignobject style={{fontSize: "100px"}}>
+    </foreignobject>
+  );
+
+  textForeignObj.appendChild(editing);
+  console.log('working');
+  td.appendChild(textForeignObj);
   editing.focus();
   editing.onkeydown = (e) => {
     const ltrChars = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF';
