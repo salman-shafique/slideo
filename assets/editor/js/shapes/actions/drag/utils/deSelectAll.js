@@ -15,6 +15,9 @@ export default function deSelectAll(except = null) {
         } else
             deSelectEl(selectedEl.shapeId);
     });
-    if (!except)
-        Events.shape.allReleased();
+
+    except
+        ? Events.shape.allReleasedExcept()
+        : Events.shape.allReleased();
+
 }

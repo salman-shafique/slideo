@@ -1,4 +1,3 @@
-import toastr from "Editor/js/components/toastr";
 import preloader from "Editor/js/components/preloader";
 
 
@@ -26,6 +25,9 @@ import "Editor/js/shapes/actions/";
 
 // Textbox actions
 import "Editor/js/shapes/textbox/";
+
+// ContextMenu
+import "Editor/js/components/ContextMenu";
 
 
 window.onerror = (r)=>{

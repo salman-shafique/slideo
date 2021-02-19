@@ -289,6 +289,10 @@ export default function slide(slideId) {
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
         this.contentDocument().addEventListener("dblclick", selectTextboxElement);
+        this.contentDocument().addEventListener("contextmenu", (e)=>{
+            e.preventDefault();
+            Events.contextMenu.open();
+        });
 
         // Autosize the foreignObjects
         selectAll("g[alt]>foreignObject.bounding_box", this.page()).forEach(foreignObject => {
