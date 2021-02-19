@@ -186,7 +186,7 @@ export default function slide(slideId) {
                     // Place holder slide title
                     content = {
                         text: constants.SLIDE_TITLE_PLACEHOLDER,
-                        direction: "ltr"
+                        direction: slideData.direction
                     };
                 shape_.data.text = text = content.text;
                 direction = content.direction;
@@ -197,7 +197,7 @@ export default function slide(slideId) {
                     // Place holder slide title
                     content = {
                         text: constants.SLIDE_SUBTITLE_PLACEHOLDER,
-                        direction: "ltr"
+                        direction: slideData.direction
                     };
                 shape_.data.text = text = content.text;
                 direction = content.direction;
