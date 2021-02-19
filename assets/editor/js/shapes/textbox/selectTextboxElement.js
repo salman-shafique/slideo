@@ -16,8 +16,7 @@ export const createTextNode = (td) => {
   const editorWidth = gParentAttributes.width / fontScale;
 
   const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
-  console.log('textfontsize', textFontSize);
-  console.log('constants pixel to point', constants.PIXEL_TO_PT)
+
   const textDiv = reactToDOM(      
     <div style={{transform: `scale(${fontScale})`, transformOrigin: 'top center', fontSize: textFontSize, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
     </div>
@@ -27,9 +26,7 @@ export const createTextNode = (td) => {
     </editing>
   );
   editing.innerText = td.innerText;
-  console.log('editing:', editing)
   textDiv.appendChild(editing);
-  console.log('td innertext:', td.innerText)
   td.innerText = "";
   td.appendChild(textDiv);
   editing.focus();
