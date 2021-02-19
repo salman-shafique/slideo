@@ -72,7 +72,7 @@ export default function createNewTextbox(textboxData, slideId = session.CURRENT_
         newShapeData.data.shape_id = Math.floor(Math.random() * 1000000) + 1000000;
 
     const newTextboxShape = reactToDOM(
-        <g xmlns="http://www.w3.org/2000/svg" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} alt="newtextbox" className="draggable" shape_id={newShapeData.data.shape_id}>
+        <g xmlns="http://www.w3.org/2000/svg" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} alt="newtextbox" className="draggable no-outline" shape_id={newShapeData.data.shape_id}>
         </g>,
         null,
         "http://www.w3.org/2000/svg"

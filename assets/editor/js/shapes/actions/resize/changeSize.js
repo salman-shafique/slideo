@@ -44,7 +44,7 @@ export default function changeSize(event) {
         switch (session.SCALING_DIRECTION) {
             case "t":
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
-                    const newHeight = parseInt(selectedEl.size.height - mouseDiff.y);
+                    const newHeight = parseInt(selectedEl.size.height - mouseDiff.y / selectedEl.scale.startingA);
                     if (newHeight < 1000) return;
                     selectedEl.shape.setAttribute("height", newHeight + "px");
                     selectedEl.shape.querySelector("foreignObject").setAttribute("height", newHeight + "px");
@@ -77,7 +77,7 @@ export default function changeSize(event) {
                 break;
             case "r":
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
-                    const newWidth = parseInt(selectedEl.size.width + mouseDiff.x);
+                    const newWidth = parseInt(selectedEl.size.width + mouseDiff.x / selectedEl.scale.startingA);
                     if (newWidth < 2000) return;
                     selectedEl.shape.setAttribute("width", newWidth + "px");
                     selectedEl.shape.querySelector("foreignObject").setAttribute("width", newWidth + "px");
@@ -105,7 +105,7 @@ export default function changeSize(event) {
                 break;
             case "b":
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
-                    const newHeight = parseInt(selectedEl.size.height + mouseDiff.y);
+                    const newHeight = parseInt(selectedEl.size.height + mouseDiff.y / selectedEl.scale.startingA);
                     if (newHeight < 1000) return;
                     selectedEl.shape.setAttribute("height", newHeight + "px");
                     selectedEl.shape.querySelector("foreignObject").setAttribute("height", newHeight + "px");
@@ -133,7 +133,7 @@ export default function changeSize(event) {
                 break;
             case "l":
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
-                    const newWidth = parseInt(selectedEl.size.width - mouseDiff.x);
+                    const newWidth = parseInt(selectedEl.size.width - mouseDiff.x / selectedEl.scale.startingA);
                     if (newWidth < 2000) return;
                     selectedEl.shape.setAttribute("width", newWidth + "px");
                     selectedEl.shape.querySelector("foreignObject").setAttribute("width", newWidth + "px");
