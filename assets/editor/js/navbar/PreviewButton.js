@@ -4,6 +4,13 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import session from "Editor/js/session";
 import sidebar from "Editor/js/entity/sidebar";
 import slide from "Editor/js/entity/slide";
+ 
+ 
+
+ 
+ 
+ 
+
 
 
 
@@ -11,6 +18,8 @@ import slide from "Editor/js/entity/slide";
 export default function PreviewButton() {
     const SlideContainer = document.getElementById("SlideContainer");
     let previewControls;
+
+     
 
     React.useEffect(() => {
         previewControls = document.querySelector(".preview-controls");
@@ -102,6 +111,9 @@ export default function PreviewButton() {
         }
     });
 
+   
+     
+
     return (
         <>
             <button onClick={preview} className="btn btn-secondary bevel-btn horizontal-text-clip m-0">
@@ -109,11 +121,11 @@ export default function PreviewButton() {
                 תצוגה מקדימה
             </button>
             <div className="preview-controls d-none">
-                <button onClick={firstSlide}>firstSlide</button>
-                <button onClick={prev}>prev</button>
-                <button onClick={endPreview}>endPreview</button>
-                <button onClick={next}>next</button>
-                <button onClick={lastSlide}>lastSlide</button>
+                <button   onClick={firstSlide}> <i class="fas fa-step-backward "></i></button>
+                <button onClick={prev}><i class="fas fa-angle-left fa-lg"></i></button>
+                <button onClick={endPreview}><i class="fas fa-sign-out-alt"></i></button>
+                <button onClick={next}><i class="fas fa-angle-right fa-lg"></i></button>
+                <button onClick={lastSlide}><i class="fas fa-step-forward  "></i></button>
             </div>
 
         </>
