@@ -31,13 +31,18 @@ class DownloadPresentationCrudController extends AbstractCrudController
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
+            ->remove(Crud::PAGE_INDEX, Action::EDIT)
             ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm()->hideOnForm(),
-            AssociationField::new('presentation'),
+            IdField::new('id'),
+            AssociationField::new('presentation', 'Presentation')
+                ->formatValue(function ($value, $entity) {
+                    $presentationId = $entity->getPresentation()->getPresentationId();
+                    return "<a href='/editor/$presentationId'>$presentationId</a>";
+                }),
             UrlField::new('pptxFile'),
             UrlField::new('pdfFile'),
             ImageField::new('prevFile'),

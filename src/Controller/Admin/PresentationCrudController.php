@@ -30,7 +30,8 @@ class PresentationCrudController extends AbstractCrudController
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT);
+            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
+            ->remove(Crud::PAGE_INDEX, Action::DELETE);
     }
     public function configureFields(string $pageName): iterable
     {
@@ -40,12 +41,17 @@ class PresentationCrudController extends AbstractCrudController
             UrlField::new('presentationId', 'Presentation')
                 ->formatValue(function ($value, $entity) {
                     return "<a href='/editor/$value'>$value</a>";
-                }),
+                })
+                ->hideOnForm(),
+            UrlField::new('presentationId', 'Presentation')
+                ->formatValue(function ($value, $entity) {
+                    return "<a href='/editor/$value'>$value</a>";
+                })
+                ->onlyOnDetail(),
             TextField::new('title'),
             AssociationField::new('slides')->hideOnForm(),
             BooleanField::new('isActive'),
-            DateField::new('created')->hideOnForm(),
-            DateField::new('updated')->hideOnForm()
+            DateField::new('created')->hideOnForm()
         ];
     }
 }
