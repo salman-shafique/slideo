@@ -43,11 +43,6 @@ class PresentationCrudController extends AbstractCrudController
                     return "<a href='/editor/$value'>$value</a>";
                 })
                 ->hideOnForm(),
-            UrlField::new('presentationId', 'Presentation')
-                ->formatValue(function ($value, $entity) {
-                    return "<a href='/editor/$value'>$value</a>";
-                })
-                ->onlyOnDetail(),
             TextField::new('title'),
             AssociationField::new('slides')->hideOnForm(),
             BooleanField::new('isActive'),
