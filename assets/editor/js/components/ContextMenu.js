@@ -28,6 +28,12 @@ function ContextMenu() {
         console.log( `
         Screen X/Y: ${e.screenX}, ${e.screenY}
         Client X/Y: ${e.clientX}, ${e.clientY}`);
+
+        console.log(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left);
+        console.log(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top);
+        setCursorX(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left);
+        setCursorY(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top);
+
         // Do not open contextMenu when there is no element selected
         if (session.SELECTED_ELEMENTS.length === 0) {
             setIsOpen(false);
@@ -71,7 +77,7 @@ function ContextMenu() {
     }, []);
 
 
-
+    console.log('containerxy', cursorX, cursorY)
     return (
         <>
             <div onMouseMove={() => {console.log('mousedown')}}>
@@ -79,7 +85,12 @@ function ContextMenu() {
             </div>
             <div 
                 id="contextMenu" 
-                style={{ display: isOpen ? "" : "none" }}
+                style={{ 
+                    display: isOpen ? "" : "none",
+                    left: cursorX,
+                    top: cursorY,
+
+                }}
                 onMouseMove={() => {console.log('mousedown')}}
             >
                 <div className="contextMenu-line-wrapper">
