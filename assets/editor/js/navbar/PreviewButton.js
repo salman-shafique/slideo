@@ -4,22 +4,11 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import session from "Editor/js/session";
 import sidebar from "Editor/js/entity/sidebar";
 import slide from "Editor/js/entity/slide";
- 
- 
-
- 
- 
- 
-
-
-
 
 
 export default function PreviewButton() {
     const SlideContainer = document.getElementById("SlideContainer");
     let previewControls;
-
-     
 
     React.useEffect(() => {
         previewControls = document.querySelector(".preview-controls");
@@ -111,8 +100,8 @@ export default function PreviewButton() {
         }
     });
 
-   
-     
+
+
 
     return (
         <>
@@ -121,20 +110,29 @@ export default function PreviewButton() {
                 תצוגה מקדימה
             </button>
             <div className="preview-controls d-none">
-                <button   onClick={firstSlide}> <i class="fas fa-fast-backward PrwBtns"></i></button>
-                <button onClick={prev}><i class="fas fa-caret-left fa-lg PrwBtns LgBtn"></i></button>
-                <button onClick={endPreview}><i class="fas fa-stop PrwBtns"></i></button>
-                <button onClick={next}> <i class="fas fa-caret-right fa-lg PrwBtns LgBtn"></i> </button>
-                <button onClick={lastSlide}><i class="fas fa-fast-forward PrwBtns"></i></button>                     
-                              
-            </div>              
-           
-        </>                       
-          
-  
-                
+                <span title="First Slide" onClick={firstSlide}>
+                    <i className="fas fa-fast-backward"></i>
+                </span>
+                <span title="Previous Slide" onClick={prev}>
+                    <i className="fas fa-caret-left fa-lg"></i>
+                </span>
+                <span title="End Presentation" onClick={endPreview}>
+                    <i className="fas fa-stop"></i>
+                </span>
+                <span title="Next Slide" onClick={next}>
+                    <i className="fas fa-caret-right fa-lg"></i>
+                </span>
+                <span title="Last Slide" onClick={lastSlide}>
+                    <i className="fas fa-fast-forward"></i>
+                </span>
+            </div>
 
-     
+        </>
+
+
+
+
+
 
     )
 }
