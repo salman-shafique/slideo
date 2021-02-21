@@ -24,6 +24,7 @@ function ContextMenu() {
         
         console.log('event', e)
         console.log('e.target ouside selected_', e.target)
+        console.log('window slidcontainer', window.parent.document.getElementById('SlideContainer').getBoundingClientRect())
         console.log( `
         Screen X/Y: ${e.screenX}, ${e.screenY}
         Client X/Y: ${e.clientX}, ${e.clientY}`);
