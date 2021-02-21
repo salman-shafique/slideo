@@ -26,24 +26,23 @@ class StyleCrudController extends AbstractCrudController
         return Style::class;
     }
 
- 
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
-        ;
+            ->remove(Crud::PAGE_INDEX, Action::DELETE)
+            ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm()->hideOnForm(),
+            IdField::new('id')->hideOnForm(),
             BooleanField::new('isActive'),
             ArrayField::new('keywords'),
             IntegerField::new('capacity'),
             TextField::new('direction'),
             AssociationField::new('layout'),
-            AssociationField::new('colorTemplate'),
             UrlField::new('pptxFile')->hideOnForm(),
             UrlField::new('svgFile')->hideOnForm(),
             ImageField::new('prevFile')->hideOnForm(),

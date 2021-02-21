@@ -35,7 +35,7 @@ export default function shape(slideId, shapeId) {
      * @returns {object} shapeData
      */
     this.data = () => {
-        let shapeData;
+        let shapeData = {};
         slide(this.slideId).slideData().shapes.forEach(shape => {
             if (shape.data.shape_id == this.shapeId)
                 shapeData = shape.data;
@@ -228,27 +228,34 @@ export default function shape(slideId, shapeId) {
         const g = this.el();
         const allTransforms = getTransform(g);
 
-        allTransforms.scale.transform.setScale(
-            parseFloat(savedAllTransforms.scale.startingA),
-            parseFloat(savedAllTransforms.scale.startingA)
-        )
+        try {
+            allTransforms.scale.transform.setScale(
+                parseFloat(savedAllTransforms.scale.startingA),
+                parseFloat(savedAllTransforms.scale.startingA)
+            )
+        } catch (error) { }
 
-        allTransforms.translate.transform.setTranslate(
-            parseFloat(savedAllTransforms.translate.startingE),
-            parseFloat(savedAllTransforms.translate.startingF)
-        )
 
-        // Cropped image
-        if (getShapeType(g) == constants.SHAPE_TYPES.IMAGE) {
-            if (!savedAllTransforms.crop)
-                savedAllTransforms.crop = getClipPath();
-            g.querySelector("image").style.clipPath = `polygon(
+        try {
+            allTransforms.translate.transform.setTranslate(
+                parseFloat(savedAllTransforms.translate.startingE),
+                parseFloat(savedAllTransforms.translate.startingF)
+            )
+        } catch (error) { }
+
+        try {
+            // Cropped image
+            if (getShapeType(g) == constants.SHAPE_TYPES.IMAGE) {
+                if (!savedAllTransforms.crop)
+                    savedAllTransforms.crop = getClipPath();
+                g.querySelector("image").style.clipPath = `polygon(
                 ${savedAllTransforms.crop.lt.startingX}% ${savedAllTransforms.crop.lt.startingY}%, 
                 ${savedAllTransforms.crop.rt.startingX}% ${savedAllTransforms.crop.rt.startingY}%, 
                 ${savedAllTransforms.crop.rb.startingX}% ${savedAllTransforms.crop.rb.startingY}%, 
                 ${savedAllTransforms.crop.lb.startingX}% ${savedAllTransforms.crop.lb.startingY}%
             )`;
-        }
+            }
+        } catch (error) { }
     }
 
     /**

@@ -31,13 +31,13 @@ class LayoutCrudController extends AbstractCrudController
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
-        ;
+            ->remove(Crud::PAGE_INDEX, Action::DELETE)
+            ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm()->hideOnForm(),
+            IdField::new('id')->hideOnForm(),
             BooleanField::new('isActive'),
             TextField::new('uniqueName'),
             IntegerField::new('capacity'),

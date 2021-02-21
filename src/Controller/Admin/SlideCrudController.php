@@ -24,20 +24,27 @@ class SlideCrudController extends AbstractCrudController
         return Slide::class;
     }
 
- 
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
-        ;
+            ->remove(Crud::PAGE_INDEX, Action::DELETE)
+            ->remove(Crud::PAGE_INDEX, Action::EDIT)
+            ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('slideId'),
-            AssociationField::new('style'),
+            AssociationField::new('style')->hideOnForm(),
+            AssociationField::new('presentation')
+                ->formatValue(function ($value, $entity) {
+                    $presentationId = $entity->getPresentation()->getPresentationId();
+                    return "<a href='/editor/$presentationId'>$presentationId</a>";
+                })
+                ->hideOnForm(),
             BooleanField::new('isActive'),
             DateField::new('created')->hideOnForm(),
             DateField::new('updated')->hideOnForm()
