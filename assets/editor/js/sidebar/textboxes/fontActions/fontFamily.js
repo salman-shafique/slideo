@@ -14,7 +14,7 @@ export default function FontFamily(props) {
     const getFontFamily = (g) => {
         const shapeId = g.getAttribute("shape_id");
         const data = shape(session.CURRENT_SLIDE, shapeId).data();
-        if (data)
+        if (data && data.font_family)
             return data.font_family.replace(/(Bold)|(bold)/g, "");
         return "Arial";
     }
