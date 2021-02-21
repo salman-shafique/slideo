@@ -22,6 +22,7 @@ export default function UnderlineBtn(props) {
 
     React.useEffect(() => {
         window.addEventListener("shape.selected", (event) => {
+            if (!session.INITED) return;
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setUnderlineSelected(false);
                 return;

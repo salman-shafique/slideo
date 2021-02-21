@@ -20,6 +20,8 @@ export default function FontFamily(props) {
     }
 
     const updateDropdown = () => {
+        if (!session.INITED) return;
+        
         if (session.SELECTED_ELEMENTS.length != 1) {
             setSelectedFontFamily(null);
             return;

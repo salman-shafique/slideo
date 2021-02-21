@@ -25,6 +25,7 @@ export default function FontSize(props) {
     }
 
     const updateDropdown = () => {
+        if (!session.INITED) return;
         if (session.SELECTED_ELEMENTS.length != 1) {
             setSelectedFontsize(null);
             return;

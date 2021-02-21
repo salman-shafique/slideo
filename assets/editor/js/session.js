@@ -10,6 +10,7 @@ let session = {
     },
     NEW_SLIDES: [],
     PRESENTATION: null,
+    INITED: false,
     /**
      * @type {string}
      */
