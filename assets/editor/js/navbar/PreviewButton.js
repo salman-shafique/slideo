@@ -121,13 +121,20 @@ export default function PreviewButton() {
                 תצוגה מקדימה
             </button>
             <div className="preview-controls d-none">
-                <button   onClick={firstSlide}> <i class="fas fa-step-backward "></i></button>
-                <button onClick={prev}><i class="fas fa-angle-left fa-lg"></i></button>
-                <button onClick={endPreview}><i class="fas fa-sign-out-alt"></i></button>
-                <button onClick={next}><i class="fas fa-angle-right fa-lg"></i></button>
-                <button onClick={lastSlide}><i class="fas fa-step-forward  "></i></button>
-            </div>
+                <button   onClick={firstSlide}> <i class="fas fa-fast-backward PrwBtns"></i></button>
+                <button onClick={prev}><i class="fas fa-caret-left fa-lg PrwBtns LgBtn"></i></button>
+                <button onClick={endPreview}><i class="fas fa-stop PrwBtns"></i></button>
+                <button onClick={next}> <i class="fas fa-caret-right fa-lg PrwBtns LgBtn"></i> </button>
+                <button onClick={lastSlide}><i class="fas fa-fast-forward PrwBtns"></i></button>                     
+                              
+            </div>              
+           
+        </>                       
+          
+  
+                
 
-        </>
+     
+
     )
 }

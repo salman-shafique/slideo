@@ -50,7 +50,7 @@
     
      
 }
-
+ 
 .preview-controls button{
     
     outline: none;
@@ -67,16 +67,18 @@
     box-shadow: 0 10px 20px #585858, 0 10px 20px #585858;
 }
 
-
-.fas {
+ 
+.PrwBtns {
     padding-left: 4px;
     padding-right: 4px;
 }
 
-.fa-lg {
+
+ 
+.LgBtn {
     padding-left: 6px;
     padding-right: 6px;
 
-}
+}   
 
  
