@@ -15,17 +15,20 @@ function ContextMenu() {
     });
     const mouseCheck = (e) => {
         console.log('moussseeeee')
-        console.log( `
+        console.log(`
         Screen X/Y: ${e.screenX}, ${e.screenY}
         Client X/Y: ${e.clientX}, ${e.clientY}`);
     }
     const openContextMenu = (e) => {
         // Main logic is here
-        
+
+        // Clicked element is here:
+        console.log(e.data.target);
+
         console.log('event', e)
         console.log('e.target ouside selected_', e.target)
         console.log('window slidcontainer', window.parent.document.getElementById('SlideContainer').getBoundingClientRect())
-        console.log( `
+        console.log(`
         Screen X/Y: ${e.screenX}, ${e.screenY}
         Client X/Y: ${e.clientX}, ${e.clientY}`);
 
@@ -85,18 +88,18 @@ function ContextMenu() {
     console.log('containerxy', cursorX, cursorY)
     return (
         <>
-            <div onMouseMove={() => {console.log('mousedown')}}>
+            <div onMouseMove={() => { console.log('mousedown') }}>
 
             </div>
-            <div 
-                id="contextMenu" 
-                style={{ 
+            <div
+                id="contextMenu"
+                style={{
                     display: isOpen ? "" : "none",
                     left: cursorX,
                     top: cursorY,
 
                 }}
-                onMouseMove={() => {console.log('mousedown')}}
+                onMouseMove={() => { console.log('mousedown') }}
             >
                 <div className="contextMenu-line-wrapper">
                     <div className="contextMenu-icon-wrapper">
