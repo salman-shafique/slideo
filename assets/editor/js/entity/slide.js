@@ -290,6 +290,12 @@ export default function slide(slideId) {
         keyboardListener(this.contentDocument());
         this.contentDocument().addEventListener("dblclick", selectTextboxElement);
         this.contentDocument().addEventListener("contextmenu", (e)=>{
+            
+            console.log('clicked item xxx: ', e.target)
+            console.log('clicked item bounding client', e.target.getBoundingClientRect())
+            //NEED TO SEND CLICKED ITEM TO CONTEXTMENU function
+
+
             e.preventDefault();
             Events.contextMenu.open();
         });

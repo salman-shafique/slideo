@@ -34,6 +34,11 @@ function ContextMenu() {
         setCursorX(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left);
         setCursorY(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top);
 
+
+        console.log('adding event listener');
+        window.parent.document.getElementById('SlideContainer').addEventListener('load', () => {
+            console.log('svg loading detected')
+        });
         // Do not open contextMenu when there is no element selected
         if (session.SELECTED_ELEMENTS.length === 0) {
             setIsOpen(false);
