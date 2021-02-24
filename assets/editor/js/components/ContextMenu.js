@@ -4,48 +4,42 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import "Editor/css/contextMenu.css";
+import slide from "Editor/js/entity/slide";
 
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
-    
+
     const [contextMenuLeft, setContextMenuLeft] = React.useState(null);
     const [contextMenuTop, setContextMenuTop] = React.useState(null);
     const [clickedElementType, setClickedElementType] = React.useState(null);
 
     const openContextMenu = (e) => {
-        // Main logic is here
-
-        const slideWindowLeft = window.parent.document.getElementById("SlideContainer").getBoundingClientRect().left;
-        const slideWindowTop = window.parent.document.getElementById("SlideContainer").getBoundingClientRect().top;
-        const clickedElLeft = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect().left;
-        const clickedElTop = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect().top;
-        setContextMenuLeft(slideWindowLeft + clickedElLeft);
-        setContextMenuTop(slideWindowTop + clickedElTop);
-
         // Do not open contextMenu when there is no element selected
         if (session.SELECTED_ELEMENTS.length === 0) {
             setIsOpen(false);
             return;
         };
 
-        session.SELECTED_ELEMENTS.forEach(selectEl => {
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.TEXTBOX){
-                setClickedElementType("TEXTBOX");
-                console.log("there is a TEXTBOX selected");
-            }
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.IMAGE){
-                setClickedElementType("IMAGE");
-                console.log("there is a IMAGE selected");
-            }
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.ICON){
-                setClickedElementType("ICON");
-                console.log("there is a ICON selected");
-            }
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE){
-                setClickedElementType("AUTO_SHAPE");
-                console.log("there is a AUTO_SHAPE selected");
-            }
-        });
+        const slideObject = slide(session.CURRENT_SLIDE).object().getBoundingClientRect();
+        const clickedEl = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect();
+        setContextMenuLeft(slideObject.left + clickedEl.left + clickedEl.width);
+        setContextMenuTop(slideObject.top + clickedEl.top);
+
+        if (session.SELECTED_ELEMENTS.length == 1) {
+            // One element selected
+            setClickedElementType(getShapeType(session.SELECTED_ELEMENTS[0].shape));
+        } else if (session.SELECTED_ELEMENTS.length > 1) {
+            let pureType = null;
+            session.SELECTED_ELEMENTS.forEach(selectEl => {
+                if (pureType === null)
+                    pureType = getShapeType(selectEl.shape);
+
+                if (pureType != getShapeType(selectEl.shape))
+                    pureType = "MULTIPLE";
+            });
+            setClickedElementType(pureType);
+        }
+
         setIsOpen(true);
     }
 
@@ -93,48 +87,41 @@ function ContextMenu() {
         window.addEventListener("shape.allReleasedExcept", closeContextMenu);
         window.addEventListener("shape.drag.started", closeContextMenu);
         window.addEventListener("shape.resize.started", closeContextMenu);
+        window.addEventListener("shape.selected", closeContextMenu);
         window.addEventListener("contextMenu.open", openContextMenu);
     }, []);
 
     return (
-        <div 
-            id="contextMenu" 
-            style={{ 
+        <div
+            id="contextMenu"
+            style={{
                 display: isOpen ? "" : "none",
                 left: contextMenuLeft,
                 top: contextMenuTop,
             }}
         >
+
+
             {
-                clickedElementType === "TEXTBOX" &&
-                <div 
-                    className="contextMenu-line-wrapper"
-                    onClick={() => {contextMenuAction("EDIT_TEXT")}}
-                >
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-pencil-alt" />
+                (clickedElementType === constants.SHAPE_TYPES.TEXTBOX && session.SELECTED_ELEMENTS.length == 1)
+                    ? <div
+                        className="contextMenu-line-wrapper"
+                        onClick={() => { contextMenuAction("EDIT_TEXT") }}
+                    >
+                        <div className="contextMenu-icon-wrapper">
+                            <i className="fas fa-pencil-alt" />
+                        </div>
+                        <div className="contextMenu-text-wrapper">
+                            Edit Text
                     </div>
-                    <div className="contextMenu-text-wrapper">
-                        Edit Text
                     </div>
-                </div>
+                    : null
             }
-            <div 
-                className="contextMenu-line-wrapper"
-                onClick={() => {contextMenuAction("DUPLICATE")}}
-            >
-                <div className="contextMenu-icon-wrapper">
-                    <i className="far fa-clone" />
-                </div>
-                <div className="contextMenu-text-wrapper">
-                    Duplicate
-                </div>
-            </div>
             {
-                clickedElementType === "IMAGE" &&
-                <div 
+                clickedElementType === constants.SHAPE_TYPES.IMAGE &&
+                <div
                     className="contextMenu-line-wrapper"
-                    onClick={() => {contextMenuAction("SHOW_FULL_IMAGE")}}
+                    onClick={() => { contextMenuAction("SHOW_FULL_IMAGE") }}
                 >
                     <div className="contextMenu-icon-wrapper">
                         <i className="far fa-image" />
@@ -145,22 +132,33 @@ function ContextMenu() {
                 </div>
             }
             {
-                clickedElementType !== "IMAGE" &&
-                <div
-                    className="contextMenu-line-wrapper"
-                    onClick={() => {contextMenuAction("CHANGE_COLOR")}}
-                >
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-palette" />
+                ([constants.SHAPE_TYPES.TEXTBOX, constants.SHAPE_TYPES.ICON, constants.SHAPE_TYPES.AUTO_SHAPE].includes(clickedElementType))
+                    ? <div
+                        className="contextMenu-line-wrapper"
+                        onClick={() => { contextMenuAction("CHANGE_COLOR") }}>
+                        <div className="contextMenu-icon-wrapper">
+                            <i className="fas fa-palette" />
+                        </div>
+                        <div className="contextMenu-text-wrapper">
+                            Change Color
+                        </div>
                     </div>
-                    <div className="contextMenu-text-wrapper">
-                        Change Color
-                    </div>
-                </div>
+                    : null
             }
             <div
                 className="contextMenu-line-wrapper"
-                onClick={() => {contextMenuAction("DELETE")}}
+                onClick={() => { contextMenuAction("DUPLICATE") }}
+            >
+                <div className="contextMenu-icon-wrapper">
+                    <i className="far fa-clone" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Duplicate
+                </div>
+            </div>
+            <div
+                className="contextMenu-line-wrapper"
+                onClick={() => { contextMenuAction("DELETE") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="far fa-trash-alt" />
@@ -170,9 +168,9 @@ function ContextMenu() {
                 </div>
             </div>
             <div className="contextMenu-divider"></div>
-            <div 
+            <div
                 className="contextMenu-line-wrapper"
-                onClick={() => {contextMenuAction("SEND_BACKWARD")}}
+                onClick={() => { contextMenuAction("SEND_BACKWARD") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-left" />
@@ -183,7 +181,7 @@ function ContextMenu() {
             </div>
             <div
                 className="contextMenu-line-wrapper"
-                onClick={() => {contextMenuAction("SEND_TO_BACK")}}
+                onClick={() => { contextMenuAction("SEND_TO_BACK") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-left" />
@@ -192,9 +190,9 @@ function ContextMenu() {
                     Send to Back
                 </div>
             </div>
-            <div 
+            <div
                 className="contextMenu-line-wrapper"
-                onClick={() => {contextMenuAction("BRING_FORWARD")}}
+                onClick={() => { contextMenuAction("BRING_FORWARD") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-right" />
@@ -203,9 +201,9 @@ function ContextMenu() {
                     Bring Forward
                 </div>
             </div>
-            <div 
+            <div
                 className="contextMenu-line-wrapper"
-                onClick={() => {contextMenuAction("BRING_TO_FRONT")}}
+                onClick={() => { contextMenuAction("BRING_TO_FRONT") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-right" />

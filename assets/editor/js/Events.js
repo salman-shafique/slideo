@@ -3,7 +3,6 @@ import { object } from "prop-types";
 const dispatchEvent = (eventName, data = null) => {
     const event = new MouseEvent(eventName);
     event.data = data;
-    console.log('data of event: ', data)
     window.dispatchEvent(event);
 }
 
