@@ -130,6 +130,7 @@ function ContextMenu() {
             </div>
             <div 
                 className="contextMenu-line-wrapper"
+                style={{display: clickedElementType !== "IMAGE" && "none"}}
                 onClick={() => {contextMenuAction("SHOW_FULL_IMAGE")}}
             >
                 <div className="contextMenu-icon-wrapper">
@@ -138,9 +139,10 @@ function ContextMenu() {
                 <div className="contextMenu-text-wrapper">
                     Show Full Image
                 </div>
-            </div>
+        </div>
             <div
                 className="contextMenu-line-wrapper"
+                style={{display: clickedElementType === "IMAGE" && "none"}}
                 onClick={() => {contextMenuAction("CHANGE_COLOR")}}
             >
                 <div className="contextMenu-icon-wrapper">
