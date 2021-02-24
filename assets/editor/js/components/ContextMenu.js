@@ -49,7 +49,13 @@ function ContextMenu() {
         setIsOpen(false);
     }
 
-    const contextMenuAction = () => {
+    const contextMenuAction = (type) => {
+        switch (type) {
+            case "EDIT_TEXT":
+                console.log("Edit text clicked.")
+            default:
+                return null;
+        }
         console.log('context menu line clicked')
     }
 
@@ -74,7 +80,7 @@ function ContextMenu() {
             <div 
                 className="contextMenu-line-wrapper"
                 style={{display: clickedElementType !== "TEXTBOX" && "none"}}
-                onClick={contextMenuAction}
+                onClick={() => {contextMenuAction("EDIT_TEXT")}}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-pencil-alt" />
