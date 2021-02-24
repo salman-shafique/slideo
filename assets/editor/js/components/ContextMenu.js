@@ -10,7 +10,7 @@ function ContextMenu() {
     
     const [contextMenuLeft, setContextMenuLeft] = React.useState(null);
     const [contextMenuTop, setContextMenuTop] = React.useState(null);
-   
+    const [clickedElementType, setClickedElementType] = React.useState(null);
 
     const openContextMenu = (e) => {
         // Main logic is here
