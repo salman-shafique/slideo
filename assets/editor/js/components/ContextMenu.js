@@ -14,22 +14,13 @@ function ContextMenu() {
 
     const openContextMenu = (e) => {
         // Main logic is here
-        
 
-        console.log('event', e)
-        console.log('e.target ouside selected_', e.target)
-        console.log( `
-        Screen X/Y: ${e.screenX}, ${e.screenY}
-        Client X/Y: ${e.clientX}, ${e.clientY}`);
-
-        const slideWindowLeft = window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left;
-        const slideWindowTop = window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top;
+        const slideWindowLeft = window.parent.document.getElementById("SlideContainer").getBoundingClientRect().left;
+        const slideWindowTop = window.parent.document.getElementById("SlideContainer").getBoundingClientRect().top;
         const clickedElLeft = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect().left;
         const clickedElTop = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect().top;
         setContextMenuLeft(slideWindowLeft + clickedElLeft);
         setContextMenuTop(slideWindowTop + clickedElTop);
-
-        console.log('session selected elements', session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect())
 
         // Do not open contextMenu when there is no element selected
         if (session.SELECTED_ELEMENTS.length === 0) {
@@ -38,23 +29,18 @@ function ContextMenu() {
         };
 
         session.SELECTED_ELEMENTS.forEach(selectEl => {
-            console.log('offset', e.offsetX)
-            // console.log('target', selectEl.target.getBoundingClientRect())
-            console.log('client', e.clientX)
-            console.log('page', e.pageX)
-            console.log(e.screenX, e.screenY);
-            console.log('selectel', selectEl)
-            console.log(selectEl.size.x);
-            // setContextMenuLeft(selectEl.size.x);
-            // setContextMenuTop(selectEl.size.y);
             if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.TEXTBOX)
+                setClickedElementType("TEXTBOX");
                 console.log("there is a TEXTBOX selected");
             if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.IMAGE)
+                setClickedElementType("IMAGE");
                 console.log("there is a IMAGE selected");
             if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.ICON)
+                setClickedElementType("ICON");
                 console.log("there is a ICON selected");
             if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE)
-                console.log("there is a.AUTO_SHAPE selected");
+                setClickedElementType("AUTO_SHAPE");
+                console.log("there is a AUTO_SHAPE selected");
         });
         setIsOpen(true);
     }
@@ -69,12 +55,9 @@ function ContextMenu() {
         window.addEventListener("shape.allReleasedExcept", closeContextMenu);
         window.addEventListener("shape.drag.started", closeContextMenu);
         window.addEventListener("shape.resize.started", closeContextMenu);
-
         window.addEventListener("contextMenu.open", openContextMenu);
     }, []);
 
-
-    console.log('containerxy', contextMenuLeft)
     return (
         <div 
             id="contextMenu" 
@@ -82,11 +65,12 @@ function ContextMenu() {
                 display: isOpen ? "" : "none",
                 left: contextMenuLeft,
                 top: contextMenuTop,
-
             }}
-            onMouseMove={() => {console.log('mousedown')}}
         >
-            <div className="contextMenu-line-wrapper">
+            <div 
+                className="contextMenu-line-wrapper"
+                style={{display: clickedElementType !== "TEXTBOX" && "none"}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-pencil-alt" />
                 </div>
