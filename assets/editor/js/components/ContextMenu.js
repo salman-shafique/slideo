@@ -56,23 +56,32 @@ function ContextMenu() {
     const contextMenuAction = (type) => {
         switch (type) {
             case "EDIT_TEXT":
-                console.log("Edit text clicked.")
+                console.log("Edit text clicked.");
+                break;
             case "DUPLICATE":
-                console.log("Duplicate clicked.")
+                console.log("Duplicate clicked.");
+                break;
             case "SHOW_FULL_IMAGE":
-                console.log("Show Full Image clicked.")
+                console.log("Show Full Image clicked.");
+                break;
             case "CHANGE_COLOR":
-                console.log("Change Color clicked.")
+                console.log("Change Color clicked.");
+                break;
             case "DELETE":
-                console.log("Delete clicked.")
+                console.log("Delete clicked.");
+                break;
             case "SEND_BACKWARD":
-                console.log("Send Backward clicked.")
+                console.log("Send Backward clicked.");
+                break;
             case "SEND_TO_BACK":
-                console.log("Send to Back clicked.")
+                console.log("Send to Back clicked.");
+                break;
             case "BRING_FORWARD":
-                console.log("Bring Forward clicked.")
+                console.log("Bring Forward clicked.");
+                break;
             case "BRING_TO_FRONT":
-                console.log("Bring to Front clicked.")
+                console.log("Bring to Front clicked.");
+                break;
             default:
                 return null;
         }
