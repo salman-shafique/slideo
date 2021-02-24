@@ -53,10 +53,25 @@ function ContextMenu() {
         switch (type) {
             case "EDIT_TEXT":
                 console.log("Edit text clicked.")
+            case "DUPLICATE":
+                console.log("Duplicate clicked.")
+            case "SHOW_FULL_IMAGE":
+                console.log("Show Full Image clicked.")
+            case "CHANGE_COLOR":
+                console.log("Change Color clicked.")
+            case "DELETE":
+                console.log("Delete clicked.")
+            case "SEND_BACKWARD":
+                console.log("Send Backward clicked.")
+            case "SEND_TO_BACK":
+                console.log("Send to Back clicked.")
+            case "BRING_FORWARD":
+                console.log("Bring Forward clicked.")
+            case "BRING_TO_FRONT":
+                console.log("Bring to Front clicked.")
             default:
                 return null;
         }
-        console.log('context menu line clicked')
     }
 
     React.useEffect(() => {
@@ -122,7 +137,10 @@ function ContextMenu() {
                     Change Color
                 </div>
             </div>
-            <div className="contextMenu-line-wrapper">
+            <div
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("DELETE")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="far fa-trash-alt" />
                 </div>
@@ -131,7 +149,10 @@ function ContextMenu() {
                 </div>
             </div>
             <div className="contextMenu-divider"></div>
-            <div className="contextMenu-line-wrapper">
+            <div 
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("SEND_BACKWARD")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-left" />
                 </div>
@@ -139,7 +160,10 @@ function ContextMenu() {
                     Send Backward
                 </div>
             </div>
-            <div className="contextMenu-line-wrapper">
+            <div
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("SEND_TO_BACK")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-left" />
                 </div>
@@ -147,7 +171,10 @@ function ContextMenu() {
                     Send to Back
                 </div>
             </div>
-            <div className="contextMenu-line-wrapper">
+            <div 
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("BRING_FORWARD")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-right" />
                 </div>
@@ -155,7 +182,10 @@ function ContextMenu() {
                     Bring Forward
                 </div>
             </div>
-            <div className="contextMenu-line-wrapper">
+            <div 
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("BRING_TO_FRONT")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-right" />
                 </div>
