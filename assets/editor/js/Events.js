@@ -29,7 +29,7 @@ const Events = {
         opened: (data = null) => dispatchEvent("colorCircle.opened", data)
     },
     contextMenu: {
-        open: (data = "object") => dispatchEvent("contextMenu.open", data)
+        open: (data = null) => dispatchEvent("contextMenu.open", data)
     },
 
 }
