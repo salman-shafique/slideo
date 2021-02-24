@@ -76,95 +76,90 @@ function ContextMenu() {
 
     console.log('containerxy', contextMenuLeft)
     return (
-        <>
-            <div onMouseMove={() => {console.log('mousedown')}}>
+        <div 
+            id="contextMenu" 
+            style={{ 
+                display: isOpen ? "" : "none",
+                left: contextMenuLeft,
+                top: contextMenuTop,
 
-            </div>
-            <div 
-                id="contextMenu" 
-                style={{ 
-                    display: isOpen ? "" : "none",
-                    left: contextMenuLeft,
-                    top: contextMenuTop,
-
-                }}
-                onMouseMove={() => {console.log('mousedown')}}
-            >
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-pencil-alt" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Edit Text
-                    </div>
+            }}
+            onMouseMove={() => {console.log('mousedown')}}
+        >
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="fas fa-pencil-alt" />
                 </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="far fa-clone" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Duplicate
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="far fa-image" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Show Full Image
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-palette" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Change Color
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="far fa-trash-alt" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Delete
-                    </div>
-                </div>
-                <div className="contextMenu-divider"></div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-angle-left" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Send Backward
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-angle-double-left" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Send to Back
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-angle-right" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Bring Forward
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-angle-double-right" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Bring to Front
-                    </div>
+                <div className="contextMenu-text-wrapper">
+                    Edit Text
                 </div>
             </div>
-        </>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="far fa-clone" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Duplicate
+                </div>
+            </div>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="far fa-image" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Show Full Image
+                </div>
+            </div>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="fas fa-palette" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Change Color
+                </div>
+            </div>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="far fa-trash-alt" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Delete
+                </div>
+            </div>
+            <div className="contextMenu-divider"></div>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="fas fa-angle-left" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Send Backward
+                </div>
+            </div>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="fas fa-angle-double-left" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Send to Back
+                </div>
+            </div>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="fas fa-angle-right" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Bring Forward
+                </div>
+            </div>
+            <div className="contextMenu-line-wrapper">
+                <div className="contextMenu-icon-wrapper">
+                    <i className="fas fa-angle-double-right" />
+                </div>
+                <div className="contextMenu-text-wrapper">
+                    Bring to Front
+                </div>
+            </div>
+        </div>
     )
 }
 
