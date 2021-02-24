@@ -1,3 +1,4 @@
+import { object } from "prop-types";
 
 const dispatchEvent = (eventName, data = null) => {
     const event = new MouseEvent(eventName);
@@ -21,9 +22,13 @@ const Events = {
         selected: (data = null) => dispatchEvent("shape.selected", data),
         released: (data = null) => dispatchEvent("shape.released", data),
         allReleased: (data = null) => dispatchEvent("shape.allReleased", data),
+        allReleasedExcept: (data = null) => dispatchEvent("shape.allReleasedExcept", data),
     },
     colorCircle: {
         opened: (data = null) => dispatchEvent("colorCircle.opened", data)
+    },
+    contextMenu: {
+        open: (data = null) => dispatchEvent("contextMenu.open", data)
     },
 
 }

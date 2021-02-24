@@ -186,7 +186,7 @@ export default function slide(slideId) {
                     // Place holder slide title
                     content = {
                         text: constants.SLIDE_TITLE_PLACEHOLDER,
-                        direction: "ltr"
+                        direction: slideData.direction
                     };
                 shape_.data.text = text = content.text;
                 direction = content.direction;
@@ -197,7 +197,7 @@ export default function slide(slideId) {
                     // Place holder slide title
                     content = {
                         text: constants.SLIDE_SUBTITLE_PLACEHOLDER,
-                        direction: "ltr"
+                        direction: slideData.direction
                     };
                 shape_.data.text = text = content.text;
                 direction = content.direction;
@@ -289,6 +289,12 @@ export default function slide(slideId) {
         makeDraggable(this.contentDocument());
         keyboardListener(this.contentDocument());
         this.contentDocument().addEventListener("dblclick", selectTextboxElement);
+        this.contentDocument().addEventListener("contextmenu", (e) => {
+
+            e.preventDefault();
+            // While triggering the "contextMenu.open" event, send the target too.
+            Events.contextMenu.open({ target: e.target });
+        });
 
         // Autosize the foreignObjects
         selectAll("g[alt]>foreignObject.bounding_box", this.page()).forEach(foreignObject => {

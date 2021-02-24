@@ -16,17 +16,20 @@ export default function endDrag(event) {
     let g = event.target.parentElement;
     if (!g) return;
 
-    let shapeId = g.getAttribute("shape_id");
 
-    if (event.ctrlKey) {
-        // CTRL
-    } else {
-        // NO CTRL
-        if (session.SELECTED_ELEMENTS.length > 1) {
-            // Deselect others
-            deSelectAll(shapeId);
+    const shapeId = g.getAttribute("shape_id");
+
+
+    if (!(event.which == 3 || event.button == 2)) // Check if it is right click
+        if (event.ctrlKey) {
+            // CTRL
+        } else {
+            // NO CTRL
+            if (session.SELECTED_ELEMENTS.length > 1) {
+                // Deselect others
+                deSelectAll(shapeId);
+            }
         }
-    }
 
     // Update saved transfroms for next actions
     updateAllTransforms();
