@@ -89,7 +89,10 @@ function ContextMenu() {
                     Edit Text
                 </div>
             </div>
-            <div className="contextMenu-line-wrapper">
+            <div 
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("DUPLICATE")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="far fa-clone" />
                 </div>
@@ -97,7 +100,10 @@ function ContextMenu() {
                     Duplicate
                 </div>
             </div>
-            <div className="contextMenu-line-wrapper">
+            <div 
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("SHOW_FULL_IMAGE")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="far fa-image" />
                 </div>
@@ -105,7 +111,10 @@ function ContextMenu() {
                     Show Full Image
                 </div>
             </div>
-            <div className="contextMenu-line-wrapper">
+            <div
+                className="contextMenu-line-wrapper"
+                onClick={() => {contextMenuAction("CHANGE_COLOR")}}
+            >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-palette" />
                 </div>
