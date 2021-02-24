@@ -8,6 +8,11 @@
   width: fit-content;
   z-index: 5;
 }
+.contextMenu-divider {
+  border-top: 1px solid lightgrey;
+  margin: 5px auto;
+  width: 100%;
+}
 .contextMenu-icon-wrapper {
   display: inline-block;
   margin: auto;

@@ -108,12 +108,29 @@ function ContextMenu() {
                 </div>
                 <div className="contextMenu-line-wrapper">
                     <div className="contextMenu-icon-wrapper">
+                        <i className="far fa-image" />
+                    </div>
+                    <div className="contextMenu-text-wrapper">
+                        Show Full Image
+                    </div>
+                </div>
+                <div className="contextMenu-line-wrapper">
+                    <div className="contextMenu-icon-wrapper">
+                        <i className="fas fa-palette" />
+                    </div>
+                    <div className="contextMenu-text-wrapper">
+                        Change Color
+                    </div>
+                </div>
+                <div className="contextMenu-line-wrapper">
+                    <div className="contextMenu-icon-wrapper">
                         <i className="far fa-trash-alt" />
                     </div>
                     <div className="contextMenu-text-wrapper">
                         Delete
                     </div>
                 </div>
+                <div className="contextMenu-divider"></div>
                 <div className="contextMenu-line-wrapper">
                     <div className="contextMenu-icon-wrapper">
                         <i className="fas fa-angle-left" />
@@ -144,22 +161,6 @@ function ContextMenu() {
                     </div>
                     <div className="contextMenu-text-wrapper">
                         Bring to Front
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="far fa-image" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Show Full Image
-                    </div>
-                </div>
-                <div className="contextMenu-line-wrapper">
-                    <div className="contextMenu-icon-wrapper">
-                        <i className="fas fa-palette" />
-                    </div>
-                    <div className="contextMenu-text-wrapper">
-                        Change Color
                     </div>
                 </div>
             </div>
