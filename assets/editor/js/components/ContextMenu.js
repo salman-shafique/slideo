@@ -5,30 +5,21 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import "Editor/css/contextMenu.css";
 
-function ContextMenu() {
+function ContextMenu(BoundingClientObject) {
     const [isOpen, setIsOpen] = React.useState(false);
+    
     const [cursorX, setCursorX] = React.useState(null);
     const [cursorY, setCursorY] = React.useState(null);
-    React.useEffect(() => {
-        window.addEventListener('mousedown', mouseCheck, false);
+   
 
-    });
-    const mouseCheck = (e) => {
-        console.log('moussseeeee')
-        console.log(`
-        Screen X/Y: ${e.screenX}, ${e.screenY}
-        Client X/Y: ${e.clientX}, ${e.clientY}`);
-    }
     const openContextMenu = (e) => {
         // Main logic is here
-
-        // Clicked element is here:
-        console.log(e.data.target);
+        
 
         console.log('event', e)
         console.log('e.target ouside selected_', e.target)
         console.log('window slidcontainer', window.parent.document.getElementById('SlideContainer').getBoundingClientRect())
-        console.log(`
+        console.log( `
         Screen X/Y: ${e.screenX}, ${e.screenY}
         Client X/Y: ${e.clientX}, ${e.clientY}`);
 
@@ -37,11 +28,8 @@ function ContextMenu() {
         setCursorX(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left);
         setCursorY(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top);
 
+        console.log('context menu event clicked', BoundingClientObject)
 
-        console.log('adding event listener');
-        window.parent.document.getElementById('SlideContainer').addEventListener('load', () => {
-            console.log('svg loading detected')
-        });
         // Do not open contextMenu when there is no element selected
         if (session.SELECTED_ELEMENTS.length === 0) {
             setIsOpen(false);
@@ -88,18 +76,18 @@ function ContextMenu() {
     console.log('containerxy', cursorX, cursorY)
     return (
         <>
-            <div onMouseMove={() => { console.log('mousedown') }}>
+            <div onMouseMove={() => {console.log('mousedown')}}>
 
             </div>
-            <div
-                id="contextMenu"
-                style={{
+            <div 
+                id="contextMenu" 
+                style={{ 
                     display: isOpen ? "" : "none",
                     left: cursorX,
                     top: cursorY,
 
                 }}
-                onMouseMove={() => { console.log('mousedown') }}
+                onMouseMove={() => {console.log('mousedown')}}
             >
                 <div className="contextMenu-line-wrapper">
                     <div className="contextMenu-icon-wrapper">

@@ -295,7 +295,6 @@ export default function slide(slideId) {
             console.log('clicked item bounding client', e.target.getBoundingClientRect())
             //NEED TO SEND CLICKED ITEM TO CONTEXTMENU function
 
-
             e.preventDefault();
             // While triggering the "contextMenu.open" event, send the target too.
             Events.contextMenu.open({ target: e.target });

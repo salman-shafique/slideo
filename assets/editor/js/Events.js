@@ -1,7 +1,9 @@
+import { object } from "prop-types";
 
 const dispatchEvent = (eventName, data = null) => {
     const event = new MouseEvent(eventName);
     event.data = data;
+    console.log('data of event: ', data)
     window.dispatchEvent(event);
 }
 
@@ -27,7 +29,7 @@ const Events = {
         opened: (data = null) => dispatchEvent("colorCircle.opened", data)
     },
     contextMenu: {
-        open: (data = null) => dispatchEvent("contextMenu.open", data)
+        open: (data = "object") => dispatchEvent("contextMenu.open", data)
     },
 
 }
