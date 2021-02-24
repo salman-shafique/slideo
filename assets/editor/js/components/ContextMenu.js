@@ -5,11 +5,11 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import "Editor/css/contextMenu.css";
 
-function ContextMenu(BoundingClientObject) {
+function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
     
-    const [cursorX, setCursorX] = React.useState(null);
-    const [cursorY, setCursorY] = React.useState(null);
+    const [contextMenuLeft, setContextMenuLeft] = React.useState(null);
+    const [contextMenuTop, setContextMenuTop] = React.useState(null);
    
 
     const openContextMenu = (e) => {
@@ -18,17 +18,18 @@ function ContextMenu(BoundingClientObject) {
 
         console.log('event', e)
         console.log('e.target ouside selected_', e.target)
-        console.log('window slidcontainer', window.parent.document.getElementById('SlideContainer').getBoundingClientRect())
         console.log( `
         Screen X/Y: ${e.screenX}, ${e.screenY}
         Client X/Y: ${e.clientX}, ${e.clientY}`);
 
-        console.log(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left);
-        console.log(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top);
-        setCursorX(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left);
-        setCursorY(window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top);
+        const slideWindowLeft = window.parent.document.getElementById('SlideContainer').getBoundingClientRect().left;
+        const slideWindowTop = window.parent.document.getElementById('SlideContainer').getBoundingClientRect().top;
+        const clickedElLeft = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect().left;
+        const clickedElTop = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect().top;
+        setContextMenuLeft(slideWindowLeft + clickedElLeft);
+        setContextMenuTop(slideWindowTop + clickedElTop);
 
-        console.log('context menu event clicked', BoundingClientObject)
+        console.log('session selected elements', session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect())
 
         // Do not open contextMenu when there is no element selected
         if (session.SELECTED_ELEMENTS.length === 0) {
@@ -44,8 +45,8 @@ function ContextMenu(BoundingClientObject) {
             console.log(e.screenX, e.screenY);
             console.log('selectel', selectEl)
             console.log(selectEl.size.x);
-            // setCursorX(selectEl.size.x);
-            // setCursorY(selectEl.size.y);
+            // setContextMenuLeft(selectEl.size.x);
+            // setContextMenuTop(selectEl.size.y);
             if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.TEXTBOX)
                 console.log("there is a TEXTBOX selected");
             if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.IMAGE)
@@ -73,7 +74,7 @@ function ContextMenu(BoundingClientObject) {
     }, []);
 
 
-    console.log('containerxy', cursorX, cursorY)
+    console.log('containerxy', contextMenuLeft)
     return (
         <>
             <div onMouseMove={() => {console.log('mousedown')}}>
@@ -83,8 +84,8 @@ function ContextMenu(BoundingClientObject) {
                 id="contextMenu" 
                 style={{ 
                     display: isOpen ? "" : "none",
-                    left: cursorX,
-                    top: cursorY,
+                    left: contextMenuLeft,
+                    top: contextMenuTop,
 
                 }}
                 onMouseMove={() => {console.log('mousedown')}}
