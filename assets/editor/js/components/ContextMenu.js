@@ -105,18 +105,20 @@ function ContextMenu() {
                 top: contextMenuTop,
             }}
         >
-            <div 
-                className="contextMenu-line-wrapper"
-                style={{display: clickedElementType !== "TEXTBOX" && "none"}}
-                onClick={() => {contextMenuAction("EDIT_TEXT")}}
-            >
-                <div className="contextMenu-icon-wrapper">
-                    <i className="fas fa-pencil-alt" />
+            {
+                clickedElementType === "TEXTBOX" &&
+                <div 
+                    className="contextMenu-line-wrapper"
+                    onClick={() => {contextMenuAction("EDIT_TEXT")}}
+                >
+                    <div className="contextMenu-icon-wrapper">
+                        <i className="fas fa-pencil-alt" />
+                    </div>
+                    <div className="contextMenu-text-wrapper">
+                        Edit Text
+                    </div>
                 </div>
-                <div className="contextMenu-text-wrapper">
-                    Edit Text
-                </div>
-            </div>
+            }
             <div 
                 className="contextMenu-line-wrapper"
                 onClick={() => {contextMenuAction("DUPLICATE")}}
@@ -128,30 +130,34 @@ function ContextMenu() {
                     Duplicate
                 </div>
             </div>
-            <div 
-                className="contextMenu-line-wrapper"
-                style={{display: clickedElementType !== "IMAGE" && "none"}}
-                onClick={() => {contextMenuAction("SHOW_FULL_IMAGE")}}
-            >
-                <div className="contextMenu-icon-wrapper">
-                    <i className="far fa-image" />
+            {
+                clickedElementType === "IMAGE" &&
+                <div 
+                    className="contextMenu-line-wrapper"
+                    onClick={() => {contextMenuAction("SHOW_FULL_IMAGE")}}
+                >
+                    <div className="contextMenu-icon-wrapper">
+                        <i className="far fa-image" />
+                    </div>
+                    <div className="contextMenu-text-wrapper">
+                        Show Full Image
+                    </div>
                 </div>
-                <div className="contextMenu-text-wrapper">
-                    Show Full Image
+            }
+            {
+                clickedElementType !== "IMAGE" &&
+                <div
+                    className="contextMenu-line-wrapper"
+                    onClick={() => {contextMenuAction("CHANGE_COLOR")}}
+                >
+                    <div className="contextMenu-icon-wrapper">
+                        <i className="fas fa-palette" />
+                    </div>
+                    <div className="contextMenu-text-wrapper">
+                        Change Color
+                    </div>
                 </div>
-        </div>
-            <div
-                className="contextMenu-line-wrapper"
-                style={{display: clickedElementType === "IMAGE" && "none"}}
-                onClick={() => {contextMenuAction("CHANGE_COLOR")}}
-            >
-                <div className="contextMenu-icon-wrapper">
-                    <i className="fas fa-palette" />
-                </div>
-                <div className="contextMenu-text-wrapper">
-                    Change Color
-                </div>
-            </div>
+            }
             <div
                 className="contextMenu-line-wrapper"
                 onClick={() => {contextMenuAction("DELETE")}}
