@@ -29,18 +29,22 @@ function ContextMenu() {
         };
 
         session.SELECTED_ELEMENTS.forEach(selectEl => {
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.TEXTBOX)
+            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.TEXTBOX){
                 setClickedElementType("TEXTBOX");
                 console.log("there is a TEXTBOX selected");
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.IMAGE)
+            }
+            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.IMAGE){
                 setClickedElementType("IMAGE");
                 console.log("there is a IMAGE selected");
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.ICON)
+            }
+            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.ICON){
                 setClickedElementType("ICON");
                 console.log("there is a ICON selected");
-            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE)
+            }
+            if (getShapeType(selectEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE){
                 setClickedElementType("AUTO_SHAPE");
                 console.log("there is a AUTO_SHAPE selected");
+            }
         });
         setIsOpen(true);
     }
