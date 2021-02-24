@@ -49,6 +49,10 @@ function ContextMenu() {
         setIsOpen(false);
     }
 
+    const contextMenuAction = () => {
+        console.log('context menu line clicked')
+    }
+
     React.useEffect(() => {
         // Close the contextMenu Events
         window.addEventListener("shape.allReleased", closeContextMenu);
@@ -70,6 +74,7 @@ function ContextMenu() {
             <div 
                 className="contextMenu-line-wrapper"
                 style={{display: clickedElementType !== "TEXTBOX" && "none"}}
+                onClick={contextMenuAction}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-pencil-alt" />
