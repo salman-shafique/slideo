@@ -10,6 +10,6 @@ php bin/console cache:warmup;
 
 # Consume messages
 php bin/console messenger:stop-workers
-nohup php bin/console messenger:consume mail &
+nohup php bin/console messenger:consume mail download &
 
 echo "Done";

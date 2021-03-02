@@ -90,6 +90,16 @@ class Style
      */
     private $background;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isDefault = false;
+
     public function __construct()
     {
         $this->shapes = new ArrayCollection();
@@ -252,6 +262,30 @@ class Style
     public function setBackground(Content $background): self
     {
         $this->background = $background;
+
+        return $this;
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?string $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getIsDefault(): ?bool
+    {
+        return $this->isDefault;
+    }
+
+    public function setIsDefault(?bool $isDefault): self
+    {
+        $this->isDefault = $isDefault;
 
         return $this;
     }

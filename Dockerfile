@@ -28,6 +28,9 @@ RUN install-php-extensions pdo_mysql zip intl opcache amqp
 # Certificate verify - CA file - cURL
 COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
 
+# Cron
+COPY ./docker/cron.daily /etc/cron.daily/cron.daily
+
 # Update
 RUN apt-get update -y
 RUN apt-get autoremove -y

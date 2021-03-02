@@ -1,23 +1,24 @@
 import session from "Editor/js/session";
 import hideResizeCircles from "./hideResizeCircles";
 import showResizeCircles from "./showResizeCircles";
+import Events from "Editor/js/Events";
 
-window.addEventListener("shape.drag.started", () => {
+Events.listen("shape.drag.started", () => {
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
         hideResizeCircles(selectedEl.shape);
     });
 });
 
-window.addEventListener("shape.drag.ended", (event) => {
+Events.listen("shape.drag.ended", (event) => {
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
         showResizeCircles(selectedEl.shape);
     });
 });
 
-window.addEventListener("shape.released", (event) => {
+Events.listen("shape.released", (event) => {
     hideResizeCircles(event.data.shape);
 });
 
-window.addEventListener("shape.selected", (event) => {
+Events.listen("shape.selected", (event) => {
     showResizeCircles(event.data.shape);
 });

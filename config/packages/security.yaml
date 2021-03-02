@@ -48,10 +48,6 @@ security:
 
     role_hierarchy:
         ROLE_OWNER:
-            - ROLE_ALL
-            - ROLE_EDIT
-            - ROLE_USER
             - ROLE_ADMIN
         ROLE_ADMIN:
             - ROLE_USER
-            - ROLE_EDIT

@@ -8,6 +8,7 @@ import shape from "Editor/js/entity/shape";
 import slide from "Editor/js/entity/slide";
 import { getThemeColor, getThemeColorNameOfShape } from "Editor/js/sidebar/colors/utils";
 import toHex from "Editor/js/sidebar/colors/toHex";
+import Events from "Editor/js/Events";
 
 const colorList = [
     "#ff914d",
@@ -61,7 +62,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
         setColorCircles(colorCircles_);
 
         if (BACKGROUND) {
-            window.addEventListener("slide.display", (event) => {
+            Events.listen("slide.display", (event) => {
                 const slideId = event.data.slideId;
                 const slide_ = slide(slideId);
                 const slideData = slide_.slideData();
@@ -89,7 +90,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
             });
             return;
         };
-        window.addEventListener("shape.selected", (event) => {
+        Events.listen("shape.selected", (event) => {
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setCurrentColor("#ffffff");
                 return;
@@ -136,7 +137,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
             }
 
         });
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.allReleased", () => {
             setOpened(false);
             setCurrentColor("#ffffff");
         });

@@ -5,13 +5,14 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import { getOpacity } from "Editor/js/sidebar/components/OpacitySlider/utils";
 import shape from "Editor/js/entity/shape";
+import Events from "Editor/js/Events";
 
 
 export default function OpacitySlider({ SHAPE_TYPE }) {
     const [opacity, setOpacity] = React.useState(1.0);
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", () => {
+        Events.listen("shape.selected", () => {
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setOpacity(1);
                 return;
@@ -21,7 +22,7 @@ export default function OpacitySlider({ SHAPE_TYPE }) {
                 setOpacity(getOpacity(g));
 
         });
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.allReleased", () => {
             setOpacity(1);
         });
     }, []);

@@ -2,7 +2,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
-
+import Events from "Editor/js/Events";
 
 /**
  * 
@@ -39,8 +39,8 @@ export default function highlightImage(image) {
 }
 
 
-window.addEventListener("shape.allReleased", highlightImage);
-window.addEventListener("shape.selected", (event) => {
+Events.listen("shape.allReleased", highlightImage);
+Events.listen("shape.selected", (event) => {
     if (session.SELECTED_ELEMENTS.length != 1) return;
     const g = session.SELECTED_ELEMENTS[0].shape;
     if (getShapeType(g) != constants.SHAPE_TYPES.IMAGE) return;

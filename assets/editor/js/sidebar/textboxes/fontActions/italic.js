@@ -3,6 +3,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
+import Events from "Editor/js/Events";
 
 
 export default function ItalicBtn(props) {
@@ -21,7 +22,7 @@ export default function ItalicBtn(props) {
     }
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", (event) => {
+        Events.listen("shape.selected", (event) => {
             if (!session.INITED) return;
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setItalicSelected(false);
@@ -33,7 +34,7 @@ export default function ItalicBtn(props) {
                 setItalicSelected(isItalicText(g));
 
         });
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.allReleased", () => {
             setItalicSelected(false);
         });
     }, []);

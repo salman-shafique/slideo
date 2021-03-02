@@ -100,6 +100,20 @@ class MailService
         return ["success" => false, "descr" => "Your security code has expired"];
     }
 
+    public function sendErrorMail(string $error)
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
+            ->to("alperenberatdurmus@gmail.com")
+            ->subject('Error on Slideo')
+            ->htmlTemplate('emails/base.html.twig')
+            ->context([
+                'title' => "Error on Slideo",
+                'body' => $error
+            ]);
+        $this->bus->dispatch($email);
+    }
+
     public function sendMail(RawMessage $email)
     {
         $this->bus->dispatch($email);

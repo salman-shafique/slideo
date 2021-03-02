@@ -96,6 +96,11 @@ class User implements UserInterface
      */
     private $uploadedImages;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company;
+
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
@@ -350,6 +355,18 @@ class User implements UserInterface
                 $uploadedImage->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?string $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

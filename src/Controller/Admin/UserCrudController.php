@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Enum\CompanyEnum;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -33,6 +34,10 @@ class UserCrudController extends AbstractCrudController
     }
     public function configureFields(string $pageName): iterable
     {
+        $companies = [];
+        foreach (CompanyEnum::COMPANIES as $companyName)
+            $companies[$companyName] =  $companyName;
+        
         return [
             IdField::new('id')->hideOnForm(),
             EmailField::new('email'),
@@ -40,6 +45,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('fullname'),
             BooleanField::new('isVerified'),
             TextField::new('userType')->onlyOnIndex(),
+            ChoiceField::new('company')->setChoices($companies),
             AssociationField::new('presentations')->hideOnForm(),
             DateField::new('created')->hideOnForm()
         ];

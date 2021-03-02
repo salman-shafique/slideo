@@ -5,6 +5,7 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import "Editor/css/contextMenu.css";
 import slide from "Editor/js/entity/slide";
+import Events from "Editor/js/Events";
 
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -83,12 +84,12 @@ function ContextMenu() {
 
     React.useEffect(() => {
         // Close the contextMenu Events
-        window.addEventListener("shape.allReleased", closeContextMenu);
-        window.addEventListener("shape.allReleasedExcept", closeContextMenu);
-        window.addEventListener("shape.drag.started", closeContextMenu);
-        window.addEventListener("shape.resize.started", closeContextMenu);
-        window.addEventListener("shape.selected", closeContextMenu);
-        window.addEventListener("contextMenu.open", openContextMenu);
+        Events.listen("shape.allReleased", closeContextMenu);
+        Events.listen("shape.allReleasedExcept", closeContextMenu);
+        Events.listen("shape.drag.started", closeContextMenu);
+        Events.listen("shape.resize.started", closeContextMenu);
+        Events.listen("shape.selected", closeContextMenu);
+        Events.listen("contextMenu.open", openContextMenu);
     }, []);
 
     return (

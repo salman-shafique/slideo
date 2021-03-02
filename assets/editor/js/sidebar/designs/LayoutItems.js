@@ -21,7 +21,7 @@ export default function LayoutItems() {
         setLayoutItems(layoutItemsTmp);
     }
 
-    if (Object.keys(layouts).length == 0) {
+    React.useEffect(()=>{
         window.top.addEventListener('slide.display', (event) => {
             const slideId = event.data.slideId;
             const slideData = slide(slideId).slideData();
@@ -56,11 +56,14 @@ export default function LayoutItems() {
                 arrangeLayoutItems(layouts[direction][capacity]);
             } catch (error) {}
         });
+    },[]);
 
+
+    if (layoutItems.length == 0)
         return (
             <h4 className={"text-center"}>Let's create beautiful presentations!</h4>
         )
-    }
+    
     return layoutItems;
 
 }

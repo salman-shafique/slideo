@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
+use App\Enum\CompanyEnum;
 
 class StyleCrudController extends AbstractCrudController
 {
@@ -35,7 +36,9 @@ class StyleCrudController extends AbstractCrudController
             ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
     public function configureFields(string $pageName): iterable
-    {
+    {        $companies = [];
+        foreach (CompanyEnum::COMPANIES as $companyName)
+            $companies[$companyName] =  $companyName;
         return [
             IdField::new('id')->hideOnForm(),
             BooleanField::new('isActive'),
@@ -43,6 +46,8 @@ class StyleCrudController extends AbstractCrudController
             IntegerField::new('capacity'),
             TextField::new('direction'),
             AssociationField::new('layout'),
+            BooleanField::new('isDefault'),
+            ChoiceField::new('company')->setChoices($companies),
             UrlField::new('pptxFile')->hideOnForm(),
             UrlField::new('svgFile')->hideOnForm(),
             ImageField::new('prevFile')->hideOnForm(),

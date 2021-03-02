@@ -3,7 +3,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
-
+import Events from "Editor/js/Events";
 
 export default function UnderlineBtn(props) {
     const [underlineSelected, setUnderlineSelected] = React.useState(false);
@@ -21,7 +21,7 @@ export default function UnderlineBtn(props) {
     }
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", (event) => {
+        Events.listen("shape.selected", (event) => {
             if (!session.INITED) return;
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setUnderlineSelected(false);
@@ -33,7 +33,7 @@ export default function UnderlineBtn(props) {
                 setUnderlineSelected(isUnderlineText(g));
             
         });
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.allReleased", () => {
             setUnderlineSelected(false);
         });
     }, []);

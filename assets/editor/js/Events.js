@@ -1,37 +1,64 @@
-import { object } from "prop-types";
-
-const dispatchEvent = (eventName, data = null) => {
+const dispatchEvent = (eventName, data = {}) => {
     const event = new MouseEvent(eventName);
     event.data = data;
     window.dispatchEvent(event);
 }
 
+export const hash = (str) => {
+    let hash = 0;
+    if (str.length == 0) return hash;
+    for (let i = 0; i < str.length; i++) {
+        let char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+    return String(hash);
+}
+
+const registeredListeners = {};
 const Events = {
     slide: {
-        display: (data = null) => dispatchEvent("slide.display", data)
+        display: (data = {}) => dispatchEvent("slide.display", data)
     },
     shape: {
         drag: {
-            started: (data = null) => dispatchEvent("shape.drag.started", data),
-            ended: (data = null) => dispatchEvent("shape.drag.ended", data),
+            started: (data = {}) => dispatchEvent("shape.drag.started", data),
+            ended: (data = {}) => dispatchEvent("shape.drag.ended", data),
         },
         resize: {
-            started: (data = null) => dispatchEvent("shape.resize.started", data),
-            ended: (data = null) => dispatchEvent("shape.resize.ended", data),
+            started: (data = {}) => dispatchEvent("shape.resize.started", data),
+            ended: (data = {}) => dispatchEvent("shape.resize.ended", data),
         },
-        selected: (data = null) => dispatchEvent("shape.selected", data),
-        released: (data = null) => dispatchEvent("shape.released", data),
-        allReleased: (data = null) => dispatchEvent("shape.allReleased", data),
-        allReleasedExcept: (data = null) => dispatchEvent("shape.allReleasedExcept", data),
+        selected: (data = {}) => dispatchEvent("shape.selected", data),
+        released: (data = {}) => dispatchEvent("shape.released", data),
+        allReleased: (data = {}) => dispatchEvent("shape.allReleased", data),
+        allReleasedExcept: (data = {}) => dispatchEvent("shape.allReleasedExcept", data),
     },
     colorCircle: {
-        opened: (data = null) => dispatchEvent("colorCircle.opened", data)
+        opened: (data = {}) => dispatchEvent("colorCircle.opened", data)
     },
     contextMenu: {
-        open: (data = null) => dispatchEvent("contextMenu.open", data)
+        open: (data = {}) => dispatchEvent("contextMenu.open", data)
     },
+    /**
+     * @param {String} eventName 
+     * @param {function} listener
+     */
+    listen: (eventName, listener) => {
+        if (!eventName) return;
+        if (!listener) return;
 
+        if (!registeredListeners[eventName])
+            registeredListeners[eventName] = [];
+
+        const hashStr = hash(listener.toString());
+        if (!registeredListeners[eventName].includes(hashStr) || true) { // Needs identifier
+            registeredListeners[eventName].push(hashStr);
+            window.addEventListener(eventName, listener);
+        }
+    }
 }
+
 export default Events;
 
 

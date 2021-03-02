@@ -8,22 +8,33 @@ use App\Entity\Content;
 use App\Entity\Presentation;
 use App\Entity\Slide;
 use App\Entity\Style;
+use App\Entity\User;
 use App\Repository\StyleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 class SlideService
 {
     private $em;
+    private $security;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, Security $security)
     {
         $this->em = $em;
+        $this->security = $security;
     }
 
     private function findRandomStyle(int $capacity, string $direction): ?Style
     {
-        $qb = $this->em->createQueryBuilder()
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
+
+        // Get default if exists
+        $query = $this->em->createQueryBuilder()
             ->select('COUNT(s.id)')
             ->from("App\Entity\Style", "s")
             ->where('s.isActive = :isActive')
@@ -31,13 +42,35 @@ class SlideService
             ->andWhere('s.capacity = :capacity')
             ->setParameter(':capacity', $capacity)
             ->andWhere('s.direction = :direction')
-            ->setParameter(':direction', $direction);
+            ->setParameter(':direction', $direction)
+            ->andWhere('s.isDefault = :isDefault')
+            ->setParameter(':isDefault', True);
+        ($user && $user->getCompany())
+            ? $query->andWhere("s.company = :company")->setParameter("company", $user->getCompany())
+            : $query->andWhere("s.company IS NULL");
 
-        $totalRecords = $qb->getQuery()->getSingleScalarResult();
-        if ($totalRecords < 1) return null;
+        $totalRecords = $query->getQuery()->getSingleScalarResult();
+        if ($totalRecords == 0) {
+            // Maybe there is no default
+            $query = $this->em->createQueryBuilder()
+                ->select('COUNT(s.id)')
+                ->from("App\Entity\Style", "s")
+                ->where('s.isActive = :isActive')
+                ->setParameter(':isActive', true)
+                ->andWhere('s.capacity = :capacity')
+                ->setParameter(':capacity', $capacity)
+                ->andWhere('s.direction = :direction')
+                ->setParameter(':direction', $direction);
+            ($user && $user->getCompany())
+                ? $query->andWhere("s.company = :company")->setParameter("company", $user->getCompany())
+                : $query->andWhere("s.company IS NULL");
+        };
+
+        $totalRecords = $query->getQuery()->getSingleScalarResult();
+        if ($totalRecords == 0) return null;
         $rowToFetch = rand(0, $totalRecords - 1);
 
-        return $qb
+        return $query
             ->select('s')
             ->setMaxResults(1)
             ->setFirstResult($rowToFetch)
