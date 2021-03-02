@@ -32,7 +32,7 @@ export default function colorTemplate(slideId) {
         "13": "TEXT_1",
         "15": "TEXT_2",
     }
-	
+
     this.getColor = (themeColorName) => {
         if (!themeColorName) return null;
         if (themeColorName.length <= 2 && this.themeColorId[themeColorName])
@@ -46,20 +46,30 @@ export default function colorTemplate(slideId) {
         return color;
     }
 
+    this.dic = {
+        "aCCENT1": "ACCENT_1",
+        "aCCENT2": "ACCENT_2",
+        "aCCENT3": "ACCENT_3",
+        "aCCENT4": "ACCENT_4",
+        "aCCENT5": "ACCENT_5",
+        "aCCENT6": "ACCENT_6",
+        "bACKGROUND1": "BACKGROUND_1",
+        "bACKGROUND2": "BACKGROUND_2",
+        "tEXT1": "TEXT_1",
+        "tEXT2": "TEXT_2",
+        "ACCENT_1": "ACCENT_1",
+        "ACCENT_2": "ACCENT_2",
+        "ACCENT_3": "ACCENT_3",
+        "ACCENT_4": "ACCENT_4",
+        "ACCENT_5": "ACCENT_5",
+        "ACCENT_6": "ACCENT_6",
+        "BACKGROUND_1": "BACKGROUND_1",
+        "BACKGROUND_2": "BACKGROUND_2",
+        "TEXT_1": "TEXT_1",
+        "TEXT_2": "TEXT_2",
+    }
     this.rigthColorName = (wrongColorName) => {
-        const dic = {
-            "aCCENT1": "ACCENT_1",
-            "aCCENT2": "ACCENT_2",
-            "aCCENT3": "ACCENT_3",
-            "aCCENT4": "ACCENT_4",
-            "aCCENT5": "ACCENT_5",
-            "aCCENT6": "ACCENT_6",
-            "bACKGROUND1": "BACKGROUND_1",
-            "bACKGROUND2": "BACKGROUND_2",
-            "tEXT1": "TEXT_1",
-            "tEXT2": "TEXT_2",
-        }
-        return dic[wrongColorName];
+        return this.dic[wrongColorName];
     }
 
     this.updateColors = (colors) => {

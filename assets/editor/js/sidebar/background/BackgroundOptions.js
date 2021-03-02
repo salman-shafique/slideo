@@ -2,13 +2,14 @@ import React from "react";
 import constants from "Editor/js/constants";
 import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
 import slide from "Editor/js/entity/slide";
+import Events from "Editor/js/Events";
 
 
 export default function BackgroundOptions() {
     const [background, setBackground] = React.useState(null);
 
     React.useEffect(() => {
-        window.addEventListener("slide.display", (event) => {
+        Events.listen("slide.display", (event) => {
             const slideId = event.data.slideId;
             const slide_ = slide(slideId);
             const slideData = slide_.slideData();

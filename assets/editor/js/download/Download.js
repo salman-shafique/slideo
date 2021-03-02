@@ -89,6 +89,7 @@ export default function Download({ presentationId }) {
                 ? <p key={"toggleBtn" + downloadCards.length} className="ml-4" style={{ cursor: "pointer" }} onClick={toggleFunc}>לחץ לצפייה בגרסאות קודמות</p>
                 : ""
             }
+            <p class="col text-right">Files expire after two days.</p>
             {user.userId
                 ? ""
                 :

@@ -6,18 +6,23 @@ use App\Entity\ColorTemplate;
 use App\Entity\Content;
 use App\Entity\Layout;
 use App\Entity\Style;
+use App\Entity\User;
 use App\Repository\LayoutRepository;
 use App\Repository\StyleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class StyleService
 {
     private $em;
+    private $security;
 
-    public function __construct(EntityManagerInterface $em)
+
+    public function __construct(EntityManagerInterface $em, Security $security)
     {
         $this->em = $em;
+        $this->security = $security;
     }
 
     private function saveBase64File(string $filepath, string $base64)
@@ -65,6 +70,11 @@ class StyleService
             $this->em->persist($shape);
         }
 
+        // Is private design?
+        $companyName = $request->request->get("company_name");
+        if ($companyName)
+            $style->setCompany($companyName);
+
         $style->setKeywords($jsonFile['keywords']);
         $style->setPptxFile("/styles/$styleId/$styleId.pptx");
         $style->setSvgFile("/styles/$styleId/$styleId.svg");
@@ -93,7 +103,7 @@ class StyleService
         $style->setColorTemplate($colorTemplate);
         $this->em->persist($colorTemplate);
 
-        
+
         $backgroundData = $jsonFile["background"];
         $background = new Content;
         $background->setData($backgroundData);
@@ -109,20 +119,32 @@ class StyleService
 
     public function get(Request $request)
     {
-        /**  @var StyleRepository $styleRepository */
-        $styleRepository = $this->em->getRepository(Style::class);
+        /**
+         * @var User $user
+         */
+        $user = $this->security->getUser();
 
-        $styles = $styleRepository->findBy([
-            "isActive" => true,
-            "direction" => $request->request->get("direction"),
-            "capacity" => $request->request->get("capacity")
-        ]);
+        $query = $this->em
+            ->createQueryBuilder()
+            ->select('style,background,colorTemplate,layout,shapes')
+            ->from('App\Entity\Style', 'style')
+            ->leftJoin('style.background', 'background')
+            ->leftJoin('style.colorTemplate', 'colorTemplate')
+            ->leftJoin('style.layout', 'layout')
+            ->leftJoin('style.shapes', 'shapes')
+            ->where("style.isActive = 1")
+            ->andWhere("style.direction = :direction")
+            ->setParameter("direction", $request->request->get("direction"))
+            ->andWhere("style.capacity = :capacity")
+            ->setParameter("capacity", $request->request->get("capacity"));
 
-        $serializer = new SerializerService;
-        $styles_ = [];
-        foreach ($styles as $style)
-            array_push($styles_, $serializer->normalize($style));
+        ($user && $user->getCompany())
+            ? $query->andWhere("style.company = :company")->setParameter("company", $user->getCompany())
+            : $query->andWhere("style.company IS NULL");
 
-        return $styles_;
+        $styles = $query->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        return $styles;
     }
 }

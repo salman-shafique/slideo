@@ -110,7 +110,7 @@ export default function PreviewButton() {
                 תצוגה מקדימה
             </button>
             <div className="preview-controls d-none">
-                <span title="First Slide" onClick={firstSlide}>
+                <span title="First Slide" className="d-none" onClick={firstSlide}>
                     <i className="fas fa-fast-backward"></i>
                 </span>
                 <span title="Previous Slide" onClick={prev}>
@@ -122,7 +122,7 @@ export default function PreviewButton() {
                 <span title="Next Slide" onClick={next}>
                     <i className="fas fa-caret-right fa-lg"></i>
                 </span>
-                <span title="Last Slide" onClick={lastSlide}>
+                <span title="Last Slide" className="d-none" onClick={lastSlide}>
                     <i className="fas fa-fast-forward"></i>
                 </span>
             </div>

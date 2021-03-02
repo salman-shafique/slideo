@@ -1,6 +1,8 @@
 framework:
     messenger:
         transports:
+            download: '%env(MESSENGER_TRANSPORT_DSN)%'
             mail: '%env(MESSENGER_TRANSPORT_DSN)%'
         routing:
+            'App\Entity\DownloadPresentation': download
             'Symfony\Bridge\Twig\Mime\TemplatedEmail': mail

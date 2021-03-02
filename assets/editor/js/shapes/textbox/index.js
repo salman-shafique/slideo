@@ -3,6 +3,7 @@ import constants from "Editor/js/constants";
 import shape from "Editor/js/entity/shape";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import sidebar from "Editor/js/entity/sidebar";
+import Events from "Editor/js/Events";
 
 
 const cancelEditing = (event) => {
@@ -49,23 +50,23 @@ const cancelEditing = (event) => {
 }
 
 // Cancel editing here
-window.addEventListener("shape.released", cancelEditing);
+Events.listen("shape.released", cancelEditing);
 
 // Cancel editing when drag started
-window.addEventListener("shape.drag.started", () => {
+Events.listen("shape.drag.started", () => {
   session.SELECTED_ELEMENTS.forEach(selectedEl => {
     cancelEditing({ data: { shape: selectedEl.shape } });
   });
 });
 // Cancel editing when resize started
-window.addEventListener("shape.resize.started", () => {
+Events.listen("shape.resize.started", () => {
   session.SELECTED_ELEMENTS.forEach(selectedEl => {
     cancelEditing({ data: { shape: selectedEl.shape } });
   });
 });
 
 // Cancel editing when multiple elements selected
-window.addEventListener("shape.selected", (event) => {
+Events.listen("shape.selected", (event) => {
   if (session.SELECTED_ELEMENTS.length > 1) {
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
       cancelEditing({ data: { shape: selectedEl.shape } });

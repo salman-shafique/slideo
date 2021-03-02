@@ -7,6 +7,7 @@ import shape from "Editor/js/entity/shape";
 import toggleKeyword from "./toggleKeyword";
 import "./searchBox";
 import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
+import Events from "Editor/js/Events";
 
 const showEmptyList = () => {
     $('#Icons_Panel div[data-keyword].search-keyword').removeClass("active");
@@ -16,8 +17,8 @@ const showEmptyList = () => {
 }
 
 // Show empty icon list when all released
-window.addEventListener("shape.allReleased", showEmptyList);
-window.addEventListener("shape.selected", () => {
+Events.listen("shape.allReleased", showEmptyList);
+Events.listen("shape.selected", () => {
     if (session.SELECTED_ELEMENTS.length != 1) return;
     const g = session.SELECTED_ELEMENTS[0].shape;
     if (getShapeType(g) == constants.SHAPE_TYPES.ICON) {
