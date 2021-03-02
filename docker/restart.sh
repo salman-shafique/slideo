@@ -9,6 +9,10 @@ php bin/console cache:clear;
 echo_ "Retry the failed downloads"
 php bin/console  slideo:download:retry
 
+echo_ "Restart crons"
+crontab -u root -r
+crontab -u root /var/www/app/docker/cron
+
 symfony server:start -d;
 chmod -R 777 var;
 chmod -R 777 public;

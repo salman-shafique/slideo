@@ -1,4 +1,0 @@
-#!/bin/sh
-cd /var/www/app;
-
-php bin/console slideo:clear:downloads;

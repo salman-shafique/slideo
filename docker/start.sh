@@ -31,6 +31,10 @@ case $APP_ENV in
     ;;
 esac;
 
+# Crons
+echo_ "Start crons"
+crontab -u root /var/www/app/docker/cron
+
 # Consume messages
 while [ $(curl -Is -w "%{http_code}" -L "http://slideo_rabbitmq:15672/" -o /dev/null) -ne "200" ]
 do
