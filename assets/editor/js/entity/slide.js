@@ -290,7 +290,6 @@ export default function slide(slideId) {
         keyboardListener(this.contentDocument());
         this.contentDocument().addEventListener("dblclick", selectTextboxElement);
         this.contentDocument().addEventListener("contextmenu", (e) => {
-
             e.preventDefault();
             // While triggering the "contextMenu.open" event, send the target too.
             Events.contextMenu.open({ target: e.target });
@@ -304,10 +303,18 @@ export default function slide(slideId) {
         // Slide numbers
         refresh_slide_prev_numbers();
 
+        // Update z-index
+        this.updateZIndex();
+
         // Update the mini prevs
         this.cloneToMiniPrev();
 
         return this;
+    }
+
+    this.updateZIndex = () => {
+        console.log("z-index of the element tree is updated according to shapes' 'shape_index'.");
+        console.log("slideId", this.slideId);
     }
 
     this.display = function () {

@@ -5,6 +5,7 @@ import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import "Editor/css/contextMenu.css";
 import slide from "Editor/js/entity/slide";
+import shape from "Editor/js/entity/shape";
 
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
