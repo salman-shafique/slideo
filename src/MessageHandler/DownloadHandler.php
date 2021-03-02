@@ -22,6 +22,8 @@ class DownloadHandler implements MessageHandlerInterface
 
     public function __invoke(DownloadPresentation $downloadPresentation)
     {
+        if ($downloadPresentation->getCompleted()) return;
+
         // invoke the flask server
         $r = $this->flaskService->call(
             "Presentation",
@@ -32,7 +34,7 @@ class DownloadHandler implements MessageHandlerInterface
             ]
         );
 
-        if (!$r['success'] && getenv("APP_ENV") == "prod")
+        if (!$r['success'])
             $this->mailService->sendErrorMail(json_encode($r));
     }
 }
