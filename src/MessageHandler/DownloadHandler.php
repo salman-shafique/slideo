@@ -32,8 +32,7 @@ class DownloadHandler implements MessageHandlerInterface
             ]
         );
 
-        if (!$r['success'])
+        if (!$r['success'] && getenv("APP_ENV") == "prod")
             $this->mailService->sendErrorMail(json_encode($r));
-
     }
 }

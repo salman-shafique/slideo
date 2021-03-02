@@ -28,20 +28,8 @@ class ClearDownloads extends Command
         $this->setDescription('Deletes the expired downloads');
     }
 
-
-    public function delTree($dir)
-    {
-        if (!file_exists($dir)) return null;
-        $files = array_diff(scandir($dir), array('.', '..'));
-        foreach ($files as $file) {
-            (is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file");
-        }
-        return rmdir($dir);
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        return 0;
         $io = new SymfonyStyle($input, $output);
         /**
          * @var DownloadPresentation[] $downloads
@@ -60,7 +48,10 @@ class ClearDownloads extends Command
             $io->success(sprintf('%d expired downloads are found.', count($downloads)));
             foreach ($downloads as $download) {
                 $folder = dirname("/var/www/app/public" . $download->getPptxFile());
-                $this->delTree($folder);
+                unlink("/var/www/app/public" . $download->getPptxFile());
+                unlink("/var/www/app/public" . $download->getPdfFile());
+                unlink("/var/www/app/public" . $download->getPrevFile());
+                rmdir($folder);
                 $this->em->remove($download);
             }
             $this->em->flush();
