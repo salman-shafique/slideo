@@ -3,6 +3,9 @@ cd /var/www/app;
 
 echo_ () { echo -e "\033[41m${1}\033[m"; }
 
+echo_ "Update the Symfony server";
+symfony self:update -y;
+
 symfony server:stop;
 php bin/console cache:clear;
 

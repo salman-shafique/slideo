@@ -31,6 +31,9 @@ case $APP_ENV in
     ;;
 esac;
 
+echo_ "Update the Symfony server";
+symfony self:update -y;
+
 # Crons
 echo_ "Start crons"
 crontab -u root /var/www/app/docker/cron
