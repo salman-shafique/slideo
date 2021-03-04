@@ -49,7 +49,7 @@ function ContextMenu() {
         console.log('element tree', elementTree);	
         session.SELECTED_ELEMENTS[0].shape.style.zIndex = 1000;	
 
-        
+
 
         if (session.SELECTED_ELEMENTS.length == 1) {
             // One element selected
@@ -100,22 +100,31 @@ function ContextMenu() {
                 console.log("Send Backward clicked.");
                 if (childIndex > 1){	
                     session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue = childIndex - 2;	
-                    console.log('moved childindex minus 2')	
-                    parent.insertBefore(children[childIndex], children[childIndex - 1]);	
+                    parent.insertBefore(children[childIndex], children[childIndex - 1]);
+
                     console.log('child shape index', child.shape_index)	
-                    // child.shape_index = childIndex - 1;	
                     console.log('new node val', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue) 	
                 }
                 break;
             case "SEND_TO_BACK":
                 console.log("Send to Back clicked.");
+
+                parent.insertBefore(children[childIndex], children[1]);
+
                 break;
             case "BRING_FORWARD":
                 console.log("Bring Forward clicked.");
+
+                parent.insertBefore(children[childIndex], children[childIndex + 1]);
+
+                console.log('bring forward children[childIndex +1]', children[childIndex + 1])
+
                 break;
             case "BRING_TO_FRONT":
                 console.log("Bring to Front clicked.");	
+
                 parent.insertBefore(children[childIndex], children[children.length - 1].nextSibling);	
+
                 console.log('inserting after laset')
                 break;
             default:
