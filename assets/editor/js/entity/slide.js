@@ -319,23 +319,23 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
     }
 
     this.updateZIndex = (selectedElZIndex, zIndexMovement) => {
-        console.log('zindexmovement in updatezindex', zIndexMovement)
-        console.log("z-index of the element tree is updated according to shapes' 'shape_index'.");
-        console.log("slideId", this.slideId);
+        // console.log('zindexmovement in updatezindex', zIndexMovement)
+        // console.log("z-index of the element tree is updated according to shapes' 'shape_index'.");
+        // console.log("slideId", this.slideId);
 
         const currentSlide = session.CURRENT_SLIDE;
-        console.log('currentslide', currentSlide);
+        // console.log('currentslide', currentSlide);
         const shapesOfSlide = slide(session.CURRENT_SLIDE).slideData().shapes;
-        console.log('shapes of slide', shapesOfSlide);
-        console.log('selected EL in updatezindex', selectedElZIndex)
+        // console.log('shapes of slide', shapesOfSlide);
+        // console.log('selected EL in updatezindex', selectedElZIndex)
 
         if (selectedElZIndex){
             const shape_id_selected = parseInt(selectedElZIndex.shapeId, 10);
-            console.log('shape id selected', shape_id_selected)
+            // console.log('shape id selected', shape_id_selected)
             const data = shape(slideId, shape_id_selected);
-            console.log('shape data in updatezindex', data);
+            // console.log('shape data in updatezindex', data);
             const elementTree = slide(session.CURRENT_SLIDE).page();
-            console.log('element tree in updatezindex', elementTree);
+            // console.log('element tree in updatezindex', elementTree);
             console.log('element tree children', elementTree.children);
             for (let i = 0; i < elementTree.children.length; i++){
                 // console.log('child id', elementTree.children[i])
@@ -375,6 +375,8 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                     const precedingElIndexInChildren = shape_index;
                     const followingElIndexInChildren = shape_index + 2;
 
+
+
                     console.log('selected el', children[selectedElIndexInChildren]);
                     console.log('preceding el', children[precedingElIndexInChildren]);
 
@@ -387,7 +389,6 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             break;
                         case "SEND_TO_BACK":
                             const indexOfFirstNonBackground = 1; 
-                            const selectedElIndexInChildren = shape_index + 1;
                             
                             for (let i = indexOfFirstNonBackground; i <= selectedElIndexInChildren; i++){
                               //get shape index of current element
@@ -414,8 +415,30 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             children[followingElIndexInChildren].setAttribute('shape_index', shapeIndexSelected);
                             parent.insertBefore(children[selectedElIndexInChildren], children[selectedElIndexInChildren + 2]);
 
+                            return;
+
                             break;
                         case "BRING_TO_FRONT":
+                        
+                            for (let i = selectedElIndexInChildren; i < children.length; i++){
+                                if (i === selectedElIndexInChildren){
+                                const lastShapeIndex = children.length - 1 - 1;
+                                console.log('setting index of selected el to:', lastShapeIndex);
+                                children[i].setAttribute('shape_index', lastShapeIndex);
+                            } else {
+                                const prevShapeIndex = parseInt(children[i].getAttribute('shape_index'), 10);
+                                console.log('changing index of sibling from __ to __:', prevShapeIndex, prevShapeIndex - 1);
+                                children[i].setAttribute('shape_index', prevShapeIndex - 1);
+                                }
+                            }
+                            console.log('children bring front', children);
+                            console.log('selected index', selectedElIndexInChildren);
+                            console.log('selected child in bring to front', children[selectedElIndexInChildren])
+                            console.log('last child', children[children.length - 1])
+                            console.log('next sibling of last child', children[children.length - 1].nextSibling)
+                            parent.insertBefore(children[selectedElIndexInChildren], children[children.length - 1].nextSibling);
+
+                            return;
                             break;
                         default:
                             return null;

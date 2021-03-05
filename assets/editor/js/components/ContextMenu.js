@@ -33,20 +33,20 @@ function ContextMenu() {
         const slideId = session.CURRENT_SLIDE;	
         const shape_id = g.getAttribute("shape_id");	
         const data = shape(slideId, shape_id);	
-        console.log('slideid, shapeid, data', slideId, shape_id, data);	
-        console.log('shape', session.SELECTED_ELEMENTS[0].shape)	
-        console.log('selected element', session.SELECTED_ELEMENTS[0])	
-        console.log('element shape index node val', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue);	
-        console.log('element shape index', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index);	
-        console.log('element shape attr', session.SELECTED_ELEMENTS[0].shape.attributes);	
-        console.log('element shape getattr', session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_index'));	
+        // console.log('slideid, shapeid, data', slideId, shape_id, data);	
+        // console.log('shape', session.SELECTED_ELEMENTS[0].shape)	
+        // console.log('selected element', session.SELECTED_ELEMENTS[0])	
+        // console.log('element shape index node val', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue);	
+        // console.log('element shape index', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index);	
+        // console.log('element shape attr', session.SELECTED_ELEMENTS[0].shape.attributes);	
+        // console.log('element shape getattr', session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_index'));	
         const shapesOfSlide = slide(session.CURRENT_SLIDE).slideData().shapes	
-        console.log('shapes of slide', shapesOfSlide);	
+        // console.log('shapes of slide', shapesOfSlide);	
         // session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue = 1000;	
         // console.log('new shape node val', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue)	
         	
         const elementTree = slide(session.CURRENT_SLIDE).page();	
-        console.log('element tree', elementTree);	
+        // console.log('element tree', elementTree);	
         // session.SELECTED_ELEMENTS[0].shape.style.zIndex = 1000;	
 
 
@@ -129,7 +129,10 @@ function ContextMenu() {
             case "BRING_TO_FRONT":
                 console.log("Bring to Front clicked.");	
 
-                parent.insertBefore(children[childIndex], children[children.length - 1].nextSibling);	
+                // parent.insertBefore(children[childIndex], children[children.length - 1].nextSibling);	
+
+                
+                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'BRING_TO_FRONT');
 
                 console.log('inserting after laset')
                 break;
