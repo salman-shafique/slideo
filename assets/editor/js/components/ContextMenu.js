@@ -119,10 +119,10 @@ function ContextMenu() {
                 break;
             case "BRING_FORWARD":
                 console.log("Bring Forward clicked.");
-
-                parent.insertBefore(children[childIndex], children[childIndex + 1]);
-
+                // parent.insertBefore(children[childIndex], children[childIndex + 1]);
                 console.log('bring forward children[childIndex +1]', children[childIndex + 1])
+                
+                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'BRING_FORWARD');
 
                 break;
             case "BRING_TO_FRONT":
