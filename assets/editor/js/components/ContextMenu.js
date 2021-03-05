@@ -102,12 +102,12 @@ function ContextMenu() {
                 if (childIndex > 1){	
                     session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue = childIndex - 2;
 
-                    slide(session.CURRENT_SLIDE).initSlide.updateZIndex();
                     console.log('added slide zindex')
                     parent.insertBefore(children[childIndex], children[childIndex - 1]);
-
+                    
                     console.log('child shape index', child.shape_index)	
-                    console.log('new node val', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue) 	
+                    console.log('new node val', child.attributes.shape_index.nodeValue);	
+                    slide(session.CURRENT_SLIDE).initSlide().updateZIndex();
                 }
                 break;
             case "SEND_TO_BACK":
