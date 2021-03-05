@@ -32,10 +32,10 @@ import preloader from "Editor/js/components/preloader";
 
 const chunkDesigns = {};
 
-export default function slide(slideId, selectedEl) {
+export default function slide(slideId, selectedEl, zIndexMovement) {
 
 
-    if (selectedEl) slide(slideId).initSlide().updateZIndex(selectedEl);
+    if (selectedEl) slide(slideId).initSlide().updateZIndex(selectedEl, zIndexMovement);
 
 
 
@@ -318,7 +318,8 @@ export default function slide(slideId, selectedEl) {
         return this;
     }
 
-    this.updateZIndex = (selectedElZIndex) => {
+    this.updateZIndex = (selectedElZIndex, zIndexMovement) => {
+        console.log('zindexmovement in updatezindex', zIndexMovement)
         console.log("z-index of the element tree is updated according to shapes' 'shape_index'.");
         console.log("slideId", this.slideId);
 
@@ -369,15 +370,29 @@ export default function slide(slideId, selectedEl) {
                     const parent = shape.parentNode;
                     console.log('parent', parent);
                     console.log('children',children);
+                    
                     const selectedElIndexInChildren = shape_index + 1;
                     const precedingElIndexInChildren = shape_index;
+                    const followingElIndexInChildren = shape_index + 2;
+
                     console.log('selected el', children[selectedElIndexInChildren]);
                     console.log('preceding el', children[precedingElIndexInChildren]);
 
-                    children[selectedElIndexInChildren].setAttribute('shape_index', shape_index - 1);
-                    children[precedingElIndexInChildren].setAttribute('shape_index', shape_index);
-                    parent.insertBefore(children[selectedElIndexInChildren], children[selectedElIndexInChildren - 1]);
-                    console.log('new children', children);
+                    switch (zIndexMovement){
+                        case "SEND_BACKWARD":
+                            children[selectedElIndexInChildren].setAttribute('shape_index', shape_index - 1);
+                            children[precedingElIndexInChildren].setAttribute('shape_index', shape_index);
+                            parent.insertBefore(children[selectedElIndexInChildren], children[selectedElIndexInChildren - 1]);
+                            break;
+                        case "SEND_TO_BACK":
+                            break;
+                        case "SEND_FORWARD":
+                            break;
+                        case "SEND_TO_FRONT":
+                            break;
+                        default:
+                            return null;
+                    }
 
                     return;
                 };

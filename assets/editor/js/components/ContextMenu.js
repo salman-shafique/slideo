@@ -107,7 +107,7 @@ function ContextMenu() {
                     
                     console.log('child shape index', child.shape_index)	
                     console.log('new node val', child.attributes.shape_index.nodeValue);	
-                    slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0]);
+                    slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'SEND_BACKWARD');
                     // slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0]).initSlide().updateZIndex(session.SELECTED_ELEMENTS[0]);
                 }
                 break;
