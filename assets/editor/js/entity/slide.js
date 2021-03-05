@@ -349,20 +349,25 @@ export default function slide(slideId, selectedEl) {
                     console.log('old shape index in data', shapesOfSlide[shape_index].data.shape_index);
                     shapesOfSlide[shape_index].data.shape_index = shape_index - 1;
                     console.log('shapes of slide shapeindex', shapesOfSlide[shape_index])
+                    console.log('new shape index in data', shapesOfSlide[shape_index].data.shape_index);
+
+                    //Set shape_index attribute of element
+                    shape.setAttribute('shape_index', shape_index - 1);
+                    console.log('new shape w/ adjusted index', slide(session.CURRENT_SLIDE).page().children[i]);
+                    console.log('shapes of slide' , shapesOfSlide);
+
+                    //Change index of preceding element 
+                    elementTree.children[i - 1].setAttribute('shape_index', shape_index);
 
                     //Move element in DOM tree
                     const children = elementTree.children;
                     const parent = shape.parentNode;
                     console.log('parent', parent);
                     console.log('children',children);
-                    parent.insertBefore(children[shape_index], children[shape_index - 1]);
+                    parent.insertBefore(children[shape_index + 1], children[shape_index - 1]);
                     console.log('new children', children);
 
-                    //Set shape_index attribute of element
-                    console.log('new shape index in data', shapesOfSlide[shape_index].data.shape_index);
-                    shape.setAttribute('shape_index', shape_index - 1);
-                    console.log('new shape w adjusted index', shape);
-                    console.log('shapes of slide' , shapesOfSlide)
+
                 };
             }
         }

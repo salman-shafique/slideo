@@ -103,7 +103,6 @@ function ContextMenu() {
                     // child.attributes.shape_index.nodeValue = childIndex - 2;
 
 
-                    console.log('added slide zindex')
                     // parent.insertBefore(children[childIndex], children[childIndex - 1]);
                     
                     console.log('child shape index', child.shape_index)	
