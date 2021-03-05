@@ -312,9 +312,11 @@ export default function slide(slideId) {
         return this;
     }
 
-    this.updateZIndex = () => {
+    this.updateZIndex = (gParentOfSelectedEl) => {
         console.log("z-index of the element tree is updated according to shapes' 'shape_index'.");
         console.log("slideId", this.slideId);
+        console.log('gparent ', gParentOfSelectedEl);
+
     }
 
     this.display = function () {

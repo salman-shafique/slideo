@@ -100,14 +100,15 @@ function ContextMenu() {
                 console.log("Send Backward clicked.");
 
                 if (childIndex > 1){	
-                    session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue = childIndex - 2;
+                    child.attributes.shape_index.nodeValue = childIndex - 2;
+
 
                     console.log('added slide zindex')
                     parent.insertBefore(children[childIndex], children[childIndex - 1]);
                     
                     console.log('child shape index', child.shape_index)	
                     console.log('new node val', child.attributes.shape_index.nodeValue);	
-                    slide(session.CURRENT_SLIDE).initSlide().updateZIndex();
+                    slide(session.CURRENT_SLIDE).initSlide().updateZIndex(child);
                 }
                 break;
             case "SEND_TO_BACK":
