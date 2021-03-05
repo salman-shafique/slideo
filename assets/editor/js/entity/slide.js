@@ -32,7 +32,13 @@ import preloader from "Editor/js/components/preloader";
 
 const chunkDesigns = {};
 
-export default function slide(slideId) {
+export default function slide(slideId, selectedEl) {
+
+
+    if (selectedEl) slide(slideId).initSlide().updateZIndex(selectedEl);
+
+
+
     if (!(this instanceof slide)) return new slide(...arguments);
 
     this.slideId = slideId;
@@ -312,7 +318,7 @@ export default function slide(slideId) {
         return this;
     }
 
-    this.updateZIndex = () => {
+    this.updateZIndex = (selectedElZIndex) => {
         console.log("z-index of the element tree is updated according to shapes' 'shape_index'.");
         console.log("slideId", this.slideId);
 
@@ -320,6 +326,13 @@ export default function slide(slideId) {
         console.log('currentslide', currentSlide);
         const shapesOfSlide = slide(session.CURRENT_SLIDE).slideData().shapes;
         console.log('shapes of slide', shapesOfSlide);
+        console.log('selected EL in updatezindex', selectedElZIndex)
+
+        if (selectedElZIndex){
+            const shape_id = selectedElZIndex.shapeId;
+            const data = shape(slideId, shape_id);
+            console.log('shape data in updatezindex', data);
+        }
     }
 
     this.display = function () {
