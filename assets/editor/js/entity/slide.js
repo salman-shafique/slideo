@@ -344,9 +344,21 @@ export default function slide(slideId, selectedEl) {
                 const shape_id = parseInt(elementTree.children[i].getAttribute('shape_id'), 10);
                 console.log('shape_id', shape_id);
                 if (shape_id === shape_id_selected){
+                    //Edit shape_index in data of shapesOfSlide array 
                     console.log('selected shape', shape);
                     console.log('old shape index in data', shapesOfSlide[shape_index].data.shape_index);
                     shapesOfSlide[shape_index].data.shape_index = shape_index - 1;
+                    console.log('shapes of slide shapeindex', shapesOfSlide[shape_index])
+
+                    //Move element in DOM tree
+                    const children = elementTree.children;
+                    const parent = shape.parentNode;
+                    console.log('parent', parent);
+                    console.log('children',children);
+                    parent.insertBefore(children[shape_index], children[shape_index - 1]);
+                    console.log('new children', children);
+
+                    //Set shape_index attribute of element
                     console.log('new shape index in data', shapesOfSlide[shape_index].data.shape_index);
                     shape.setAttribute('shape_index', shape_index - 1);
                     console.log('new shape w adjusted index', shape);
