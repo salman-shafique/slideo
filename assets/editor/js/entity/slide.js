@@ -345,6 +345,8 @@ export default function slide(slideId, selectedEl) {
                 console.log('shape_id', shape_id);
                 if (shape_id === shape_id_selected){
                     console.log('selected shape', shape);
+                    shape.setAttribute('shape_index', shape_index - 1);
+                    console.log('new shape w adjusted index', shape);
                 };
             }
         }
