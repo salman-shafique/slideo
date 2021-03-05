@@ -329,7 +329,7 @@ export default function slide(slideId, selectedEl) {
         console.log('selected EL in updatezindex', selectedElZIndex)
 
         if (selectedElZIndex){
-            const shape_id_selected = selectedElZIndex.shapeId;
+            const shape_id_selected = parseInt(selectedElZIndex.shapeId, 10);
             console.log('shape id selected', shape_id_selected)
             const data = shape(slideId, shape_id_selected);
             console.log('shape data in updatezindex', data);
@@ -343,6 +343,9 @@ export default function slide(slideId, selectedEl) {
                 const shape_index = parseInt(elementTree.children[i].getAttribute('shape_index'), 10);
                 const shape_id = parseInt(elementTree.children[i].getAttribute('shape_id'), 10);
                 console.log('shape_id', shape_id);
+                if (shape_id === shape_id_selected){
+                    console.log('selected shape', shape);
+                };
             }
         }
     }
