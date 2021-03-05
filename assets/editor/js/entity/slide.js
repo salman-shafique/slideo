@@ -350,6 +350,7 @@ export default function slide(slideId, selectedEl) {
                     console.log('new shape index in data', shapesOfSlide[shape_index].data.shape_index);
                     shape.setAttribute('shape_index', shape_index - 1);
                     console.log('new shape w adjusted index', shape);
+                    console.log('shapes of slide' , shapesOfSlide)
                 };
             }
         }
