@@ -47,7 +47,7 @@ function ContextMenu() {
         	
         const elementTree = slide(session.CURRENT_SLIDE).page();	
         console.log('element tree', elementTree);	
-        session.SELECTED_ELEMENTS[0].shape.style.zIndex = 1000;	
+        // session.SELECTED_ELEMENTS[0].shape.style.zIndex = 1000;	
 
 
 
@@ -104,11 +104,12 @@ function ContextMenu() {
 
 
                     console.log('added slide zindex')
-                    parent.insertBefore(children[childIndex], children[childIndex - 1]);
+                    // parent.insertBefore(children[childIndex], children[childIndex - 1]);
                     
                     console.log('child shape index', child.shape_index)	
                     console.log('new node val', child.attributes.shape_index.nodeValue);	
-                    slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0]).initSlide().updateZIndex(session.SELECTED_ELEMENTS[0]);
+                    slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0]);
+                    // slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0]).initSlide().updateZIndex(session.SELECTED_ELEMENTS[0]);
                 }
                 break;
             case "SEND_TO_BACK":
