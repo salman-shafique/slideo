@@ -332,6 +332,13 @@ export default function slide(slideId, selectedEl) {
             const shape_id = selectedElZIndex.shapeId;
             const data = shape(slideId, shape_id);
             console.log('shape data in updatezindex', data);
+            const elementTree = slide(session.CURRENT_SLIDE).page();
+            console.log('element tree in updatezindex', elementTree);
+            console.log('element tree children', elementTree.children.length);
+            for (let i = 0; i < elementTree.children.length; i++){
+                console.log('child id', elementTree.children[i])
+                console.log('child index', elementTree.children[i].getAttribute('shape_index'))
+            }
         }
     }
 
