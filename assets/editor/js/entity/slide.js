@@ -386,17 +386,34 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             parent.insertBefore(children[selectedElIndexInChildren], children[selectedElIndexInChildren - 1]);
                             break;
                         case "SEND_TO_BACK":
+                            const indexOfFirstNonBackground = 1; 
+                            const selectedElIndexInChildren = shape_index + 1;
+                            
+                            for (let i = indexOfFirstNonBackground; i <= selectedElIndexInChildren; i++){
+                              //get shape index of current element
+                              if (i === selectedElIndexInChildren){
+                                children[i].setAttribute('shape_index', 0);
+                              } else {
+                                const prevShapeIndex = parseInt(children[i].getAttribute('shape_index'), 10);
+                                children[i].setAttribute('shape_index', prevShapeIndex + 1);
+                              }
+                            }
+                            parent.insertBefore(children[selectedElIndexInChildren], children[1]);
+                            
                             break;
                         case "BRING_FORWARD":
                             console.log('bring forward in updatezindex')
                             console.log('selected el', children[selectedElIndexInChildren])
                             console.log('folowing el', children[followingElIndexInChildren])
                             console.log('shape index', shape_index)
+
                             const shapeIndexSelectedPlusOne = shape_index + 1 + 1;
                             const shapeIndexSelected = shape_index + 1;
+
                             children[selectedElIndexInChildren].setAttribute('shape_index', shapeIndexSelectedPlusOne);
                             children[followingElIndexInChildren].setAttribute('shape_index', shapeIndexSelected);
                             parent.insertBefore(children[selectedElIndexInChildren], children[selectedElIndexInChildren + 2]);
+
                             break;
                         case "BRING_TO_FRONT":
                             break;

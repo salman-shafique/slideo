@@ -102,7 +102,6 @@ function ContextMenu() {
                 if (childIndex > 1){	
                     // child.attributes.shape_index.nodeValue = childIndex - 2;
 
-
                     // parent.insertBefore(children[childIndex], children[childIndex - 1]);
                     
                     console.log('child shape index', child.shape_index)	
@@ -114,7 +113,9 @@ function ContextMenu() {
             case "SEND_TO_BACK":
                 console.log("Send to Back clicked.");
 
-                parent.insertBefore(children[childIndex], children[1]);
+                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'SEND_TO_BACK');
+
+                // parent.insertBefore(children[childIndex], children[1]);
 
                 break;
             case "BRING_FORWARD":
