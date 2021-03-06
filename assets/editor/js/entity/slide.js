@@ -328,10 +328,8 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                 const shape_index = parseInt(elementTree.children[i].getAttribute('shape_index'), 10);
                 const shape_id = parseInt(elementTree.children[i].getAttribute('shape_id'), 10);
                 if (shape_id === shape_id_selected){
-                    
                     const children = elementTree.children;
                     const parent = shape.parentNode;
-                    
                     switch (zIndexMovement){
                         case "SEND_BACKWARD":
                             children[i].setAttribute('shape_index', shape_index - 1);
