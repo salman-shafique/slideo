@@ -6,6 +6,7 @@ import slide from "Editor/js/entity/slide";
 import apiService from "Editor/js/utils/apiService";
 import constants from "Editor/js/constants";
 import preloader from "Editor/js/components/preloader";
+import toastr from "Editor/js/components/toastr";
 import sidebar from "Editor/js/entity/sidebar";
 
 
@@ -45,6 +46,11 @@ export default function create_slides() {
             "slides": session.NEW_SLIDES
         },
         success: (response) => {
+            if (response.success === false) {
+                toastr.error(response.descr);
+                preloader.hide();
+                return;
+            }
             if (response.presentationId) {
                 location.href = "/editor/" + response.presentationId;
                 return;
@@ -54,7 +60,7 @@ export default function create_slides() {
                 slide().appendToPresentation(slideData).insertToPage();
             });
             status.update("Slides created...");
-            
+
             sidebar.open("Design_Tool");
             preloader.hide();
         }

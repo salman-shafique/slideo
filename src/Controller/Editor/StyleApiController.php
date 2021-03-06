@@ -3,6 +3,7 @@
 namespace App\Controller\Editor;
 
 use App\Entity\Style;
+use App\Enum\CompanyEnum;
 use App\Service\StyleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +25,16 @@ class StyleApiController extends AbstractController
         $r = $styleService->add($request);
         return  new JsonResponse($r);
     }
+    /**
+     * @Route("/getCompanies",methods={"POST"})
+     */
+    public function getCompanies(Request $request)
+    {
+        if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11")
+            return  new JsonResponse(["descr" => "Not authorized"]);
+        return new JsonResponse(CompanyEnum::COMPANIES);
+    }
+
 
     /**
      * @Route("/get")
@@ -34,7 +45,7 @@ class StyleApiController extends AbstractController
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
         $r = $styleService->get($request);
-        
+
         return new JsonResponse($r);
     }
 }

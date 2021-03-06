@@ -5,6 +5,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import sidebar from "Editor/js/entity/sidebar";
+import Events from "Editor/js/Events";
 
 ReactDOM.render(
     <ShapePanel />,
@@ -32,6 +33,6 @@ const shapeSelected = () => {
     document.querySelector("#Shapes_Panel .control-close-button").click()
 }
 
-window.addEventListener("shape.selected", shapeSelected);
-window.addEventListener("shape.allReleased", shapeSelected);
+Events.listen("shape.selected", shapeSelected);
+Events.listen("shape.allReleased", shapeSelected);
 

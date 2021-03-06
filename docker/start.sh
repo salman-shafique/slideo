@@ -7,7 +7,7 @@ echo_ () { echo -e "\033[41m${1}\033[m"; }
 composer_check="$(composer show 2>&1 | grep 'composer install')"
 if [ ! -z "$composer_check" ]; then 
     echo_ "Installing composer dependencies..."
-    composer install
+    composer install;
 fi;
 
 # Yarn check
@@ -31,13 +31,20 @@ case $APP_ENV in
     ;;
 esac;
 
+echo_ "Update the Symfony server";
+symfony self:update -y;
+
+# Crons
+echo_ "Start crons"
+crontab -u root /var/www/app/docker/cron
+
 # Consume messages
 while [ $(curl -Is -w "%{http_code}" -L "http://slideo_rabbitmq:15672/" -o /dev/null) -ne "200" ]
 do
 echo_ "Waiting for the Rabbit MQ server..."
 sleep 10s;
 done
-nohup php bin/console messenger:consume mail -vv &
+nohup php bin/console messenger:consume mail download -vv &
 
 start_server=$(symfony server:start -d | grep [OK])
 if [ "$start_server" == "" ]; then 

@@ -6,6 +6,7 @@ import shape from "Editor/js/entity/shape";
 import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
+import Events from "Editor/js/Events";
 
 export default function FontSize(props) {
     const [selectedFontsize, setSelectedFontsize] = React.useState(null); // In pixels - integer
@@ -37,10 +38,10 @@ export default function FontSize(props) {
 
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", updateDropdown);
-        window.addEventListener("shape.resize.ended", updateDropdown);
-        window.addEventListener("shape.drag.ended", updateDropdown);
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.selected", updateDropdown);
+        Events.listen("shape.resize.ended", updateDropdown);
+        Events.listen("shape.drag.ended", updateDropdown);
+        Events.listen("shape.allReleased", () => {
             setSelectedFontsize(null);
         });
     }, []);

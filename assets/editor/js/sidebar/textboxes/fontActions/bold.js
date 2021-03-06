@@ -3,6 +3,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
+import Events from "Editor/js/Events";
 
 export default function BoldBtn(props) {
     const [boldSelected, setBoldSelected] = React.useState(false);
@@ -20,7 +21,7 @@ export default function BoldBtn(props) {
     }
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", (event) => {
+        Events.listen("shape.selected", (event) => {
             if (!session.INITED) return;
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setBoldSelected(false);
@@ -32,7 +33,7 @@ export default function BoldBtn(props) {
                 setBoldSelected(isBoldText(g));
 
         });
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.allReleased", () => {
             setBoldSelected(false);
         });
     }, []);

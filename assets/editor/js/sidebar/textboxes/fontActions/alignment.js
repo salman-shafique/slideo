@@ -3,6 +3,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
+import Events from "Editor/js/Events";
 
 export default function AlignmentBtn(props) {
     const [alignmentSelected, setAlignmentSelected] = React.useState(constants.ALIGNMENTS.CENTER);
@@ -20,7 +21,7 @@ export default function AlignmentBtn(props) {
     }
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", (event) => {
+        Events.listen("shape.selected", (event) => {
             if (!session.INITED) return;
             if (session.SELECTED_ELEMENTS.length != 1) {
                 setAlignmentSelected(null);
@@ -32,7 +33,7 @@ export default function AlignmentBtn(props) {
                 setAlignmentSelected(getAlignment(g));
 
         });
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.allReleased", () => {
             setAlignmentSelected(null);
         });
     }, []);

@@ -4,6 +4,7 @@ import TextboxPanel from "./TextboxPanel";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
+import Events from "Editor/js/Events";
 
 ReactDOM.render(
     <TextboxPanel />,
@@ -29,6 +30,6 @@ const textboxSelected = () => {
     document.querySelector("#Text_Panel .control-close-button").click()
 }
 
-window.addEventListener("shape.selected", textboxSelected);
-window.addEventListener("shape.allReleased", textboxSelected);
+Events.listen("shape.selected", textboxSelected);
+Events.listen("shape.allReleased", textboxSelected);
 

@@ -5,13 +5,14 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
 import OpacitySlider from "Editor/js/sidebar/components/OpacitySlider/OpacitySlider";
 import getFillType from "Editor/js/shapes/actions/color/getFillType";
+import Events from "Editor/js/Events";
 
 export default function ShapeOptions() {
     const [fillType, setFillType] = React.useState(null);
 
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", () => {
+        Events.listen("shape.selected", () => {
             let storedFillType = null;
             let allSame_ = true;
             session.SELECTED_ELEMENTS.forEach(selectedEl => {

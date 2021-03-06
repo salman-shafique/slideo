@@ -3,6 +3,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
+import Events from "Editor/js/Events";
 
 export default function FontFamily(props) {
     const [selectedFontFamily, setSelectedFontFamily] = React.useState(null);
@@ -33,9 +34,9 @@ export default function FontFamily(props) {
 
 
     React.useEffect(() => {
-        window.addEventListener("shape.selected", updateDropdown);
-        window.addEventListener("shape.drag.ended", updateDropdown); // Check if needed
-        window.addEventListener("shape.allReleased", () => {
+        Events.listen("shape.selected", updateDropdown);
+        Events.listen("shape.drag.ended", updateDropdown); // Check if needed
+        Events.listen("shape.allReleased", () => {
             setSelectedFontFamily(null);
         });
     }, []);

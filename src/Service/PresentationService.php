@@ -16,17 +16,20 @@ use App\Repository\StyleRepository;
 use App\Service\FlaskService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class PresentationService
 {
     private $em;
     private $serializer;
     private $flaskService;
+    private $bus;
 
 
-    public function __construct(EntityManagerInterface $em, SerializerService $serializer, FlaskService $flaskService)
+    public function __construct(EntityManagerInterface $em, MessageBusInterface $bus, SerializerService $serializer, FlaskService $flaskService)
     {
         $this->em = $em;
+        $this->bus = $bus;
         $this->serializer = $serializer;
         $this->flaskService = $flaskService;
     }
@@ -62,16 +65,36 @@ class PresentationService
     }
     private function updateColorTemplate($colorTemplateJson, ColorTemplate $colorTemplate)
     {
-        $colorTemplate->setACCENT1($colorTemplateJson['aCCENT1']);
-        $colorTemplate->setACCENT2($colorTemplateJson['aCCENT2']);
-        $colorTemplate->setACCENT3($colorTemplateJson['aCCENT3']);
-        $colorTemplate->setACCENT4($colorTemplateJson['aCCENT4']);
-        $colorTemplate->setACCENT5($colorTemplateJson['aCCENT5']);
-        $colorTemplate->setACCENT6($colorTemplateJson['aCCENT6']);
-        $colorTemplate->setBACKGROUND1($colorTemplateJson['bACKGROUND1']);
-        $colorTemplate->setBACKGROUND2($colorTemplateJson['bACKGROUND2']);
-        $colorTemplate->setTEXT1($colorTemplateJson['tEXT1']);
-        $colorTemplate->setTEXT2($colorTemplateJson['tEXT2']);
+        isset($colorTemplateJson['ACCENT_1'])
+            ? $colorTemplate->setACCENT1($colorTemplateJson['ACCENT_1'])
+            : $colorTemplate->setACCENT1($colorTemplateJson['aCCENT1']);
+        isset($colorTemplateJson['ACCENT_2'])
+            ? $colorTemplate->setACCENT2($colorTemplateJson['ACCENT_2'])
+            : $colorTemplate->setACCENT2($colorTemplateJson['aCCENT2']);
+        isset($colorTemplateJson['ACCENT_3'])
+            ? $colorTemplate->setACCENT3($colorTemplateJson['ACCENT_3'])
+            : $colorTemplate->setACCENT3($colorTemplateJson['aCCENT3']);
+        isset($colorTemplateJson['ACCENT_4'])
+            ? $colorTemplate->setACCENT4($colorTemplateJson['ACCENT_4'])
+            : $colorTemplate->setACCENT4($colorTemplateJson['aCCENT4']);
+        isset($colorTemplateJson['ACCENT_5'])
+            ? $colorTemplate->setACCENT5($colorTemplateJson['ACCENT_5'])
+            : $colorTemplate->setACCENT5($colorTemplateJson['aCCENT5']);
+        isset($colorTemplateJson['ACCENT_6'])
+            ? $colorTemplate->setACCENT6($colorTemplateJson['ACCENT_6'])
+            : $colorTemplate->setACCENT6($colorTemplateJson['aCCENT6']);
+        isset($colorTemplateJson['BACKGROUND_1'])
+            ? $colorTemplate->setBACKGROUND1($colorTemplateJson['BACKGROUND_1'])
+            : $colorTemplate->setBACKGROUND1($colorTemplateJson['bACKGROUND1']);
+        isset($colorTemplateJson['BACKGROUND_2'])
+            ? $colorTemplate->setBACKGROUND2($colorTemplateJson['BACKGROUND_2'])
+            : $colorTemplate->setBACKGROUND2($colorTemplateJson['bACKGROUND2']);
+        isset($colorTemplateJson['TEXT_1'])
+            ? $colorTemplate->setTEXT1($colorTemplateJson['TEXT_1'])
+            : $colorTemplate->setTEXT1($colorTemplateJson['tEXT1']);
+        isset($colorTemplateJson['TEXT_2'])
+            ? $colorTemplate->setTEXT2($colorTemplateJson['TEXT_2'])
+            : $colorTemplate->setTEXT2($colorTemplateJson['tEXT2']);
 
         $this->em->persist($colorTemplate);
         $this->em->flush();
@@ -161,8 +184,7 @@ class PresentationService
         $this->em->persist($presentation);
         $this->em->flush();
 
-        // invoke the flask server
-        $this->flaskService->call("Presentation", "start_downloads", []);
+        $this->bus->dispatch($dowloadPresentation);
         return ['success' => true];
     }
 
@@ -214,9 +236,9 @@ class PresentationService
         $currentDownloadId = $jsonFile['current_download_id'];
 
         $name = $jsonFile['name'];
-        $unique1 = hash('md2',uniqid());
-        $unique2 = hash('md2',uniqid());
-        $unique3 = hash('md2',uniqid());
+        $unique1 = hash('md2', uniqid());
+        $unique2 = hash('md2', uniqid());
+        $unique3 = hash('md2', uniqid());
         $this->saveBase64File("presentations/$uniquefolder/$name-$unique1.pptx", $jsonFile['pptx']);
         $this->saveBase64File("presentations/$uniquefolder/$name-$unique2.png", $jsonFile['png']);
         $this->saveBase64File("presentations/$uniquefolder/$name-$unique3.pdf", $jsonFile['pdf']);

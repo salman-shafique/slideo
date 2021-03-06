@@ -5,8 +5,10 @@ RUN apt-get update && \
     apt-get upgrade -y
 
 # Utils
-RUN apt install -y git nodejs npm nano procps net-tools unzip
+RUN apt install -y git nodejs npm nano procps net-tools unzip cron
 RUN npm install -g yarn
+# Start cron
+RUN service cron start
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
@@ -27,6 +29,7 @@ RUN install-php-extensions pdo_mysql zip intl opcache amqp
 
 # Certificate verify - CA file - cURL
 COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
+
 
 # Update
 RUN apt-get update -y

@@ -13,7 +13,9 @@ export default function DesignItems() {
 
     const arrangeDesignItems = (freshDesignItems)=>{
         let tmpDesignItems = [];
-        freshDesignItems.forEach((designData, i) => {
+        freshDesignItems
+        .sort((a,b)=>b.id-a.id)
+        .forEach((designData, i) => {
             if (designData)
                 tmpDesignItems.push(
                     <DesignItem key={i} designData={designData} />
@@ -22,7 +24,7 @@ export default function DesignItems() {
         setDesignItems(tmpDesignItems);
     }
 
-    if (Object.keys(designs).length == 0) {
+    React.useEffect(()=>{
         window.top.addEventListener('slide.display', (event) => {
             const slideId = event.data.slideId;
             const slideData = slide(slideId).slideData();
@@ -59,11 +61,14 @@ export default function DesignItems() {
                 arrangeDesignItems(designs[direction][capacity]);
             } catch (error) {}
         });
+    },[]);
 
+
+    if (designItems.length == 0)
         return (
             <h4 className={"text-center text-white"}>Let's create beautiful presentations!</h4>
         )
-    }
+    
     return designItems;
 
 }
