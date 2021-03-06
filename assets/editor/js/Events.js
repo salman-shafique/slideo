@@ -35,7 +35,8 @@ const Events = {
         allReleasedExcept: (data = {}) => dispatchEvent("shape.allReleasedExcept", data),
     },
     colorCircle: {
-        opened: (data = {}) => dispatchEvent("colorCircle.opened", data)
+        opened: (data = {}) => dispatchEvent("colorCircle.opened", data),
+        open: (data = {}) => dispatchEvent("colorCircle.open", data),
     },
     contextMenu: {
         open: (data = {}) => dispatchEvent("contextMenu.open", data)
