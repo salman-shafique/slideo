@@ -36,7 +36,8 @@ class FlaskService
             'POST',
             "http://slideo_flask/call/$className/$methodName",
             [
-                'json' =>  $data
+                'json' =>  $data,
+                'timeout' => 3600
             ]
         );
         return $response->toArray();
