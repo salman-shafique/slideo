@@ -34,10 +34,7 @@ const chunkDesigns = {};
 
 export default function slide(slideId, selectedEl, zIndexMovement) {
 
-
     if (selectedEl) slide(slideId).initSlide().updateZIndex(selectedEl, zIndexMovement);
-
-
 
     if (!(this instanceof slide)) return new slide(...arguments);
 
@@ -318,9 +315,9 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
         return this;
     }
 
-    this.updateZIndex = (selectedElZIndex, zIndexMovement) => {
-        if (selectedElZIndex){
-            const shape_id_selected = parseInt(selectedElZIndex.shapeId, 10);
+    this.updateZIndex = (selectedElement, zIndexMovement) => {
+        if (selectedElement){
+            const shape_id_selected = parseInt(selectedElement.shapeId, 10);
             const elementTree = slide(session.CURRENT_SLIDE).page();
 
             for (let i = 0; i < elementTree.children.length; i++){
