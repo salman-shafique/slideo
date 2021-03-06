@@ -354,20 +354,15 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             break;
                         case "SEND_TO_BACK":
                             const indexOfFirstNonBackgroundEl = 1; 
-                            console.log('selected element', children[selectedElIndexInChildren])
-                            for (let j = indexOfFirstNonBackgroundEl; j <= selectedElIndexInChildren; j++){
-                              //get shape index of current element
-                              if (j === selectedElIndexInChildren){
-                                console.log('setting shape_index of selected element')
+                            for (let j = indexOfFirstNonBackgroundEl; j <= i; j++){
+                              if (j === i){
                                 children[j].setAttribute('shape_index', 0);
                             } else {
-                                console.log('setting shape_index of elements below selected in DOM tree')
                                 const prevShapeIndex = parseInt(children[j].getAttribute('shape_index'), 10);
                                 children[j].setAttribute('shape_index', prevShapeIndex + 1);
                               }
                             }
-                            parent.insertBefore(children[selectedElIndexInChildren], children[1]);
-                            
+                            parent.insertBefore(children[i], children[1]);
                             break;
                         case "BRING_FORWARD":
                             children[i].setAttribute('shape_index', shape_index + 1);
