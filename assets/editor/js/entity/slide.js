@@ -351,9 +351,14 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             parent.insertBefore(children[i], children[1]);
                             break;
                         case "BRING_FORWARD":
-                            children[i].setAttribute("shape_index", shape_index + 1);
-                            children[i + 1].setAttribute("shape_index", shape_index);
-                            parent.insertBefore(children[i], children[i + 2]);
+                            console.log('bring forward running in updateZIndex');
+                            console.log('elementTree.children.length', elementTree.children.length)
+                            if (i < elementTree.children.length - 1) {
+                                console.log('bring forward executing')
+                                children[i].setAttribute("shape_index", shape_index + 1);
+                                children[i + 1].setAttribute("shape_index", shape_index);
+                                parent.insertBefore(children[i], children[i + 2]);
+                            }
                             break;
                         case "BRING_TO_FRONT":
                             for (let j = i; j < children.length; j++){
