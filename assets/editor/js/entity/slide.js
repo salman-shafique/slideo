@@ -347,7 +347,6 @@ export default function slide(slideId) {
             const data = shape_.data();
             if (!data) return;
             data.shape_index = i;
-            console.log(data.shape_id,i);
         }
     }
 
