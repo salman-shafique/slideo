@@ -339,12 +339,13 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                         case "SEND_TO_BACK":
                             const indexOfFirstNonBackgroundEl = 1; 
                             for (let j = indexOfFirstNonBackgroundEl; j <= i; j++){
-                              if (j === i){
-                                children[j].setAttribute("shape_index", 0);
-                            } else {
-                                const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
-                                children[j].setAttribute("shape_index", prevShapeIndex + 1);
-                              }
+                                if (j === i) {
+                                    children[j].setAttribute("shape_index", 0);
+                                } 
+                                else {
+                                    const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
+                                    children[j].setAttribute("shape_index", prevShapeIndex + 1);
+                                }
                             }
                             parent.insertBefore(children[i], children[1]);
                             break;
@@ -356,11 +357,12 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                         case "BRING_TO_FRONT":
                             for (let j = i; j < children.length; j++){
                                 if (j === i){
-                                const lastShapeIndex = children.length - 2;
-                                children[j].setAttribute("shape_index", lastShapeIndex);
-                            } else {
-                                const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
-                                children[j].setAttribute("shape_index", prevShapeIndex - 1);
+                                    const lastShapeIndex = children.length - 2;
+                                    children[j].setAttribute("shape_index", lastShapeIndex);
+                                } 
+                                else {
+                                    const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
+                                    children[j].setAttribute("shape_index", prevShapeIndex - 1);
                                 }
                             }
                             parent.insertBefore(children[i], children[children.length - 1].nextSibling);

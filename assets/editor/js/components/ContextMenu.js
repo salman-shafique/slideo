@@ -79,7 +79,12 @@ function ContextMenu() {
                 break;
             case "BRING_FORWARD":
                 console.log("Bring Forward clicked.");
-                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
+                console.log('selectedElIndex', selectedElIndex);
+                console.log('parent.children.length', parent.children.length);
+                console.log('parent.childrens', parent.children)
+                if (selectedElIndex < parent.children.length - 1){
+                    slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
+                }
                 break;
             case "BRING_TO_FRONT":
                 console.log("Bring to Front clicked.");	
