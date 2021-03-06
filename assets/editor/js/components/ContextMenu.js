@@ -6,8 +6,9 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import "Editor/css/contextMenu.css";
 import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
+import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import Events from "Editor/js/Events";
-
+import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 
 
 function ContextMenu() {
@@ -93,11 +94,10 @@ function ContextMenu() {
     }
 
     const contextMenuAction = (type) => {
-        const selectedEl = session.SELECTED_ELEMENTS[0].shape;
-        const parent = selectedEl.parentNode;
         switch (type) {
             case "EDIT_TEXT":
-                console.log("Edit text clicked.");
+                selectTextboxElement({target:{parentElement:session.SELECTED_ELEMENTS[0].shape}});
+                setIsOpen(false);
                 break;
             case "DUPLICATE":
                 console.log("Duplicate clicked.");
@@ -108,11 +108,8 @@ function ContextMenu() {
             case "CHANGE_COLOR":
                 console.log("Change Color clicked.");
                 break;
-            case "DELETE":
-                console.log("Delete clicked.");
-                break;
             default:
-                return null;
+                break;
         }
     }
 
@@ -191,7 +188,7 @@ function ContextMenu() {
             </div>
             <div
                 className="contextMenu-line-wrapper noselect"
-                onClick={() => { contextMenuAction("DELETE") }}
+                onClick={deleteShapes}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="far fa-trash-alt" />

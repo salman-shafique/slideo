@@ -155,7 +155,7 @@ export default function slide(slideId) {
                 shapeCls.remove();
                 return;
             };
-            let contentNumber, foreignObject, text, direction, content,g;
+            let contentNumber, foreignObject, text, direction, content, g;
             // Built in textboxes
             if (shape_.data.alt.includes("h1|")) {
                 try {
@@ -332,10 +332,12 @@ export default function slide(slideId) {
             .slice(0)
             .sort((a, b) => b.data.shape_index - a.data.shape_index)
             .forEach((e, i) => {
-                elementTree.insertBefore(
-                    shape(this.slideId, e.data.shape_id).el(),
-                    background.nextElementSibling
-                )
+                const g = shape(this.slideId, e.data.shape_id).el();
+                if (g)
+                    elementTree.insertBefore(
+                        shape(this.slideId, e.data.shape_id).el(),
+                        background.nextElementSibling
+                    )
             })
     }
 
