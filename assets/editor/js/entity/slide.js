@@ -408,21 +408,9 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             
                             break;
                         case "BRING_FORWARD":
-                            console.log('bring forward in updatezindex')
-                            console.log('selected el', children[selectedElIndexInChildren])
-                            console.log('folowing el', children[followingElIndexInChildren])
-                            console.log('shape index', shape_index)
-
-                            const shapeIndexSelected = shape_index;
-                            const shapeIndexSelectedPlusOne = shape_index + 1;
-
                             children[i].setAttribute('shape_index', shape_index + 1);
-
                             children[i + 1].setAttribute('shape_index', shape_index);
                             parent.insertBefore(children[i], children[i + 2]);
-
-                            return;
-
                             break;
                         case "BRING_TO_FRONT":
                         
