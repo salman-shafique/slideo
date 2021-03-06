@@ -155,8 +155,7 @@ export default function slide(slideId) {
                 shapeCls.remove();
                 return;
             };
-            const g = shapeCls.el();
-            let contentNumber, foreignObject, text, direction, content;
+            let contentNumber, foreignObject, text, direction, content,g;
             // Built in textboxes
             if (shape_.data.alt.includes("h1|")) {
                 try {
@@ -206,6 +205,7 @@ export default function slide(slideId) {
             } else if (shape_.data.alt == "newtextbox") {
                 createNewTextbox(shape_.data, this.slideId);
             }
+            g = shapeCls.el();
             if (text && g) {
                 foreignObject = createForeignObject(this.contentDocument(), shape_.data);
                 arrangeForeignObject(foreignObject, shape_.data, text, direction);
@@ -265,6 +265,7 @@ export default function slide(slideId) {
                 shapeCls.addEvent("click", selectImageElement);
             }
 
+            g = shapeCls.el();
             if (g) {
                 // Update the SVG attributes
                 shapeCls.updateAttrs();
@@ -346,6 +347,7 @@ export default function slide(slideId) {
             const data = shape_.data();
             if (!data) return;
             data.shape_index = i;
+            console.log(data.shape_id,i);
         }
     }
 
