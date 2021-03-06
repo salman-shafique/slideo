@@ -75,11 +75,9 @@ function ContextMenu() {
 
     const contextMenuAction = (type) => {
         const child = session.SELECTED_ELEMENTS[0].shape;	
-        console.log('child', child)	
         const parent = child.parentNode;	
         const childIndex = Array.prototype.indexOf.call(parent.children, child);	
         const children = parent.children; 	
-        console.log('put out')
         switch (type) {
             case "EDIT_TEXT":
                 console.log("Edit text clicked.");
@@ -98,43 +96,21 @@ function ContextMenu() {
                 break;
             case "SEND_BACKWARD":
                 console.log("Send Backward clicked.");
-
                 if (childIndex > 1){	
-                    // child.attributes.shape_index.nodeValue = childIndex - 2;
-
-                    // parent.insertBefore(children[childIndex], children[childIndex - 1]);
-                    
-                    console.log('child shape index', child.shape_index)	
-                    console.log('new node val', child.attributes.shape_index.nodeValue);	
                     slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'SEND_BACKWARD');
-                    // slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0]).initSlide().updateZIndex(session.SELECTED_ELEMENTS[0]);
                 }
                 break;
             case "SEND_TO_BACK":
                 console.log("Send to Back clicked.");
-
                 slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'SEND_TO_BACK');
-
-                // parent.insertBefore(children[childIndex], children[1]);
-
                 break;
             case "BRING_FORWARD":
                 console.log("Bring Forward clicked.");
-                // parent.insertBefore(children[childIndex], children[childIndex + 1]);
-                console.log('bring forward children[childIndex +1]', children[childIndex + 1])
-                
                 slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'BRING_FORWARD');
-
                 break;
             case "BRING_TO_FRONT":
                 console.log("Bring to Front clicked.");	
-
-                // parent.insertBefore(children[childIndex], children[children.length - 1].nextSibling);	
-
-                
                 slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'BRING_TO_FRONT');
-
-                console.log('inserting after laset')
                 break;
             default:
                 return null;
