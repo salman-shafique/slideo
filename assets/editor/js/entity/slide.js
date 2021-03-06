@@ -314,8 +314,28 @@ export default function slide(slideId) {
     }
 
     this.updateZIndex = () => {
-        console.log("this.updateZIndex");
+        // First check if the shape_index saved before
+        /**
+         * @type {Array} shapes
+         */
+        const shapes = this.slideData().shapes;
+        for (let index = 0; index < shapes.length; index++) {
+            const shape_ = shapes[index];
+            if (!shape_.data.shape_index) return;
+            if (typeof shape_.data.shape_index != "number") return;
+        }
 
+        const elementTree = this.page();
+        const background = elementTree.querySelector(".Background");
+        shapes
+            .slice(0)
+            .sort((a, b) => b.data.shape_index - a.data.shape_index)
+            .forEach((e, i) => {
+                elementTree.insertBefore(
+                    shape(this.slideId, e.data.shape_id).el(),
+                    background.nextElementSibling
+                )
+            })
     }
 
     this.saveZIndex = () => {
