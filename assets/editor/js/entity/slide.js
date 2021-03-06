@@ -382,10 +382,9 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
 
                     switch (zIndexMovement){
                         case "SEND_BACKWARD":
-                            console.log('shape index send backward', shape_index)
-                            children[selectedElIndexInChildren].setAttribute('shape_index', shape_index - 1);
+                            children[i].setAttribute('shape_index', shape_index - 1);
                             children[precedingElIndexInChildren].setAttribute('shape_index', shape_index);
-                            parent.insertBefore(children[selectedElIndexInChildren], children[selectedElIndexInChildren - 1]);
+                            parent.insertBefore(children[i], children[i - 1]);
                             break;
                         case "SEND_TO_BACK":
                             console.log('SEND TO BACK IN SLIDE.JS')
