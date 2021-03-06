@@ -2696,16 +2696,16 @@
         },
         {
             "name": "league/oauth2-google",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/oauth2-google.git",
-                "reference": "18d1889897a8b18d85ecadacf74c9274d678d943"
+                "reference": "6b79441f244040760bed5fdcd092a2bda7cf34c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/oauth2-google/zipball/18d1889897a8b18d85ecadacf74c9274d678d943",
-                "reference": "18d1889897a8b18d85ecadacf74c9274d678d943",
+                "url": "https://api.github.com/repos/thephpleague/oauth2-google/zipball/6b79441f244040760bed5fdcd092a2bda7cf34c6",
+                "reference": "6b79441f244040760bed5fdcd092a2bda7cf34c6",
                 "shasum": ""
             },
             "require": {
@@ -2745,9 +2745,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/oauth2-google/issues",
-                "source": "https://github.com/thephpleague/oauth2-google/tree/3.0.3"
+                "source": "https://github.com/thephpleague/oauth2-google/tree/3.0.4"
             },
-            "time": "2020-07-24T15:16:12+00:00"
+            "time": "2021-01-27T16:09:03+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3203,27 +3203,22 @@
         },
         {
             "name": "psr/container",
-            "version": "1.0.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=7.2.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Psr\\Container\\": "src/"
@@ -3236,7 +3231,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common Container Interface (PHP FIG PSR-11)",
@@ -3250,9 +3245,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/master"
+                "source": "https://github.com/php-fig/container/tree/1.1.1"
             },
-            "time": "2017-02-14T16:28:37+00:00"
+            "time": "2021-03-05T17:36:06+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -9296,16 +9291,16 @@
         },
         {
             "name": "symfonycasts/reset-password-bundle",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SymfonyCasts/reset-password-bundle.git",
-                "reference": "3040f3d98dae1167e3311d5d7fa5265e7d61ddbe"
+                "reference": "d0a1af0b7869069d76808e76ae72cbf31b1a6b3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymfonyCasts/reset-password-bundle/zipball/3040f3d98dae1167e3311d5d7fa5265e7d61ddbe",
-                "reference": "3040f3d98dae1167e3311d5d7fa5265e7d61ddbe",
+                "url": "https://api.github.com/repos/SymfonyCasts/reset-password-bundle/zipball/d0a1af0b7869069d76808e76ae72cbf31b1a6b3f",
+                "reference": "d0a1af0b7869069d76808e76ae72cbf31b1a6b3f",
                 "shasum": ""
             },
             "require": {
@@ -9341,9 +9336,9 @@
             "description": "Symfony bundle that adds password reset functionality.",
             "support": {
                 "issues": "https://github.com/SymfonyCasts/reset-password-bundle/issues",
-                "source": "https://github.com/SymfonyCasts/reset-password-bundle/tree/v1.4.0"
+                "source": "https://github.com/SymfonyCasts/reset-password-bundle/tree/v1.5.0"
             },
-            "time": "2021-02-17T16:33:50+00:00"
+            "time": "2021-03-04T14:13:03+00:00"
         },
         {
             "name": "twig/extra-bundle",
@@ -10282,16 +10277,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "587f2b6bbcda8c473b91c18165958ffbb8af3c4c"
+                "reference": "9d85d900c1afe29138a0d5854505eb684bc3ac6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/587f2b6bbcda8c473b91c18165958ffbb8af3c4c",
-                "reference": "587f2b6bbcda8c473b91c18165958ffbb8af3c4c",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/9d85d900c1afe29138a0d5854505eb684bc3ac6d",
+                "reference": "9d85d900c1afe29138a0d5854505eb684bc3ac6d",
                 "shasum": ""
             },
             "require": {
@@ -10345,7 +10340,7 @@
             "description": "Provides utilities for PHPUnit, especially user deprecation notices management",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/phpunit-bridge/tree/v5.2.3"
+                "source": "https://github.com/symfony/phpunit-bridge/tree/v5.2.4"
             },
             "funding": [
                 {
@@ -10361,7 +10356,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-25T13:54:05+00:00"
+            "time": "2021-02-04T18:05:54+00:00"
         },
         {
             "name": "symfony/profiler-pack",

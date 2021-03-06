@@ -8,6 +8,7 @@ composer_check="$(composer show 2>&1 | grep 'composer install')"
 if [ ! -z "$composer_check" ]; then 
     echo_ "Installing composer dependencies..."
     composer install;
+    composer update;
 fi;
 
 # Yarn check

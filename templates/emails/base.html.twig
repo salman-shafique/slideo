@@ -646,7 +646,7 @@
                         </h1>
                         {% block body %}
                           {% if body is defined %}
-                            {{body}}
+                            {{body | raw }}
                           {% else %}
                             Slideo
                           {% endif %}
