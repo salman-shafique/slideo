@@ -8,6 +8,8 @@ import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import Events from "Editor/js/Events";
 
+
+
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [contextMenuLeft, setContextMenuLeft] = React.useState(null);
@@ -25,7 +27,7 @@ function ContextMenu() {
         const clickedEl = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect();
         setContextMenuLeft(slideObject.left + clickedEl.left + clickedEl.width);
         setContextMenuTop(slideObject.top + clickedEl.top);
-  	
+
         if (session.SELECTED_ELEMENTS.length == 1) {
             // One element selected
             setClickedElementType(getShapeType(session.SELECTED_ELEMENTS[0].shape));
@@ -47,9 +49,52 @@ function ContextMenu() {
         setIsOpen(false);
     }
 
+    const changeZindex = (zIndexMovement) => {
+        if (session.SELECTED_ELEMENTS.length == 0) return;
+        const slide_ = slide(session.CURRENT_SLIDE);
+        const elementTree = slide_.page();
+        const firstChild =
+            elementTree.querySelector(".Background")
+                ? elementTree.children[1]
+                : elementTree.children[0];
+        session.SELECTED_ELEMENTS.forEach(selectedEl => {
+            switch (zIndexMovement) {
+                case 'BRING_TO_FRONT':
+                    if (elementTree.lastElementChild == selectedEl.shape)
+                        return;
+                    elementTree.insertBefore(selectedEl.shape, elementTree.lastElementChild);
+                    elementTree.insertBefore(elementTree.lastElementChild, selectedEl.shape);
+                    break;
+                case 'BRING_FORWARD':
+                    if (elementTree.lastElementChild == selectedEl.shape)
+                        return;
+                    if (selectedEl.shape.nextElementSibling == elementTree.lastElementChild) {
+                        elementTree.insertBefore(elementTree.lastElementChild, selectedEl.shape);
+                    } else {
+                        const nextItem = selectedEl.shape.nextElementSibling.nextElementSibling;
+                        elementTree.insertBefore(selectedEl.shape, nextItem);
+                    }
+                    break;
+                case 'SEND_BACKWARD':
+                    if (firstChild == selectedEl.shape)
+                        return;
+                    const prevItem = selectedEl.shape.previousElementSibling;
+                    elementTree.insertBefore(selectedEl.shape, prevItem);
+                    break;
+                case 'SEND_TO_BACK':
+                    if (firstChild == selectedEl.shape)
+                        return;
+                    elementTree.insertBefore(selectedEl.shape, firstChild);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
     const contextMenuAction = (type) => {
-        const selectedEl = session.SELECTED_ELEMENTS[0].shape;	
-        const parent = selectedEl.parentNode;	
+        const selectedEl = session.SELECTED_ELEMENTS[0].shape;
+        const parent = selectedEl.parentNode;
         switch (type) {
             case "EDIT_TEXT":
                 console.log("Edit text clicked.");
@@ -65,18 +110,6 @@ function ContextMenu() {
                 break;
             case "DELETE":
                 console.log("Delete clicked.");
-                break;
-            case "SEND_BACKWARD":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_BACKWARD");
-                break;
-            case "SEND_TO_BACK":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_TO_BACK");
-                break;
-            case "BRING_FORWARD":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
-                break;
-            case "BRING_TO_FRONT":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_TO_FRONT");
                 break;
             default:
                 return null;
@@ -102,12 +135,10 @@ function ContextMenu() {
                 top: contextMenuTop,
             }}
         >
-
-
             {
                 (clickedElementType === constants.SHAPE_TYPES.TEXTBOX && session.SELECTED_ELEMENTS.length == 1)
                     ? <div
-                        className="contextMenu-line-wrapper"
+                        className="contextMenu-line-wrapper noselect"
                         onClick={() => { contextMenuAction("EDIT_TEXT") }}
                     >
                         <div className="contextMenu-icon-wrapper">
@@ -122,7 +153,7 @@ function ContextMenu() {
             {
                 clickedElementType === constants.SHAPE_TYPES.IMAGE &&
                 <div
-                    className="contextMenu-line-wrapper"
+                    className="contextMenu-line-wrapper noselect"
                     onClick={() => { contextMenuAction("SHOW_FULL_IMAGE") }}
                 >
                     <div className="contextMenu-icon-wrapper">
@@ -136,7 +167,7 @@ function ContextMenu() {
             {
                 ([constants.SHAPE_TYPES.TEXTBOX, constants.SHAPE_TYPES.ICON, constants.SHAPE_TYPES.AUTO_SHAPE].includes(clickedElementType))
                     ? <div
-                        className="contextMenu-line-wrapper"
+                        className="contextMenu-line-wrapper noselect"
                         onClick={() => { contextMenuAction("CHANGE_COLOR") }}>
                         <div className="contextMenu-icon-wrapper">
                             <i className="fas fa-palette" />
@@ -148,7 +179,7 @@ function ContextMenu() {
                     : null
             }
             <div
-                className="contextMenu-line-wrapper"
+                className="contextMenu-line-wrapper noselect"
                 onClick={() => { contextMenuAction("DUPLICATE") }}
             >
                 <div className="contextMenu-icon-wrapper">
@@ -159,7 +190,7 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
+                className="contextMenu-line-wrapper noselect"
                 onClick={() => { contextMenuAction("DELETE") }}
             >
                 <div className="contextMenu-icon-wrapper">
@@ -171,8 +202,8 @@ function ContextMenu() {
             </div>
             <div className="contextMenu-divider"></div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("SEND_BACKWARD") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("SEND_BACKWARD") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-left" />
@@ -182,8 +213,8 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("SEND_TO_BACK") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("SEND_TO_BACK") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-left" />
@@ -193,8 +224,8 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("BRING_FORWARD") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("BRING_FORWARD") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-right" />
@@ -204,8 +235,8 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("BRING_TO_FRONT") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("BRING_TO_FRONT") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-right" />

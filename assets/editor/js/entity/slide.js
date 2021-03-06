@@ -313,65 +313,19 @@ export default function slide(slideId) {
         return this;
     }
 
-    this.updateZIndex = (selectedElement, zIndexMovement) => {
-        if (selectedElement){
-            const shape_id_selected = parseInt(selectedElement.shapeId, 10);
-            const elementTree = slide(session.CURRENT_SLIDE).page();
+    this.updateZIndex = () => {
+        console.log("this.updateZIndex");
 
-            for (let i = 0; i < elementTree.children.length; i++){
-                const shape = elementTree.children[i];
-                const shape_index = parseInt(elementTree.children[i].getAttribute("shape_index"), 10);
-                const shape_id = parseInt(elementTree.children[i].getAttribute("shape_id"), 10);
-                if (shape_id === shape_id_selected){
-                    const children = elementTree.children;
-                    const parent = shape.parentNode;
-                    switch (zIndexMovement){
-                        case "SEND_BACKWARD":
-                            if (i > 1){
-                                children[i].setAttribute("shape_index", shape_index - 1);
-                                children[i - 1].setAttribute("shape_index", shape_index);
-                                parent.insertBefore(children[i], children[i - 1]);
-                            }
-                            break;
-                        case "SEND_TO_BACK":
-                            const indexOfFirstNonBackgroundEl = 1; 
-                            for (let j = indexOfFirstNonBackgroundEl; j <= i; j++){
-                                if (j === i) {
-                                    children[j].setAttribute("shape_index", 0);
-                                } 
-                                else {
-                                    const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
-                                    children[j].setAttribute("shape_index", prevShapeIndex + 1);
-                                }
-                            }
-                            parent.insertBefore(children[i], children[1]);
-                            break;
-                        case "BRING_FORWARD":
-                            if (i < elementTree.children.length - 1) {
-                                children[i].setAttribute("shape_index", shape_index + 1);
-                                children[i + 1].setAttribute("shape_index", shape_index);
-                                parent.insertBefore(children[i], children[i + 2]);
-                            }
-                            break;
-                        case "BRING_TO_FRONT":
-                            for (let j = i; j < children.length; j++){
-                                if (j === i){
-                                    const lastShapeIndex = children.length - 2;
-                                    children[j].setAttribute("shape_index", lastShapeIndex);
-                                } 
-                                else {
-                                    const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
-                                    children[j].setAttribute("shape_index", prevShapeIndex - 1);
-                                }
-                            }
-                            parent.insertBefore(children[i], children[children.length - 1].nextSibling);
-                            break;
-                        default:
-                            return null;
-                    }
-                    return;
-                };
-            }
+    }
+
+    this.saveZIndex = () => {
+        const elementTree = this.page();
+        for (let i = 0; i < elementTree.children.length; i++) {
+            const shape_ = shape(elementTree.children[i]);
+            if (!shape_) return;
+            const data = shape_.data();
+            if (!data) return;
+            data.shape_index = i;
         }
     }
 
