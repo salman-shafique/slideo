@@ -16,7 +16,7 @@ php bin/console cache:warmup;
 
 # Consume messages
 php bin/console messenger:stop-workers
-nohup php bin/console messenger:consume mail download &
+nohup php bin/console messenger:consume mail download -vv &
 
 echo_ "Retry the failed downloads"
 php bin/console slideo:download:retry

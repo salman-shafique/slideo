@@ -55,7 +55,7 @@ class StartFailedDownloads extends Command
                     $this->em->remove($download);
                 }
             }
-            $io->success(sprintf('%d failed downloads were added to queue.', count($downloads)));
+            $io->success(sprintf('%d failed downloads were added to queue.', count($addedDownloads)));
         } else {
             $io->success("No download failed");
         }
