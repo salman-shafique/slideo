@@ -48,9 +48,9 @@ function ContextMenu() {
     }
 
     const contextMenuAction = (type) => {
-        const child = session.SELECTED_ELEMENTS[0].shape;	
-        const parent = child.parentNode;	
-        const childIndex = Array.prototype.indexOf.call(parent.children, child);	
+        const selectedEl = session.SELECTED_ELEMENTS[0].shape;	
+        const parent = selectedEl.parentNode;	
+        const selectedElIndex = Array.prototype.indexOf.call(parent.children, selectedEl);	
         switch (type) {
             case "EDIT_TEXT":
                 console.log("Edit text clicked.");
@@ -69,7 +69,7 @@ function ContextMenu() {
                 break;
             case "SEND_BACKWARD":
                 console.log("Send Backward clicked.");
-                if (childIndex > 1){ //"if" prevents element from being sent behind background element.
+                if (selectedElIndex > 1){ //"if" prevents element from being sent behind background element.
                     slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "SEND_BACKWARD");
                 }
                 break;
