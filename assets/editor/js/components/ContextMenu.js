@@ -68,9 +68,7 @@ function ContextMenu() {
                 break;
             case "SEND_BACKWARD":
                 console.log("Send Backward clicked.");
-                if (selectedElIndex > 1){ //"if" prevents element from being sent behind background element.
-                    slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_BACKWARD");
-                }
+                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_BACKWARD");
                 break;
             case "SEND_TO_BACK":
                 console.log("Send to Back clicked.");
@@ -78,9 +76,7 @@ function ContextMenu() {
                 break;
             case "BRING_FORWARD":
                 console.log("Bring Forward clicked.");
-                if (selectedElIndex < parent.children.length - 1){ //"if" prevents console error if last element in DOM tree is being operated on.
-                    slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
-                }
+                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
                 break;
             case "BRING_TO_FRONT":
                 console.log("Bring to Front clicked.");	
