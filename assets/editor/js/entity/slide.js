@@ -353,12 +353,9 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             parent.insertBefore(children[i], children[i - 1]);
                             break;
                         case "SEND_TO_BACK":
-                            console.log('SEND TO BACK IN SLIDE.JS')
-                            const indexOfFirstNonBackground = 1; 
-                            
-                            console.log('selected element index', selectedElIndexInChildren)
+                            const indexOfFirstNonBackgroundEl = 1; 
                             console.log('selected element', children[selectedElIndexInChildren])
-                            for (let j = indexOfFirstNonBackground; j <= selectedElIndexInChildren; j++){
+                            for (let j = indexOfFirstNonBackgroundEl; j <= selectedElIndexInChildren; j++){
                               //get shape index of current element
                               if (j === selectedElIndexInChildren){
                                 console.log('setting shape_index of selected element')
