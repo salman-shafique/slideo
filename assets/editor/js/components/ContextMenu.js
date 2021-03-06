@@ -25,32 +25,7 @@ function ContextMenu() {
         const clickedEl = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect();
         setContextMenuLeft(slideObject.left + clickedEl.left + clickedEl.width);
         setContextMenuTop(slideObject.top + clickedEl.top);
-
-
-
   	
-        const g = session.SELECTED_ELEMENTS[0].shape;	
-        const slideId = session.CURRENT_SLIDE;	
-        const shape_id = g.getAttribute("shape_id");	
-        const data = shape(slideId, shape_id);	
-        // console.log('slideid, shapeid, data', slideId, shape_id, data);	
-        // console.log('shape', session.SELECTED_ELEMENTS[0].shape)	
-        // console.log('selected element', session.SELECTED_ELEMENTS[0])	
-        // console.log('element shape index node val', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue);	
-        // console.log('element shape index', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index);	
-        // console.log('element shape attr', session.SELECTED_ELEMENTS[0].shape.attributes);	
-        // console.log('element shape getattr', session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_index'));	
-        const shapesOfSlide = slide(session.CURRENT_SLIDE).slideData().shapes	
-        // console.log('shapes of slide', shapesOfSlide);	
-        // session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue = 1000;	
-        // console.log('new shape node val', session.SELECTED_ELEMENTS[0].shape.attributes.shape_index.nodeValue)	
-        	
-        const elementTree = slide(session.CURRENT_SLIDE).page();	
-        // console.log('element tree', elementTree);	
-        // session.SELECTED_ELEMENTS[0].shape.style.zIndex = 1000;	
-
-
-
         if (session.SELECTED_ELEMENTS.length == 1) {
             // One element selected
             setClickedElementType(getShapeType(session.SELECTED_ELEMENTS[0].shape));
@@ -65,7 +40,6 @@ function ContextMenu() {
             });
             setClickedElementType(pureType);
         }
-
         setIsOpen(true);
     }
 
@@ -77,7 +51,6 @@ function ContextMenu() {
         const child = session.SELECTED_ELEMENTS[0].shape;	
         const parent = child.parentNode;	
         const childIndex = Array.prototype.indexOf.call(parent.children, child);	
-        const children = parent.children; 	
         switch (type) {
             case "EDIT_TEXT":
                 console.log("Edit text clicked.");
@@ -96,21 +69,21 @@ function ContextMenu() {
                 break;
             case "SEND_BACKWARD":
                 console.log("Send Backward clicked.");
-                if (childIndex > 1){	
-                    slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'SEND_BACKWARD');
+                if (childIndex > 1){ //"if" prevents element from being sent behind background element.
+                    slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "SEND_BACKWARD");
                 }
                 break;
             case "SEND_TO_BACK":
                 console.log("Send to Back clicked.");
-                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'SEND_TO_BACK');
+                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "SEND_TO_BACK");
                 break;
             case "BRING_FORWARD":
                 console.log("Bring Forward clicked.");
-                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'BRING_FORWARD');
+                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
                 break;
             case "BRING_TO_FRONT":
                 console.log("Bring to Front clicked.");	
-                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], 'BRING_TO_FRONT');
+                slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "BRING_TO_FRONT");
                 break;
             default:
                 return null;
