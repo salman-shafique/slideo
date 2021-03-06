@@ -155,8 +155,7 @@ export default function slide(slideId) {
                 shapeCls.remove();
                 return;
             };
-            const g = shapeCls.el();
-            let contentNumber, foreignObject, text, direction, content;
+            let contentNumber, foreignObject, text, direction, content, g;
             // Built in textboxes
             if (shape_.data.alt.includes("h1|")) {
                 try {
@@ -206,6 +205,7 @@ export default function slide(slideId) {
             } else if (shape_.data.alt == "newtextbox") {
                 createNewTextbox(shape_.data, this.slideId);
             }
+            g = shapeCls.el();
             if (text && g) {
                 foreignObject = createForeignObject(this.contentDocument(), shape_.data);
                 arrangeForeignObject(foreignObject, shape_.data, text, direction);
@@ -265,6 +265,7 @@ export default function slide(slideId) {
                 shapeCls.addEvent("click", selectImageElement);
             }
 
+            g = shapeCls.el();
             if (g) {
                 // Update the SVG attributes
                 shapeCls.updateAttrs();
@@ -313,65 +314,41 @@ export default function slide(slideId) {
         return this;
     }
 
-    this.updateZIndex = (selectedElement, zIndexMovement) => {
-        if (selectedElement){
-            const shape_id_selected = parseInt(selectedElement.shapeId, 10);
-            const elementTree = slide(session.CURRENT_SLIDE).page();
+    this.updateZIndex = () => {
+        // First check if the shape_index saved before
+        /**
+         * @type {Array} shapes
+         */
+        const shapes = this.slideData().shapes;
+        for (let index = 0; index < shapes.length; index++) {
+            const shape_ = shapes[index];
+            if (!shape_.data.shape_index) return;
+            if (typeof shape_.data.shape_index != "number") return;
+        }
 
-            for (let i = 0; i < elementTree.children.length; i++){
-                const shape = elementTree.children[i];
-                const shape_index = parseInt(elementTree.children[i].getAttribute("shape_index"), 10);
-                const shape_id = parseInt(elementTree.children[i].getAttribute("shape_id"), 10);
-                if (shape_id === shape_id_selected){
-                    const children = elementTree.children;
-                    const parent = shape.parentNode;
-                    switch (zIndexMovement){
-                        case "SEND_BACKWARD":
-                            if (i > 1){
-                                children[i].setAttribute("shape_index", shape_index - 1);
-                                children[i - 1].setAttribute("shape_index", shape_index);
-                                parent.insertBefore(children[i], children[i - 1]);
-                            }
-                            break;
-                        case "SEND_TO_BACK":
-                            const indexOfFirstNonBackgroundEl = 1; 
-                            for (let j = indexOfFirstNonBackgroundEl; j <= i; j++){
-                                if (j === i) {
-                                    children[j].setAttribute("shape_index", 0);
-                                } 
-                                else {
-                                    const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
-                                    children[j].setAttribute("shape_index", prevShapeIndex + 1);
-                                }
-                            }
-                            parent.insertBefore(children[i], children[1]);
-                            break;
-                        case "BRING_FORWARD":
-                            if (i < elementTree.children.length - 1) {
-                                children[i].setAttribute("shape_index", shape_index + 1);
-                                children[i + 1].setAttribute("shape_index", shape_index);
-                                parent.insertBefore(children[i], children[i + 2]);
-                            }
-                            break;
-                        case "BRING_TO_FRONT":
-                            for (let j = i; j < children.length; j++){
-                                if (j === i){
-                                    const lastShapeIndex = children.length - 2;
-                                    children[j].setAttribute("shape_index", lastShapeIndex);
-                                } 
-                                else {
-                                    const prevShapeIndex = parseInt(children[j].getAttribute("shape_index"), 10);
-                                    children[j].setAttribute("shape_index", prevShapeIndex - 1);
-                                }
-                            }
-                            parent.insertBefore(children[i], children[children.length - 1].nextSibling);
-                            break;
-                        default:
-                            return null;
-                    }
-                    return;
-                };
-            }
+        const elementTree = this.page();
+        const background = elementTree.querySelector(".Background");
+        shapes
+            .slice(0)
+            .sort((a, b) => b.data.shape_index - a.data.shape_index)
+            .forEach((e, i) => {
+                const g = shape(this.slideId, e.data.shape_id).el();
+                if (g)
+                    elementTree.insertBefore(
+                        shape(this.slideId, e.data.shape_id).el(),
+                        background.nextElementSibling
+                    )
+            })
+    }
+
+    this.saveZIndex = () => {
+        const elementTree = this.page();
+        for (let i = 0; i < elementTree.children.length; i++) {
+            const shape_ = shape(elementTree.children[i]);
+            if (!shape_) return;
+            const data = shape_.data();
+            if (!data) return;
+            data.shape_index = i;
         }
     }
 

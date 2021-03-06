@@ -1,6 +1,8 @@
 import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import add_event from "Editor/js/utils/add_event";
+import constants from "Editor/js/constants";
+import session from "Editor/js/session";
 
 function sidebarClass() {
     if (!(this instanceof sidebarClass)) return new sidebarClass(...arguments);
@@ -49,9 +51,28 @@ function sidebarClass() {
 
     /**
      * 
-     * @param {string} id 
+     * @param {string|number} id 
      */
     this.open = (id) => {
+        if (typeof id == "number") {
+            switch (id) {
+                case constants.SHAPE_TYPES.AUTO_SHAPE:
+                    id = "Shapes_Tool"
+                    break;
+                case constants.SHAPE_TYPES.ICON:
+                    id = "Icons_Tool"
+                    break;
+                case constants.SHAPE_TYPES.IMAGE:
+                    id = "Images_Tool"
+                    break;
+                case constants.SHAPE_TYPES.TEXTBOX:
+                    id = "Text_Tool"
+                    break;
+                default:
+                    id = "Design_Tool"
+                    break;
+            }
+        }
         // Open new tab
         const newActivePanel = select("#" + id.replace("Tool", "Panel"));
 

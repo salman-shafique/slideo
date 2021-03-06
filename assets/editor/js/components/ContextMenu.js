@@ -6,7 +6,23 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import "Editor/css/contextMenu.css";
 import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
+import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import Events from "Editor/js/Events";
+import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
+
+
+export const getSelectedElementsType = () => {
+    let pureType = null;
+    for (let index = 0; index < session.SELECTED_ELEMENTS.length; index++) {
+        const selectEl = session.SELECTED_ELEMENTS[index];
+        if (pureType === null)
+            pureType = getShapeType(selectEl.shape);
+
+        if (pureType != getShapeType(selectEl.shape))
+            return "MULTIPLE";
+    }
+    return pureType;
+}
 
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -25,20 +41,12 @@ function ContextMenu() {
         const clickedEl = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect();
         setContextMenuLeft(slideObject.left + clickedEl.left + clickedEl.width);
         setContextMenuTop(slideObject.top + clickedEl.top);
-  	
+
         if (session.SELECTED_ELEMENTS.length == 1) {
             // One element selected
             setClickedElementType(getShapeType(session.SELECTED_ELEMENTS[0].shape));
         } else if (session.SELECTED_ELEMENTS.length > 1) {
-            let pureType = null;
-            session.SELECTED_ELEMENTS.forEach(selectEl => {
-                if (pureType === null)
-                    pureType = getShapeType(selectEl.shape);
-
-                if (pureType != getShapeType(selectEl.shape))
-                    pureType = "MULTIPLE";
-            });
-            setClickedElementType(pureType);
+            setClickedElementType(getSelectedElementsType());
         }
         setIsOpen(true);
     }
@@ -47,12 +55,54 @@ function ContextMenu() {
         setIsOpen(false);
     }
 
+    const changeZindex = (zIndexMovement) => {
+        if (session.SELECTED_ELEMENTS.length == 0) return;
+        const slide_ = slide(session.CURRENT_SLIDE);
+        const elementTree = slide_.page();
+        const firstChild =
+            elementTree.querySelector(".Background")
+                ? elementTree.children[1]
+                : elementTree.children[0];
+        session.SELECTED_ELEMENTS.forEach(selectedEl => {
+            switch (zIndexMovement) {
+                case 'BRING_TO_FRONT':
+                    if (elementTree.lastElementChild == selectedEl.shape)
+                        return;
+                    elementTree.insertBefore(selectedEl.shape, elementTree.lastElementChild);
+                    elementTree.insertBefore(elementTree.lastElementChild, selectedEl.shape);
+                    break;
+                case 'BRING_FORWARD':
+                    if (elementTree.lastElementChild == selectedEl.shape)
+                        return;
+                    if (selectedEl.shape.nextElementSibling == elementTree.lastElementChild) {
+                        elementTree.insertBefore(elementTree.lastElementChild, selectedEl.shape);
+                    } else {
+                        const nextItem = selectedEl.shape.nextElementSibling.nextElementSibling;
+                        elementTree.insertBefore(selectedEl.shape, nextItem);
+                    }
+                    break;
+                case 'SEND_BACKWARD':
+                    if (firstChild == selectedEl.shape)
+                        return;
+                    const prevItem = selectedEl.shape.previousElementSibling;
+                    elementTree.insertBefore(selectedEl.shape, prevItem);
+                    break;
+                case 'SEND_TO_BACK':
+                    if (firstChild == selectedEl.shape)
+                        return;
+                    elementTree.insertBefore(selectedEl.shape, firstChild);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
     const contextMenuAction = (type) => {
-        const selectedEl = session.SELECTED_ELEMENTS[0].shape;	
-        const parent = selectedEl.parentNode;	
         switch (type) {
             case "EDIT_TEXT":
-                console.log("Edit text clicked.");
+                selectTextboxElement({ target: { parentElement: session.SELECTED_ELEMENTS[0].shape } });
+                setIsOpen(false);
                 break;
             case "DUPLICATE":
                 console.log("Duplicate clicked.");
@@ -61,25 +111,11 @@ function ContextMenu() {
                 console.log("Show Full Image clicked.");
                 break;
             case "CHANGE_COLOR":
-                console.log("Change Color clicked.");
-                break;
-            case "DELETE":
-                console.log("Delete clicked.");
-                break;
-            case "SEND_BACKWARD":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_BACKWARD");
-                break;
-            case "SEND_TO_BACK":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_TO_BACK");
-                break;
-            case "BRING_FORWARD":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
-                break;
-            case "BRING_TO_FRONT":
-                slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_TO_FRONT");
+                Events.colorCircle.open();
+                setIsOpen(false);
                 break;
             default:
-                return null;
+                break;
         }
     }
 
@@ -102,12 +138,10 @@ function ContextMenu() {
                 top: contextMenuTop,
             }}
         >
-
-
             {
                 (clickedElementType === constants.SHAPE_TYPES.TEXTBOX && session.SELECTED_ELEMENTS.length == 1)
                     ? <div
-                        className="contextMenu-line-wrapper"
+                        className="contextMenu-line-wrapper noselect"
                         onClick={() => { contextMenuAction("EDIT_TEXT") }}
                     >
                         <div className="contextMenu-icon-wrapper">
@@ -122,7 +156,7 @@ function ContextMenu() {
             {
                 clickedElementType === constants.SHAPE_TYPES.IMAGE &&
                 <div
-                    className="contextMenu-line-wrapper"
+                    className="contextMenu-line-wrapper noselect"
                     onClick={() => { contextMenuAction("SHOW_FULL_IMAGE") }}
                 >
                     <div className="contextMenu-icon-wrapper">
@@ -136,7 +170,7 @@ function ContextMenu() {
             {
                 ([constants.SHAPE_TYPES.TEXTBOX, constants.SHAPE_TYPES.ICON, constants.SHAPE_TYPES.AUTO_SHAPE].includes(clickedElementType))
                     ? <div
-                        className="contextMenu-line-wrapper"
+                        className="contextMenu-line-wrapper noselect"
                         onClick={() => { contextMenuAction("CHANGE_COLOR") }}>
                         <div className="contextMenu-icon-wrapper">
                             <i className="fas fa-palette" />
@@ -148,7 +182,7 @@ function ContextMenu() {
                     : null
             }
             <div
-                className="contextMenu-line-wrapper"
+                className="contextMenu-line-wrapper noselect"
                 onClick={() => { contextMenuAction("DUPLICATE") }}
             >
                 <div className="contextMenu-icon-wrapper">
@@ -159,8 +193,8 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("DELETE") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={deleteShapes}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="far fa-trash-alt" />
@@ -171,8 +205,8 @@ function ContextMenu() {
             </div>
             <div className="contextMenu-divider"></div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("SEND_BACKWARD") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("SEND_BACKWARD") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-left" />
@@ -182,8 +216,8 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("SEND_TO_BACK") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("SEND_TO_BACK") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-left" />
@@ -193,8 +227,8 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("BRING_FORWARD") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("BRING_FORWARD") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-right" />
@@ -204,8 +238,8 @@ function ContextMenu() {
                 </div>
             </div>
             <div
-                className="contextMenu-line-wrapper"
-                onClick={() => { contextMenuAction("BRING_TO_FRONT") }}
+                className="contextMenu-line-wrapper noselect"
+                onClick={() => { changeZindex("BRING_TO_FRONT") }}
             >
                 <div className="contextMenu-icon-wrapper">
                     <i className="fas fa-angle-double-right" />

@@ -9,6 +9,8 @@ import slide from "Editor/js/entity/slide";
 import { getThemeColor, getThemeColorNameOfShape } from "Editor/js/sidebar/colors/utils";
 import toHex from "Editor/js/sidebar/colors/toHex";
 import Events from "Editor/js/Events";
+import { getSelectedElementsType } from "Editor/js/components/ContextMenu";
+import sidebar from "Editor/js/entity/sidebar";
 
 const colorList = [
     "#ff914d",
@@ -83,7 +85,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
                         }
                     }
                 }
-                
+
                 color
                     ? setCurrentColor(color.toLowerCase())
                     : setCurrentColor("#ffffff");
@@ -141,6 +143,13 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
             setOpened(false);
             setCurrentColor("#ffffff");
         });
+        Events.listen("colorCircle.open", () => {
+            if (getSelectedElementsType() === SHAPE_TYPE) {
+                sidebar.open(SHAPE_TYPE);
+                setOpened(true);
+            }
+        });
+
     }, []);
 
     return (

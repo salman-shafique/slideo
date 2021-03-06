@@ -30,6 +30,15 @@ class DownloadHandler implements MessageHandlerInterface
 
     public function __invoke(DownloadPresentation $downloadPresentation)
     {
+        /**  @var DownloadPresentation $downloadPresentation */
+        $downloadPresentation = $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\DownloadPresentation', 'd')
+            ->where("d.id = :id")
+            ->setParameter("id", $downloadPresentation->getId())
+            ->getQuery()
+            ->getOneOrNullResult();
         if ($downloadPresentation->getCompleted()) return;
 
         // invoke the flask server
@@ -45,17 +54,6 @@ class DownloadHandler implements MessageHandlerInterface
         if (!$r['success'])
             $this->mailService->sendErrorMail(json_encode($r));
         else if ($downloadPresentation->getCreated() < new \DateTime("-1 hours")) {
-
-            /**  @var DownloadPresentation $downloadPresentation */
-            $downloadPresentation = $this->em
-                ->createQueryBuilder()
-                ->select('d')
-                ->from('App\Entity\DownloadPresentation', 'd')
-                ->where("d.id = :id")
-                ->setParameter("id", $downloadPresentation->getId())
-                ->getQuery()
-                ->getOneOrNullResult();
-
             if ($downloadPresentation->getPresentation()->getOwner()) {
                 $presentation = $downloadPresentation->getPresentation();
                 $email = (new TemplatedEmail())

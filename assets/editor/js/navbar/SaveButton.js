@@ -27,6 +27,8 @@ export function saveChanges(callback = null) {
                 shape_.saveTransforms(SVG_WIDTH, SVG_HEIGHT);
             });
 
+            // Save the zIndex;
+            slide_.saveZIndex();
 
             const encoded = base64.encode(JSON.stringify(aSlide));
             apiService({
