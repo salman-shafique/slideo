@@ -32,9 +32,7 @@ import preloader from "Editor/js/components/preloader";
 
 const chunkDesigns = {};
 
-export default function slide(slideId, selectedEl, zIndexMovement) {
-
-    if (selectedEl) slide(slideId).initSlide().updateZIndex(selectedEl, zIndexMovement);
+export default function slide(slideId) {
 
     if (!(this instanceof slide)) return new slide(...arguments);
 
@@ -329,9 +327,7 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                     const parent = shape.parentNode;
                     switch (zIndexMovement){
                         case "SEND_BACKWARD":
-                            console.log('send backward running');
                             if (i > 1){
-                                console.log('sending backward');
                                 children[i].setAttribute("shape_index", shape_index - 1);
                                 children[i - 1].setAttribute("shape_index", shape_index);
                                 parent.insertBefore(children[i], children[i - 1]);
@@ -351,10 +347,7 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             parent.insertBefore(children[i], children[1]);
                             break;
                         case "BRING_FORWARD":
-                            console.log('bring forward running in updateZIndex');
-                            console.log('elementTree.children.length', elementTree.children.length)
                             if (i < elementTree.children.length - 1) {
-                                console.log('bring forward executing')
                                 children[i].setAttribute("shape_index", shape_index + 1);
                                 children[i + 1].setAttribute("shape_index", shape_index);
                                 parent.insertBefore(children[i], children[i + 2]);
