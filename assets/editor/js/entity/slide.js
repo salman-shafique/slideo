@@ -319,37 +319,23 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
     }
 
     this.updateZIndex = (selectedElZIndex, zIndexMovement) => {
-
-        const currentSlide = session.CURRENT_SLIDE;
-        const shapesOfSlide = slide(session.CURRENT_SLIDE).slideData().shapes;
-
         if (selectedElZIndex){
             const shape_id_selected = parseInt(selectedElZIndex.shapeId, 10);
-            const data = shape(slideId, shape_id_selected);
             const elementTree = slide(session.CURRENT_SLIDE).page();
-            console.log('element tree children', elementTree.children);
 
             for (let i = 0; i < elementTree.children.length; i++){
                 const shape = elementTree.children[i];
                 const shape_index = parseInt(elementTree.children[i].getAttribute('shape_index'), 10);
-                console.log('shape index', shape_index)
                 const shape_id = parseInt(elementTree.children[i].getAttribute('shape_id'), 10);
                 if (shape_id === shape_id_selected){
                     
-                    //Move element in DOM tree
                     const children = elementTree.children;
                     const parent = shape.parentNode;
-                    console.log('parent', parent);
-                    console.log('children',children);
                     
-                    const selectedElIndexInChildren = shape_index + 1;
-                    const precedingElIndexInChildren = shape_index;
-                    const followingElIndexInChildren = shape_index + 2;
-
                     switch (zIndexMovement){
                         case "SEND_BACKWARD":
                             children[i].setAttribute('shape_index', shape_index - 1);
-                            children[precedingElIndexInChildren].setAttribute('shape_index', shape_index);
+                            children[i - 1].setAttribute('shape_index', shape_index);
                             parent.insertBefore(children[i], children[i - 1]);
                             break;
                         case "SEND_TO_BACK":
@@ -384,7 +370,6 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                         default:
                             return null;
                     }
-
                     return;
                 };
             }
