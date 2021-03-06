@@ -1,7 +1,7 @@
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
-import reactToDOM from "Editor/js/utils/reactToDOM";import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
+import reactToDOM from "Editor/js/utils/reactToDOM"; import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
 
 import React from "react";
 /**
@@ -17,12 +17,12 @@ export const createTextNode = (td) => {
 
   const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
 
-  const textDiv = reactToDOM(      
-    <div style={{transform: `scale(${fontScale})`, transformOrigin: 'top center', fontSize: textFontSize, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+  const textDiv = reactToDOM(
+    <div style={{ transform: `scale(${fontScale})`, transformOrigin: 'top center', fontSize: textFontSize, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
     </div>
   );
   const editing = reactToDOM(
-    <editing contentEditable="true" className="highlighted" style={{caretColor: 'black', border: 'none', outline: 'none', width: editorWidth}}>
+    <editing contentEditable="true" className="highlighted" style={{ caretColor: 'black', border: 'none', outline: 'none', width: editorWidth }}>
     </editing>
   );
   editing.innerText = td.innerText;
@@ -31,10 +31,11 @@ export const createTextNode = (td) => {
   td.appendChild(textDiv);
   editing.focus();
   editing.onkeydown = (e) => {
+    if (e.key == "Shift") return;
     const ltrChars = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF';
     const rtlChars = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC';
     const isAlpha = new RegExp('^[0-9' + ltrChars + rtlChars + ']{1}$');
-    
+
     if (isAlpha.test(e.key) || ["Delete", "Backspace"].includes(e.key))
       e.target.innerText = "";
     e.target.onkeydown = null;
