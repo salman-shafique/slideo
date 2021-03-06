@@ -319,51 +319,22 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
     }
 
     this.updateZIndex = (selectedElZIndex, zIndexMovement) => {
-        // console.log('zindexmovement in updatezindex', zIndexMovement)
-        // console.log("z-index of the element tree is updated according to shapes' 'shape_index'.");
-        // console.log("slideId", this.slideId);
 
         const currentSlide = session.CURRENT_SLIDE;
-        // console.log('currentslide', currentSlide);
         const shapesOfSlide = slide(session.CURRENT_SLIDE).slideData().shapes;
-        // console.log('shapes of slide', shapesOfSlide);
-        // console.log('selected EL in updatezindex', selectedElZIndex)
 
         if (selectedElZIndex){
             const shape_id_selected = parseInt(selectedElZIndex.shapeId, 10);
-            // console.log('shape id selected', shape_id_selected)
             const data = shape(slideId, shape_id_selected);
-            // console.log('shape data in updatezindex', data);
             const elementTree = slide(session.CURRENT_SLIDE).page();
-            // console.log('element tree in updatezindex', elementTree);
             console.log('element tree children', elementTree.children);
+            
             for (let i = 0; i < elementTree.children.length; i++){
-                // console.log('child id', elementTree.children[i])
-                // console.log('child index', elementTree.children[i].getAttribute('shape_index'))
                 const shape = elementTree.children[i];
                 const shape_index = parseInt(elementTree.children[i].getAttribute('shape_index'), 10);
                 console.log('shape index', shape_index)
                 const shape_id = parseInt(elementTree.children[i].getAttribute('shape_id'), 10);
-                // console.log('shape_id', shape_id);
                 if (shape_id === shape_id_selected){
-                    //Edit shape_index in data of shapesOfSlide array 
-                    /*
-                    console.log('selected shape', shape);
-                    console.log('old shape index in data', shapesOfSlide[shape_index].data.shape_index);
-                    shapesOfSlide[shape_index].data.shape_index = shape_index - 1;
-                    console.log('shapes of slide shapeindex', shapesOfSlide[shape_index])
-                    console.log('new shape index in data', shapesOfSlide[shape_index].data.shape_index);
-                    */
-
-                    //Set shape_index attribute of element
-                    /*
-                    shape.setAttribute('shape_index', shape_index - 1);
-                    console.log('new shape w/ adjusted index', slide(session.CURRENT_SLIDE).page().children[i]);
-                    console.log('shapes of slide' , shapesOfSlide);
-                    */
-
-                    //Change index of preceding element 
-                    
                     
                     //Move element in DOM tree
                     const children = elementTree.children;
@@ -374,11 +345,6 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                     const selectedElIndexInChildren = shape_index + 1;
                     const precedingElIndexInChildren = shape_index;
                     const followingElIndexInChildren = shape_index + 2;
-
-
-
-                    console.log('selected el', children[selectedElIndexInChildren]);
-                    console.log('preceding el', children[precedingElIndexInChildren]);
 
                     switch (zIndexMovement){
                         case "SEND_BACKWARD":
