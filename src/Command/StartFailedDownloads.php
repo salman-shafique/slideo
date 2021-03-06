@@ -46,8 +46,14 @@ class StartFailedDownloads extends Command
 
         if (count($downloads) > 0) {
             $io->success(sprintf('%d failed downloads are found.', count($downloads)));
+            $addedDownloads = [];
             foreach ($downloads as $download) {
-                $this->bus->dispatch($download);
+                if (!in_array($download->getId(), $addedDownloads)) {
+                    $this->bus->dispatch($download);
+                    array_push($addedDownloads, $download->getId());
+                } else {
+                    $this->em->remove($download);
+                }
             }
             $io->success(sprintf('%d failed downloads were added to queue.', count($downloads)));
         } else {
