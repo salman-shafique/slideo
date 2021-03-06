@@ -49,7 +49,6 @@ function ContextMenu() {
     const contextMenuAction = (type) => {
         const selectedEl = session.SELECTED_ELEMENTS[0].shape;	
         const parent = selectedEl.parentNode;	
-        const selectedElIndex = Array.prototype.indexOf.call(parent.children, selectedEl);	
         switch (type) {
             case "EDIT_TEXT":
                 console.log("Edit text clicked.");
