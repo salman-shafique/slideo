@@ -66,19 +66,15 @@ function ContextMenu() {
                 console.log("Delete clicked.");
                 break;
             case "SEND_BACKWARD":
-                console.log("Send Backward clicked.");
                 slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_BACKWARD");
                 break;
             case "SEND_TO_BACK":
-                console.log("Send to Back clicked.");
                 slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "SEND_TO_BACK");
                 break;
             case "BRING_FORWARD":
-                console.log("Bring Forward clicked.");
                 slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
                 break;
             case "BRING_TO_FRONT":
-                console.log("Bring to Front clicked.");	
                 slide(session.CURRENT_SLIDE).updateZIndex(session.SELECTED_ELEMENTS[0], "BRING_TO_FRONT");
                 break;
             default:
