@@ -9,7 +9,6 @@ import shape from "Editor/js/entity/shape";
 
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
-
     const [contextMenuLeft, setContextMenuLeft] = React.useState(null);
     const [contextMenuTop, setContextMenuTop] = React.useState(null);
     const [clickedElementType, setClickedElementType] = React.useState(null);
@@ -79,10 +78,7 @@ function ContextMenu() {
                 break;
             case "BRING_FORWARD":
                 console.log("Bring Forward clicked.");
-                console.log('selectedElIndex', selectedElIndex);
-                console.log('parent.children.length', parent.children.length);
-                console.log('parent.childrens', parent.children)
-                if (selectedElIndex < parent.children.length - 1){
+                if (selectedElIndex < parent.children.length - 1){ //"if" prevents console error if last element in DOM tree is being operated on.
                     slide(session.CURRENT_SLIDE, session.SELECTED_ELEMENTS[0], "BRING_FORWARD");
                 }
                 break;
