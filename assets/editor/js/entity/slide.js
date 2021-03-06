@@ -370,26 +370,16 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             parent.insertBefore(children[i], children[i + 2]);
                             break;
                         case "BRING_TO_FRONT":
-                        
-                            for (let j = selectedElIndexInChildren; j < children.length; j++){
-                                if (j === selectedElIndexInChildren){
+                            for (let j = i; j < children.length; j++){
+                                if (j === i){
                                 const lastShapeIndex = children.length - 2;
-                                console.log('setting index of selected el to:', lastShapeIndex);
                                 children[j].setAttribute('shape_index', lastShapeIndex);
                             } else {
                                 const prevShapeIndex = parseInt(children[j].getAttribute('shape_index'), 10);
-                                console.log('changing index of sibling from __ to __:', prevShapeIndex, prevShapeIndex - 1);
                                 children[j].setAttribute('shape_index', prevShapeIndex - 1);
                                 }
                             }
-                            console.log('children bring front', children);
-                            console.log('selected index', selectedElIndexInChildren);
-                            console.log('selected child in bring to front', children[selectedElIndexInChildren])
-                            console.log('last child', children[children.length - 1])
-                            console.log('next sibling of last child', children[children.length - 1].nextSibling)
-                            parent.insertBefore(children[selectedElIndexInChildren], children[children.length - 1].nextSibling);
-
-                            return;
+                            parent.insertBefore(children[i], children[children.length - 1].nextSibling);
                             break;
                         default:
                             return null;
