@@ -328,7 +328,7 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
             const data = shape(slideId, shape_id_selected);
             const elementTree = slide(session.CURRENT_SLIDE).page();
             console.log('element tree children', elementTree.children);
-            
+
             for (let i = 0; i < elementTree.children.length; i++){
                 const shape = elementTree.children[i];
                 const shape_index = parseInt(elementTree.children[i].getAttribute('shape_index'), 10);
@@ -358,15 +358,15 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             
                             console.log('selected element index', selectedElIndexInChildren)
                             console.log('selected element', children[selectedElIndexInChildren])
-                            for (let i = indexOfFirstNonBackground; i <= selectedElIndexInChildren; i++){
+                            for (let j = indexOfFirstNonBackground; j <= selectedElIndexInChildren; j++){
                               //get shape index of current element
-                              if (i === selectedElIndexInChildren){
+                              if (j === selectedElIndexInChildren){
                                 console.log('setting shape_index of selected element')
-                                children[i].setAttribute('shape_index', 0);
+                                children[j].setAttribute('shape_index', 0);
                             } else {
                                 console.log('setting shape_index of elements below selected in DOM tree')
-                                const prevShapeIndex = parseInt(children[i].getAttribute('shape_index'), 10);
-                                children[i].setAttribute('shape_index', prevShapeIndex + 1);
+                                const prevShapeIndex = parseInt(children[j].getAttribute('shape_index'), 10);
+                                children[j].setAttribute('shape_index', prevShapeIndex + 1);
                               }
                             }
                             parent.insertBefore(children[selectedElIndexInChildren], children[1]);
@@ -379,15 +379,15 @@ export default function slide(slideId, selectedEl, zIndexMovement) {
                             break;
                         case "BRING_TO_FRONT":
                         
-                            for (let i = selectedElIndexInChildren; i < children.length; i++){
-                                if (i === selectedElIndexInChildren){
+                            for (let j = selectedElIndexInChildren; j < children.length; j++){
+                                if (j === selectedElIndexInChildren){
                                 const lastShapeIndex = children.length - 2;
                                 console.log('setting index of selected el to:', lastShapeIndex);
-                                children[i].setAttribute('shape_index', lastShapeIndex);
+                                children[j].setAttribute('shape_index', lastShapeIndex);
                             } else {
-                                const prevShapeIndex = parseInt(children[i].getAttribute('shape_index'), 10);
+                                const prevShapeIndex = parseInt(children[j].getAttribute('shape_index'), 10);
                                 console.log('changing index of sibling from __ to __:', prevShapeIndex, prevShapeIndex - 1);
-                                children[i].setAttribute('shape_index', prevShapeIndex - 1);
+                                children[j].setAttribute('shape_index', prevShapeIndex - 1);
                                 }
                             }
                             console.log('children bring front', children);
