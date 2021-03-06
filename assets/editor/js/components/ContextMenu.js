@@ -11,6 +11,19 @@ import Events from "Editor/js/Events";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 
 
+export const getSelectedElementsType = () => {
+    let pureType = null;
+    for (let index = 0; index < session.SELECTED_ELEMENTS.length; index++) {
+        const selectEl = session.SELECTED_ELEMENTS[index];
+        if (pureType === null)
+            pureType = getShapeType(selectEl.shape);
+
+        if (pureType != getShapeType(selectEl.shape))
+            return "MULTIPLE";
+    }
+    return pureType;
+}
+
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [contextMenuLeft, setContextMenuLeft] = React.useState(null);
@@ -33,15 +46,7 @@ function ContextMenu() {
             // One element selected
             setClickedElementType(getShapeType(session.SELECTED_ELEMENTS[0].shape));
         } else if (session.SELECTED_ELEMENTS.length > 1) {
-            let pureType = null;
-            session.SELECTED_ELEMENTS.forEach(selectEl => {
-                if (pureType === null)
-                    pureType = getShapeType(selectEl.shape);
-
-                if (pureType != getShapeType(selectEl.shape))
-                    pureType = "MULTIPLE";
-            });
-            setClickedElementType(pureType);
+            setClickedElementType(getSelectedElementsType());
         }
         setIsOpen(true);
     }
@@ -96,7 +101,7 @@ function ContextMenu() {
     const contextMenuAction = (type) => {
         switch (type) {
             case "EDIT_TEXT":
-                selectTextboxElement({target:{parentElement:session.SELECTED_ELEMENTS[0].shape}});
+                selectTextboxElement({ target: { parentElement: session.SELECTED_ELEMENTS[0].shape } });
                 setIsOpen(false);
                 break;
             case "DUPLICATE":
@@ -106,7 +111,8 @@ function ContextMenu() {
                 console.log("Show Full Image clicked.");
                 break;
             case "CHANGE_COLOR":
-                console.log("Change Color clicked.");
+                Events.colorCircle.open();
+                setIsOpen(false);
                 break;
             default:
                 break;
