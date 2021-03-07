@@ -28,6 +28,6 @@ export default function Image({ imageData }) {
     }
 
     return (
-        <img onClick={onClick} imageid={imageData.id} className={"new-image-item col-6 py-2 rounded"} src={imageData.url + '?auto=compress&fit=crop&w=123&h=60'} />
+        <img onClick={onClick} imageid={imageData.id} className={"new-image-item col-6 py-2 rounded"} src={imageData.url + '?auto=compress&fit=crop&w=123'} />
     )
 }
