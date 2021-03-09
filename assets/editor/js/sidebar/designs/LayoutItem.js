@@ -58,6 +58,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts })
             setSelected(false);
             console.log('sending false');
             sendData(false);
+            setSelectedLayouts(null);
         }
     }
 
