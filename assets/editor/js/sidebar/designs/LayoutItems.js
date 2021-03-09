@@ -5,17 +5,27 @@ import LayoutItem from "./LayoutItem";
 import preloader from "Editor/js/components/preloader";
 
 
-export default function LayoutItems() {
+//Need to check if one layout is selected.
+
+export default function LayoutItems(props) {
 
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
 
+    const [layoutSelected, setLayoutSelected] = React.useState(false);
+    const sendData = (trueFalse) => {
+        props.parentCallback("hey popsie, hows it going", trueFalse);
+        setLayoutSelected(trueFalse);
+        console.log(layoutSelected);
+    }
     const arrangeLayoutItems = (freshDesignItems)=>{
+
+        
         let layoutItemsTmp = [];
         freshDesignItems.forEach((layoutData, i) => {
             if (layoutData)
                 layoutItemsTmp.push(
-                    <LayoutItem key={i} layoutData={layoutData} />
+                    <LayoutItem key={i} layoutData={layoutData} sendData={sendData} />
                 )
         });
         setLayoutItems(layoutItemsTmp);
