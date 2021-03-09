@@ -6,11 +6,19 @@ import preloader from "Editor/js/components/preloader";
 
 
 //Need to check if one layout is selected.
+//NEED To set layouts in designspanel, or find a way to keep the layouts showing, even though the whole design panel is being hidden.
+//If I can pass state of selected layouts back up to design panel, i should be able to send it back down to layoutitems
+
 
 export default function LayoutItems(props) {
 
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
+
+    React.useEffect(() => {
+        console.log('layouts', layouts)
+        console.log('layout items', layoutItems)
+    });
 
     const [layoutSelected, setLayoutSelected] = React.useState(false);
     const sendData = (trueFalse) => {
@@ -25,7 +33,7 @@ export default function LayoutItems(props) {
         freshDesignItems.forEach((layoutData, i) => {
             if (layoutData)
                 layoutItemsTmp.push(
-                    <LayoutItem key={i} layoutData={layoutData} sendData={sendData} />
+                    <LayoutItem key={i} layoutData={layoutData} sendData={sendData} setSelectedLayouts={props.setSelectedLayouts}/>
                 )
         });
         setLayoutItems(layoutItemsTmp);

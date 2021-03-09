@@ -4,19 +4,20 @@ import DesignItems from "./DesignItems";
 import LayoutItems from "./LayoutItems";
 
 
-
 export default function DesignsPanel() {
 
     React.useEffect(() => {
-        console.log('effect selected', layoutSelected);
-    }, [layoutSelected])
+        console.log('selectedLayouts', selectedLayouts)
+    });
     const [layoutSelected, setLayoutSelected] = React.useState(false);
     const callbackFunction = (childData, trueFalse) => {
-        console.log(childData);
-        console.log('truefalse in parent', trueFalse)
         setLayoutSelected(trueFalse);
-        console.log(layoutSelected);
     }
+
+    const [selectedLayouts, setSelectedLayouts] = React.useState(null);
+
+
+    //NEED TO ADD STATE FOR LAYOUT ITEMS, SO THAT REACT SENDS SAME DATA TO BOTH LAYOUT ITEMS
     return (
         <>
             <div className="search-section d-none">
@@ -27,31 +28,26 @@ export default function DesignsPanel() {
                 <div className="design-container row m-0 px-1">
                     <DesignItems/>
                 </div>
+                <div 
+                    style={{
+                        width: "100%",
+                        background: "grey",
+                        position: "absolute",
+                        bottom: 0,
+                        display: "flex",
+                        justifyContent: "center"
+                    }}    
+                >
+                    {selectedLayouts}
+                </div>
                 <div className="control-overlay-layout closed">
                     <h6 className="text-dark small-top-margin small-bottom-margin centered-contents single-line">Design Layouts</h6>
-                    {layoutSelected ? 
-                        <div 
-                            className="selected-layout-container"
-                            style={{
-                                width: "100%",
-                                background: "grey",
-                                position: "absolute",
-                                bottom: 0,
-                                display: "flex",
-                                justifyContent: "center"
-                            }}    
-                        >
-                            <LayoutItems
-                                parentCallback = {callbackFunction}
-                            />
-                        </div>
-                        :
                         <div className="layout-container row m-0 px-1">
                             <LayoutItems
                                 parentCallback = {callbackFunction}
+                                setSelectedLayouts = {setSelectedLayouts}
                             />
                         </div>
-                    }
                 </div>
                 <div className="backdrop-overlay-layout collapse"></div>
             </div>
