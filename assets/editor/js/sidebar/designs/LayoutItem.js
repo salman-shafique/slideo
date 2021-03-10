@@ -12,7 +12,7 @@ function c(x, y){
     console.log(x, y);
 }
 
-export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId }) {
+export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId, selectedLayoutId }) {
 
     const [selected, setSelected] = React.useState(false);
 

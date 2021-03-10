@@ -40,6 +40,7 @@ export default function LayoutItems(props) {
                         setSelectedLayouts={props.setSelectedLayouts}
                         setIsMenuOpen={props.setIsMenuOpen}
                         setSelectedLayoutId={props.setSelectedLayoutId}
+                        selectedLayoutId={props.selectedLayoutId}
                     />
                 )
         });

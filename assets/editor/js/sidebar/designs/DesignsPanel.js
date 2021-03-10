@@ -49,6 +49,7 @@ export default function DesignsPanel() {
                                 setSelectedLayouts={setSelectedLayouts}
                                 setIsMenuOpen={setIsMenuOpen}
                                 setSelectedLayoutId = {setSelectedLayoutId}
+                                selectedLayoutId={selectedLayoutId}
                             />
                         </div>
                 </div>
