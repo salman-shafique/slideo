@@ -15,6 +15,7 @@ export default function DesignsPanel() {
     const callbackFunction = (childData, trueFalse) => {
         setLayoutSelected(trueFalse);
     }
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const [selectedLayouts, setSelectedLayouts] = React.useState(null);
 
@@ -55,12 +56,19 @@ export default function DesignsPanel() {
             </div>
             <div className="control-section">
                 <button 
+                    onClick={() => {setIsMenuOpen(true)}} 
                     className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip"
-                    style={{display: layoutSelected && "block"}}
+                    style={{display: isMenuOpen ? "block" : "none"}}
                 >
                     DESIGN LAYOUTS
                 </button>
-                <button onClick={() => {setLayoutSelected(false)}} className={`btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip ${layoutSelected && "collapse"}`}>CANCEL</button>
+                <button 
+                    onClick={() => {setIsMenuOpen(false)}} 
+                    className={`btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip ${layoutSelected && "collapse"}`}
+                    style={{display: isMenuOpen ? "none" : "block"}}
+                >
+                    CANCEL
+                </button>
             </div>
         </>
     )
