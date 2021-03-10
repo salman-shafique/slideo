@@ -12,7 +12,7 @@ function c(x, y){
     console.log(x, y);
 }
 
-export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId, selectedLayoutId }) {
+export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId,  getSelectedLayoutId, selectedLayoutId) {
 
     const [selected, setSelected] = React.useState(false);
 
@@ -20,15 +20,30 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
     React.useEffect(() => {
         console.log('selected layouts', selectedLayouts)
         console.log('layout data', layoutData)
+        console.log('selectedLayoutId in layoutitem', selectedLayoutId)
+        console.log('setSelectedLayoutId function in layoutitem', setSelectedLayoutId)
+        console.log('selected layout id getSelectedLayoutId', getSelectedLayoutId())
+        if (selectedLayouts){
+
+            console.log('Set.prototype.values()', selectedLayouts.values())
+            console.log('Set.prototype.values()', selectedLayouts.values()[0])
+            console.log('selected values 0', selectedLayouts[0])
+        }
     })
 
+    const returnSelectedLayoutId = () => {
+        for (let item of selectedLayouts.values()) console.log(item);
+        for (let item of selectedLayouts.values()) return item;
+    }
 
     const selectLayout = () => {
         if (!selected) {
+            console.log('selectedLayoutId in selectLayout function in layoutitme', selectedLayoutId)
             selectedLayouts.clear();
-            filterDesigns();
             console.log('selected layouts after clear', selectedLayouts)
             selectedLayouts.add(layoutData.id);
+            console.log('layoutdata.id in Layoutitem', layoutData.id);
+            console.log('setting selectedLayoutId')
             setSelectedLayoutId(layoutData.id);
             filterDesigns();
             setSelected(true);
@@ -67,8 +82,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             
         } else {
             selectedLayouts.delete(layoutData.id);
-            filterDesigns();
-            selectedLayouts.clear();
+            console.log('setting selectedLayoutId to null')
             setSelectedLayoutId(null);
             filterDesigns();
             setSelected(false);
@@ -103,7 +117,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                 }
                 <img
                     className={`w-100 layout-item ${
-                        selectedLayoutId === layoutData.id && "selected"
+                        returnSelectedLayoutId() === layoutData.id && "selected"
                     }`}
                     src={layoutData.prevFile}
                 />

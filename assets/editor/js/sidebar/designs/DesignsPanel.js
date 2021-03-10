@@ -3,10 +3,15 @@ import SearchBox from "./SearchBox";
 import DesignItems from "./DesignItems";
 import LayoutItems from "./LayoutItems";
 
+function c(x, y){
+    console.log(x, y);
+}
 
 export default function DesignsPanel() {
 
     React.useEffect(() => {
+        c('selectedLayoutId in designpanel', selectedLayoutId)
+        console.log('getSelectedLayoutId in desingpanel', getSelectedLayoutId())
     });
     const [layoutSelected, setLayoutSelected] = React.useState(false);
     const callbackFunction = (childData, trueFalse) => {
@@ -16,6 +21,9 @@ export default function DesignsPanel() {
 
     const [selectedLayouts, setSelectedLayouts] = React.useState(null);
     const [selectedLayoutId, setSelectedLayoutId] = React.useState(null);
+    const getSelectedLayoutId = () => {
+        return selectedLayoutId;
+    }
 
 
     //NEED TO ADD STATE FOR LAYOUT ITEMS, SO THAT REACT SENDS SAME DATA TO BOTH LAYOUT ITEMS
@@ -50,6 +58,7 @@ export default function DesignsPanel() {
                                 setIsMenuOpen={setIsMenuOpen}
                                 setSelectedLayoutId = {setSelectedLayoutId}
                                 selectedLayoutId={selectedLayoutId}
+                                getSelectedLayoutId={getSelectedLayoutId}
                             />
                         </div>
                 </div>

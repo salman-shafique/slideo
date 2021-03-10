@@ -16,6 +16,7 @@ export default function LayoutItems(props) {
     const [layoutItems, setLayoutItems] = React.useState([]);
 
     React.useEffect(() => {
+        console.log('selectedLayoutId in layoutitems', props.selectedLayoutId)
         // console.log('layouts', layouts)
         // console.log('layout items', layoutItems)
     });
@@ -32,6 +33,7 @@ export default function LayoutItems(props) {
         let layoutItemsTmp = [];
         freshDesignItems.forEach((layoutData, i) => {
             if (layoutData)
+            //LAYOUT ITEM MUST BE a new item each time you click. thats why it's not reading the selectedLayoutId state....?
                 layoutItemsTmp.push(
                     <LayoutItem 
                         key={i} 
@@ -41,6 +43,8 @@ export default function LayoutItems(props) {
                         setIsMenuOpen={props.setIsMenuOpen}
                         setSelectedLayoutId={props.setSelectedLayoutId}
                         selectedLayoutId={props.selectedLayoutId}
+                        getSelectedLayoutId={props.getSelectedLayoutId}
+
                     />
                 )
         });
