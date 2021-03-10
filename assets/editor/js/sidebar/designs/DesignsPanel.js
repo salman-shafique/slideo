@@ -9,6 +9,7 @@ export default function DesignsPanel() {
     React.useEffect(() => {
         console.log('selectedLayouts', selectedLayouts)
         console.log('layout selected? ', layoutSelected)
+        console.log('is menu open?', isMenuOpen)
 
     });
     const [layoutSelected, setLayoutSelected] = React.useState(false);
@@ -58,14 +59,14 @@ export default function DesignsPanel() {
                 <button 
                     onClick={() => {setIsMenuOpen(true)}} 
                     className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip"
-                    style={{display: isMenuOpen ? "block" : "none"}}
+                    style={{display: isMenuOpen ? "none" : "block"}}
                 >
                     DESIGN LAYOUTS
                 </button>
                 <button 
                     onClick={() => {setIsMenuOpen(false)}} 
-                    className={`btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip ${layoutSelected && "collapse"}`}
-                    style={{display: isMenuOpen ? "none" : "block"}}
+                    className={`btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip`}
+                    style={{display: isMenuOpen ? "block" : "none"}}
                 >
                     CANCEL
                 </button>
