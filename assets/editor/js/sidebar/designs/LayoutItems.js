@@ -39,6 +39,7 @@ export default function LayoutItems(props) {
                         sendData={sendData} 
                         setSelectedLayouts={props.setSelectedLayouts}
                         setIsMenuOpen={props.setIsMenuOpen}
+                        setSelectedLayoutId={props.setSelectedLayoutId}
                     />
                 )
         });

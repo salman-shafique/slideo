@@ -15,6 +15,7 @@ export default function DesignsPanel() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const [selectedLayouts, setSelectedLayouts] = React.useState(null);
+    const [selectedLayoutId, setSelectedLayoutId] = React.useState(null);
 
 
     //NEED TO ADD STATE FOR LAYOUT ITEMS, SO THAT REACT SENDS SAME DATA TO BOTH LAYOUT ITEMS
@@ -47,6 +48,7 @@ export default function DesignsPanel() {
                                 parentCallback={callbackFunction}
                                 setSelectedLayouts={setSelectedLayouts}
                                 setIsMenuOpen={setIsMenuOpen}
+                                setSelectedLayoutId = {setSelectedLayoutId}
                             />
                         </div>
                 </div>

@@ -12,20 +12,24 @@ function c(x, y){
     console.log(x, y);
 }
 
-export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen }) {
+export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId }) {
 
     const [selected, setSelected] = React.useState(false);
 
+    //ADD LAYOUT ID TO PARENT STATE. Parent will check if the current item is selected, and give "selected" class accordingly
     React.useEffect(() => {
         console.log('selected layouts', selectedLayouts)
+        console.log('layout data', layoutData)
     })
 
 
     const selectLayout = () => {
         if (!selected) {
             selectedLayouts.clear();
+            filterDesigns();
             console.log('selected layouts after clear', selectedLayouts)
             selectedLayouts.add(layoutData.id);
+            setSelectedLayoutId(layoutData.id);
             filterDesigns();
             setSelected(true);
             setIsMenuOpen(false);
@@ -63,7 +67,9 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             
         } else {
             selectedLayouts.delete(layoutData.id);
+            filterDesigns();
             selectedLayouts.clear();
+            setSelectedLayoutId(null);
             filterDesigns();
             setSelected(false);
             sendData(false);
@@ -96,7 +102,9 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                     </div>
                 }
                 <img
-                    className={"w-100 layout-item " + (selected ? "selected" : "")}
+                    className={`w-100 layout-item ${
+                        selectedLayoutId === layoutData.id && "selected"
+                    }`}
                     src={layoutData.prevFile}
                 />
             </div>
