@@ -12,9 +12,15 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
 
     const [selected, setSelected] = React.useState(false);
 
+    React.useEffect(() => {
+        console.log('selected layouts', selectedLayouts)
+        console.log('filterDesigns', filterDesigns)
+    })
+
 
     const selectLayout = () => {
         if (!selected) {
+            selectedLayouts.clear();
             selectedLayouts.add(layoutData.id);
             filterDesigns();
             setSelected(true);
