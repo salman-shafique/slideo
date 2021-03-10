@@ -8,7 +8,7 @@ import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
 //SEND SELECTED LAYOUT UP TO DESIGNSPANEL.JS
 
-export default function LayoutItem({ layoutData, sendData, setSelectedLayouts }) {
+export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen }) {
 
     const [selected, setSelected] = React.useState(false);
 
@@ -18,7 +18,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts })
             selectedLayouts.add(layoutData.id);
             filterDesigns();
             setSelected(true);
-
+            setIsMenuOpen(false);
             console.log('sending true');
             sendData(true);
             setSelectedLayouts(

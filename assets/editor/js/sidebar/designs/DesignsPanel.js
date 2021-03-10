@@ -48,8 +48,9 @@ export default function DesignsPanel() {
                     <h6 className="text-dark small-top-margin small-bottom-margin centered-contents single-line">Design Layouts</h6>
                         <div className="layout-container row m-0 px-1">
                             <LayoutItems
-                                parentCallback = {callbackFunction}
-                                setSelectedLayouts = {setSelectedLayouts}
+                                parentCallback={callbackFunction}
+                                setSelectedLayouts={setSelectedLayouts}
+                                setIsMenuOpen={setIsMenuOpen}
                             />
                         </div>
                 </div>

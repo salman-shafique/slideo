@@ -33,7 +33,13 @@ export default function LayoutItems(props) {
         freshDesignItems.forEach((layoutData, i) => {
             if (layoutData)
                 layoutItemsTmp.push(
-                    <LayoutItem key={i} layoutData={layoutData} sendData={sendData} setSelectedLayouts={props.setSelectedLayouts}/>
+                    <LayoutItem 
+                        key={i} 
+                        layoutData={layoutData} 
+                        sendData={sendData} 
+                        setSelectedLayouts={props.setSelectedLayouts}
+                        setIsMenuOpen={props.setIsMenuOpen}
+                    />
                 )
         });
         setLayoutItems(layoutItemsTmp);
