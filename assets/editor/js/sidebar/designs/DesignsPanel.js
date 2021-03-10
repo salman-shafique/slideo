@@ -54,8 +54,13 @@ export default function DesignsPanel() {
                 <div className={`backdrop-overlay-layout collapse  ${layoutSelected && "closed"}`}></div>
             </div>
             <div className="control-section">
-                <button className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip">DESIGN LAYOUTS</button>
-                <button onClick={() => {setLayoutSelected(false)}}className="btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip">CANCEL</button>
+                <button 
+                    className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip"
+                    style={{display: layoutSelected && "block"}}
+                >
+                    DESIGN LAYOUTS
+                </button>
+                <button onClick={() => {setLayoutSelected(false)}} className={`btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip ${layoutSelected && "collapse"}`}>CANCEL</button>
             </div>
         </>
     )
