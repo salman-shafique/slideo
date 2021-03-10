@@ -8,24 +8,27 @@ import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
 //SEND SELECTED LAYOUT UP TO DESIGNSPANEL.JS
 
+function c(x, y){
+    console.log(x, y);
+}
+
 export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen }) {
 
     const [selected, setSelected] = React.useState(false);
 
     React.useEffect(() => {
         console.log('selected layouts', selectedLayouts)
-        console.log('filterDesigns', filterDesigns)
     })
 
 
     const selectLayout = () => {
         if (!selected) {
             selectedLayouts.clear();
+            console.log('selected layouts after clear', selectedLayouts)
             selectedLayouts.add(layoutData.id);
             filterDesigns();
             setSelected(true);
             setIsMenuOpen(false);
-            console.log('sending true');
             sendData(true);
             setSelectedLayouts(
                 <div
@@ -60,9 +63,9 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             
         } else {
             selectedLayouts.delete(layoutData.id);
+            selectedLayouts.clear();
             filterDesigns();
             setSelected(false);
-            console.log('sending false');
             sendData(false);
             setSelectedLayouts(null);
         }

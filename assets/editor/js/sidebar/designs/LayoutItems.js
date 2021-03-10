@@ -16,13 +16,13 @@ export default function LayoutItems(props) {
     const [layoutItems, setLayoutItems] = React.useState([]);
 
     React.useEffect(() => {
-        console.log('layouts', layouts)
-        console.log('layout items', layoutItems)
+        // console.log('layouts', layouts)
+        // console.log('layout items', layoutItems)
     });
 
     const [layoutSelected, setLayoutSelected] = React.useState(false);
     const sendData = (trueFalse) => {
-        props.parentCallback("hey popsie, hows it going", trueFalse);
+        // props.parentCallback("hey popsie, hows it going", trueFalse);
         setLayoutSelected(trueFalse);
         console.log(layoutSelected);
     }

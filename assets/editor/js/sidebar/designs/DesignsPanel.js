@@ -7,10 +7,6 @@ import LayoutItems from "./LayoutItems";
 export default function DesignsPanel() {
 
     React.useEffect(() => {
-        console.log('selectedLayouts', selectedLayouts)
-        console.log('layout selected? ', layoutSelected)
-        console.log('is menu open?', isMenuOpen)
-
     });
     const [layoutSelected, setLayoutSelected] = React.useState(false);
     const callbackFunction = (childData, trueFalse) => {
