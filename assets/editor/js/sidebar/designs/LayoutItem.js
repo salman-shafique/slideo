@@ -39,7 +39,6 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
     }
 
     const selectLayout = () => {
-        if (true) {
             console.log('selectedLayoutId in selectLayout function in layoutitme', selectedLayoutId)
             selectedLayouts.clear();
             console.log('selected layouts after clear', selectedLayouts)
@@ -54,7 +53,6 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             setSelectedLayouts(
                 <div
                     className={"col-6 my-2"}
-                    key={isMenuOpen}
                 >
                     {!isMenuOpen &&
                         <div
@@ -83,18 +81,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                     />
                 </div>
             );
-            //Add layout to a new div at bottom of layout area.
-            
-        } else {
-            selectedLayouts.delete(layoutData.id);
-            console.log('setting selectedLayoutId to null')
-            setSelectedLayoutId(null);
-            filterDesigns();
-            setIsMenuOpen(true);
-            setSelected(false);
-            sendData(false);
-            setSelectedLayouts(null);
-        }
+        } 
     }
 
     return (
