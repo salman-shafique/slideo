@@ -44,6 +44,7 @@ export default function LayoutItems(props) {
                         setSelectedLayoutId={props.setSelectedLayoutId}
                         selectedLayoutId={props.selectedLayoutId}
                         getSelectedLayoutId={props.getSelectedLayoutId}
+                        isMenuOpen={props.isMenuOpen}
 
                     />
                 )

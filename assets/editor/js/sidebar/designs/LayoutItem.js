@@ -12,7 +12,7 @@ function c(x, y){
     console.log(x, y);
 }
 
-export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId,  getSelectedLayoutId, selectedLayoutId}) {
+export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId,  getSelectedLayoutId, selectedLayoutId, isMenuOpen}) {
 
     const [selected, setSelected] = React.useState(false);
 
@@ -23,6 +23,8 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
         console.log('selectedLayoutId in layoutitem', selectedLayoutId)
         console.log('setSelectedLayoutId function in layoutitem', setSelectedLayoutId)
         console.log('selected layout id getSelectedLayoutId', getSelectedLayoutId())
+        console.log('setismenuopen layoutitem', setIsMenuOpen);
+        console.log('ismenuopen layoutitem' ,isMenuOpen)
         if (selectedLayouts){
 
             console.log('Set.prototype.values()', selectedLayouts.values())
@@ -53,11 +55,8 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                 <div
                     onClick={selectLayout}
                     className={"col-6 my-2"}
-                    style={{
-                        margin: selected && "auto"
-                    }}
                 >
-                    {selected &&
+                    {!isMenuOpen &&
                         <div
                             className={"btn btn-danger"}
                             style={{
