@@ -6,17 +6,8 @@ import LayoutItems from "./LayoutItems";
 
 import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
-function c(x, y){
-    console.log(x, y);
-}
-
 export default function DesignsPanel() {
-
-    React.useEffect(() => {
-        c('selectedLayoutId in designpanel', selectedLayoutId)
-        console.log('getSelectedLayoutId in desingpanel', getSelectedLayoutId())
-        console.log('ismenuopen desingspanel', isMenuOpen)
-    });
+    
     const [layoutSelected, setLayoutSelected] = React.useState(false);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -27,14 +18,9 @@ export default function DesignsPanel() {
     }
 
     const clearSelectedLayout = () => {
-        console.log('selected layouts in designspanel before clear', selectedLayouts)
         selectedLayouts.clear();
         filterDesigns();
-        console.log('selected layouts in after  clear', selectedLayouts)
     }
-
-    console.log('====================')
-    //NEED TO  clear all selected layouts when "Layout Designs " is clicked
 
     return (
         <>
