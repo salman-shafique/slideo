@@ -50,7 +50,7 @@ export default function DesignsPanel() {
                 >
                     {selectedLayouts}
                 </div>
-                <div className={`control-overlay-layout closed ${layoutSelected && "closed"}`}>
+                <div className={`control-overlay-layout closed ${isMenuOpen && "closed"}`}>
                     <h6 className="text-dark small-top-margin small-bottom-margin centered-contents single-line">Design Layouts</h6>
                         <div className="layout-container row m-0 px-1">
                             <LayoutItems
@@ -63,7 +63,10 @@ export default function DesignsPanel() {
                             />
                         </div>
                 </div>
-                <div className={`backdrop-overlay-layout collapse  ${layoutSelected && "closed"}`}></div>
+                <div 
+                    className={`backdrop-overlay-layout collapse  ${isMenuOpen  && "closed"}`}
+                >
+                </div>
             </div>
             <div className="control-section">
                 <button 
