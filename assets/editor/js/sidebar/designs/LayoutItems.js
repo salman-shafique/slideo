@@ -30,7 +30,6 @@ export default function LayoutItems(props) {
                         getSelectedLayoutId={props.getSelectedLayoutId}
                         isMenuOpen={props.isMenuOpen}
                         clearSelectedLayout={props.clearSelectedLayout}
-
                     />
                 )
         });
