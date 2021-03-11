@@ -6,12 +6,6 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
-//SEND SELECTED LAYOUT UP TO DESIGNSPANEL.JS
-
-function c(x, y){
-    console.log(x, y);
-}
-
 export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId, isMenuOpen, clearSelectedLayout}) {
     const [selected, setSelected] = React.useState(false);
 
@@ -30,7 +24,6 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                 {!isMenuOpen &&
                     <div
                         onClick={() => {
-                            console.log('danger clicked');
                             setIsMenuOpen(true);
                             clearSelectedLayout();
                         }}
