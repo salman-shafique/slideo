@@ -10,9 +10,6 @@ export default function LayoutItems(props) {
     const [layoutItems, setLayoutItems] = React.useState([]);
     const [layoutSelected, setLayoutSelected] = React.useState(false);
 
-    const sendData = (trueFalse) => {
-        setLayoutSelected(trueFalse);
-    }
 
     const arrangeLayoutItems = (freshDesignItems)=>{
         let layoutItemsTmp = [];
@@ -22,7 +19,6 @@ export default function LayoutItems(props) {
                     <LayoutItem 
                         key={i} 
                         layoutData={layoutData} 
-                        sendData={sendData} 
                         setSelectedLayouts={props.setSelectedLayouts}
                         setIsMenuOpen={props.setIsMenuOpen}
                         setSelectedLayoutId={props.setSelectedLayoutId}
