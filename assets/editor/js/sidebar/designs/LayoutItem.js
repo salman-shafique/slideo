@@ -13,51 +13,43 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
     const [selected, setSelected] = React.useState(false);
 
     const selectLayout = () => {
-        if (true) {
-            console.log('selectedLayoutId in selectLayout function in layoutitme', selectedLayoutId)
-            selectedLayouts.clear();
-            console.log('selected layouts after clear', selectedLayouts)
-            selectedLayouts.add(layoutData.id);
-            console.log('layoutdata.id in Layoutitem', layoutData.id);
-            console.log('setting selectedLayoutId')
-            setSelectedLayoutId(layoutData.id);
-            filterDesigns();
-            setSelected(true);
-            setIsMenuOpen(false);
-            sendData(true);
-            setSelectedLayouts(
-                <div
-                    className={"col-6 my-2"}
-                >
-                    {!isMenuOpen &&
-                        <div
-                            onClick={() => {
-                                console.log('danger clicked');
-                                setIsMenuOpen(true);
-                                clearSelectedLayout();
-                            }}
-                            className={"btn btn-danger"}
-                            style={{
-                                height: "fit-content",
-                                borderRadius: "100px",
-                                position: "absolute",
-                                zIndex: 1,
-                                left: "3px",
-                                top: "-6px",
-                                fontSize: "0.8em"
-                            }}
-                        >
-                            X
-                        </div>
-                    }
-                    <img
-                        className={"w-100 layout-item "}
-                        src={layoutData.prevFile}
-                    />
-                </div>
-            );
-            
-        } 
+        selectedLayouts.clear();
+        selectedLayouts.add(layoutData.id);
+        setSelectedLayoutId(layoutData.id);
+        filterDesigns();
+        setSelected(true);
+        setIsMenuOpen(false);
+        sendData(true);
+        setSelectedLayouts(
+            <div
+                className={"col-6 my-2"}
+            >
+                {!isMenuOpen &&
+                    <div
+                        onClick={() => {
+                            setIsMenuOpen(true);
+                            clearSelectedLayout();
+                        }}
+                        className={"btn btn-danger"}
+                        style={{
+                            height: "fit-content",
+                            borderRadius: "100px",
+                            position: "absolute",
+                            zIndex: 1,
+                            left: "3px",
+                            top: "-6px",
+                            fontSize: "0.8em"
+                        }}
+                    >
+                        X
+                    </div>
+                }
+                <img
+                    className={"w-100 layout-item "}
+                    src={layoutData.prevFile}
+                />
+            </div>
+        );
     }
 
     return (
