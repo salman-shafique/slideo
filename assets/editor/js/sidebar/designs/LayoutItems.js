@@ -14,15 +14,8 @@ export default function LayoutItems(props) {
 
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
-    const [layoutSelected, setLayoutSelected] = React.useState(false);
 
-    const sendData = (trueFalse) => {
-        setLayoutSelected(trueFalse);
-        console.log(layoutSelected);
-    }
     const arrangeLayoutItems = (freshDesignItems)=>{
-
-        
         let layoutItemsTmp = [];
         freshDesignItems.forEach((layoutData, i) => {
             if (layoutData)
