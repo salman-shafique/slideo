@@ -31,7 +31,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             console.log('Set.prototype.values()', selectedLayouts.values()[0])
             console.log('selected values 0', selectedLayouts[0])
         }
-    },[selectedLayoutId])
+    })
 
     const returnSelectedLayoutId = () => {
         for (let item of selectedLayouts.values()) console.log(item);
@@ -55,6 +55,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                 <div
                     onClick={selectLayout}
                     className={"col-6 my-2"}
+                    key={isMenuOpen}
                 >
                     {!isMenuOpen &&
                         <div
@@ -64,15 +65,16 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                                 borderRadius: "100px",
                                 position: "absolute",
                                 zIndex: 1,
-                                left: "-7px",
-                                top: "-15px",
+                                left: "3px",
+                                top: "-6px",
+                                fontSize: "0.8em"
                             }}
                         >
                             X
                         </div>
                     }
                     <img
-                        className={"w-100 layout-item " + (selected ? "selected" : "")}
+                        className={"w-100 layout-item "}
                         src={layoutData.prevFile}
                     />
                 </div>
@@ -100,7 +102,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                     margin: selected && "auto"
                 }}
             >
-                {selected &&
+                {isMenuOpen &&
                     <div
                         className={"btn btn-danger"}
                         style={{
@@ -116,9 +118,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                     </div>
                 }
                 <img
-                    className={`w-100 layout-item ${
-                        returnSelectedLayoutId() === layoutData.id && "selected"
-                    }`}
+                    className={"w-100 layout-item"}
                     src={layoutData.prevFile}
                 />
             </div>
