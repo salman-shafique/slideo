@@ -3,6 +3,9 @@ import SearchBox from "./SearchBox";
 import DesignItems from "./DesignItems";
 import LayoutItems from "./LayoutItems";
 
+
+import { selectedLayouts, filterDesigns } from "./filterDesigns";
+
 function c(x, y){
     console.log(x, y);
 }
@@ -26,8 +29,15 @@ export default function DesignsPanel() {
         return selectedLayoutId;
     }
 
+    const clearSelectedLayout = () => {
+        console.log('selected layouts in designspanel before clear', selectedLayouts)
+        selectedLayouts.clear();
+        filterDesigns();
+        console.log('selected layouts in after  clear', selectedLayouts)
+    }
 
-    //NEED TO ADD STATE FOR LAYOUT ITEMS, SO THAT REACT SENDS SAME DATA TO BOTH LAYOUT ITEMS
+    //NEED TO  clear all selected layouts when "Layout Designs " is clicked
+
     return (
         <>
             <div className="search-section d-none">
