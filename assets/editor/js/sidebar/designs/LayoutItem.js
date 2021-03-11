@@ -8,35 +8,9 @@ import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
 //SEND SELECTED LAYOUT UP TO DESIGNSPANEL.JS
 
-function c(x, y){
-    console.log(x, y);
-}
-
 export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId,  getSelectedLayoutId, selectedLayoutId, isMenuOpen, clearSelectedLayout}) {
 
     const [selected, setSelected] = React.useState(false);
-
-    //ADD LAYOUT ID TO PARENT STATE. Parent will check if the current item is selected, and give "selected" class accordingly
-    React.useEffect(() => {
-        console.log('selected layouts', selectedLayouts)
-        console.log('layout data', layoutData)
-        console.log('selectedLayoutId in layoutitem', selectedLayoutId)
-        console.log('setSelectedLayoutId function in layoutitem', setSelectedLayoutId)
-        console.log('selected layout id getSelectedLayoutId', getSelectedLayoutId())
-        console.log('setismenuopen layoutitem', setIsMenuOpen);
-        console.log('ismenuopen layoutitem' ,isMenuOpen)
-        if (selectedLayouts){
-
-            console.log('Set.prototype.values()', selectedLayouts.values())
-            console.log('Set.prototype.values()', selectedLayouts.values()[0])
-            console.log('selected values 0', selectedLayouts[0])
-        }
-    })
-
-    const returnSelectedLayoutId = () => {
-        for (let item of selectedLayouts.values()) console.log(item);
-        for (let item of selectedLayouts.values()) return item;
-    }
 
     const selectLayout = () => {
         if (true) {
