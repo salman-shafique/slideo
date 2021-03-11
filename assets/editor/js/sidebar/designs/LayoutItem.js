@@ -37,7 +37,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
     }
 
     const selectLayout = () => {
-        if (!selected) {
+        if (true) {
             console.log('selectedLayoutId in selectLayout function in layoutitme', selectedLayoutId)
             selectedLayouts.clear();
             console.log('selected layouts after clear', selectedLayouts)

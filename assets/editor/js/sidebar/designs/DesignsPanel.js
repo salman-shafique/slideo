@@ -30,12 +30,16 @@ export default function DesignsPanel() {
     }
 
     const clearSelectedLayout = () => {
+        const returnSelectedLayoutId
         console.log('selected layouts in designspanel before clear', selectedLayouts)
-        selectedLayouts.clear();
-        filterDesigns();
+        if (!selected) {
+            selectedLayouts.clear();
+            filterDesigns();
+        }
         console.log('selected layouts in after  clear', selectedLayouts)
     }
 
+    console.log('====================')
     //NEED TO  clear all selected layouts when "Layout Designs " is clicked
 
     return (
