@@ -4,36 +4,20 @@ import slide from "Editor/js/entity/slide";
 import LayoutItem from "./LayoutItem";
 import preloader from "Editor/js/components/preloader";
 
-
-//Need to check if one layout is selected.
-//NEED To set layouts in designspanel, or find a way to keep the layouts showing, even though the whole design panel is being hidden.
-//If I can pass state of selected layouts back up to design panel, i should be able to send it back down to layoutitems
-
-
 export default function LayoutItems(props) {
 
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
-
-    React.useEffect(() => {
-        console.log('selectedLayoutId in layoutitems', props.selectedLayoutId)
-        // console.log('layouts', layouts)
-        // console.log('layout items', layoutItems)
-    });
-
     const [layoutSelected, setLayoutSelected] = React.useState(false);
-    const sendData = (trueFalse) => {
-        // props.parentCallback("hey popsie, hows it going", trueFalse);
-        setLayoutSelected(trueFalse);
-        console.log(layoutSelected);
-    }
-    const arrangeLayoutItems = (freshDesignItems)=>{
 
-        
+    const sendData = (trueFalse) => {
+        setLayoutSelected(trueFalse);
+    }
+
+    const arrangeLayoutItems = (freshDesignItems)=>{
         let layoutItemsTmp = [];
         freshDesignItems.forEach((layoutData, i) => {
             if (layoutData)
-            //LAYOUT ITEM MUST BE a new item each time you click. thats why it's not reading the selectedLayoutId state....?
                 layoutItemsTmp.push(
                     <LayoutItem 
                         key={i} 
