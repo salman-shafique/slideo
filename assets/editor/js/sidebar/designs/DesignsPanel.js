@@ -80,7 +80,10 @@ export default function DesignsPanel() {
             </div>
             <div className="control-section">
                 <button 
-                    onClick={() => {setIsMenuOpen(true)}} 
+                    onClick={() => {
+                        setIsMenuOpen(true)
+                        clearSelectedLayout();
+                    }} 
                     className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip"
                     style={{display: isMenuOpen ? "none" : "block"}}
                 >
