@@ -12,7 +12,7 @@ function c(x, y){
     console.log(x, y);
 }
 
-export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId,  getSelectedLayoutId, selectedLayoutId, isMenuOpen}) {
+export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId,  getSelectedLayoutId, selectedLayoutId, isMenuOpen, clearSelectedLayout}) {
 
     const [selected, setSelected] = React.useState(false);
 
@@ -53,12 +53,16 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             sendData(true);
             setSelectedLayouts(
                 <div
-                    onClick={selectLayout}
                     className={"col-6 my-2"}
                     key={isMenuOpen}
                 >
                     {!isMenuOpen &&
                         <div
+                            onClick={() => {
+                                console.log('danger clicked');
+                                setIsMenuOpen(true);
+                                clearSelectedLayout();
+                            }}
                             className={"btn btn-danger"}
                             style={{
                                 height: "fit-content",
@@ -102,21 +106,6 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
                     margin: selected && "auto"
                 }}
             >
-                {isMenuOpen &&
-                    <div
-                        className={"btn btn-danger"}
-                        style={{
-                            height: "fit-content",
-                            borderRadius: "100px",
-                            position: "absolute",
-                            zIndex: 1,
-                            left: "-7px",
-                            top: "-15px",
-                        }}
-                    >
-                        X
-                    </div>
-                }
                 <img
                     className={"w-100 layout-item"}
                     src={layoutData.prevFile}

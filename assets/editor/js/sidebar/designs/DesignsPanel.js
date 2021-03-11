@@ -72,6 +72,7 @@ export default function DesignsPanel() {
                                 selectedLayoutId={selectedLayoutId}
                                 getSelectedLayoutId={getSelectedLayoutId}
                                 isMenuOpen={isMenuOpen}
+                                clearSelectedLayout={clearSelectedLayout}
                             />
                         </div>
                 </div>
