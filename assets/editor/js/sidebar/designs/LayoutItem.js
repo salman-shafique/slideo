@@ -29,7 +29,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             console.log('Set.prototype.values()', selectedLayouts.values()[0])
             console.log('selected values 0', selectedLayouts[0])
         }
-    })
+    },[selectedLayoutId])
 
     const returnSelectedLayoutId = () => {
         for (let item of selectedLayouts.values()) console.log(item);
@@ -85,6 +85,7 @@ export default function LayoutItem({ layoutData, sendData, setSelectedLayouts, s
             console.log('setting selectedLayoutId to null')
             setSelectedLayoutId(null);
             filterDesigns();
+            setIsMenuOpen(true);
             setSelected(false);
             sendData(false);
             setSelectedLayouts(null);

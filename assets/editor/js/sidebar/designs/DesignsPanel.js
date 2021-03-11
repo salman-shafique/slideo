@@ -12,6 +12,7 @@ export default function DesignsPanel() {
     React.useEffect(() => {
         c('selectedLayoutId in designpanel', selectedLayoutId)
         console.log('getSelectedLayoutId in desingpanel', getSelectedLayoutId())
+        console.log('ismenuopen desingspanel', isMenuOpen)
     });
     const [layoutSelected, setLayoutSelected] = React.useState(false);
     const callbackFunction = (childData, trueFalse) => {
