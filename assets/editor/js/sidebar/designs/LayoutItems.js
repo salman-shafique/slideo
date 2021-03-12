@@ -63,12 +63,10 @@ export default function LayoutItems(props) {
         });
     },[]);
 
-
     if (layoutItems.length == 0)
         return (
             <h4 className={"text-center"}>Let's create beautiful presentations!</h4>
         )
     
     return layoutItems;
-
 }

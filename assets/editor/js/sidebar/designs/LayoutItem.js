@@ -6,8 +6,7 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
-export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOpen, isMenuOpen, clearSelectedLayout}) {
-
+export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOpen, isMenuOpen }) {
     const [selected, setSelected] = React.useState(false);
 
     const selectLayout = () => {
@@ -17,9 +16,7 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
         setSelected(true);
         setIsMenuOpen(false);
         setSelectedLayouts(
-            <div
-                className={"col-6 my-2"}
-            >
+            <div className={"col-6 my-2"}>
                 {!isMenuOpen &&
                     <div
                         onClick={() => {
@@ -39,10 +36,7 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
                         X
                     </div>
                 }
-                <img
-                    className={"w-100 layout-item "}
-                    src={layoutData.prevFile}
-                />
+                <img className={"w-100 layout-item "} src={layoutData.prevFile} />
             </div>
         );
     }
@@ -52,14 +46,9 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
             <div
                 onClick={selectLayout}
                 className={"col-6 my-2"}
-                style={{
-                    margin: selected && "auto"
-                }}
+                style={{margin: selected && "auto"}}
             >
-                <img
-                    className={"w-100 layout-item"}
-                    src={layoutData.prevFile}
-                />
+                <img className={"w-100 layout-item"} src={layoutData.prevFile} />
             </div>
         </>
     )
