@@ -5,11 +5,9 @@ import LayoutItem from "./LayoutItem";
 import preloader from "Editor/js/components/preloader";
 
 export default function LayoutItems(props) {
-
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
     const [layoutSelected, setLayoutSelected] = React.useState(false);
-
 
     const arrangeLayoutItems = (freshDesignItems)=>{
         let layoutItemsTmp = [];
