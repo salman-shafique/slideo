@@ -2,7 +2,6 @@ import React from "react";
 import SearchBox from "./SearchBox";
 import DesignItems from "./DesignItems";
 import LayoutItems from "./LayoutItems";
-import {  filterDesigns } from "./filterDesigns";
 
 export default function DesignsPanel() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -47,9 +46,7 @@ export default function DesignsPanel() {
             </div>
             <div className="control-section">
                 <button 
-                    onClick={() => {
-                        setIsMenuOpen(true)
-                    }} 
+                    onClick={() => {setIsMenuOpen(true)}} 
                     className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip"
                     style={{display: isMenuOpen ? "none" : "block"}}
                 >

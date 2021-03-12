@@ -19,9 +19,7 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
             <div className={"col-6 my-2"}>
                 {!isMenuOpen &&
                     <div
-                        onClick={() => {
-                            setIsMenuOpen(true);
-                        }}
+                        onClick={() => {setIsMenuOpen(true)}}
                         className={"btn btn-danger"}
                         style={{
                             height: "fit-content",
@@ -42,15 +40,8 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
     }
 
     return (
-        <>
-            <div
-                onClick={selectLayout}
-                className={"col-6 my-2"}
-                style={{margin: selected && "auto"}}
-            >
-                <img className={"w-100 layout-item"} src={layoutData.prevFile} />
-            </div>
-        </>
+        <div onClick={selectLayout} className={"col-6 my-2"}>
+            <img className={"w-100 layout-item"} src={layoutData.prevFile} />
+        </div>
     )
-
 }
