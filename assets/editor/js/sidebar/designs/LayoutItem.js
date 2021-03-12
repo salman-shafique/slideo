@@ -6,33 +6,42 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
-
-export default function LayoutItem({ layoutData }) {
-
+export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOpen, isMenuOpen }) {
     const [selected, setSelected] = React.useState(false);
 
-
     const selectLayout = () => {
-        if (!selected) {
-            selectedLayouts.add(layoutData.id);
-            filterDesigns();
-            setSelected(true);
-        } else {
-            selectedLayouts.delete(layoutData.id);
-            filterDesigns();
-            setSelected(false);
-        }
+        selectedLayouts.clear();
+        selectedLayouts.add(layoutData.id);
+        filterDesigns();
+        setSelected(true);
+        setIsMenuOpen(false);
+        setSelectedLayouts(
+            <div className={"col-6 my-2"}>
+                {!isMenuOpen &&
+                    <div
+                        onClick={() => {setIsMenuOpen(true)}}
+                        className={"btn btn-danger"}
+                        style={{
+                            height: "fit-content",
+                            borderRadius: "100px",
+                            position: "absolute",
+                            zIndex: 1,
+                            left: "3px",
+                            top: "-6px",
+                            fontSize: "0.8em"
+                        }}
+                    >
+                        X
+                    </div>
+                }
+                <img className={"w-100 layout-item "} src={layoutData.prevFile} />
+            </div>
+        );
     }
 
     return (
-        <div
-            onClick={selectLayout}
-            className={"col-6 my-2"}>
-            <img
-                className={"w-100 layout-item " + (selected ? "selected" : "")}
-                src={layoutData.prevFile}
-            />
+        <div onClick={selectLayout} className={"col-6 my-2"}>
+            <img className={"w-100 layout-item"} src={layoutData.prevFile} />
         </div>
     )
-
 }

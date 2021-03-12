@@ -4,18 +4,23 @@ import slide from "Editor/js/entity/slide";
 import LayoutItem from "./LayoutItem";
 import preloader from "Editor/js/components/preloader";
 
-
-export default function LayoutItems() {
-
+export default function LayoutItems(props) {
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
+    const [layoutSelected, setLayoutSelected] = React.useState(false);
 
     const arrangeLayoutItems = (freshDesignItems)=>{
         let layoutItemsTmp = [];
         freshDesignItems.forEach((layoutData, i) => {
             if (layoutData)
                 layoutItemsTmp.push(
-                    <LayoutItem key={i} layoutData={layoutData} />
+                    <LayoutItem 
+                        key={i} 
+                        layoutData={layoutData} 
+                        setSelectedLayouts={props.setSelectedLayouts}
+                        setIsMenuOpen={props.setIsMenuOpen}
+                        isMenuOpen={props.isMenuOpen}
+                    />
                 )
         });
         setLayoutItems(layoutItemsTmp);
@@ -58,12 +63,10 @@ export default function LayoutItems() {
         });
     },[]);
 
-
     if (layoutItems.length == 0)
         return (
             <h4 className={"text-center"}>Let's create beautiful presentations!</h4>
         )
     
     return layoutItems;
-
 }
