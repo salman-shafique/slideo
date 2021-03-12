@@ -6,14 +6,13 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
-export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOpen, setSelectedLayoutId,  getSelectedLayoutId, selectedLayoutId, isMenuOpen, clearSelectedLayout}) {
+export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOpen, isMenuOpen, clearSelectedLayout}) {
 
     const [selected, setSelected] = React.useState(false);
 
     const selectLayout = () => {
         selectedLayouts.clear();
         selectedLayouts.add(layoutData.id);
-        setSelectedLayoutId(layoutData.id);
         filterDesigns();
         setSelected(true);
         setIsMenuOpen(false);

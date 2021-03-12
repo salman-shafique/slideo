@@ -9,10 +9,6 @@ export default function DesignsPanel() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const [selectedLayouts, setSelectedLayouts] = React.useState(null);
-    const [selectedLayoutId, setSelectedLayoutId] = React.useState(null);
-    const getSelectedLayoutId = () => {
-        return selectedLayoutId;
-    }
 
     const clearSelectedLayout = () => {
         selectedLayouts.clear();
@@ -48,9 +44,6 @@ export default function DesignsPanel() {
                                 setSelectedLayouts={setSelectedLayouts}
                                 setIsMenuOpen={setIsMenuOpen}
                                 isMenuOpen={isMenuOpen}
-                                setSelectedLayoutId = {setSelectedLayoutId}
-                                selectedLayoutId={selectedLayoutId}
-                                getSelectedLayoutId={getSelectedLayoutId}
                                 clearSelectedLayout={clearSelectedLayout}
                             />
                         </div>
