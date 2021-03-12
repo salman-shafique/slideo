@@ -2,12 +2,10 @@ import React from "react";
 import SearchBox from "./SearchBox";
 import DesignItems from "./DesignItems";
 import LayoutItems from "./LayoutItems";
-import { selectedLayouts, filterDesigns } from "./filterDesigns";
+import {  filterDesigns } from "./filterDesigns";
 
 export default function DesignsPanel() {
-
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
     const [selectedLayouts, setSelectedLayouts] = React.useState(null);
 
     const clearSelectedLayout = () => {
