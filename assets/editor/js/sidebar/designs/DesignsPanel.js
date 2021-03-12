@@ -8,11 +8,6 @@ export default function DesignsPanel() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const [selectedLayouts, setSelectedLayouts] = React.useState(null);
 
-    const clearSelectedLayout = () => {
-        selectedLayouts.clear();
-        filterDesigns();
-    }
-
     return (
         <>
             <div className="search-section d-none">
@@ -42,7 +37,6 @@ export default function DesignsPanel() {
                                 setSelectedLayouts={setSelectedLayouts}
                                 setIsMenuOpen={setIsMenuOpen}
                                 isMenuOpen={isMenuOpen}
-                                clearSelectedLayout={clearSelectedLayout}
                             />
                         </div>
                 </div>
@@ -55,7 +49,6 @@ export default function DesignsPanel() {
                 <button 
                     onClick={() => {
                         setIsMenuOpen(true)
-                        clearSelectedLayout();
                     }} 
                     className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip"
                     style={{display: isMenuOpen ? "none" : "block"}}

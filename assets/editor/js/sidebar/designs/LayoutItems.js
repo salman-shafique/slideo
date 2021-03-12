@@ -20,7 +20,6 @@ export default function LayoutItems(props) {
                         setSelectedLayouts={props.setSelectedLayouts}
                         setIsMenuOpen={props.setIsMenuOpen}
                         isMenuOpen={props.isMenuOpen}
-                        clearSelectedLayout={props.clearSelectedLayout}
                     />
                 )
         });

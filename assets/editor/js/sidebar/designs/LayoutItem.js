@@ -24,7 +24,6 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
                     <div
                         onClick={() => {
                             setIsMenuOpen(true);
-                            clearSelectedLayout();
                         }}
                         className={"btn btn-danger"}
                         style={{
