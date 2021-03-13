@@ -41,5 +41,5 @@ bash docker/restart.sh
 
 #### DATABASE_URL in `.env.local` file:
 ```
-DATABASE_URL=mysql://user:pass@host.docker.internal/slideo?serverVersion=8.0
+DATABASE_URL=mysql://root:51225123UfukUmut4141.@host.docker.internal/slideo?serverVersion=8.0
 ```

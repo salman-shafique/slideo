@@ -1,0 +1,26 @@
+.z-index {
+    z-index: 1000000;
+}
+
+ 
+
+.Shape2sm {
+    border:1px solid lightgrey;
+}
+ 
+.notVisible {
+    visibility: hidden;
+}
+
+.Visible {
+    visibility: visible;
+}
+
+.absoluteLeft {
+    
+    left:-9999px;
+}
+
+.noPointer {
+    pointer-events: none;
+}

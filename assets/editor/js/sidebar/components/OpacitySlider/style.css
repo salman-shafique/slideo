@@ -1,8 +1,12 @@
 .opacity-slider {
     cursor: pointer;
     width: 100%;
+    display: block;
+    z-index:10000;
+    
+    
 }
 
 .opacity-slider:focus {
-    border: none
+    border: none;
 }

@@ -33,6 +33,9 @@ const shapeSelected = () => {
     document.querySelector("#Shapes_Panel .control-close-button").click()
 }
 
+
+
+
 Events.listen("shape.selected", shapeSelected);
 Events.listen("shape.allReleased", shapeSelected);
 

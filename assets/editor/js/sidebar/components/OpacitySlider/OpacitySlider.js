@@ -10,6 +10,7 @@ import Events from "Editor/js/Events";
 
 export default function OpacitySlider({ SHAPE_TYPE }) {
     const [opacity, setOpacity] = React.useState(1.0);
+    
 
     React.useEffect(() => {
         Events.listen("shape.selected", () => {
@@ -38,6 +39,16 @@ export default function OpacitySlider({ SHAPE_TYPE }) {
             }
         });
     }
+
+
+  
+
+ 
+
+
+     
+        
+    
 
     return (
         <input className="opacity-slider form-range" onChange={updateOpacity} type="range" value={opacity} min="0" max="1" step="0.01" />

@@ -2,7 +2,8 @@ import React from "react";
 import ShapeOptions from "./ShapeOptions";
 
 export default function ShapePanel() {
-
+   
+   
     return (
         <>
             <div className="search-section p-3 m-0 text-center text-white h3">
@@ -12,6 +13,7 @@ export default function ShapePanel() {
                 <div id="sideBarShape" className="custom-scrollbar vertical-scroll" style={{ display: "initial" }}>
                     <div id="sideBarShapeOptions" style={{ width: "100%", display: "none", position: "relative" }}>
                         <ShapeOptions />
+                      
                     </div>
                     <div id="sideBarShapeEmpty">
                         <i>No shape selected...</i>
