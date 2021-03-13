@@ -23,6 +23,7 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
                             console.log('xx')
                             selectedLayouts.clear();
                             filterDesigns();
+                            setSelectedLayouts(null);
                         }}
                         className={"btn btn-danger"}
                         style={{
