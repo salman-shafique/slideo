@@ -11,6 +11,8 @@ import toHex from "Editor/js/sidebar/colors/toHex";
 import Events from "Editor/js/Events";
 import { getSelectedElementsType } from "Editor/js/components/ContextMenu";
 import sidebar from "Editor/js/entity/sidebar";
+import OpacitySlider from "Editor/js/sidebar/components/OpacitySlider/OpacitySlider";
+ 
 
 const colorList = [
     "#ff914d",
@@ -40,9 +42,12 @@ const colorList = [
 ];
 
 export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACKGROUND }) {
-    const [opened, setOpened] = React.useState(false);
+    
     const [currentColor, setCurrentColor] = React.useState("#ffffff");
     const [colorCircles, setColorCircles] = React.useState([]);
+    const [opened, setOpened] = React.useState(false);
+    const [f, setF] = React.useState(false); 
+    const [s, setS] = React.useState(false); 
 
     React.useEffect(() => {
         const colorCircles_ = [];
@@ -59,7 +64,8 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
                     FILL_TYPE={FILL_TYPE}
                     GRADIENT_STOP={GRADIENT_STOP}
                     BACKGROUND={BACKGROUND} />
-            )
+            );
+           
         });
         setColorCircles(colorCircles_);
 
@@ -89,6 +95,8 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
                 color
                     ? setCurrentColor(color.toLowerCase())
                     : setCurrentColor("#ffffff");
+
+                  
             });
             return;
         };
@@ -136,35 +144,92 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
                 color
                     ? setCurrentColor(color.toLowerCase())
                     : setCurrentColor("#ffffff");
-            }
+            };
+            
 
         });
         Events.listen("shape.allReleased", () => {
             setOpened(false);
             setCurrentColor("#ffffff");
+            
         });
         Events.listen("colorCircle.open", () => {
             if (getSelectedElementsType() === SHAPE_TYPE) {
                 sidebar.open(SHAPE_TYPE);
                 setOpened(true);
+               
             }
+           
         });
+        
+      
 
     }, []);
+
+    function insertAfter(newElement,targetElement) {
+        // target is what you want it to go after. Look for this elements parent.
+        var parent = targetElement.parentNode;
+    
+        // if the parents lastchild is the targetElement...
+        if (parent.lastChild == targetElement) {
+            // add the newElement after the target element.
+            parent.appendChild(newElement);
+        } else {
+            // else the target has siblings, insert the new element between the target and it's next sibling.
+            parent.insertBefore(newElement, targetElement.nextSibling);
+        }
+    }
+
+    $(function(){ //adding open class to be handled on shapes/index.js
+        if(opened==true){
+            $(".main-circle").addClass("open");
+             
+        }else if (opened==false){
+            $(".main-circle").removeClass("open");
+             
+        }
+      });
+
+     
+     
+        
+        
+    // small circles added here and after they are added OpacitySlider component initiated
 
     return (
         <div key={SHAPE_TYPE} className="color-circle-container p-0 col-12 text-center position-static">
             <div
                 className="main-circle color-circle-single"
-                onClick={() => setOpened(!opened)}
+                onClick={() => {
+                    setOpened(!opened);
+                   
+                    
+                }}
                 style={{
                     backgroundColor: currentColor,
                     border: "solid lightgray 1px"
                 }}>
             </div>
-            <div className="color-circles" style={{ display: opened ? 'block' : 'none' }}>
-                {colorCircles}
+            <div className="color-circles" style={{ display: opened ? 'block' : 'none' }} > 
+                {colorCircles}  
+                <div className="Circles-Opacity ">
+                <div className="row col-12 align-items-center ufuki"> 
+                    <div className="col-3 d-flex ">
+                        Opacity:
+                    </div>
+                    <div className="col-9 position-static pt-1 ufuki2 ">
+                        <OpacitySlider
+                            key="shapeOpacity"
+                            SHAPE_TYPE={constants.SHAPE_TYPES.AUTO_SHAPE}
+                        />
+                        
+                    </div>
+                    </div>
+
+                </div>
+              
             </div>
+          
         </div>
     )
 }

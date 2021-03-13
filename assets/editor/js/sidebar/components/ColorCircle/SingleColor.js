@@ -9,6 +9,7 @@ import toHex from "Editor/js/sidebar/colors/toHex";
 import { getThemeColor } from "Editor/js/sidebar/colors/utils";
 
 
+
 export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACKGROUND }) {
     const selectColor = () => {
         setCurrentColor(color);
@@ -92,6 +93,7 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
             }
 
         });
+      
     }
     return (
         <div
