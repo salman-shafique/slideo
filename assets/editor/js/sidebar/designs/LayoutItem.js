@@ -19,7 +19,11 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
             <div className={"col-6 my-2"}>
                 {!isMenuOpen &&
                     <div
-                        onClick={() => {setIsMenuOpen(true)}}
+                        onClick={() => {
+                            console.log('xx')
+                            selectedLayouts.clear();
+                            filterDesigns();
+                        }}
                         className={"btn btn-danger"}
                         style={{
                             height: "fit-content",
