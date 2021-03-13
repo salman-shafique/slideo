@@ -6,7 +6,7 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
-export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOpen, isMenuOpen }) {
+export default function LayoutItem({ layoutData, setSelectedLayout, setIsMenuOpen, isMenuOpen }) {
     const [selected, setSelected] = React.useState(false);
 
     const selectLayout = () => {
@@ -15,7 +15,7 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
         filterDesigns();
         setSelected(true);
         setIsMenuOpen(false);
-        setSelectedLayouts(
+        setSelectedLayout(
             <div className={"col-6 my-2"}>
                 {!isMenuOpen &&
                     <div
@@ -23,7 +23,7 @@ export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOp
                             console.log('xx')
                             selectedLayouts.clear();
                             filterDesigns();
-                            setSelectedLayouts(null);
+                            setSelectedLayout(null);
                         }}
                         className={"btn btn-danger"}
                         style={{

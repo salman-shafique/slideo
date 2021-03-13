@@ -5,7 +5,7 @@ import LayoutItems from "./LayoutItems";
 
 export default function DesignsPanel() {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const [selectedLayouts, setSelectedLayouts] = React.useState(null);
+    const [selectedLayout, setSelectedLayout] = React.useState(null);
 
     return (
         <>
@@ -27,13 +27,13 @@ export default function DesignsPanel() {
                         justifyContent: "center"
                     }}    
                 >
-                    {selectedLayouts}
+                    {selectedLayout}
                 </div>
                 <div className={`control-overlay-layout ${!isMenuOpen && "closed"}`}>
                     <h6 className="text-dark small-top-margin small-bottom-margin centered-contents single-line">Design Layouts</h6>
                         <div className="layout-container row m-0 px-1">
                             <LayoutItems
-                                setSelectedLayouts={setSelectedLayouts}
+                                setSelectedLayout={setSelectedLayout}
                                 setIsMenuOpen={setIsMenuOpen}
                                 isMenuOpen={isMenuOpen}
                             />

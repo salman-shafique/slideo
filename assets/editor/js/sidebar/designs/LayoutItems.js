@@ -7,7 +7,6 @@ import preloader from "Editor/js/components/preloader";
 export default function LayoutItems(props) {
     const [layouts, setLayouts] = React.useState({});
     const [layoutItems, setLayoutItems] = React.useState([]);
-    const [layoutSelected, setLayoutSelected] = React.useState(false);
 
     const arrangeLayoutItems = (freshDesignItems)=>{
         let layoutItemsTmp = [];
@@ -17,7 +16,7 @@ export default function LayoutItems(props) {
                     <LayoutItem 
                         key={i} 
                         layoutData={layoutData} 
-                        setSelectedLayouts={props.setSelectedLayouts}
+                        setSelectedLayout={props.setSelectedLayout}
                         setIsMenuOpen={props.setIsMenuOpen}
                         isMenuOpen={props.isMenuOpen}
                     />
