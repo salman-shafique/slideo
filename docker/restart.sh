@@ -9,8 +9,6 @@ symfony self:update -y;
 symfony server:stop;
 php bin/console cache:clear;
 
-yarn build;
-
 symfony server:start -d;
 chmod -R 777 var;
 chmod -R 777 public;
