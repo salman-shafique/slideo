@@ -98,6 +98,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
       });
       return;
     };
+
     Events.listen("shape.selected", (event) => {
       if (session.SELECTED_ELEMENTS.length != 1) {
         setCurrentColor("#ffffff");
@@ -157,42 +158,8 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
         setOpened(true);
 
       }
-
     });
-
-
-
   }, []);
-
-  function insertAfter(newElement, targetElement) {
-    // target is what you want it to go after. Look for this elements parent.
-    var parent = targetElement.parentNode;
-
-    // if the parents lastchild is the targetElement...
-    if (parent.lastChild == targetElement) {
-      // add the newElement after the target element.
-      parent.appendChild(newElement);
-    } else {
-      // else the target has siblings, insert the new element between the target and it's next sibling.
-      parent.insertBefore(newElement, targetElement.nextSibling);
-    }
-  }
-
-  $(function () { //adding open class to be handled on shapes/index.js
-    if (opened == true) {
-      $(".main-circle").addClass("open");
-
-    } else if (opened == false) {
-      $(".main-circle").removeClass("open");
-
-    }
-  });
-
-
-
-
-
-  // small circles added here and after they are added OpacitySlider component initiated
 
   return (
     <div key={SHAPE_TYPE} className="color-circle-container p-0 col-12 text-center position-static">
@@ -200,8 +167,6 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
         className="main-circle color-circle-single"
         onClick={() => {
           setOpened(!opened);
-
-
         }}
         style={{
           backgroundColor: currentColor,
@@ -212,15 +177,9 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
         {colorCircles}
         <div className="Circles-Opacity ">
           <div className="row col-12 align-items-center">
-            <div className="col-3 d-flex ">
-              Opacity:
-                    </div>
-            <div className="col-9 position-static pt-1 ">
-              <OpacitySlider
-                key="shapeOpacity"
-                SHAPE_TYPE={constants.SHAPE_TYPES.AUTO_SHAPE}
-              />
-            </div>
+            <OpacitySlider
+              SHAPE_TYPE={SHAPE_TYPE}
+            />
           </div>
         </div>
       </div>
