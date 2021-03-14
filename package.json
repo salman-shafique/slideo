@@ -13,7 +13,7 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "deploy": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'git pull; yarn build; php bin/console d:m:m -n; bash docker/restart.sh;' docker exec -ti slideo_symfony bash -c 'git pull;'"
+        "deploy": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'git pull; yarn build; php bin/console d:m:m -n; bash docker/restart.sh;'; docker exec -ti slideo_flask bash -c 'git pull;'"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.34",
