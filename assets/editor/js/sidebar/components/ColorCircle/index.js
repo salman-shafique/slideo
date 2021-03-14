@@ -104,7 +104,6 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
         setCurrentColor("#ffffff");
         return;
       };
-
       const g = event.data.shape;
       if (getShapeType(g) == SHAPE_TYPE) {
         let color;
@@ -132,20 +131,16 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
                 : color = getThemeColor(data.fill_gradient_stop_1)
           }
         }
-
         if (!color) {
           const themeColor = getThemeColorNameOfShape(g);
           if (themeColor)
             // theme colored before
             color = getThemeColor(themeColor.themeColorName);
         }
-
         color
           ? setCurrentColor(color.toLowerCase())
           : setCurrentColor("#ffffff");
       };
-
-
     });
     Events.listen("shape.allReleased", () => {
       setOpened(false);
