@@ -116,11 +116,11 @@ export default function updateColor(g) {
                 "http://www.w3.org/2000/svg"
             );
             page.prepend(g);
-            if (background.type == "false") {
-                background.type = "solidFill";
-                background.color = "ffffff";
-            }
         };
+        if (background.type == "false") {
+            background.type = "solidFill";
+            background.color = "ffffff";
+        }
 
         let color;
         if (background.type == "solidFill") {
