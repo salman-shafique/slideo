@@ -6,20 +6,22 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import { selectedLayouts, filterDesigns } from "./filterDesigns";
 
-export default function LayoutItem({ layoutData, setSelectedLayouts, setIsMenuOpen, isMenuOpen }) {
-    const [selected, setSelected] = React.useState(false);
-
+export default function LayoutItem({ layoutData, setSelectedLayout, setIsMenuOpen, isMenuOpen }) {
     const selectLayout = () => {
         selectedLayouts.clear();
         selectedLayouts.add(layoutData.id);
         filterDesigns();
-        setSelected(true);
         setIsMenuOpen(false);
-        setSelectedLayouts(
+        setSelectedLayout(
             <div className={"col-6 my-2"}>
                 {!isMenuOpen &&
                     <div
-                        onClick={() => {setIsMenuOpen(true)}}
+                        onClick={() => {
+                            console.log('xx')
+                            selectedLayouts.clear();
+                            filterDesigns();
+                            setSelectedLayout(null);
+                        }}
                         className={"btn btn-danger"}
                         style={{
                             height: "fit-content",
