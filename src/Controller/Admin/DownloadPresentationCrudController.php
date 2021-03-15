@@ -38,6 +38,7 @@ class DownloadPresentationCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
+            DateField::new('created'),
             AssociationField::new('presentation', 'Presentation')
                 ->formatValue(function ($value, $entity) {
                     $presentationId = $entity->getPresentation()->getPresentationId();
