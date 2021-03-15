@@ -38,7 +38,7 @@ export const getMinFontSize = (g) => {
  */
 export default function reduceFontSize(gs) {
 
-  let minFontSize = 0;
+  let minFontSize = Infinity;
   gs.forEach(g => {
     const shape_ = shape(g);
     const shapeData = shape_.data();
@@ -57,7 +57,7 @@ export default function reduceFontSize(gs) {
     const shapeData = shape_.data();
     if (shapeData.active == "false") return;
     if (shapeData.font_size_optimized) return;
-    if (minFontSize === 0) return;
+    if (minFontSize === Infinity) return;
 
     shapeData.font_size = minFontSize;
     g.querySelector("table").style.fontSize = minFontSize + "px";
