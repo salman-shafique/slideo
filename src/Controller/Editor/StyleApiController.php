@@ -13,12 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * @Route("/api/style")
+ * @Route("/api/style",methods={"POST"})
  */
 class StyleApiController extends AbstractController
 {
     /**
-     * @Route("/add",methods={"POST"})
+     * @Route("/add")
      */
     public function addStyle(Request $request, StyleService $styleService)
     {
@@ -26,7 +26,7 @@ class StyleApiController extends AbstractController
         return  new JsonResponse($r);
     }
     /**
-     * @Route("/getCompanies",methods={"POST"})
+     * @Route("/getCompanies")
      */
     public function getCompanies(Request $request)
     {

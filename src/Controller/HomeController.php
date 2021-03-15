@@ -84,4 +84,15 @@ class HomeController extends AbstractController
 
         return new JsonResponse(["success" => true]);
     }
+
+    /**
+     * @Route("/sendErrorMail", methods={"POST"})
+     */
+    public function sendErrorMail(Request $request, MailService $mailService)
+    {
+        if ($request->request->get('A2A3EF62A0498A46531B71DBD6969004') != "D363D75DD3E229BD8BBE2759E93FDE11")
+            return new JsonResponse(["success" => false]);
+        $mailService->sendErrorMail($request->request->get('error'));
+        return new JsonResponse(["success" => true]);
+    }
 }

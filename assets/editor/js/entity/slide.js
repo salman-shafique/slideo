@@ -28,6 +28,7 @@ import createNewImage from "Editor/js/shapes/image/createNewImage";
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
 import preloader from "Editor/js/components/preloader";
+import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
 
 
 const chunkDesigns = {};
@@ -297,10 +298,11 @@ export default function slide(slideId) {
             Events.contextMenu.open({ target: e.target });
         });
 
-        // Autosize the foreignObjects
-        selectAll("g[alt]>foreignObject.bounding_box", this.page()).forEach(foreignObject => {
-            autosizeForeignObject(foreignObject);
-        });
+        // Reduce the font sizes h1
+        reduceFontSize(selectAll("g[alt^='h1|']", this.page()));
+
+        // Reduce the font sizes paragraph
+        reduceFontSize(selectAll("g[alt^='paragraph|']", this.page()));
 
         // Slide numbers
         refresh_slide_prev_numbers();
