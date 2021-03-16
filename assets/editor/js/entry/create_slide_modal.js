@@ -5,7 +5,6 @@ class create_slide_modal {
 
     close() {
         $(this.el).modal('hide');
-        document.getElementById("entry_clear_content").click();
     }
 }
 

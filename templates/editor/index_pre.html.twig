@@ -6,25 +6,6 @@
 
 {% block style %}
   {{parent()}}
-  <style>
-    .ck-editor__editable_inline {
-      min-height: 300px;
-    }
-    .buttons_modal_img {
-      width: 80%;
-    }
-    .fully-centered-flow {
-      border-radius: 20px;
-      cursor: pointer;
-      text-align:center !important;
-    }
-    .encloser {
-      transition: all .5s;
-    }
-    .encloser:hover {
-      transform: translate(0, -10px);
-    }
-  </style>
   {{ encore_entry_link_tags('editor_pre') }}
 {% endblock %}
 {% block body %}
@@ -51,12 +32,7 @@
       <h2 class="text-center">
         {% trans %}Subtitle_Slide_New_Design{% endtrans %}
       </h2>
-      <textarea id="ckarea" rows="40" cols="50" class="d-none"></textarea>
-      <div class="text-center mb-3">
-        <button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px; font-size: 28px;" style="cursor:pointer">
-          <span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
-        </button>
-      </div>
+      {% include "editor/components/ckeditor.html.twig" %}
       <div id="buttons_modal_container"></div>
     </div>
   </div>
@@ -67,11 +43,5 @@
 {% endblock %}
 
 {% block script %}
-  <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
-  <script>
-    ClassicEditor.create(document.querySelector('#ckarea')).catch(error => {
-      console.error(error);
-    });
-  </script>
   {{ encore_entry_script_tags('editor_pre') }}
 {% endblock %}

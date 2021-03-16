@@ -43,9 +43,10 @@ export default function create_slides() {
     apiService({
         url: "/api/editor/create/slides",
         data: {
-            "innerHtml": document.querySelector(".ck.ck-content[role='textbox']").innerHTML
+            "innerHtml": window.editor.getData()
         },
         success: (response) => {
+            window.editor.setData("");
             if (response.success === false) {
                 toastr.error(response.descr);
                 preloader.hide();
