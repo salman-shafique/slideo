@@ -105,10 +105,8 @@ function ContextMenu() {
                 setIsOpen(false);
                 break;
             case "DUPLICATE":
-                console.log("Duplicate clicked.");
                 break;
             case "SHOW_FULL_IMAGE":
-                console.log("Show Full Image clicked.");
                 break;
             case "CHANGE_COLOR":
                 Events.colorCircle.open();
