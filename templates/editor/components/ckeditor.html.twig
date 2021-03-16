@@ -1,0 +1,34 @@
+<style>
+  .ck-editor__editable_inline {
+    min-height: 300px;
+  }
+  .buttons_modal_img {
+    width: 80%;
+  }
+  .fully-centered-flow {
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center !important;
+  }
+  .encloser {
+    transition: all 0.5s;
+  }
+  .encloser:hover {
+    transform: translate(0, -10px);
+  }
+</style>
+<textarea id="ckarea" rows="40" cols="50" class="d-none"></textarea>
+<div class="text-center mb-3">
+  <button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px; font-size: 28px;" style="cursor:pointer">
+    <span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
+  </button>
+</div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
+<script>
+  ClassicEditor.create(document.querySelector('#ckarea')).then((e) => {
+    window.editor = e
+  }).catch(error => {
+    console.error(error);
+  });
+</script>

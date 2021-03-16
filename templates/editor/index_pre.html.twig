@@ -11,9 +11,7 @@
 {% block body %}
 
   <div class="row justify-content-center rtl m-0">
-    <div class="col-11 col-sm-8">
-      <h1 class="text-center font-weight-bold" style="margin-bottom:10px;font-size: 80px;">{% trans %}Title_Slide_New_Design{% endtrans %}</h1>
-      <h2 class="text-center" style="font-size: 40px; margin-bottom:50px;">  {% trans %}Subtitle_Slide_New_Design{% endtrans %}</h2>
+    <div class="col-11 col-sm-8 d-none">
       <div class="form-group mb-0 mt-3">
         <input id="slideTitle" type="text" class="form-control data-hj-whitelist" placeholder="{% trans %}Text_Slide_Title_Placeholder{% endtrans %}">
       </div>
@@ -26,14 +24,19 @@
         </div>
         <div id="area" class="col-12 border pt-2" contenteditable autofocus></div>
       </div>
-      <div class="text-center mb-3">
-        <button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px; font-size: 28px;" style="cursor:pointer">
-          <span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
-        </button>
-      </div>
+    </div>
+    <div class="col-11 col-sm-8">
+      <h1 class="text-center font-weight-bold" style="margin-bottom:10px;font-size: 80px;">
+        {% trans %}Title_Slide_New_Design{% endtrans %}
+      </h1>
+      <h2 class="text-center">
+        {% trans %}Subtitle_Slide_New_Design{% endtrans %}
+      </h2>
+      {% include "editor/components/ckeditor.html.twig" %}
+      <div id="buttons_modal_container"></div>
     </div>
   </div>
-  
+
   {% include "editor/components/preloader.html.twig" %}
   {% include "editor/components/hotjar.html.twig" %}
 
