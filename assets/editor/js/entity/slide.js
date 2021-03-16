@@ -446,7 +446,7 @@ export default function slide(slideId) {
             outline:none !important;
         }
         foreignObject.bounding_box:hover{
-            outline: solid cyan 20px;
+            outline: solid cyan 50px;
         }
         foreignObject { overflow: visible; }
         foreignObject table {
