@@ -1,6 +1,8 @@
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import React from "react";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
+import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
+import selectEl from "Editor/js/shapes/actions/drag/utils/selectEl";
 
 export default function createForeignObject(svg, positionObj = { x: 2000, y: 2000, width: 2000, height: 2000 }) {
     // Generate the foreign object
@@ -30,6 +32,16 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
     }
 
     foreignObject.appendChild(contentTemplate);
+
+    const editIcon = reactToDOM(
+        <div className="edit-textbox-icon">here</div>
+    )
+    editIcon.onclick = ()=>{
+        const g = editIcon.parentElement.parentElement
+        selectEl({ target: { parentElement: g } });
+        selectTextboxElement({ target: { parentElement: g } });
+    }
+    foreignObject.appendChild(editIcon)
 
     return foreignObject;
 }

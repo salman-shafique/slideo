@@ -10,7 +10,6 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
-import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/drag/makeDraggable";
@@ -454,18 +453,16 @@ export default function slide(slideId) {
             position: fixed;
             word-break: break-word;
         }
-        g:not(.text_editing)>foreignObject.bounding_box:hover:after{
-            content: "✎";
+        .edit-textbox-icon{
+            font-size: 1301px;
             position: absolute;
-            width: 100%;
-            height: 100%;
-            font-size: 1051px;
-            -webkit-text-stroke-width: 40px;
-            -webkit-text-stroke-color: dimgray;
-            color: white;
-            display: grid;
-            align-items: center;
-            text-align: center;
+            bottom: 0;
+            left: 0;
+            display:none;
+            pointer-events:all !important;
+        }
+        g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
+            display:block;
         }
         editing.highlighted{
             background-color: #3390ff;
