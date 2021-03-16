@@ -40,10 +40,10 @@ class ClearDownloads extends Command
             ->from('App\Entity\DownloadPresentation', 'd')
             ->where("d.completed = 1")
             ->andWhere("d.updated < :twoDaysAgo")
-            ->setParameter("twoDaysAgo",  date('Y-m-d', strtotime('-2 days')))
+            ->setParameter("twoDaysAgo", new \DateTime("-2 days"))
             ->getQuery()
             ->getResult();
-
+            
         if (count($downloads) > 0) {
             $io->success(sprintf('%d expired downloads are found.', count($downloads)));
             foreach ($downloads as $download) {
