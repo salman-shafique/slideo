@@ -467,11 +467,11 @@ export default function slide(slideId) {
             box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
             bottom: 180px;
             left: 180px;
-            transition: background 0.5s;
+            transition: 0.5s;
         }
         .edit-textbox-icon:hover {
-            background: #e8f1ff;
-            transition: background 0.5s;
+            box-shadow: -0.06em 0.06em 0.13em 0.04em #8c8c8c;
+            transition: 0.5s;
         }
         .edit-textbox-icon:hover .edit-textbox-icon-inner-wrapper {
             transition: 0.5s;
