@@ -34,7 +34,9 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
     foreignObject.appendChild(contentTemplate);
 
     const editIcon = reactToDOM(
-        <div className="edit-textbox-icon">here</div>
+        <div className="edit-textbox-icon">
+            <i class="fas fa-pencil-alt"></i>
+        </div>
     )
     editIcon.onclick = ()=>{
         const g = editIcon.parentElement.parentElement
