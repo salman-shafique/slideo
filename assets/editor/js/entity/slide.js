@@ -470,13 +470,19 @@ export default function slide(slideId) {
             transition: background 0.5s;
         }
         .edit-textbox-icon:hover {
-            background: #e2e2e2;
+            background: #e8f1ff;
             transition: background 0.5s;
         }
+        .edit-textbox-icon:hover .edit-textbox-icon-inner-wrapper {
+            transition: 0.5s;
+            color: #00115d;
+        }
         .edit-textbox-icon-inner-wrapper {
+            transition: 0.5s;
             position: absolute;
             left: 0.12em;
-            bottom: 0.01em;
+            bottom: 0.06em;
+            color: #2f53d6;
         }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
             display:block;
