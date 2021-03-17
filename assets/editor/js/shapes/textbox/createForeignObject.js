@@ -35,7 +35,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
 
     const editIcon = reactToDOM(
         <div className="edit-textbox-icon">
-            <span>
+            <span className="edit-textbox-icon-inner-wrapper">
                 ✎
             </span>
         </div>

@@ -470,6 +470,10 @@ export default function slide(slideId) {
             background: #e2e2e2;
             transition: background 0.5s;
         }
+        .edit-textbox-icon-inner-wrapper {
+            position: absolute;
+            bottom: 20px;
+        }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
             display:block;
         }
