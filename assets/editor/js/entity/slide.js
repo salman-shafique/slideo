@@ -460,6 +460,14 @@ export default function slide(slideId) {
             left: 0;
             display:none;
             pointer-events:all !important;
+
+            width: 1em;
+            height: 1em;
+            background: white;
+            border-radius: 10000px;
+            box-shadow: -0.06em 0.06em 0.07em 0.06em #afafaf;
+            bottom: 100px;
+            left: 100px
         }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
             display:block;
