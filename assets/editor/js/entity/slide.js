@@ -456,18 +456,19 @@ export default function slide(slideId) {
         .edit-textbox-icon{
             font-size: 1301px;
             position: absolute;
-            bottom: 0;
-            left: 0;
-            display:none;
             pointer-events:all !important;
-
-            width: 1em;
-            height: 1em;
+            
+            display: flex;
+            justify-content: center;
+            width: 1.3em;
+            height: 1.3em;
             background: white;
             border-radius: 10000px;
             box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
             bottom: 180px;
             left: 180px;
+            background: #e2e2e2;
+            transition: background 0.5s;
         }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
             display:block;
