@@ -456,9 +456,9 @@ export default function slide(slideId) {
         .edit-textbox-icon{
             font-size: 1301px;
             position: absolute;
+            display: none;
             pointer-events:all !important;
             
-            display: flex;
             justify-content: center;
             width: 1.3em;
             height: 1.3em;
@@ -472,7 +472,8 @@ export default function slide(slideId) {
         }
         .edit-textbox-icon-inner-wrapper {
             position: absolute;
-            bottom: 20px;
+            left: 0.12em;
+            bottom: 0.01em;
         }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
             display:block;
