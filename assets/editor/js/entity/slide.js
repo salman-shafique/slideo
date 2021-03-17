@@ -453,7 +453,7 @@ export default function slide(slideId) {
             position: fixed;
             word-break: break-word;
         }
-        .edit-textbox-icon{
+        .edit-textbox-icon {
             font-size: 1301px;
             position: absolute;
             display: none;
@@ -467,6 +467,9 @@ export default function slide(slideId) {
             box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
             bottom: 180px;
             left: 180px;
+            transition: background 0.5s;
+        }
+        .edit-textbox-icon:hover {
             background: #e2e2e2;
             transition: background 0.5s;
         }
