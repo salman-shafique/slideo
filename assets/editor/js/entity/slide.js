@@ -465,9 +465,9 @@ export default function slide(slideId) {
             height: 1em;
             background: white;
             border-radius: 10000px;
-            box-shadow: -0.06em 0.06em 0.07em 0.06em #afafaf;
-            bottom: 100px;
-            left: 100px
+            box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
+            bottom: 180px;
+            left: 180px;
         }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
             display:block;
