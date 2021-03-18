@@ -10,7 +10,6 @@ import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
 import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
-import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import h1Image from "Editor/js/shapes/image/h1Image";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import makeDraggable from "Editor/js/shapes/actions/drag/makeDraggable";
@@ -447,25 +446,48 @@ export default function slide(slideId) {
             outline:none !important;
         }
         foreignObject.bounding_box:hover{
-            outline: solid cyan 20px;
+            outline: solid cyan 50px;
+        }
+        g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
+            display: block;
         }
         foreignObject { overflow: visible; }
         foreignObject table {
             position: fixed;
             word-break: break-word;
         }
-        g:not(.text_editing)>foreignObject.bounding_box:hover:after{
-            content: "✎";
+        .edit-textbox-icon {
+            font-size: 1301px;
             position: absolute;
-            width: 100%;
-            height: 100%;
-            font-size: 1051px;
-            -webkit-text-stroke-width: 40px;
-            -webkit-text-stroke-color: dimgray;
-            color: white;
-            display: grid;
-            align-items: center;
-            text-align: center;
+            display: none;
+            pointer-events:all !important;
+            justify-content: center;
+            width: 1.3em;
+            height: 1.3em;
+            background: white;
+            border-radius: 10000px;
+            box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
+            bottom: 180px;
+            left: 180px;
+            transition: 0.5s;
+        }
+        .edit-textbox-icon:hover {
+            box-shadow: -0.06em 0.06em 0.13em 0.04em #8c8c8c;
+            transition: 0.5s;
+        }
+        .edit-textbox-icon:hover .edit-textbox-icon-inner-wrapper {
+            transition: 0.5s;
+            color: #00115d;
+        }
+        .edit-textbox-icon-inner-wrapper {
+            transition: 0.5s;
+            position: absolute;
+            left: 0.12em;
+            bottom: 0.06em;
+            color: #2f53d6;
+        }
+        g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
+            display:block;
         }
         editing.highlighted{
             background-color: #3390ff;
