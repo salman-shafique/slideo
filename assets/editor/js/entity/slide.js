@@ -448,8 +448,8 @@ export default function slide(slideId) {
         foreignObject.bounding_box:hover{
             outline: solid cyan 50px;
         }
-        foreignObject.bounding_box:hover .edit-textbox-icon{
-            opacity: 1;
+        g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
+            display: block;
         }
         foreignObject { overflow: visible; }
         foreignObject table {
@@ -459,9 +459,8 @@ export default function slide(slideId) {
         .edit-textbox-icon {
             font-size: 1301px;
             position: absolute;
-            opacity: 0;
+            display: none;
             pointer-events:all !important;
-            
             justify-content: center;
             width: 1.3em;
             height: 1.3em;
