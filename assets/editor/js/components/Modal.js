@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function Modal({ id, children }) {
+export default function Modal({ id, children, show = false, large }) {
 
     React.useEffect(() => {
         $('#' + id).modal({
-            show: false,
+            show: show,
             focus: false
         });
     }, []);
@@ -14,7 +14,7 @@ export default function Modal({ id, children }) {
             style={{
                 "backgroundColor": "rgba(255,255,255,0.8)"
             }} >
-            <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className={"modal-dialog modal-dialog-centered " + (large ? "modal-lg" : "")} role="document">
                 <div className="modal-content text-center" style={{ border: "none" }}>
                     <div className="modal-body">
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">

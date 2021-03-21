@@ -9,7 +9,6 @@ import preloader from "Editor/js/components/preloader";
 import toastr from "Editor/js/components/toastr";
 import sidebar from "Editor/js/entity/sidebar";
 
-
 const checkMaxCapacity = () => {
     let allSlides = session.NEW_SLIDES.length;
 
@@ -34,8 +33,9 @@ const checkMaxCapacity = () => {
 
 
 export default function create_slides() {
+
     create_slide_modal.close();
-    checkMaxCapacity();
+    //checkMaxCapacity();
 
     status.update("Slides creating...");
 
@@ -43,9 +43,10 @@ export default function create_slides() {
     apiService({
         url: "/api/editor/create/slides",
         data: {
-            "slides": session.NEW_SLIDES
+            "innerHtml": window.editor.getData()
         },
         success: (response) => {
+            window.editor.setData("");
             if (response.success === false) {
                 toastr.error(response.descr);
                 preloader.hide();

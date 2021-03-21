@@ -53,7 +53,7 @@ class DownloadHandler implements MessageHandlerInterface
 
         if (!$r['success'])
             $this->mailService->sendErrorMail(json_encode($r));
-        else if ($downloadPresentation->getCreated() < new \DateTime("-1 hours")) {
+        else if ($downloadPresentation->getCreated() < new \DateTime("-10 minutes")) {
             if ($downloadPresentation->getPresentation()->getOwner()) {
                 $presentation = $downloadPresentation->getPresentation();
                 $email = (new TemplatedEmail())

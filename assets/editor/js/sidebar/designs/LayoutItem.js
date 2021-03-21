@@ -17,7 +17,6 @@ export default function LayoutItem({ layoutData, setSelectedLayout, setIsMenuOpe
                 {!isMenuOpen &&
                     <div
                         onClick={() => {
-                            console.log('xx')
                             selectedLayouts.clear();
                             filterDesigns();
                             setSelectedLayout(null);

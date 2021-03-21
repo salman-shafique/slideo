@@ -340,4 +340,4 @@ const entryAnalyze = (nextEvent) => {
     }
 }
 
-add_event("#entry_analyze", "click", entryAnalyze);
+add_event("#entry_analyze", "click", create_slides);
