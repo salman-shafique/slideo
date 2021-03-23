@@ -81,6 +81,11 @@ class Presentation
      */
     private $downloadedPresenatations;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $history = [];
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
@@ -239,6 +244,18 @@ class Presentation
                 $downloadedPresenatation->setPresentation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHistory(): ?array
+    {
+        return $this->history;
+    }
+
+    public function setHistory(?array $history): self
+    {
+        $this->history = $history;
 
         return $this;
     }
