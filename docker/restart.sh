@@ -18,11 +18,12 @@ php bin/console cache:warmup;
 php bin/console messenger:stop-workers
 nohup php bin/console messenger:consume mail download -vv &
 
-echo_ "Retry the failed downloads"
-php bin/console slideo:download:retry
+echo_ "Retry the failed downloads";
+php bin/console slideo:download:retry;
 
-echo_ "Restart crons"
-crontab -u root -r
-crontab -u root /var/www/app/docker/cron
+echo_ "Restart crons";
+service cron start;
+crontab -u root -r;
+crontab -u root /var/www/app/docker/cron;
 
 echo_ "Done";
