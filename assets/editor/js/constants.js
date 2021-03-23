@@ -81,7 +81,11 @@ const constants = {
     MAX_SLIDE_CAPACITY: 8,
     SLIDE_TITLE_PLACEHOLDER: "Add your slide title here",
     SLIDE_SUBTITLE_PLACEHOLDER: "Add your slide sub title here",
+    ACTION_TYPES: {
+        DRAG: 0,
+        RESIZE: 1
+    }
 }
 
 
-export default constants 
+export default constants
