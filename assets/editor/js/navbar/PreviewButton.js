@@ -11,6 +11,7 @@ export default function PreviewButton() {
     let previewControls;
 
     React.useEffect(() => {
+        
         previewControls = document.querySelector(".preview-controls");
     }, [previewControls]);
 
@@ -22,6 +23,8 @@ export default function PreviewButton() {
         previewControls.classList.remove("d-none");
 
         session.SHAPE_STATE = "PREVIEW";
+        console.log("true")
+         
     }
     const endPreview = () => {
         SlideContainer.classList.remove("full-screen");
@@ -34,7 +37,7 @@ export default function PreviewButton() {
     const next = () => {
         const currentSlideIndex = session.PRESENTATION.slidesOrder.indexOf(session.CURRENT_SLIDE);
 
-        if (currentSlideIndex == session.PRESENTATION.slidesOrder.length - 1) {
+        if (currentSlideIndex == session.PRESENTATION.slidesOrder.length ) {
 
             if (!status) {
                 // Last slide
@@ -80,6 +83,10 @@ export default function PreviewButton() {
         slide(session.PRESENTATION.slidesOrder.slice(-1)[0]).display();
     }
 
+    const kliked = () => {
+        console.log("tıklandı")
+    }
+
     window.addEventListener('keyup', (event) => {
         if (session.SHAPE_STATE != "PREVIEW") return;
         const key = event.key;
@@ -100,13 +107,50 @@ export default function PreviewButton() {
         }
     });
 
+    window.addEventListener('wheel', function(event)
+        {
+            if (event.deltaY < 0)
+            {
+            console.log('scrolling up');
+            prev();
+            }
+            else if (event.deltaY > 0)
+            {
+            console.log('scrolling down');
+            next();
+            }
+    });
+
+    let first=true;
+    window.addEventListener('click', function(event)
+    {
+        
+        if(document.getElementById("SlideContainer").classList.contains("full-screen")){
+            
+            if(first){
+               
+               first=false;
+               
+                 
+            }else 
+            {
+                next();
+            }
+
+        }else{
+            first=true;
+        }
+     
+ 
+         
+    });
 
 
 
     return (
         <>
-            <button onClick={preview} className="btn btn-secondary bevel-btn horizontal-text-clip m-0">
-                <i className="fas fa-play mr-2"></i>
+            <button onClick={preview } className="btn k btn-secondary bevel-btn horizontal-text-clip m-0">
+                <i className="fas fa-play mr-2 "></i>
                 תצוגה מקדימה
             </button>
             <div className="preview-controls d-none">
