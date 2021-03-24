@@ -11,33 +11,79 @@ export default function PreviewButton() {
     let previewControls;
 
     React.useEffect(() => {
-        
         previewControls = document.querySelector(".preview-controls");
     }, [previewControls]);
 
+    React.useEffect(() => {
+
+        window.addEventListener('keyup', (event) => {
+            if (session.SHAPE_STATE != "PREVIEW") return;
+            const key = event.key;
+            switch (key) {
+                case "Escape":
+                    endPreview()
+                    break;
+                case "ArrowRight":
+                case "ArrowUp":
+                    next();
+                    break;
+                case "ArrowDown":
+                case "ArrowLeft":
+                    prev();
+                    break;
+                default:
+                    break;
+            }
+        });
+        
+        window.addEventListener('wheel',  (event)=> {
+            if (session.SHAPE_STATE != "PREVIEW") return;
+            if (event.deltaY < 0) {
+                console.log('scrolling up');
+                prev();
+            }
+            else if (event.deltaY > 0) {
+                console.log('scrolling down');
+                next();
+            }
+        });
+    
+        window.addEventListener('mouseup',  (event)=> {
+            if (session.SHAPE_STATE != "PREVIEW") return;
+            if (event.target.classList.contains('preview-btn')) return;
+
+            next();
+        });
+    }, []);
+
     let status = null;
-    const preview = () => {
+    
+    const preview = (event) => {
+         
         sidebar.closeAll();
         deSelectAll();
         SlideContainer.classList.add("full-screen");
         previewControls.classList.remove("d-none");
 
         session.SHAPE_STATE = "PREVIEW";
-        console.log("true")
-         
+        
+
     }
+    
+    
     const endPreview = () => {
         SlideContainer.classList.remove("full-screen");
         SlideContainer.classList.remove("completed");
         previewControls.classList.add("d-none");
         session.SHAPE_STATE = null;
         status = null;
+       
     }
 
     const next = () => {
         const currentSlideIndex = session.PRESENTATION.slidesOrder.indexOf(session.CURRENT_SLIDE);
-
-        if (currentSlideIndex == session.PRESENTATION.slidesOrder.length ) {
+        debugger;
+        if (currentSlideIndex == (session.PRESENTATION.slidesOrder.length - 1)) {
 
             if (!status) {
                 // Last slide
@@ -83,73 +129,11 @@ export default function PreviewButton() {
         slide(session.PRESENTATION.slidesOrder.slice(-1)[0]).display();
     }
 
-    const kliked = () => {
-        console.log("tıklandı")
-    }
-
-    window.addEventListener('keyup', (event) => {
-        if (session.SHAPE_STATE != "PREVIEW") return;
-        const key = event.key;
-        switch (key) {
-            case "Escape":
-                endPreview()
-                break;
-            case "ArrowRight":
-            case "ArrowUp":
-                next();
-                break;
-            case "ArrowDown":
-            case "ArrowLeft":
-                prev();
-                break;
-            default:
-                break;
-        }
-    });
-
-    window.addEventListener('wheel', function(event)
-        {
-            if (event.deltaY < 0)
-            {
-            console.log('scrolling up');
-            prev();
-            }
-            else if (event.deltaY > 0)
-            {
-            console.log('scrolling down');
-            next();
-            }
-    });
-
-    let first=true;
-    window.addEventListener('click', function(event)
-    {
-        
-        if(document.getElementById("SlideContainer").classList.contains("full-screen")){
-            
-            if(first){
-               
-               first=false;
-               
-                 
-            }else 
-            {
-                next();
-            }
-
-        }else{
-            first=true;
-        }
-     
- 
-         
-    });
-
 
 
     return (
         <>
-            <button onClick={preview } className="btn k btn-secondary bevel-btn horizontal-text-clip m-0">
+            <button onClick={preview} className="btn k btn-secondary bevel-btn horizontal-text-clip m-0">
                 <i className="fas fa-play mr-2 "></i>
                 תצוגה מקדימה
             </button>
@@ -157,14 +141,14 @@ export default function PreviewButton() {
                 <span title="First Slide" className="d-none" onClick={firstSlide}>
                     <i className="fas fa-fast-backward"></i>
                 </span>
-                <span title="Previous Slide" onClick={prev}>
-                    <i className="fas fa-caret-left fa-lg"></i>
+                <span title="Previous Slide" className="preview-btn" onClick={prev}>
+                    <i className="fas fa-caret-left fa-lg" style={{ pointerEvents: "none" }}></i>
                 </span>
-                <span title="End Presentation" onClick={endPreview}>
-                    <i className="fas fa-stop"></i>
+                <span title="End Presentation" className="preview-btn" onClick={endPreview}>
+                    <i className="fas fa-stop" style={{ pointerEvents: "none" }}></i>
                 </span>
-                <span title="Next Slide" onClick={next}>
-                    <i className="fas fa-caret-right fa-lg"></i>
+                <span title="Next Slide" className="preview-btn" onClick={next}>
+                    <i className="fas fa-caret-right fa-lg" style={{ pointerEvents: "none" }}></i>
                 </span>
                 <span title="Last Slide" className="d-none" onClick={lastSlide}>
                     <i className="fas fa-fast-forward"></i>
