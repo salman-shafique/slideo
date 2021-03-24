@@ -39,11 +39,11 @@ export default function PreviewButton() {
         window.addEventListener('wheel',  (event)=> {
             if (session.SHAPE_STATE != "PREVIEW") return;
             if (event.deltaY < 0) {
-                console.log('scrolling up');
+                 
                 prev();
             }
             else if (event.deltaY > 0) {
-                console.log('scrolling down');
+                
                 next();
             }
         });
