@@ -30,7 +30,7 @@ export default function DownloadButton() {
     return (
         <>
             <button onClick={download} className="btn btn-danger bevel-btn horizontal-text-clip">
-                <i className="fas fa-download mr-2"></i> הורדה
+                <i className="fas fa-download mr-2"></i>  הורדת מצגת
             </button>
             <Modal id={"downloadModal"}>
                 <img src="/img/party.gif" />
