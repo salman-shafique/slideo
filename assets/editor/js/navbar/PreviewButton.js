@@ -35,56 +35,44 @@ export default function PreviewButton() {
                     break;
             }
         });
-        
-        window.addEventListener('wheel',  (event)=> {
+
+        window.addEventListener('wheel', (event) => {
             if (session.SHAPE_STATE != "PREVIEW") return;
-            if (event.deltaY < 0) {
-                 
-                prev();
-            }
-            else if (event.deltaY > 0) {
-                
-                next();
-            }
+            (event.deltaY > 0)
+                ? prev()
+                : next();
         });
-    
-        window.addEventListener('mouseup',  (event)=> {
+
+        window.addEventListener('mouseup', (event) => {
             if (session.SHAPE_STATE != "PREVIEW") return;
             if (event.target.classList.contains('preview-btn')) return;
-
             next();
         });
     }, []);
 
     let status = null;
-    
-    const preview = (event) => {
-         
+
+    const preview = () => {
         sidebar.closeAll();
         deSelectAll();
         SlideContainer.classList.add("full-screen");
         previewControls.classList.remove("d-none");
-
         session.SHAPE_STATE = "PREVIEW";
-        
-
     }
-    
-    
+
+
     const endPreview = () => {
         SlideContainer.classList.remove("full-screen");
         SlideContainer.classList.remove("completed");
         previewControls.classList.add("d-none");
         session.SHAPE_STATE = null;
         status = null;
-       
+
     }
 
     const next = () => {
         const currentSlideIndex = session.PRESENTATION.slidesOrder.indexOf(session.CURRENT_SLIDE);
-        debugger;
         if (currentSlideIndex == (session.PRESENTATION.slidesOrder.length - 1)) {
-
             if (!status) {
                 // Last slide
                 status = "END";
@@ -130,7 +118,6 @@ export default function PreviewButton() {
     }
 
 
-
     return (
         <>
             <button onClick={preview} className="btn k btn-secondary bevel-btn horizontal-text-clip m-0">
@@ -154,13 +141,6 @@ export default function PreviewButton() {
                     <i className="fas fa-fast-forward"></i>
                 </span>
             </div>
-
         </>
-
-
-
-
-
-
     )
 }
