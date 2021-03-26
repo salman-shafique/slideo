@@ -22,15 +22,13 @@ export const extendEvent = (event) => {
             break;
         case 'shape.drag.ended':
             if (session.SELECTED_ELEMENTS.length == 0) return;
-       
+
             session.SELECTED_ELEMENTS.forEach(selectedEl => {
                 const shapeId = selectedEl.shape.getAttribute('shape_id');
                 shapes[shapeId].endingE = selectedEl.translate.transform.matrix.e;
                 shapes[shapeId].endingF = selectedEl.translate.transform.matrix.f;
             });
-            event.history = {
-                shapes
-            };
+            event.history = { shapes };
             shapes = [];
             break;
         default:

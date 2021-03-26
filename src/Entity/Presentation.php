@@ -84,7 +84,7 @@ class Presentation
     /**
      * @ORM\Column(type="json", nullable=true)
      */
-    private $history = [];
+    private $history = null;
 
     public function __construct()
     {
