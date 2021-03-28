@@ -8,7 +8,7 @@ export default function TextboxPanel() {
     return (
         <>
             <div className="search-section p-3 m-0 text-center text-white h3">
-                Text
+                טקסט
             </div>
             <div className="main-section">
                 <div id="sideBarText" className="custom-scrollbar vertical-scroll" style={{display:"initial"}}>

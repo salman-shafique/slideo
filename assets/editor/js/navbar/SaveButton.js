@@ -61,7 +61,7 @@ export function saveChanges(callback = null) {
 
 export default function SaveButton() {
     return (
-        <button onClick={saveChanges} className="btn btn-info bevel-btn horizontal-text-clip">
+        <button onClick={saveChanges} className="btn btn-info bevel-btn horizontal-text-clip d-none">
             לשמור
         </button>
     )

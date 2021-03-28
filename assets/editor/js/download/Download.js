@@ -78,7 +78,7 @@ export default function Download({ presentationId }) {
     return (
         <>
             <h1 className="col-12 text-center" key={downloadCards.length + 1}>
-                My Downloads
+                הורדת מצגות
             </h1>
             <Header />
             <div id="downloadCards" className="col-12">
@@ -89,19 +89,19 @@ export default function Download({ presentationId }) {
                 ? <p key={"toggleBtn" + downloadCards.length} className="ml-4" style={{ cursor: "pointer" }} onClick={toggleFunc}>לחץ לצפייה בגרסאות קודמות</p>
                 : ""
             }
-            <p class="col text-right">Files expire after two days.</p>
+            <p class="col text-right"></p>
             {user.userId
                 ? ""
                 :
                 <>
                     <h3 className="col-12 text-center">
-                        Save your presentations for later!
+                    רוצה לשמור את המצגות שלך?
                     <br />
                         <a href="/register">
                             <button className="btn btn-info mt-3">
+                            פתח חשבון חינם
                                 <i className="fas fa-check-circle mr-2"></i>
-                            Go to your presentations
-                        </button>
+                            </button>
                         </a>
                     </h3>
 

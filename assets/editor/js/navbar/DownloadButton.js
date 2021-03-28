@@ -30,16 +30,16 @@ export default function DownloadButton() {
     return (
         <>
             <button onClick={download} className="btn btn-danger bevel-btn horizontal-text-clip">
-                <i className="fas fa-download mr-2"></i> הורדה
+                <i className="fas fa-download mr-2"></i>הורד מצגת 
             </button>
             <Modal id={"downloadModal"}>
                 <img src="/img/party.gif" />
-                <h3>Congratulations!</h3>
-                <h4>Your presentation is ready!</h4>
+                <h3>הקובץ מיד יהיה זמין להורדה</h3>
+                <p>תוכל למצוא אותו בעמוד המצגות שלך</p>
                 <a href={"/editor/" + location.pathname.split("/").pop() + "/download"} target="_blank">
                     <button onClick={closeModal} className="btn btn-info">
                         <i className="fas fa-download mr-2"></i>
-                        Go to downloads page
+                        המצגות שלי
                     </button>
                 </a>
             </Modal>

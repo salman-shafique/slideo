@@ -66,7 +66,7 @@ export default function DesignItems() {
 
     if (designItems.length == 0)
         return (
-            <h4 className={"text-center text-white"}>Let's create beautiful presentations!</h4>
+            <h4 className={"text-center text-white"}>עיצוב מצגת אוטומטי</h4>
         )
     
     return designItems;

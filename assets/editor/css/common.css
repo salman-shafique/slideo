@@ -127,7 +127,8 @@
 }
 
 .bevel-btn {
-	box-shadow: 2px 2px 5px 1px grey;
+/*	box-shadow: 2px 2px 5px 1px grey; */
+border-radius: 50px;
 }
 
 .single-line {
