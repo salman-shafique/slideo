@@ -1,7 +1,6 @@
 import Events from "Editor/js/Events";
 import constants from "Editor/js/constants";
 import session from "Editor/js/session";
-import shape from "Editor/js/entity/shape";
 import slide from "Editor/js/entity/slide";
 import { undoDrag, redoDrag } from "./utils";
 import toastr from "Editor/js/components/toastr";
