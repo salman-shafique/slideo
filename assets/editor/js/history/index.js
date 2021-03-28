@@ -1,45 +1,82 @@
 import Events from "Editor/js/Events";
 import constants from "Editor/js/constants";
 import session from "Editor/js/session";
-import shape from "../entity/shape";
-import slide from "../entity/slide";
+import shape from "Editor/js/entity/shape";
+import slide from "Editor/js/entity/slide";
+import { undoDrag, redoDrag } from "./utils";
+import toastr from "Editor/js/components/toastr";
 
 /**
  * 
- * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} historyObj 
+ * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} action 
  * @returns 
  */
-const addToHistory = (historyObj) => {
+const addToHistory = (action) => {
     if (!session.INITED) return;
     if (!session.PRESENTATION) return;
 
     if (!session.PRESENTATION.history) session.PRESENTATION.history = {
-        current: null,
+        current: -1,
         actions: []
     };
 
-    session.PRESENTATION.history.actions.push(historyObj);
-
-    session.PRESENTATION.history.current === null
-        ? session.PRESENTATION.history.current = 0
-        : session.PRESENTATION.history.current++;
+    session.PRESENTATION.history.actions.push(action);
+    session.PRESENTATION.history.current++;
 }
 
 export const undo = () => {
-    const prevAction = session.PRESENTATION.history.actions;
-    if (session.CURRENT_SLIDE != "")
-        console.log("undo");
+    if (!session.CURRENT_SLIDE) return;
+    if (!session.PRESENTATION.history) return;
+    if (session.PRESENTATION.history.current === -1) {
+        toastr.info("No action to undo");
+        return;
+    }
+
+    const action = session.PRESENTATION.history.actions[session.PRESENTATION.history.current];
+
+    // go to related slide
+    if (action.slideId != session.CURRENT_SLIDE)
+        slide(action.slideId).display();
+
+    switch (action.actionType) {
+        case constants.ACTION_TYPES.DRAG:
+            undoDrag(action);
+            break;
+        default:
+            return;
+    }
+
+    session.PRESENTATION.history.current--;
 }
+
 export const redo = () => {
-    console.log("redo");
+    if (!session.CURRENT_SLIDE) return;
+    if (!session.PRESENTATION.history) return;
+    // Latest action
+    if (session.PRESENTATION.history.current + 1 == session.PRESENTATION.history.actions.length) {
+        toastr.info("No action to redo");
+        return;
+    }
+
+    const action = session.PRESENTATION.history.actions[session.PRESENTATION.history.current + 1];
+
+    // go to related slide
+    if (action.slideId != session.CURRENT_SLIDE)
+        slide(action.slideId).display();
+
+    switch (action.actionType) {
+        case constants.ACTION_TYPES.DRAG:
+            redoDrag(action);
+            break;
+        default:
+            return;
+    }
+
+    session.PRESENTATION.history.current++;
 }
 
 
 // Drag
 Events.listen('shape.drag.ended', (event) => {
-    addToHistory({
-        slideId: session.CURRENT_SLIDE,
-        actionType: constants.ACTION_TYPES.DRAG,
-        shapes: event.history.shapes
-    });
+    addToHistory(event.historyAction);
 });

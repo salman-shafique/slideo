@@ -1,4 +1,4 @@
-import { extendEvent } from "Editor/js/history/utils"
+import { extendEvent } from "Editor/js/history/utils";
 
 const dispatchEvent = (eventName, data = {}) => {
     const event = new MouseEvent(eventName);

@@ -21,8 +21,10 @@ const keyboardHandler = (event) => {
         if (session.TEXT_EDITING) return;
         deleteShapes();
     } else if (Z_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
+        if (session.TEXT_EDITING) return;
         undo();
     } else if (Y_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
+        if (session.TEXT_EDITING) return;
         redo();
     } else if (C_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
 
