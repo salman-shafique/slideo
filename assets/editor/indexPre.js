@@ -11,6 +11,7 @@ import "Editor/js/entry";
 
 // Preloader
 import preloader from "Editor/js/components/preloader";
+import toastr from "./js/components/toastr.js";
 
 ReactDom.render(
     <Modal show large id="buttons_modal" >
@@ -55,6 +56,7 @@ ReactDom.render(
     , document.getElementById('buttons_modal_container')
 );
 
+//toastr.info("test");
 
 (function () {
     preloader.hide();
