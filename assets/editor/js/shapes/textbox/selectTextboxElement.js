@@ -4,6 +4,7 @@ import session from "Editor/js/session";
 import reactToDOM from "Editor/js/utils/reactToDOM"; import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
 
 import React from "react";
+import Events from "../../Events";
 /**
  * 
  * @param {HTMLElement} td 
@@ -67,5 +68,6 @@ export default function selectTextboxElement(event) {
 
   const td = g.querySelector("td");
   createTextNode(td);
+  Events.shape.textbox.edit.started({ oldText: td.innerText });
   session.TEXT_EDITING = true;
 }

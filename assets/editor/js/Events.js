@@ -36,6 +36,13 @@ const Events = {
         released: (data = {}) => dispatchEvent("shape.released", data),
         allReleased: (data = {}) => dispatchEvent("shape.allReleased", data),
         allReleasedExcept: (data = {}) => dispatchEvent("shape.allReleasedExcept", data),
+        textbox: {
+            edit: {
+                started: (data = {}) => dispatchEvent("shape.textbox.edit.started", data),
+                ended: (data = {}) => dispatchEvent("shape.textbox.edit.ended", data),
+            }
+        },
+
     },
     colorCircle: {
         opened: (data = {}) => dispatchEvent("colorCircle.opened", data),
