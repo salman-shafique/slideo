@@ -11,8 +11,8 @@ export const undoDrag = (action) => {
         const g = shape(action.slideId, shapeId).el();
         const allTransforms = getTransform(g);
         allTransforms.translate.transform.setTranslate(
-            shapeActionData.endingE,
-            shapeActionData.endingF
+            shapeActionData.startingE,
+            shapeActionData.startingF
         )
     });
 }
@@ -27,8 +27,8 @@ export const redoDrag = (action) => {
         const g = shape(action.slideId, shapeId).el();
         const allTransforms = getTransform(g);
         allTransforms.translate.transform.setTranslate(
-            shapeActionData.startingE,
-            shapeActionData.startingF
+            shapeActionData.endingE,
+            shapeActionData.endingF
         )
     });
 }

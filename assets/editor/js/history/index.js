@@ -4,6 +4,7 @@ import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
 import { undoDrag, redoDrag } from "./utils";
 import toastr from "Editor/js/components/toastr";
+import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
 
 /**
  * 
@@ -14,10 +15,15 @@ const addToHistory = (action) => {
     if (!session.INITED) return;
     if (!session.PRESENTATION) return;
 
-    if (!session.PRESENTATION.history) session.PRESENTATION.history = {
-        current: -1,
-        actions: []
-    };
+    if (!session.PRESENTATION.history)
+        session.PRESENTATION.history = {
+            current: -1,
+            actions: []
+        };
+
+    // Slice the old events
+    if (session.PRESENTATION.history.current + 1 != session.PRESENTATION.history.actions.length)
+        session.PRESENTATION.history.actions = session.PRESENTATION.history.actions.slice(0, session.PRESENTATION.history.current + 1);
 
     session.PRESENTATION.history.actions.push(action);
     session.PRESENTATION.history.current++;
@@ -44,6 +50,7 @@ export const undo = () => {
         default:
             return;
     }
+    deSelectAll();
 
     session.PRESENTATION.history.current--;
 }
@@ -70,6 +77,7 @@ export const redo = () => {
         default:
             return;
     }
+    deSelectAll();
 
     session.PRESENTATION.history.current++;
 }
