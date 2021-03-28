@@ -14,28 +14,65 @@ export default function PreviewButton() {
         previewControls = document.querySelector(".preview-controls");
     }, [previewControls]);
 
+    React.useEffect(() => {
+
+        window.addEventListener('keyup', (event) => {
+            if (session.SHAPE_STATE != "PREVIEW") return;
+            const key = event.key;
+            switch (key) {
+                case "Escape":
+                    endPreview()
+                    break;
+                case "ArrowRight":
+                case "ArrowUp":
+                    next();
+                    break;
+                case "ArrowDown":
+                case "ArrowLeft":
+                    prev();
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        window.addEventListener('wheel', (event) => {
+            if (session.SHAPE_STATE != "PREVIEW") return;
+            (event.deltaY > 0)
+                ? prev()
+                : next();
+        });
+
+        window.addEventListener('mouseup', (event) => {
+            if (session.SHAPE_STATE != "PREVIEW") return;
+            if (event.target.classList.contains('preview-btn')) return;
+            next();
+        });
+    }, []);
+
     let status = null;
+
     const preview = () => {
         sidebar.closeAll();
         deSelectAll();
         SlideContainer.classList.add("full-screen");
         previewControls.classList.remove("d-none");
-
         session.SHAPE_STATE = "PREVIEW";
     }
+
+
     const endPreview = () => {
         SlideContainer.classList.remove("full-screen");
         SlideContainer.classList.remove("completed");
         previewControls.classList.add("d-none");
         session.SHAPE_STATE = null;
         status = null;
+
     }
 
     const next = () => {
         const currentSlideIndex = session.PRESENTATION.slidesOrder.indexOf(session.CURRENT_SLIDE);
-
-        if (currentSlideIndex == session.PRESENTATION.slidesOrder.length - 1) {
-
+        if (currentSlideIndex == (session.PRESENTATION.slidesOrder.length - 1)) {
             if (!status) {
                 // Last slide
                 status = "END";
@@ -80,28 +117,6 @@ export default function PreviewButton() {
         slide(session.PRESENTATION.slidesOrder.slice(-1)[0]).display();
     }
 
-    window.addEventListener('keyup', (event) => {
-        if (session.SHAPE_STATE != "PREVIEW") return;
-        const key = event.key;
-        switch (key) {
-            case "Escape":
-                endPreview()
-                break;
-            case "ArrowRight":
-            case "ArrowUp":
-                next();
-                break;
-            case "ArrowDown":
-            case "ArrowLeft":
-                prev();
-                break;
-            default:
-                break;
-        }
-    });
-
-
-
 
     return (
         <>
@@ -113,26 +128,19 @@ export default function PreviewButton() {
                 <span title="First Slide" className="d-none" onClick={firstSlide}>
                     <i className="fas fa-fast-backward"></i>
                 </span>
-                <span title="Previous Slide" onClick={prev}>
-                    <i className="fas fa-caret-left fa-lg"></i>
+                <span title="Previous Slide" className="preview-btn" onClick={prev}>
+                    <i className="fas fa-caret-left fa-lg" style={{ pointerEvents: "none" }}></i>
                 </span>
-                <span title="End Presentation" onClick={endPreview}>
-                    <i className="fas fa-stop"></i>
+                <span title="End Presentation" className="preview-btn" onClick={endPreview}>
+                    <i className="fas fa-stop" style={{ pointerEvents: "none" }}></i>
                 </span>
-                <span title="Next Slide" onClick={next}>
-                    <i className="fas fa-caret-right fa-lg"></i>
+                <span title="Next Slide" className="preview-btn" onClick={next}>
+                    <i className="fas fa-caret-right fa-lg" style={{ pointerEvents: "none" }}></i>
                 </span>
                 <span title="Last Slide" className="d-none" onClick={lastSlide}>
                     <i className="fas fa-fast-forward"></i>
                 </span>
             </div>
-
         </>
-
-
-
-
-
-
     )
 }

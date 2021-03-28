@@ -294,7 +294,7 @@ export default function slide(slideId) {
         this.contentDocument().addEventListener("contextmenu", (e) => {
             e.preventDefault();
             // While triggering the "contextMenu.open" event, send the target too.
-            Events.contextMenu.open({ target: e.target });
+            Events.contextMenu.open({ target: e.target, event: e });
         });
 
         // Reduce the font sizes h1

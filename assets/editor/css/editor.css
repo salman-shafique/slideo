@@ -97,11 +97,10 @@ body {
 
 #NoResponsiveSupport {
 	display: none;
-	height: 100vh;
-	width: 100vw;
+ 
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 500px) {
 	#MasterContainer {
 		display: none;
 	}
@@ -109,6 +108,21 @@ body {
 		display: block;
 	}
 }
+
+.t-align-center{
+	text-align: center;
+}
+
+.NoResponsiveCentered{
+	margin:auto;
+	margin-top: 3rem !important;
+}
+
+.w-19rem {
+	width:19rem;
+}
+
+
 
 #ToolsTray {
 	background-color: #000;

@@ -46,16 +46,16 @@
     </div>
   </ul>
 {% else %}
-  <ul class="col-2 mt-auto mb-auto p-0 mr-4">
+  <ul class="col-4 mt-auto mb-auto p-0 mr-4">
     <a href="{{path('app_login')}}">
       <button class="btn mt-auto mb-auto btn-info bevel-btn">
         {% trans %}Login{% endtrans %}
       </button>
     </a>
-    <!--   <a href="{{path('app_register')}}">
-                              <button class="btn mt-auto mb-auto btn-info bevel-btn">
-                                {% trans %}Sign up{% endtrans %}
-                              </button>
-                            </a> -->
+    <a href="/editor">
+      <button class="btn mt-auto mb-auto btn-info bevel-btn">
+        {% trans %}Create_New_Presentation{% endtrans %}
+      </button>
+    </a>
   </ul>
 {% endif %}
