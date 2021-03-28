@@ -36,7 +36,7 @@ add_event(emailButton, "click", (e) => {
                 toastr.success("Your email updated!");
                 return;
             }
-            toastr.error(r.descr, "Oops, something went wrong");
+            toastr.error(r.descr, "Oops, your Email was not updated.");
         }
     });
 })

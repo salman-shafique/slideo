@@ -7,7 +7,7 @@ export default function ShapePanel() {
     return (
         <>
             <div className="search-section p-3 m-0 text-center text-white h3">
-                Shapes
+                צורות
             </div>
             <div className="main-section">
                 <div id="sideBarShape" className="custom-scrollbar vertical-scroll" style={{ display: "initial" }}>

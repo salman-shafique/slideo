@@ -120,9 +120,9 @@ export default function PreviewButton() {
 
     return (
         <>
-            <button onClick={preview} className="btn k btn-secondary bevel-btn horizontal-text-clip m-0">
-                <i className="fas fa-play mr-2 "></i>
-                תצוגה מקדימה
+            <button onClick={preview} className="btn btn-secondary bevel-btn horizontal-text-clip m-0">
+                <i className="fas fa-play mr-2"></i>
+                הצג שקפים
             </button>
             <div className="preview-controls d-none">
                 <span title="First Slide" className="d-none" onClick={firstSlide}>

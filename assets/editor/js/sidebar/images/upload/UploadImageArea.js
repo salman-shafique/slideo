@@ -71,14 +71,14 @@ export default function UploadImageArea({ images }) {
             </div>
 
             <img className="upload-animation" src="/Images/download_anim.gif" />
-            <p className="text-dark">Upload files from your Computer<br />5 mb per image</p>
+            <p className="text-dark">העלאת תמונות מהמחשב שלך<br />(5mb עד גודל של)</p>
             <input multiple id="userImageUploadInput" onChange={upload} className="d-none" type="file" accept="image/*" />
             <button onClick={() => {
                 document.getElementById("userImageUploadInput").click();
             }}
                 id="UploadFirstCustomImage"
                 className="btn btn-primary btn-sm default-button horizontal-text-clip">
-                UPLOAD MEDIA
+                בחירת תמונות
             </button>
         </div>
     )

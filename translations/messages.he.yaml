@@ -25,6 +25,8 @@ About_us_Title: מי אנחנו
 About_us_Description: אנחנו סטארט-אפ במימון עצמי הממוקם בישראל. אנחנו יודעים שמצגות צריכות להיות מעוצבות יותר וקלות ליצירה, לכן בנינו כלי שבונה מצגת באופן אוטומטי - לפי התוכן שלך. בלי תבניות עיצוב מוכנות מראש, בלי למלא תיבות טקסט וובלי "תהליך יצירתי ארוך". כל מה שצריך לעשות הוא להקליד או להדביק את הטקסט שלך - ולראות כיצד התוכן שלך מתעורר לחיים והופך לשקף מעוצב. נסה עכשיו, ונשמח לדעת איך אנחנו יכולים לשפר אותו עבורך, כדי שהמצגות שלך ייראו טוב יותר.
 # Footer
 Menu_Quicklinks: קישורים
+Signup: פתיחת חשבון
+Email us: צור קשר
 #
 #
 #
@@ -188,10 +190,11 @@ Text_hour: שעה
 
 
 #Pre-Editor Page - One Slide Form
-Title_Slide_New_Design: עיצוב שקף ראשון
-Subtitle_Slide_New_Design: רשמו כאן טקסט, והוא יהפוך לשקף מעוצב.
+Title_Slide_New_Design: עיצוב מצגת אוטומטי
+Subtitle_Slide_New_Design: רשום או הדבק טקסט, והוא יהפוך למצגת מעוצבת.
+Recomendations_Slide_New_Design: מומלץ להעתיק ולהדביק טקסט מקובץ DOCX, ולא כדאי לרשום ג'יבריש...
 Text_Slide_Title_Placeholder: צריך כותרת לשקף? (לא חובה)
-BTN_Create_Slide_Design: עצבו את השקף שלי
+BTN_Create_Slide_Design: עיצוב מצגת
 
 
 # EDITOR PAGE
@@ -203,10 +206,12 @@ Help_Us_Improve: עזרו לנו להשתפר
 
 # Icons
 Please_Select_Icon: בחר אייקון בשקף<br> או <br>השתמש בתיבת החיפוש
+Icon Color: צבע אייקון
 
 # Images
 Please_Select_Image: בחר תמונה בשקף<br> או <br>השתמש בתיבת החיפוש
 My_Images: התמונות שלי
+Search all Images: חיפוש תמונות
 
 
 
@@ -246,9 +251,9 @@ Title_Need_More_Presentations: צריך עוד מצגות?
 Text_Upgrade_Account: שדרג את החשבון שלך וקבל יותר מצגות, כלי עיצוב ופיצ'רים מתקדמים!
 BTN_Upgrade_My_Account: שדרג את החשבון 
 
-
-
-
+Start_new_presentation: התחל מצגת חדשה
+My_presentations: המצגות שלי
+My_Account: הפרופיל שלי
 
 
 Login: התחברות
@@ -321,10 +326,10 @@ Add your content...: הוסף את תוכן השקף...
 Slide title: כותרת השקף
 New Presentation: מצגת חדש
 Preview: תצוגה מקדימה
-Download: הורדה
+Download: הורדת מצגת
 Design: עיצוב
 All Designs: כל העיצובים
-Design Layouts: תבנית עיצוב
+Design Layouts: פריסת שקף
 Cancel: ביטול
 
 Colors: צבעים
@@ -338,10 +343,15 @@ Upload: העלאה
 Icons: אייקונים
 Search all icons: חיפוש אייקונים
 
+Text: טקסט
+Shapes: צורות
+Background: צבע רקע
+
 Got Feedback: יש לך פידבק
 Help us improve: עזור לנו להשתפר
 Slides: שקפים
 
+Add a new slide: הוספת שקפים חדשים
 
 # My account
 My presentations: המצגות שלי

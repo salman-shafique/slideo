@@ -21,7 +21,7 @@
 }
 
 .full-screen.completed::after {
-    content: "סוף הצגת השקופיות, לחץ כדי לצאת.";
+    content: "סוף הצגת השקופיות, לחץ ESC ליציאה.";
     direction: rtl;
     color: #fff;
     display: grid;
