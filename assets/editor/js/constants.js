@@ -81,7 +81,15 @@ const constants = {
     MAX_SLIDE_CAPACITY: 8,
     SLIDE_TITLE_PLACEHOLDER: "אפשר להוסיף כותרת לשקף",
     SLIDE_SUBTITLE_PLACEHOLDER: "Slide Sub-Title",
+    ACTION_TYPES: {
+        DRAG: 0,
+        RESIZE: 1,
+        EDIT_TEXT: 2,
+        CHANGE_ICON: 3,
+        CHANGE_IMAGE: 4,
+        DELETE_SHAPE: 5
+    }
 }
 
 
-export default constants 
+export default constants

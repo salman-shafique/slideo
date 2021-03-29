@@ -29,6 +29,9 @@ import "Editor/js/shapes/textbox/";
 // ContextMenu
 import "Editor/js/components/ContextMenu";
 
+// History
+import "Editor/js/history";
+
 
 window.onerror = (r)=>{
     preloader.forceHide();

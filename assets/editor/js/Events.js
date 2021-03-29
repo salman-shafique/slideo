@@ -1,6 +1,9 @@
+import extendEvent from "Editor/js/history/extendEvent";
+
 const dispatchEvent = (eventName, data = {}) => {
     const event = new MouseEvent(eventName);
     event.data = data;
+    extendEvent(event);
     window.dispatchEvent(event);
 }
 
@@ -33,6 +36,19 @@ const Events = {
         released: (data = {}) => dispatchEvent("shape.released", data),
         allReleased: (data = {}) => dispatchEvent("shape.allReleased", data),
         allReleasedExcept: (data = {}) => dispatchEvent("shape.allReleasedExcept", data),
+        textbox: {
+            edit: {
+                started: (data = {}) => dispatchEvent("shape.textbox.edit.started", data),
+                ended: (data = {}) => dispatchEvent("shape.textbox.edit.ended", data),
+            }
+        },
+        icon: {
+            changed: (data = {}) => dispatchEvent("shape.icon.changed", data),
+        },
+        image: {
+            changed: (data = {}) => dispatchEvent("shape.image.changed", data),
+        },
+        deleted: (data = {}) => dispatchEvent("shape.deleted", data),
     },
     colorCircle: {
         opened: (data = {}) => dispatchEvent("colorCircle.opened", data),

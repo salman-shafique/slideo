@@ -151,10 +151,6 @@ export default function slide(slideId) {
         let slideData = this.slideData();
         slideData.shapes.forEach(shape_ => {
             const shapeCls = shape(this.slideId, shape_.data.shape_id);
-            if (shape_.data.active == "false") {
-                shapeCls.remove();
-                return;
-            };
             let contentNumber, foreignObject, text, direction, content, g;
             // Built in textboxes
             if (shape_.data.alt.includes("h1|")) {
@@ -280,6 +276,9 @@ export default function slide(slideId) {
 
             }
 
+            if (shape_.data.active == "false")
+                shapeCls.remove();
+           
         });
 
         // Background

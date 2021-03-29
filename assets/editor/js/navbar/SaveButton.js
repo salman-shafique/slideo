@@ -55,7 +55,14 @@ export function saveChanges(callback = null) {
             });
         });
         preloader.hide();
-    }, 50)
+    }, 50);
+    // Save the history
+    apiService({
+        url: "/api/presentation/save/history",
+        data: {
+            history: session.PRESENTATION.history
+        }
+    });
 }
 
 

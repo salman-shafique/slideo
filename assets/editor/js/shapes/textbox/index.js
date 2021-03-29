@@ -5,6 +5,36 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import sidebar from "Editor/js/entity/sidebar";
 import Events from "Editor/js/Events";
 
+/**
+ * 
+ * @param {SVGGElement} g 
+ * @param {string} newText 
+ */
+export const updateText = (g, newText) => {
+  const td = g.querySelector("td");
+  td.innerHTML = "";
+  td.append(newText);
+
+  const alt = g.getAttribute("alt");
+
+  if (alt.includes("h1|")) {
+    // Update the H1
+    shape(g).setH1(newText);
+  } else if (alt.includes("paragraph|")) {
+    // Update the OriginalSentence
+    shape(g).setOriginalSentence(newText);
+  } else if (alt == "slidetitle") {
+    // Update the SlideTitle
+    shape(g).setSlideTitle(newText);
+  } else if (alt == "subtitle") {
+    // Update the SubTitle
+    shape(g).setSubTitle(newText);
+  } else if (alt == "newtextbox") {
+    // Update the SubTitle
+    shape(g).setText(newText);
+  }
+}
+
 
 const cancelEditing = (event) => {
   /**
@@ -13,40 +43,18 @@ const cancelEditing = (event) => {
   const g = event.data.shape;
   if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
 
-  const alt = g.getAttribute("alt");
   const td = g.querySelector("td");
-
   const newText = td.innerText.trim().replace(/\n/g, '');
-  td.innerHTML = "";
-  td.append(newText);
 
   if (g.classList.contains("text_editing")) {
     g.classList.remove("text_editing");
     td.removeAttribute("contenteditable");
   }
+
+  Events.shape.textbox.edit.ended({ newText });
   session.TEXT_EDITING = false;
 
-  if (alt.includes("h1|")) {
-    // Update the H1
-    shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setH1(newText);
-  }
-  else if (alt.includes("paragraph|")) {
-    // Update the OriginalSentence
-    shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setOriginalSentence(newText);
-  }
-  else if (alt == "slidetitle") {
-    // Update the SlideTitle
-    shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setSlideTitle(newText);
-  }
-  else if (alt == "subtitle") {
-    // Update the SubTitle
-    shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setSubTitle(newText);
-  }
-  else if (alt == "newtextbox") {
-    // Update the SubTitle
-    shape(session.CURRENT_SLIDE, g.getAttribute("shape_id")).setText(newText);
-  }
-
+  updateText(g, newText);
 }
 
 // Cancel editing here

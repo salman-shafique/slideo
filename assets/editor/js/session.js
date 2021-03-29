@@ -9,6 +9,11 @@ let session = {
         'direction': 'rtl'
     },
     NEW_SLIDES: [],
+    /**
+     * @type {{
+     *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[]}
+     *  }}
+     */
     PRESENTATION: null,
     INITED: false,
     /**

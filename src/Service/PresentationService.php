@@ -175,6 +175,14 @@ class PresentationService
         return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
     }
 
+    public function saveHistory(Request $request, Presentation $presentation)
+    {
+        $presentation->setHistory($request->request->get('history'));
+        $this->em->persist($presentation);
+        $this->em->flush();
+        return ['success' => true];
+    }
+
     public function downloadStart(Presentation $presentation)
     {
         $dowloadPresentation = new DownloadPresentation;

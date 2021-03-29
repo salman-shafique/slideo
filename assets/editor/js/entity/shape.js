@@ -54,6 +54,12 @@ export default function shape(slideId, shapeId) {
             this.data().active = "false";
         }
     }
+    this.restore = () => {
+        if (this.el()) {
+            this.el().classList.remove("d-none");
+            this.data().active = "true";
+        }
+    }
 
     /**
      * 
