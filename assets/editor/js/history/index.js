@@ -13,6 +13,8 @@ import {
     redoChangeIcon,
     undoChangeImage,
     redoChangeImage,
+    undoDeleteShape,
+    redoDeleteShape,
 } from "./utils";
 import toastr from "Editor/js/components/toastr";
 import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
@@ -67,6 +69,9 @@ export const undo = () => {
         case constants.ACTION_TYPES.CHANGE_IMAGE:
             undoChangeImage(action);
             break;
+        case constants.ACTION_TYPES.DELETE_SHAPE:
+            undoDeleteShape(action);
+            break;
         default:
             return;
     }
@@ -105,6 +110,9 @@ export const redo = () => {
             break;
         case constants.ACTION_TYPES.CHANGE_IMAGE:
             redoChangeImage(action);
+            break;
+        case constants.ACTION_TYPES.DELETE_SHAPE:
+            redoDeleteShape(action);
             break;
         default:
             return;
@@ -148,6 +156,10 @@ Events.listen('shape.image.changed', (event) => {
         oldImage: { ...event.data.oldImage },
         newImage: { ...event.data.newImage }
     });
+});
+// Delete Shaoe
+Events.listen('shape.deleted', (event) => {
+    addToHistory(event.historyAction);
 });
 
 

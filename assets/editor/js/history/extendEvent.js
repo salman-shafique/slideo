@@ -116,6 +116,19 @@ const extendEvent = (event) => {
                 shapes: {}
             };
             break;
+
+        case 'shape.deleted':
+            if (session.SELECTED_ELEMENTS.length == 0) return;
+            const shapeIds = [];
+            session.SELECTED_ELEMENTS.forEach(selectedEl => {
+                shapeIds.push(selectedEl.shape.getAttribute('shape_id'));
+            });
+            event.historyAction = {
+                slideId: session.CURRENT_SLIDE,
+                actionType: constants.ACTION_TYPES.DELETE_SHAPE,
+                shapeIds
+            };
+            break;
         default:
             break;
     }

@@ -117,7 +117,7 @@ export const redoChangeIcon = (iconChangeAction) => {
  * 
  * @param {{ slideId: string, actionType: number, shapeId: string, oldImage: object, newImage: object }} imageChangeAction 
  */
- export const undoChangeImage = (imageChangeAction) => {
+export const undoChangeImage = (imageChangeAction) => {
     updateImage(imageChangeAction.slideId, imageChangeAction.shapeId, imageChangeAction.oldImage);
 }
 
@@ -127,4 +127,24 @@ export const redoChangeIcon = (iconChangeAction) => {
  */
 export const redoChangeImage = (imageChangeAction) => {
     updateImage(imageChangeAction.slideId, imageChangeAction.shapeId, imageChangeAction.newImage);
+}
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeIds: []}} deleteShapeAction 
+ */
+export const undoDeleteShape = (deleteShapeAction) => {
+    deleteShapeAction.shapeIds.forEach(shapeId => {
+        shape(deleteShapeAction.slideId, shapeId).restore();
+    });
+}
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeIds: []}} deleteShapeAction 
+ */
+export const redoDeleteShape = (deleteShapeAction) => {
+    deleteShapeAction.shapeIds.forEach(shapeId => {
+        shape(deleteShapeAction.slideId, shapeId).remove();
+    });
 }

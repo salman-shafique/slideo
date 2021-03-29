@@ -47,7 +47,8 @@ const Events = {
         },
         image: {
             changed: (data = {}) => dispatchEvent("shape.image.changed", data),
-        }
+        },
+        deleted: (data = {}) => dispatchEvent("shape.deleted", data),
     },
     colorCircle: {
         opened: (data = {}) => dispatchEvent("colorCircle.opened", data),
