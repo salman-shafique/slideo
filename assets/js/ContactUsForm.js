@@ -25,9 +25,9 @@ function ContactUsForm() {
                 </div>
             </div>
             <div className="form-group">
-                <textarea className="form-control" name="content" rows="3" placeholder="אנא שתפו אותנו ברגשותיכם, מחשבותיכם והצעותיכם!" required></textarea>
+                <textarea className="form-control" name="content" rows="3" placeholder="מוזמנים לשתף אותנו בכל הערה, רעיון או הצעה!" required></textarea>
             </div>
-            <button type="submit" className="btn btn-primary float-right">לִשְׁלוֹחַ!</button>
+            <button type="submit" className="btn btn-primary float-right">שלח הודעה</button>
         </form>
     )
 }

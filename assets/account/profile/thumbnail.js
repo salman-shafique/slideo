@@ -36,7 +36,7 @@ add_event(thumbnailUploadButton, "click", (e) => {
                 toastr.success("Your image updated!");
                 return;
             }
-            toastr.error(r.descr, "Oops, something went wrong");
+            toastr.error(r.descr, "Oops, your image was not updated");
 
         },
         processData: false,

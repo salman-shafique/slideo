@@ -13,7 +13,7 @@ export default function DesignsPanel() {
                 <SearchBox />
             </div>
             <div className="main-section mt-4">
-                <h6 className="text-light small-top-margin small-bottom-margin centered-contents single-line">All Designs</h6>
+                <h6 className="text-light small-top-margin small-bottom-margin centered-contents single-line">תבניות עיצוב</h6>
                 <div className="design-container row m-0 px-1">
                     <DesignItems/>
                 </div>
@@ -50,14 +50,14 @@ export default function DesignsPanel() {
                     className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip"
                     style={{display: isMenuOpen ? "none" : "block"}}
                 >
-                    DESIGN LAYOUTS
+                    סינון תבניות עיצוב
                 </button>
                 <button 
                     onClick={() => {setIsMenuOpen(false)}} 
                     className={`btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip`}
                     style={{display: isMenuOpen ? "block" : "none"}}
                 >
-                    CANCEL
+                    ביטול
                 </button>
             </div>
         </>

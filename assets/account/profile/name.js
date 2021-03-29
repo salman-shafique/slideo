@@ -36,7 +36,7 @@ add_event(fullnameButton, "click", (e) => {
                 toastr.success("Your full name updated!");
                 return;
             }
-            toastr.error(r.descr, "Oops, something went wrong");
+            toastr.error(r.descr, "Oops, your full name was not updated");
         }
     });
 })

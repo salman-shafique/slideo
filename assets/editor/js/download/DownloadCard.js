@@ -25,7 +25,7 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
 
     const pptxButton = downloadCardDetail.pptxFile
         ? <a href={downloadCardDetail.pptxFile} target="_blank">
-            <button className={"btn btn-danger"}>Download PPTX</button>
+            <button className={"btn btn-danger"}>הורד PPTX</button>
         </a>
         : <div className="spinner-border" role="status">
             <span className="sr-only">Loading...</span>
@@ -33,7 +33,7 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
 
     const pdfButton = downloadCardDetail.pdfFile
         ? <a href={downloadCardDetail.pdfFile} target="_blank">
-            <button className={"btn btn-info"}>Download PDF</button>
+            <button className={"btn btn-info"}>הורד PDF</button>
         </a>
         : <div className="spinner-border" role="status">
             <span className="sr-only">Loading...</span>
