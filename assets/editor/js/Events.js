@@ -42,7 +42,9 @@ const Events = {
                 ended: (data = {}) => dispatchEvent("shape.textbox.edit.ended", data),
             }
         },
-
+        icon: {
+            changed: (data = {}) => dispatchEvent("shape.icon.changed", data),
+        }
     },
     colorCircle: {
         opened: (data = {}) => dispatchEvent("colorCircle.opened", data),

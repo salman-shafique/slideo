@@ -84,7 +84,8 @@ const constants = {
     ACTION_TYPES: {
         DRAG: 0,
         RESIZE: 1,
-        EDIT_TEXT: 2
+        EDIT_TEXT: 2,
+        CHANGE_ICON: 3
     }
 }
 

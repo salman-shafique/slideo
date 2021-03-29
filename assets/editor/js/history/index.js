@@ -8,7 +8,9 @@ import {
     undoTextEdit,
     redoTextEdit,
     undoResize,
-    redoResize
+    redoResize,
+    undoChangeIcon,
+    redoChangeIcon,
 } from "./utils";
 import toastr from "Editor/js/components/toastr";
 import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
@@ -21,12 +23,6 @@ import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
 const addToHistory = (action) => {
     if (!session.INITED) return;
     if (!session.PRESENTATION) return;
-
-    if (!session.PRESENTATION.history)
-        session.PRESENTATION.history = {
-            current: -1,
-            actions: []
-        };
 
     if (!action) return;
     if (!action.slideId) return;
@@ -63,6 +59,9 @@ export const undo = () => {
         case constants.ACTION_TYPES.RESIZE:
             undoResize(action);
             break;
+        case constants.ACTION_TYPES.CHANGE_ICON:
+            undoChangeIcon(action);
+            break;
         default:
             return;
     }
@@ -89,12 +88,15 @@ export const redo = () => {
     switch (action.actionType) {
         case constants.ACTION_TYPES.DRAG:
             redoDrag(action);
-            break; redoResize
+            break;
         case constants.ACTION_TYPES.EDIT_TEXT:
             redoTextEdit(action);
             break;
         case constants.ACTION_TYPES.RESIZE:
             redoResize(action);
+            break;
+        case constants.ACTION_TYPES.CHANGE_ICON:
+            redoChangeIcon(action);
             break;
         default:
             return;
@@ -117,4 +119,58 @@ Events.listen('shape.textbox.edit.ended', (event) => {
 Events.listen('shape.resize.ended', (event) => {
     addToHistory(event.historyAction);
 });
+// Change Icon
+Events.listen('shape.icon.changed', (event) => {
+    if (session.SELECTED_ELEMENTS.length != 1) return;
+    addToHistory({
+        slideId: session.CURRENT_SLIDE,
+        actionType: constants.ACTION_TYPES.CHANGE_ICON,
+        shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
+        oldIcon: { ...event.data.oldIcon },
+        newIcon: { ...event.data.newIcon }
+    });
+});
 
+
+export const historyInit = () => {
+
+    if (!session.PRESENTATION.history)
+        session.PRESENTATION.history = {
+            current: -1,
+            actions: []
+        };
+
+    if (typeof session.PRESENTATION.history.current != "number")
+        session.PRESENTATION.history.current = parseInt(session.PRESENTATION.history.current);
+
+    if (session.PRESENTATION.history.actions.length > 0) {
+        session.PRESENTATION.history.actions.forEach(action => {
+            action.actionType = parseInt(action.actionType);
+            switch (action.actionType) {
+                case constants.ACTION_TYPES.DRAG:
+                    Object.keys(action.shapes).forEach((shapeId) => {
+                        const shapeActionData = action.shapes[shapeId];
+                        shapeActionData.startingE = parseFloat(shapeActionData.startingE);
+                        shapeActionData.startingF = parseFloat(shapeActionData.startingF);
+                        shapeActionData.endingE = parseFloat(shapeActionData.endingE);
+                        shapeActionData.endingF = parseFloat(shapeActionData.endingF);
+                    });
+                    break;
+                case constants.ACTION_TYPES.RESIZE:
+                    Object.keys(action.shapes).forEach((shapeId) => {
+                        const shapeActionData = action.shapes[shapeId];
+                        shapeActionData.startingA = parseFloat(shapeActionData.startingA);
+                        shapeActionData.startingE = parseFloat(shapeActionData.startingE);
+                        shapeActionData.startingF = parseFloat(shapeActionData.startingF);
+                        shapeActionData.endingA = parseFloat(shapeActionData.endingA);
+                        shapeActionData.endingE = parseFloat(shapeActionData.endingE);
+                        shapeActionData.endingF = parseFloat(shapeActionData.endingF);
+                    });
+                    break;
+                default:
+                    return;
+            }
+        });
+    }
+
+}

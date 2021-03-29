@@ -1,5 +1,6 @@
 import shape from "Editor/js/entity/shape";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
+import { updateIcon } from "../shapes/icon/selectIcon";
 import { updateText } from "../shapes/textbox/index";
 
 /**
@@ -92,4 +93,21 @@ export const redoResize = (resizeAction) => {
             shapeActionData.endingF
         );
     });
+}
+
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldIcon: string, newIcon: string }} iconChangeAction 
+ */
+export const undoChangeIcon = (iconChangeAction) => {
+    updateIcon(iconChangeAction.slideId, iconChangeAction.shapeId, iconChangeAction.oldIcon);
+}
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldIcon: string, newIcon: string }} iconChangeAction 
+ */
+export const redoChangeIcon = (iconChangeAction) => {
+    updateIcon(iconChangeAction.slideId, iconChangeAction.shapeId, iconChangeAction.newIcon);
 }

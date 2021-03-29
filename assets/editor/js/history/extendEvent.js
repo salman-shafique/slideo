@@ -116,7 +116,6 @@ const extendEvent = (event) => {
                 shapes: {}
             };
             break;
-
         default:
             break;
     }
