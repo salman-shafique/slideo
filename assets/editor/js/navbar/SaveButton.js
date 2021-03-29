@@ -61,9 +61,6 @@ export function saveChanges(callback = null) {
         url: "/api/presentation/save/history",
         data: {
             history: session.PRESENTATION.history
-        },
-        success: (r) => {
-            console.log(r);
         }
     });
 }

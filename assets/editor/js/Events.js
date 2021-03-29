@@ -44,6 +44,9 @@ const Events = {
         },
         icon: {
             changed: (data = {}) => dispatchEvent("shape.icon.changed", data),
+        },
+        image: {
+            changed: (data = {}) => dispatchEvent("shape.image.changed", data),
         }
     },
     colorCircle: {

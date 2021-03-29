@@ -1,6 +1,7 @@
 import shape from "Editor/js/entity/shape";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 import { updateIcon } from "../shapes/icon/selectIcon";
+import { updateImage } from "../shapes/image/selectH1Image";
 import { updateText } from "../shapes/textbox/index";
 
 /**
@@ -98,7 +99,7 @@ export const redoResize = (resizeAction) => {
 
 /**
  * 
- * @param {{ slideId: string, actionType: number, shapeId: string, oldIcon: string, newIcon: string }} iconChangeAction 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldIcon: object, newIcon: object }} iconChangeAction 
  */
 export const undoChangeIcon = (iconChangeAction) => {
     updateIcon(iconChangeAction.slideId, iconChangeAction.shapeId, iconChangeAction.oldIcon);
@@ -106,8 +107,24 @@ export const undoChangeIcon = (iconChangeAction) => {
 
 /**
  * 
- * @param {{ slideId: string, actionType: number, shapeId: string, oldIcon: string, newIcon: string }} iconChangeAction 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldIcon: object, newIcon: object }} iconChangeAction 
  */
 export const redoChangeIcon = (iconChangeAction) => {
     updateIcon(iconChangeAction.slideId, iconChangeAction.shapeId, iconChangeAction.newIcon);
+}
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldImage: object, newImage: object }} imageChangeAction 
+ */
+ export const undoChangeImage = (imageChangeAction) => {
+    updateImage(imageChangeAction.slideId, imageChangeAction.shapeId, imageChangeAction.oldImage);
+}
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldImage: object, newImage: object }} imageChangeAction 
+ */
+export const redoChangeImage = (imageChangeAction) => {
+    updateImage(imageChangeAction.slideId, imageChangeAction.shapeId, imageChangeAction.newImage);
 }

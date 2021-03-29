@@ -11,6 +11,8 @@ import {
     redoResize,
     undoChangeIcon,
     redoChangeIcon,
+    undoChangeImage,
+    redoChangeImage,
 } from "./utils";
 import toastr from "Editor/js/components/toastr";
 import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
@@ -62,6 +64,9 @@ export const undo = () => {
         case constants.ACTION_TYPES.CHANGE_ICON:
             undoChangeIcon(action);
             break;
+        case constants.ACTION_TYPES.CHANGE_IMAGE:
+            undoChangeImage(action);
+            break;
         default:
             return;
     }
@@ -98,6 +103,9 @@ export const redo = () => {
         case constants.ACTION_TYPES.CHANGE_ICON:
             redoChangeIcon(action);
             break;
+        case constants.ACTION_TYPES.CHANGE_IMAGE:
+            redoChangeImage(action);
+            break;
         default:
             return;
     }
@@ -130,10 +138,20 @@ Events.listen('shape.icon.changed', (event) => {
         newIcon: { ...event.data.newIcon }
     });
 });
+// Change Image
+Events.listen('shape.image.changed', (event) => {
+    if (session.SELECTED_ELEMENTS.length != 1) return;
+    addToHistory({
+        slideId: session.CURRENT_SLIDE,
+        actionType: constants.ACTION_TYPES.CHANGE_IMAGE,
+        shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
+        oldImage: { ...event.data.oldImage },
+        newImage: { ...event.data.newImage }
+    });
+});
 
 
 export const historyInit = () => {
-
     if (!session.PRESENTATION.history)
         session.PRESENTATION.history = {
             current: -1,
