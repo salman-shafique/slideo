@@ -83,7 +83,8 @@ const constants = {
     SLIDE_SUBTITLE_PLACEHOLDER: "Add your slide sub title here",
     ACTION_TYPES: {
         DRAG: 0,
-        RESIZE: 1
+        RESIZE: 1,
+        EDIT_TEXT: 2
     }
 }
 

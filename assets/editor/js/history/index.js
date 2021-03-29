@@ -2,13 +2,18 @@ import Events from "Editor/js/Events";
 import constants from "Editor/js/constants";
 import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
-import { undoDrag, redoDrag } from "./utils";
+import {
+    undoDrag,
+    redoDrag,
+    undoTextEdit,
+    redoTextEdit
+} from "./utils";
 import toastr from "Editor/js/components/toastr";
 import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
 
 /**
  * 
- * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} action 
+ * @param {{ slideId: string, actionType: number }} action 
  * @returns 
  */
 const addToHistory = (action) => {
@@ -20,6 +25,9 @@ const addToHistory = (action) => {
             current: -1,
             actions: []
         };
+
+    if (!action) return;
+    if (!action.slideId) return;
 
     // Slice the old events
     if (session.PRESENTATION.history.current + 1 != session.PRESENTATION.history.actions.length)
@@ -46,6 +54,9 @@ export const undo = () => {
     switch (action.actionType) {
         case constants.ACTION_TYPES.DRAG:
             undoDrag(action);
+            break;
+        case constants.ACTION_TYPES.EDIT_TEXT:
+            undoTextEdit(action);
             break;
         default:
             return;
@@ -74,6 +85,9 @@ export const redo = () => {
         case constants.ACTION_TYPES.DRAG:
             redoDrag(action);
             break;
+        case constants.ACTION_TYPES.EDIT_TEXT:
+            redoTextEdit(action);
+            break;
         default:
             return;
     }
@@ -85,5 +99,9 @@ export const redo = () => {
 
 // Drag
 Events.listen('shape.drag.ended', (event) => {
+    addToHistory(event.historyAction);
+});
+// Edit textbox
+Events.listen('shape.textbox.edit.ended', (event) => {
     addToHistory(event.historyAction);
 });

@@ -1,14 +1,15 @@
 import shape from "Editor/js/entity/shape";
 import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
+import { updateText } from "../shapes/textbox/index";
 
 /**
  * 
- * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} action 
+ * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} dragAction 
  */
-export const undoDrag = (action) => {
-    Object.keys(action.shapes).forEach((shapeId) => {
-        const shapeActionData = action.shapes[shapeId];
-        const g = shape(action.slideId, shapeId).el();
+export const undoDrag = (dragAction) => {
+    Object.keys(dragAction.shapes).forEach((shapeId) => {
+        const shapeActionData = dragAction.shapes[shapeId];
+        const g = shape(dragAction.slideId, shapeId).el();
         const allTransforms = getTransform(g);
         allTransforms.translate.transform.setTranslate(
             shapeActionData.startingE,
@@ -19,16 +20,35 @@ export const undoDrag = (action) => {
 
 /**
  * 
- * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} action 
+ * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} dragAction 
  */
-export const redoDrag = (action) => {
-    Object.keys(action.shapes).forEach((shapeId) => {
-        const shapeActionData = action.shapes[shapeId];
-        const g = shape(action.slideId, shapeId).el();
+export const redoDrag = (dragAction) => {
+    Object.keys(dragAction.shapes).forEach((shapeId) => {
+        const shapeActionData = dragAction.shapes[shapeId];
+        const g = shape(dragAction.slideId, shapeId).el();
         const allTransforms = getTransform(g);
         allTransforms.translate.transform.setTranslate(
             shapeActionData.endingE,
             shapeActionData.endingF
         )
     });
+}
+
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldText: string, newText: string }} textEditAction 
+ */
+export const undoTextEdit = (textEditAction) => {
+    const g = shape(textEditAction.slideId, textEditAction.shapeId).el();
+    updateText(g, textEditAction.oldText);
+}
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapeId: string, oldText: string, newText: string }} textEditAction 
+ */
+export const redoTextEdit = (textEditAction) => {
+    const g = shape(textEditAction.slideId, textEditAction.shapeId).el();
+    updateText(g, textEditAction.newText);
 }

@@ -2,12 +2,22 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 
 /**
- * @type {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }}
+ * @type {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} dragAction
  */
-let action = {
+let dragAction = {
     slideId: null,
     actionType: null,
     shapes: {}
+};
+/**
+ * @type {{ slideId: string, actionType: number, shapeId: string, oldText: string, newText: string }} textEditAction
+ */
+let textEditAction = {
+    slideId: null,
+    actionType: null,
+    shapeId: null,
+    oldText: null,
+    newText: null
 };
 /**
  * 
@@ -20,7 +30,7 @@ const extendEvent = (event) => {
             if (session.SELECTED_ELEMENTS.length == 0) return;
             session.SELECTED_ELEMENTS.forEach(selectedEl => {
                 const shapeId = selectedEl.shape.getAttribute('shape_id');
-                action.shapes[shapeId] = {
+                dragAction.shapes[shapeId] = {
                     startingE: selectedEl.translate.startingE,
                     startingF: selectedEl.translate.startingF
                 }
@@ -31,18 +41,38 @@ const extendEvent = (event) => {
 
             session.SELECTED_ELEMENTS.forEach(selectedEl => {
                 const shapeId = selectedEl.shape.getAttribute('shape_id');
-                action.shapes[shapeId].endingE = selectedEl.translate.transform.matrix.e;
-                action.shapes[shapeId].endingF = selectedEl.translate.transform.matrix.f;
+                dragAction.shapes[shapeId].endingE = selectedEl.translate.transform.matrix.e;
+                dragAction.shapes[shapeId].endingF = selectedEl.translate.transform.matrix.f;
             });
 
-            action.slideId = session.CURRENT_SLIDE;
-            action.actionType = constants.ACTION_TYPES.DRAG;
+            dragAction.slideId = session.CURRENT_SLIDE;
+            dragAction.actionType = constants.ACTION_TYPES.DRAG;
 
-            event.historyAction = { ...action };
-            action = {
+            event.historyAction = { ...dragAction };
+            dragAction = {
                 slideId: null,
                 actionType: null,
                 shapes: {}
+            };
+            break;
+        case 'shape.textbox.edit.started':
+            if (session.SELECTED_ELEMENTS.length != 1) return;
+            textEditAction.shapeId = session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id');
+            textEditAction.slideId = session.CURRENT_SLIDE;
+            textEditAction.actionType = constants.ACTION_TYPES.EDIT_TEXT;
+            textEditAction.oldText = event.data.oldText;
+            break;
+        case 'shape.textbox.edit.ended':
+            if (session.SELECTED_ELEMENTS.length != 1) return;
+            textEditAction.newText = event.data.newText;
+            event.historyAction = { ...textEditAction };
+            
+            textEditAction = {
+                slideId: null,
+                actionType: null,
+                shapeId: null,
+                oldText: null,
+                newText: null
             };
             break;
         default:
