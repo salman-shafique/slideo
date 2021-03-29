@@ -34,6 +34,9 @@ esac;
 
 echo_ "Update the Symfony server";
 symfony self:update -y;
+echo_ "Update the database";
+php bin/console doctrine:database:create --if-not-exists;
+php bin/console d:m:m -n;
 
 # Crons
 echo_ "Start crons"

@@ -15,13 +15,11 @@ docker-compose build
 ```
 docker-compose -f docker-compose.dev.yml up
 ```
-### 4. Setup the database
-```
-docker exec -ti slideo_symfony php bin/console doctrine:database:create --if-not-exists
-docker exec -ti slideo_symfony php bin/console doctrine:migrations:migrate -n
-```
 
 [Login Page](https://localhost:5500/login)
+[Flask](http://localhost:5501)
+[Rabbit MQ](http://localhost:5502)
+[Database management](http://localhost:5503)
 ### Others:
 #### Disable the PHP cache on development:
 `php.ini`
@@ -41,5 +39,5 @@ bash docker/restart.sh
 
 #### DATABASE_URL in `.env.local` file:
 ```
-DATABASE_URL=mysql://root:51225123UfukUmut4141.@host.docker.internal/slideo?serverVersion=8.0
+DATABASE_URL=mysql://slideo_mysql_user:slideo_mysql_password@slideo_mysql:3306/slideo?serverVersion=8.0
 ```

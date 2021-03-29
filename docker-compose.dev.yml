@@ -31,6 +31,26 @@ services:
     ports:
       - 5502:15672
 
+  slideo_mysql:
+    image: mysql:8.0
+    container_name: slideo_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=slideo_mysql_password
+      - MYSQL_DATABASE=slideo
+      - MYSQL_USER=slideo_mysql_user
+      - MYSQL_PASSWORD=slideo_mysql_password
+
+  slideo_phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: slideo_phpmyadmin
+    environment:
+      - PMA_HOST=slideo_mysql
+      - MYSQL_ROOT_PASSWORD=slideo_mysql_password
+      - MYSQL_USER=slideo_mysql_user
+      - MYSQL_PASSWORD=slideo_mysql_password
+    ports:
+      - 5503:80
+
 networks:
   default:
     name: slideo_network
