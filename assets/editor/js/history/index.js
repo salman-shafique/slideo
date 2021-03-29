@@ -6,7 +6,9 @@ import {
     undoDrag,
     redoDrag,
     undoTextEdit,
-    redoTextEdit
+    redoTextEdit,
+    undoResize,
+    redoResize
 } from "./utils";
 import toastr from "Editor/js/components/toastr";
 import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
@@ -58,6 +60,9 @@ export const undo = () => {
         case constants.ACTION_TYPES.EDIT_TEXT:
             undoTextEdit(action);
             break;
+        case constants.ACTION_TYPES.RESIZE:
+            undoResize(action);
+            break;
         default:
             return;
     }
@@ -84,9 +89,12 @@ export const redo = () => {
     switch (action.actionType) {
         case constants.ACTION_TYPES.DRAG:
             redoDrag(action);
-            break;
+            break; redoResize
         case constants.ACTION_TYPES.EDIT_TEXT:
             redoTextEdit(action);
+            break;
+        case constants.ACTION_TYPES.RESIZE:
+            redoResize(action);
             break;
         default:
             return;
@@ -105,3 +113,8 @@ Events.listen('shape.drag.ended', (event) => {
 Events.listen('shape.textbox.edit.ended', (event) => {
     addToHistory(event.historyAction);
 });
+// Resize
+Events.listen('shape.resize.ended', (event) => {
+    addToHistory(event.historyAction);
+});
+

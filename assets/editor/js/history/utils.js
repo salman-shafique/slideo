@@ -52,3 +52,44 @@ export const redoTextEdit = (textEditAction) => {
     const g = shape(textEditAction.slideId, textEditAction.shapeId).el();
     updateText(g, textEditAction.newText);
 }
+
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} resizeAction 
+ */
+export const undoResize = (resizeAction) => {
+    Object.keys(resizeAction.shapes).forEach((shapeId) => {
+        const shapeActionData = resizeAction.shapes[shapeId];
+        const g = shape(resizeAction.slideId, shapeId).el();
+        const allTransforms = getTransform(g);
+        allTransforms.scale.transform.setScale(
+            shapeActionData.startingA,
+            shapeActionData.startingA
+        );
+        allTransforms.translate.transform.setTranslate(
+            shapeActionData.startingE,
+            shapeActionData.startingF
+        );
+    });
+}
+
+/**
+ * 
+ * @param {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} resizeAction 
+ */
+export const redoResize = (resizeAction) => {
+    Object.keys(resizeAction.shapes).forEach((shapeId) => {
+        const shapeActionData = resizeAction.shapes[shapeId];
+        const g = shape(resizeAction.slideId, shapeId).el();
+        const allTransforms = getTransform(g);
+        allTransforms.scale.transform.setScale(
+            shapeActionData.endingA,
+            shapeActionData.endingA
+        );
+        allTransforms.translate.transform.setTranslate(
+            shapeActionData.endingE,
+            shapeActionData.endingF
+        );
+    });
+}
