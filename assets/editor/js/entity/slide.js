@@ -135,6 +135,12 @@ export default function slide(slideId) {
     this.initSlide = function () {
         console.log(session);
 
+        
+      
+    
+                
+                
+
         this.object().style.visibility = "visible";
 
         // Custom styles
@@ -293,6 +299,7 @@ export default function slide(slideId) {
         this.contentDocument().addEventListener("dblclick", selectTextboxElement);
         this.contentDocument().addEventListener("contextmenu", (e) => {
             e.preventDefault();
+             
             // While triggering the "contextMenu.open" event, send the target too.
             Events.contextMenu.open({ target: e.target, event: e });
         });

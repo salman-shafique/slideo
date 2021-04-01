@@ -70,6 +70,8 @@ export default function Download({ presentationId }) {
                 preloader.hide();
             }
         });
+
+ 
     }, []);
 
     downloadCards.reverse();
