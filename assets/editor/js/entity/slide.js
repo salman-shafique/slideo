@@ -134,13 +134,7 @@ export default function slide(slideId) {
 
     this.initSlide = function () {
         console.log(session);
-
         
-      
-    
-                
-                
-
         this.object().style.visibility = "visible";
 
         // Custom styles
