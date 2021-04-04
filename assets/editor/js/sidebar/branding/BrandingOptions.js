@@ -3,7 +3,7 @@ import constants from "Editor/js/constants";
 import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
 import slide from "Editor/js/entity/slide";
 import Events from "Editor/js/Events";
-
+import { defaultFontFamilies } from "Editor/js/sidebar/textboxes/fontActions/fontFamily";
 
 export default function BrandingOptions() {
   const [background, setBackground] = React.useState();
@@ -11,6 +11,7 @@ export default function BrandingOptions() {
   const [logoUploadOpened, setLogoUploadOpened] = React.useState(true);
   const uploadLogoInput = React.useRef();
   const [uploadedImage, setUploadedImage] = React.useState();
+
 
   React.useEffect(() => {
     Events.listen("slide.display", (event) => {
@@ -37,6 +38,18 @@ export default function BrandingOptions() {
     setUploadedImage(false);
   }
 
+  const updatePresentationFont = (event) => {
+    console.log(event.target.value);
+  }
+
+  const fontFamilies = [];
+  defaultFontFamilies.forEach((fontFamily, i) => {
+    fontFamilies.push(
+      <option key={i} value={fontFamily} style={{ fontFamily }}>
+        {fontFamily}
+      </option>
+    )
+  })
 
   return (
     <div className={"row mx-0 mt-3 text-white rounded px-3 pb-5"}>
@@ -143,8 +156,8 @@ export default function BrandingOptions() {
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>
         <div className="col-12">Presentation font</div>
-        <select className="form-control form-control-lg">
-          <option>Large select</option>
+        <select onChange={updatePresentationFont} className="form-control form-control-lg">
+          {fontFamilies}
         </select>
       </div>
     </div >
