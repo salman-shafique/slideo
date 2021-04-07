@@ -164,7 +164,7 @@ Events.listen('shape.deleted', (event) => {
 
 
 export const historyInit = () => {
-    if (!session.PRESENTATION.history)
+    if (!session.PRESENTATION?.history?.actions)
         session.PRESENTATION.history = {
             current: -1,
             actions: []
