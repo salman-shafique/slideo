@@ -105,6 +105,19 @@ class PresentationApiController extends AbstractController
 
 
     /**
+     * @Route("/save/settings")
+     */
+    public function saveSettings(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $r = $presentationService->saveSettings($request, $presentation);
+        return new JsonResponse($r);
+    }
+
+
+    /**
      * @Route("/change_name")
      */
     public function changeName(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)

@@ -4,6 +4,24 @@ import ColorCircle from "Editor/js/sidebar/components/ColorCircle/index";
 import slide from "Editor/js/entity/slide";
 import Events from "Editor/js/Events";
 import { defaultFontFamilies } from "Editor/js/sidebar/textboxes/fontActions/fontFamily";
+import session from "../../session";
+import shape from "../../entity/shape";
+import getShapeType from "../../shapes/actions/drag/utils/getShapeType";
+
+const updatePresentationFont = (event) => {
+  const newFontFamily = event.target.value;
+  session.PRESENTATION.slides.forEach(aSlide => {
+    aSlide.shapes.forEach(aShape => {
+      const shapeData = aShape.data;
+      const shape_ = shape(aSlide.slideId, shapeData.shape_id);
+      const g = shape_.el();
+      if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
+      shapeData.font_family = newFontFamily;
+      g.querySelector("table").style.fontFamily = newFontFamily;
+    });
+  });
+  session.PRESENTATION.settings.fontFamily = newFontFamily;
+}
 
 export default function BrandingOptions() {
   const [background, setBackground] = React.useState();
@@ -11,7 +29,6 @@ export default function BrandingOptions() {
   const [logoUploadOpened, setLogoUploadOpened] = React.useState(true);
   const uploadLogoInput = React.useRef();
   const [uploadedImage, setUploadedImage] = React.useState();
-
 
   React.useEffect(() => {
     Events.listen("slide.display", (event) => {
@@ -38,14 +55,11 @@ export default function BrandingOptions() {
     setUploadedImage(false);
   }
 
-  const updatePresentationFont = (event) => {
-    console.log(event.target.value);
-  }
 
   const fontFamilies = [];
   defaultFontFamilies.forEach((fontFamily, i) => {
     fontFamilies.push(
-      <option key={i} value={fontFamily} style={{ fontFamily }}>
+      <option key={i} value={fontFamily} style={{ fontFamily }} defaultValue={session.PRESENTATION?.settings?.fontFamily == fontFamily}>
         {fontFamily}
       </option>
     )

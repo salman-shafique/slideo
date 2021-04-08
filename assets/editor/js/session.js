@@ -11,7 +11,8 @@ let session = {
     NEW_SLIDES: [],
     /**
      * @type {{
-     *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[]}
+     *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[],
+     *  settings: {{}}
      *  }}
      */
     PRESENTATION: null,

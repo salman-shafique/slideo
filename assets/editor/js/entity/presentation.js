@@ -13,6 +13,9 @@ export default function presentation() {
         if (document.getElementById("slides_preview").children[0])
             document.getElementById("slides_preview").children[0].click();
 
+        if (!session.PRESENTATION.settings || session.PRESENTATION.settings == [])
+            session.PRESENTATION.settings = {}
+    
         return this;
     }
 

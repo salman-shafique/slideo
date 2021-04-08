@@ -183,6 +183,14 @@ class PresentationService
         return ['success' => true];
     }
 
+    public function saveSettings(Request $request, Presentation $presentation)
+    {
+        $presentation->setSettings($request->request->get('settings'));
+        $this->em->persist($presentation);
+        $this->em->flush();
+        return ['success' => true];
+    }
+
     public function downloadStart(Presentation $presentation)
     {
         $dowloadPresentation = new DownloadPresentation;
