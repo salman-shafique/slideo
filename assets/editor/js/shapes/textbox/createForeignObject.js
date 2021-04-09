@@ -3,6 +3,8 @@ import React from "react";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 import selectEl from "Editor/js/shapes/actions/drag/utils/selectEl";
+import session from "Editor/js/session";
+import Events from "../../Events";
 
 export default function createForeignObject(svg, positionObj = { x: 2000, y: 2000, width: 2000, height: 2000 }) {
     // Generate the foreign object
@@ -40,11 +42,19 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
             </span>
         </div>
     )
-    editIcon.onclick = ()=>{
+
+    editIcon.onclick = () => {        
         const g = editIcon.parentElement.parentElement
-        selectEl({ target: { parentElement: g } });
-        selectTextboxElement({ target: { parentElement: g } });
+
+        if (session.SELECTED_ELEMENTS.length === 0)
+            selectEl({ target: { parentElement: g }});
+
+        if (session.SELECTED_ELEMENTS.length <= 1)
+            selectTextboxElement({ target: { parentElement: g } });
+
+        Events.popup.text.open({ shape: g });
     }
+
     foreignObject.appendChild(editIcon)
 
     return foreignObject;

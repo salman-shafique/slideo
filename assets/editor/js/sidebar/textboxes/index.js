@@ -30,6 +30,6 @@ const textboxSelected = () => {
     document.querySelector("#Text_Panel .control-close-button").click()
 }
 
-Events.listen("shape.selected", textboxSelected);
-Events.listen("shape.allReleased", textboxSelected);
+//Events.listen("shape.selected", textboxSelected);
+//Events.listen("shape.allReleased", textboxSelected);
 
