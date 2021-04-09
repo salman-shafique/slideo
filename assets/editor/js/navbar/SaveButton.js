@@ -60,9 +60,6 @@ export function saveChanges(callback = null) {
             url: "/api/presentation/save/settings",
             data: {
                 settings: session.PRESENTATION.settings
-            },
-            success: (r) => {
-                console.log(r);
             }
         });
         preloader.hide();

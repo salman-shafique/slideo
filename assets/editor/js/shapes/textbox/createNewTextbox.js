@@ -1,7 +1,6 @@
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import React from "react";
 import slide from "Editor/js/entity/slide";
-import shape from "Editor/js/entity/shape";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
@@ -54,7 +53,7 @@ export default function createNewTextbox(textboxData, slideId = session.CURRENT_
             "word_wrap": "False",
             "font_color": "0 0 0",
             "shape_type": "TEXT_BOX (17)",
-            "font_family": "Arial, sans-serif",
+            "font_family": session.PRESENTATION?.settings?.fontFamily ? session.PRESENTATION?.settings?.fontFamily : "Arial, sans-serif",
             "vertical_anchor": "1",
             "margin_top_ratio": "0.006666666666666667",
             "text_theme_color": "0",

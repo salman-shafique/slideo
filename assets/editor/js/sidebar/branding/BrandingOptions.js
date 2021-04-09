@@ -10,6 +10,8 @@ import getShapeType from "../../shapes/actions/drag/utils/getShapeType";
 
 const updatePresentationFont = (event) => {
   const newFontFamily = event.target.value;
+  if (!newFontFamily) return;
+
   session.PRESENTATION.slides.forEach(aSlide => {
     aSlide.shapes.forEach(aShape => {
       const shapeData = aShape.data;
@@ -29,6 +31,7 @@ export default function BrandingOptions() {
   const [logoUploadOpened, setLogoUploadOpened] = React.useState(true);
   const uploadLogoInput = React.useRef();
   const [uploadedImage, setUploadedImage] = React.useState();
+  const [fontFamilies, setFontFamilies] = React.useState([]);
 
   React.useEffect(() => {
     Events.listen("slide.display", (event) => {
@@ -37,7 +40,24 @@ export default function BrandingOptions() {
       const slideData = slide_.slideData();
       setBackground(slideData.background.data);
     });
+    
+    Events.listen("presentation.inited", () => {
+      const fontFamilies_ = [
+        <option key={"empty"} value>
+        </option>
+      ];
+      defaultFontFamilies.forEach((fontFamily, i) => {
+        fontFamilies_.push(
+          <option key={i} value={fontFamily} style={{ fontFamily }} selected={(session.PRESENTATION?.settings?.fontFamily == fontFamily)}>
+            {fontFamily}
+          </option>
+        )
+      });
+      setFontFamilies(fontFamilies_);
+    })
   }, []);
+
+
 
   const showLogo = (e) => {
     setLogoUploadOpened(!logoUploadOpened);
@@ -56,14 +76,6 @@ export default function BrandingOptions() {
   }
 
 
-  const fontFamilies = [];
-  defaultFontFamilies.forEach((fontFamily, i) => {
-    fontFamilies.push(
-      <option key={i} value={fontFamily} style={{ fontFamily }} defaultValue={session.PRESENTATION?.settings?.fontFamily == fontFamily}>
-        {fontFamily}
-      </option>
-    )
-  })
 
   return (
     <div className={"row mx-0 mt-3 text-white rounded px-3 pb-5"}>
