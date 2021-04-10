@@ -201,6 +201,9 @@ class PresentationService
         if ($mimeType != "image")
             return ['success' => false, 'descr' => 'Only images allowed'];
 
+        if ($logo->getSize() > 2000000)
+            return ['success' => false, 'descr' => 'Files must be 2MB at most.'];
+
         $unique1 = hash('md2', uniqid());
         $newFilename = "$unique1." . $logo->getClientOriginalExtension();
 

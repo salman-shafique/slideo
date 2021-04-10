@@ -46,6 +46,17 @@ export default function BrandingOptions() {
     });
 
     Events.listen("presentation.inited", () => {
+
+      if (Array.isArray(session.PRESENTATION.settings))
+        session.PRESENTATION.settings = {
+          fontFamily: "",
+          logo: {
+            url: "",
+            isActive: "false"
+          }
+        }
+      session.PRESENTATION.settings.logo.isActive = (session.PRESENTATION.settings.logo.isActive == "true");
+
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
       setLogoUploadOpened(session.PRESENTATION.settings.logo.isActive);
       setUploadedImage(session.PRESENTATION.settings.logo.url);
@@ -54,6 +65,7 @@ export default function BrandingOptions() {
 
   const fontFamilies = [
     <option key={"empty"} value="">
+      Please select
     </option>
   ];
   defaultFontFamilies.forEach((fontFamily, i) => {
@@ -81,7 +93,7 @@ export default function BrandingOptions() {
       contentType: false,
       success: (r) => {
         r.success
-          ? setUploadedImage(r.url)
+          ? (session.PRESENTATION.settings.logo.url = r.url) && setUploadedImage(r.url)
           : toastr.error(r.descr);
       }
     })
@@ -91,8 +103,6 @@ export default function BrandingOptions() {
     session.PRESENTATION.settings.logo.url = "";
     setUploadedImage(false);
   }
-
-
 
   return (
     <div className={"row mx-0 mt-3 text-white rounded px-3 pb-5"}>
