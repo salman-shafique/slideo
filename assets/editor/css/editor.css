@@ -473,7 +473,7 @@ body {
 	font-size: x-large;
 }
 
-#sideBarTextEmpty,#sideBarShapeEmpty {
+#sideBarShapeEmpty {
 	margin-top: 20px;
 	color: gray;
 	text-align: center;
@@ -754,4 +754,23 @@ object[id^="prev_"] {
 
 .my-white-text{
 	color: #ffffff;
+}
+
+/* POPUP STYLES */
+#TextEditorPopup {
+	position: absolute;
+	z-index: 5;
+	width: 300px;
+}
+
+.slidepopup {
+	display: none;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	border-radius: 24px;
+	width: 300px;
+}
+
+.slidepopup--visible {
+	display: block;
 }

@@ -11,29 +11,14 @@ export default function TextboxPanel() {
                 טקסט
             </div>
             <div className="main-section">
-                <div id="sideBarText" className="custom-scrollbar vertical-scroll" style={{display:"initial"}}>
-                    <div id="sideBarTextOptions" style={{ width: "100%", display: "none",position:"relative" }}>
-                        <FontActions />
-                    </div>
-                    <div id="sideBarTextEmpty">
-                        <i>No text box selected...</i>
-                    </div>
-                </div>
-                <div className="control-overlay-layout closed" style={{ backgroundColor: "#484848" }}>
-                    <div id="addTextboxArea" className="vertically-centered no-image-display centered-contents">
+                <div id="sideBarText" className="custom-scrollbar vertical-scroll" style={{ display: "initial" }}>
+                    <div id="addTextboxArea" style={{ width: "100%", position: "relative" }}>
                         <Textboxes />
                     </div>
                 </div>
+                <div className="control-overlay-layout closed" style={{ backgroundColor: "#484848" }}>
+                </div>
                 <div className="backdrop-overlay-layout collapse"></div>
-            </div>
-            <div className="control-section">
-                <button className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip">
-                    <i className="fas fa-plus mr-2"></i>
-                    Add new text box
-                </button>
-                <button className="btn btn-danger btn-sm btn-full control-close-button collapse horizontal-text-clip">
-                    Cancel
-                </button>
             </div>
         </>
     )

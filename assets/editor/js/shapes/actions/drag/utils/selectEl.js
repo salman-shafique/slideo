@@ -33,6 +33,7 @@ export default function selectEl(event) {
     } else {
         deSelectAll(shapeId)
     }
+
     // Trigger selection event
     Events.shape.selected({ 'shape': g, 'event': event });
 

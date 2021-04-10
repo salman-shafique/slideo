@@ -9,6 +9,9 @@ import updateAllTransforms from "./utils/updateAllTransforms";
  * @param {MouseEvent} event 
  */
 export default function startDrag(event) {
+    //Disable for text editor popup
+    if(event.target.classList.contains('edit-textbox-icon')) return;
+    
     /**
      * @type {SVGGElement} g
      */

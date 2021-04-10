@@ -10,6 +10,8 @@ import dragPreventDefault from "./utils/dragPreventDefault";
  * @param {MouseEvent} event 
  */
 export default function endDrag(event) {
+    // Disable for text editor popup
+    if (event.target.classList.contains('edit-textbox-icon')) return;
     /**
      * @type {SVGGElement} g
      */
