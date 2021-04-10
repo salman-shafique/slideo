@@ -19,7 +19,7 @@ import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import reactToDOM from "Editor/js/utils/reactToDOM";
-import React from "react";
+import React, { useState } from "react";
 import keyboardListener from "Editor/js/shapes/actions/keyboard/index";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
@@ -29,72 +29,74 @@ import updateColor from "Editor/js/shapes/actions/color/updateColor";
 import preloader from "Editor/js/components/preloader";
 import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
 
-
 const chunkDesigns = {};
 
 export default function slide(slideId) {
+  if (!(this instanceof slide)) return new slide(...arguments);
 
-    if (!(this instanceof slide)) return new slide(...arguments);
+  this.slideId = slideId;
+  this.slideData = () => presentation().getSlideData(slideId);
 
-    this.slideId = slideId;
-    this.slideData = () => presentation().getSlideData(slideId);
+  this.object = function () {
+    return select(`object.main-container[id="${this.slideId}"]`);
+  };
 
-    this.object = function () {
-        return select(`object.main-container[id="${this.slideId}"]`);
-    }
+  /**
+   * @returns {HTMLElement}
+   */
+  this.objectPrev = function () {
+    return select(`.slide-thumbnail[data-slide-id="${this.slideId}"]`);
+  };
 
-    /**
-     * @returns {HTMLElement}
-     */
-    this.objectPrev = function () {
-        return select(`.slide-thumbnail[data-slide-id="${this.slideId}"]`);
-    }
+  /**
+   * @returns {HTMLObjectElement}
+   */
+  this.objectElement = function () {
+    return select(`object.main-container[id="${this.slideId}"]`);
+  };
 
-    /**
-     * @returns {HTMLObjectElement}
-     */
-    this.objectElement = function () {
-        return select(`object.main-container[id="${this.slideId}"]`);
-    }
+  /**
+   * @returns {Document}
+   */
+  this.contentDocument = function () {
+    return select(`object.main-container[id="${this.slideId}"]`)
+      .contentDocument;
+  };
 
-    /**
-     * @returns {Document}
-     */
-    this.contentDocument = function () {
-        return select(`object.main-container[id="${this.slideId}"]`).contentDocument;
-    }
+  /**
+   * @returns {HTMLElement}
+   */
+  this.documentElement = function () {
+    return select(`object.main-container[id="${this.slideId}"]`).contentDocument
+      .documentElement;
+  };
 
-    /**
-     * @returns {HTMLElement}
-     */
-    this.documentElement = function () {
-        return select(`object.main-container[id="${this.slideId}"]`).contentDocument.documentElement;
-    }
+  /**
+   * @returns {HTMLElement} Page G element
+   */
+  this.page = function () {
+    return this.documentElement().querySelector("g.SlideGroup g.Page");
+  };
 
-    /**
-     * @returns {HTMLElement} Page G element
-     */
-    this.page = function () {
-        return this.documentElement().querySelector("g.SlideGroup g.Page");
-    }
+  /**
+   * @returns {HTMLElement} Slide G element
+   */
+  this.slideG = function () {
+    return this.documentElement().querySelector("g.SlideGroup g.Slide");
+  };
 
-    /**
-     * @returns {HTMLElement} Slide G element
-     */
-    this.slideG = function () {
-        return this.documentElement().querySelector("g.SlideGroup g.Slide");
-    }
+  this.appendToPresentation = function (slideData) {
+    session.PRESENTATION.slides.push(slideData);
+    session.PRESENTATION.slidesOrder.push(slideData.slideId);
+    return slide(slideData.slideId);
+  };
 
-    this.appendToPresentation = function (slideData) {
-        session.PRESENTATION.slides.push(slideData);
-        session.PRESENTATION.slidesOrder.push(slideData.slideId);
-        return slide(slideData.slideId);
-    }
+  this.insertToPage = function () {
+    let slideData = this.slideData();
 
-    this.insertToPage = function () {
-        let slideData = this.slideData();
-        let miniPrevHtml = `
-        <div class="slide-thumbnail" data-slide-id="${this.slideId}">
+    let miniPrevHtml = `
+    <div class="slide-thumbnail" data-slide-id=${this.slideId} draggable="true">
+
             <object id="prev_${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded"></object>
             <div class="remove-slide">
                 <i class="fas fa-trash-alt text-white"></i>
@@ -102,335 +104,385 @@ export default function slide(slideId) {
             <span class="slide-sl text-white mr-2"></span>
         </div>
         `;
-        let miniPrev = stringToDOM(miniPrevHtml);
 
-        add_event(miniPrev, "click", function () {
-            slide(this.dataset.slideId).display();
-        });
+    let miniPrev = stringToDOM(miniPrevHtml);
 
-        add_event(select("object", miniPrev), "load", function () {
-            let slideId = this.getAttribute("id").split("_")[1];
-            slide(slideId).cloneToMiniPrev();
-        });
+    // Citra's Code
+    miniPrev.ondragstart = (e) => {
+      e.dataTransfer.setData("dragId", miniPrev.getAttribute("data-slide-id"));
+    };
 
-        document.getElementById("slides_preview").appendChild(miniPrev);
+    miniPrev.ondragover = (e) => {
+      e.preventDefault();
+    };
 
+    miniPrev.ondrop = (e) => {
+      e.preventDefault();
+      let o = session.PRESENTATION.slidesOrder;
+      let dragId = e.dataTransfer.getData("dragId");
+      let dropId = miniPrev.getAttribute("data-slide-id");
+      let dragOrder = o.findIndex((i) => i === dragId);
+      let dropOrder = o.findIndex((i) => i === dropId);
 
-        let mainHtml = `
+      let t = o[dropOrder];
+      o[dropOrder] = o[dragOrder];
+      o[dragOrder] = t;
+
+      let parent = document.getElementById("slides_preview");
+      let ix = Array.from(parent.children);
+      ix.map((e, i) => {
+        let attr = ix[i].getAttributeNode("data-slide-id").value;
+        if (attr === dragId) {
+          parent.insertBefore(ix[i], parent.children[dropOrder]);
+        }
+        if (attr === dropId) {
+          parent.insertBefore(ix[i], parent.children[dragOrder]);
+        }
+      });
+    };
+
+    // End of Citra's Code
+
+    add_event(miniPrev, "click", function () {
+      slide(this.dataset.slideId).display();
+    });
+
+    add_event(select("object", miniPrev), "load", function () {
+      let slideId = this.getAttribute("id").split("_")[1];
+      slide(slideId).cloneToMiniPrev();
+    });
+
+    document.getElementById("slides_preview").appendChild(miniPrev);
+
+    let mainHtml = `
         <object id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
         `;
-        let main = stringToDOM(mainHtml);
+    let main = stringToDOM(mainHtml);
 
-        // Init the slide - move etc
-        add_event(main, "load", function () {
-            preloader.show(
-                () => slide(this.dataset.slideId).initSlide()
-            );
-        });
-        document.getElementById("SlideContainer").appendChild(main);
+    // Init the slide - move etc
+    add_event(main, "load", function () {
+      preloader.show(() => slide(this.dataset.slideId).initSlide());
+    });
+    document.getElementById("SlideContainer").appendChild(main);
 
-        return this;
-    }
+    return this;
+  };
 
-    this.initSlide = function () {
-        console.log(session);
-        
-        this.object().style.visibility = "visible";
+  this.initSlide = function () {
+    console.log(session);
 
-        // Custom styles
-        this.insertCustomStyles();
+    this.object().style.visibility = "visible";
 
-        // Create g for the filters
-        const contentDocument = this.contentDocument();
-        const filterContainer = contentDocument.createElementNS("http://www.w3.org/2000/svg", "g");
-        filterContainer.setAttribute("id", "filterContainer");
-        this.slideG().appendChild(filterContainer);
+    // Custom styles
+    this.insertCustomStyles();
 
-        // update textbox style.direction
-        // Show the loaded slide
-        let slideData = this.slideData();
-        slideData.shapes.forEach(shape_ => {
-            const shapeCls = shape(this.slideId, shape_.data.shape_id);
-            let contentNumber, foreignObject, text, direction, content, g;
-            // Built in textboxes
-            if (shape_.data.alt.includes("h1|")) {
-                try {
-                    contentNumber = shape_.data.alt.split("|")[1];
-                    content = slideData.analyzedContent[contentNumber].h1.data;
-                    shape_.data.text = text = content.text;
-                    direction = content.direction;
-                    Object.assign(shape_.data, content);
-                } catch {
-                    shapeCls.remove();
-                }
-            } else if (shape_.data.alt.includes("paragraph|")) {
-                try {
-                    contentNumber = shape_.data.alt.split("|")[1];
-                    content = slideData.analyzedContent[contentNumber].originalSentence.data;
-                    shape_.data.text = text = content.text;
-                    direction = content.direction;
-                    Object.assign(shape_.data, content);
-                    if (text == slideData.analyzedContent[contentNumber].h1.data.text)
-                        // Rm paragraph if it is same as h1
-                        throw new DOMException();
-                } catch {
-                    shapeCls.remove();
-                }
-            } else if (shape_.data.alt == "slidetitle") {
-                content = slideData.slideTitle.data;
-                if (!content.text)
-                    // Place holder slide title
-                    content = {
-                        text: constants.SLIDE_TITLE_PLACEHOLDER,
-                        direction: slideData.direction
-                    };
-                shape_.data.text = text = content.text;
-                direction = content.direction;
-                Object.assign(shape_.data, content);
-            } else if (shape_.data.alt == "subtitle") {
-                content = slideData.subTitle.data;
-                if (!content.text)
-                    // Place holder slide title
-                    content = {
-                        text: constants.SLIDE_SUBTITLE_PLACEHOLDER,
-                        direction: slideData.direction
-                    };
-                shape_.data.text = text = content.text;
-                direction = content.direction;
-                Object.assign(shape_.data, content);
-            } else if (shape_.data.alt == "newtextbox") {
-                createNewTextbox(shape_.data, this.slideId);
-            }
-            g = shapeCls.el();
-            if (text && g) {
-                foreignObject = createForeignObject(this.contentDocument(), shape_.data);
-                arrangeForeignObject(foreignObject, shape_.data, text, direction);
-                g.innerHTML = "";
-                g.classList.add("no-outline");
-                g.appendChild(foreignObject);
-            }
+    // Create g for the filters
+    const contentDocument = this.contentDocument();
+    const filterContainer = contentDocument.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g"
+    );
+    filterContainer.setAttribute("id", "filterContainer");
+    this.slideG().appendChild(filterContainer);
 
-            // Built in images icon - h1 - slidetitle
-            if (shape_.data.alt.includes("icon|")) {
-                contentNumber = shape_.data.alt.split("|").pop();
-                content = slideData.analyzedContent[contentNumber].icon.data;
-                Object.assign(shape_.data, content);
-                iconInit(this.slideId, shape_.data.shape_id, content.keyword);
-                // Add event listener
-                shapeCls.addEvent("click", selectIconElement);
-            } else if (shape_.data.alt.includes("h1image|")) {
-                contentNumber = shape_.data.alt.split("|")[1];
-                content = slideData.analyzedContent[contentNumber].h1Image.data;
-                Object.assign(shape_.data, content);
-                h1Image(this.slideId, shape_.data.shape_id, content.keyword);
-                // Add event listener
-                shapeCls.addEvent("click", selectImageElement);
-            } else if (shape_.data.alt == "slidetitleimage") {
-                content = slideData.slideTitleImage.data;
-                if (!content.keyword && !content.image) {
-                    let slideTitleImagePlaceholderUrl = g.querySelector("image").getAttribute("xlink:href");
-                    content = {
-                        image: {
-                            url: slideTitleImagePlaceholderUrl,
-                            keyword: ""
-                        },
-                        keyword: ""
-                    }
-                };
-                Object.assign(shape_.data, content);
-                h1Image(this.slideId, shape_.data.shape_id, content.keyword);
-                // Add event listener
-                shapeCls.addEvent("click", selectImageElement);
-            } else if (shape_.data.alt == "newimage") {
-                createNewImage(shape_.data, this.slideId);
-            } else if (shape_.data.alt == "newicon") {
-                createNewIcon(shape_.data, this.slideId);
-            } else if (shape_.data.alt == "image") {
-                // handle the builtin images
-                if (!shape_.data.keyword && !shape_.data.image) {
-                    const imagePlaceholderUrl = g.querySelector("image").getAttribute("xlink:href");
-
-                    shape_.data.image = {
-                        url: imagePlaceholderUrl,
-                        keyword: ""
-                    }
-                    shape_.data.keyword = "";
-                };
-                h1Image(this.slideId, shape_.data.shape_id, shape_.data.keyword);
-                // Add event listener
-                shapeCls.addEvent("click", selectImageElement);
-            }
-
-            g = shapeCls.el();
-            if (g) {
-                // Update the SVG attributes
-                shapeCls.updateAttrs();
-                // initialize the transform
-                initializeG(g);
-                // Move to saved position
-                shapeCls.moveToSavedPosition();
-                // initialize the filters
-                colorFilters(g).init(this.slideId);
-                // Update color
-                updateColor(g).init(this.slideId);
-
-            }
-
-            if (shape_.data.active == "false")
-                shapeCls.remove();
-           
-        });
-
-        // Background
-        updateColor().background(this.slideId);
-
-        this.display();
-
-        // Add event listeners
-        makeDraggable(this.contentDocument());
-        keyboardListener(this.contentDocument());
-        this.contentDocument().addEventListener("dblclick", selectTextboxElement);
-        this.contentDocument().addEventListener("contextmenu", (e) => {
-            e.preventDefault();
-             
-            // While triggering the "contextMenu.open" event, send the target too.
-            Events.contextMenu.open({ target: e.target, event: e });
-        });
-
-        // Reduce the font sizes h1
-        reduceFontSize(selectAll("g[alt^='h1|']", this.page()));
-
-        // Reduce the font sizes paragraph
-        reduceFontSize(selectAll("g[alt^='paragraph|']", this.page()));
-
-        // Slide numbers
-        refresh_slide_prev_numbers();
-
-        // Update z-index
-        this.updateZIndex();
-
-        // Update the mini prevs
-        this.cloneToMiniPrev();
-
-        return this;
-    }
-
-    this.updateZIndex = () => {
-        // First check if the shape_index saved before
-        /**
-         * @type {Array} shapes
-         */
-        const shapes = this.slideData().shapes;
-        for (let index = 0; index < shapes.length; index++) {
-            const shape_ = shapes[index];
-            if (!shape_.data.shape_index) return;
-            if (typeof shape_.data.shape_index != "number") return;
+    // update textbox style.direction
+    // Show the loaded slide
+    let slideData = this.slideData();
+    slideData.shapes.forEach((shape_) => {
+      const shapeCls = shape(this.slideId, shape_.data.shape_id);
+      let contentNumber, foreignObject, text, direction, content, g;
+      // Built in textboxes
+      if (shape_.data.alt.includes("h1|")) {
+        try {
+          contentNumber = shape_.data.alt.split("|")[1];
+          content = slideData.analyzedContent[contentNumber].h1.data;
+          shape_.data.text = text = content.text;
+          direction = content.direction;
+          Object.assign(shape_.data, content);
+        } catch {
+          shapeCls.remove();
         }
-
-        const elementTree = this.page();
-        const background = elementTree.querySelector(".Background");
-        shapes
-            .slice(0)
-            .sort((a, b) => b.data.shape_index - a.data.shape_index)
-            .forEach((e, i) => {
-                const g = shape(this.slideId, e.data.shape_id).el();
-                if (g)
-                    elementTree.insertBefore(
-                        shape(this.slideId, e.data.shape_id).el(),
-                        background.nextElementSibling
-                    )
-            })
-    }
-
-    this.saveZIndex = () => {
-        const elementTree = this.page();
-        for (let i = 0; i < elementTree.children.length; i++) {
-            const shape_ = shape(elementTree.children[i]);
-            if (!shape_) return;
-            const data = shape_.data();
-            if (!data) return;
-            data.shape_index = i;
+      } else if (shape_.data.alt.includes("paragraph|")) {
+        try {
+          contentNumber = shape_.data.alt.split("|")[1];
+          content =
+            slideData.analyzedContent[contentNumber].originalSentence.data;
+          shape_.data.text = text = content.text;
+          direction = content.direction;
+          Object.assign(shape_.data, content);
+          if (text == slideData.analyzedContent[contentNumber].h1.data.text)
+            // Rm paragraph if it is same as h1
+            throw new DOMException();
+        } catch {
+          shapeCls.remove();
         }
-    }
+      } else if (shape_.data.alt == "slidetitle") {
+        content = slideData.slideTitle.data;
+        if (!content.text)
+          // Place holder slide title
+          content = {
+            text: constants.SLIDE_TITLE_PLACEHOLDER,
+            direction: slideData.direction,
+          };
+        shape_.data.text = text = content.text;
+        direction = content.direction;
+        Object.assign(shape_.data, content);
+      } else if (shape_.data.alt == "subtitle") {
+        content = slideData.subTitle.data;
+        if (!content.text)
+          // Place holder slide title
+          content = {
+            text: constants.SLIDE_SUBTITLE_PLACEHOLDER,
+            direction: slideData.direction,
+          };
+        shape_.data.text = text = content.text;
+        direction = content.direction;
+        Object.assign(shape_.data, content);
+      } else if (shape_.data.alt == "newtextbox") {
+        createNewTextbox(shape_.data, this.slideId);
+      }
+      g = shapeCls.el();
+      if (text && g) {
+        foreignObject = createForeignObject(
+          this.contentDocument(),
+          shape_.data
+        );
+        arrangeForeignObject(foreignObject, shape_.data, text, direction);
+        g.innerHTML = "";
+        g.classList.add("no-outline");
+        g.appendChild(foreignObject);
+      }
 
-    this.display = function () {
-        // Deselect elements
-        deSelectAll();
-
-        selectAll(".slide-thumbnail").forEach(e => {
-            e.classList.remove("active-slide");
-        });
-        this.objectPrev().classList.add("active-slide");
-
-        selectAll("object.main-container").forEach(e => {
-            e.style.display = "none";
-        });
-        this.object().style.display = "";
-
-        // Update the session CURRENT_SLIDE
-        session.CURRENT_SLIDE = this.slideId;
-
-        // Dispatch the selection event
-        Events.slide.display({ slideId: this.slideId });
-
-        return this;
-    }
-
-    this.cloneToMiniPrev = () => {
-        let contentDocument = window.top.document.getElementById("prev_" + this.slideId).contentDocument;
-        if (contentDocument.querySelector("svg")) {
-            let clone = this.slideG().cloneNode(true);
-            const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
-            oldSlideG.parentElement.appendChild(clone);
-            oldSlideG.remove();
+      // Built in images icon - h1 - slidetitle
+      if (shape_.data.alt.includes("icon|")) {
+        contentNumber = shape_.data.alt.split("|").pop();
+        content = slideData.analyzedContent[contentNumber].icon.data;
+        Object.assign(shape_.data, content);
+        iconInit(this.slideId, shape_.data.shape_id, content.keyword);
+        // Add event listener
+        shapeCls.addEvent("click", selectIconElement);
+      } else if (shape_.data.alt.includes("h1image|")) {
+        contentNumber = shape_.data.alt.split("|")[1];
+        content = slideData.analyzedContent[contentNumber].h1Image.data;
+        Object.assign(shape_.data, content);
+        h1Image(this.slideId, shape_.data.shape_id, content.keyword);
+        // Add event listener
+        shapeCls.addEvent("click", selectImageElement);
+      } else if (shape_.data.alt == "slidetitleimage") {
+        content = slideData.slideTitleImage.data;
+        if (!content.keyword && !content.image) {
+          let slideTitleImagePlaceholderUrl = g
+            .querySelector("image")
+            .getAttribute("xlink:href");
+          content = {
+            image: {
+              url: slideTitleImagePlaceholderUrl,
+              keyword: "",
+            },
+            keyword: "",
+          };
         }
-    }
+        Object.assign(shape_.data, content);
+        h1Image(this.slideId, shape_.data.shape_id, content.keyword);
+        // Add event listener
+        shapeCls.addEvent("click", selectImageElement);
+      } else if (shape_.data.alt == "newimage") {
+        createNewImage(shape_.data, this.slideId);
+      } else if (shape_.data.alt == "newicon") {
+        createNewIcon(shape_.data, this.slideId);
+        e, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, i;
+      } else if (shape_.data.alt == "image") {
+        // handle the builtin images
+        if (!shape_.data.keyword && !shape_.data.image) {
+          const imagePlaceholderUrl = g
+            .querySelector("image")
+            .getAttribute("xlink:href");
 
-    this.changeDesign = (designData) => {
-        const slideData = this.slideData();
-        if (!chunkDesigns[String(slideData.style.id)]) {
-            slideData.style.shapes = slideData.shapes;
-            slideData.style.colorTemplate = slideData.colorTemplate;
-            slideData.style.background = slideData.background;
-            chunkDesigns[String(slideData.style.id)] = Object.assign({}, slideData.style);
+          shape_.data.image = {
+            url: imagePlaceholderUrl,
+            keyword: "",
+          };
+          shape_.data.keyword = "";
         }
+        h1Image(this.slideId, shape_.data.shape_id, shape_.data.keyword);
+        // Add event listener
+        shapeCls.addEvent("click", selectImageElement);
+      }
 
-        if (!chunkDesigns[String(designData.id)])
-            chunkDesigns[String(designData.id)] = designData;
+      g = shapeCls.el();
+      if (g) {
+        // Update the SVG attributes
+        shapeCls.updateAttrs();
+        // initialize the transform
+        initializeG(g);
+        // Move to saved position
+        shapeCls.moveToSavedPosition();
+        // initialize the filters
+        colorFilters(g).init(this.slideId);
+        // Update color
+        updateColor(g).init(this.slideId);
+      }
 
-        slideData.style = chunkDesigns[String(designData.id)];
-        slideData.shapes = chunkDesigns[String(designData.id)].shapes;
-        slideData.colorTemplate = chunkDesigns[String(designData.id)].colorTemplate;
-        slideData.background = chunkDesigns[String(designData.id)].background;
+      if (shape_.data.active == "false") shapeCls.remove();
+    });
 
-        this.updateOnPage();
+    // Background
+    updateColor().background(this.slideId);
+
+    this.display();
+
+    // Add event listeners
+    makeDraggable(this.contentDocument());
+    keyboardListener(this.contentDocument());
+    this.contentDocument().addEventListener("dblclick", selectTextboxElement);
+    this.contentDocument().addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+
+      // While triggering the "contextMenu.open" event, send the target too.
+      Events.contextMenu.open({ target: e.target, event: e });
+    });
+
+    // Reduce the font sizes h1
+    reduceFontSize(selectAll("g[alt^='h1|']", this.page()));
+
+    // Reduce the font sizes paragraph
+    reduceFontSize(selectAll("g[alt^='paragraph|']", this.page()));
+
+    // Slide numbers
+    refresh_slide_prev_numbers();
+
+    // Update z-index
+    this.updateZIndex();
+
+    // Update the mini prevs
+    this.cloneToMiniPrev();
+
+    return this;
+  };
+
+  this.updateZIndex = () => {
+    // First check if the shape_index saved before
+    /**
+     * @type {Array} shapes
+     */
+    const shapes = this.slideData().shapes;
+    for (let index = 0; index < shapes.length; index++) {
+      const shape_ = shapes[index];
+      if (!shape_.data.shape_index) return;
+      if (typeof shape_.data.shape_index != "number") return;
     }
 
-    this.updateOnPage = () => {
-        let slideData = this.slideData();
-        let miniPrev = select('div.slide-thumbnail[data-slide-id="' + this.slideId + '"]');
-        let miniPrevObject = select("object", miniPrev);
-        miniPrevObject.setAttribute("data", slideData.style.svgFile);
-        // load event will be triggered
-        let main = select("object[id='" + this.slideId + "']");
-        main.setAttribute("data", slideData.style.svgFile);
-        // load event will be triggered
-        return this;
+    const elementTree = this.page();
+    const background = elementTree.querySelector(".Background");
+    shapes
+      .slice(0)
+      .sort((a, b) => b.data.shape_index - a.data.shape_index)
+      .forEach((e, i) => {
+        const g = shape(this.slideId, e.data.shape_id).el();
+        if (g)
+          elementTree.insertBefore(
+            shape(this.slideId, e.data.shape_id).el(),
+            background.nextElementSibling
+          );
+      });
+  };
+
+  this.saveZIndex = () => {
+    const elementTree = this.page();
+    for (let i = 0; i < elementTree.children.length; i++) {
+      const shape_ = shape(elementTree.children[i]);
+      if (!shape_) return;
+      const data = shape_.data();
+      if (!data) return;
+      data.shape_index = i;
+    }
+  };
+
+  this.display = function () {
+    // Deselect elements
+    deSelectAll();
+
+    selectAll(".slide-thumbnail").forEach((e) => {
+      e.classList.remove("active-slide");
+    });
+    this.objectPrev().classList.add("active-slide");
+
+    selectAll("object.main-container").forEach((e) => {
+      e.style.display = "none";
+    });
+    this.object().style.display = "";
+
+    // Update the session CURRENT_SLIDE
+    session.CURRENT_SLIDE = this.slideId;
+
+    // Dispatch the selection event
+    Events.slide.display({ slideId: this.slideId });
+
+    return this;
+  };
+
+  this.cloneToMiniPrev = () => {
+    let contentDocument = window.top.document.getElementById(
+      "prev_" + this.slideId
+    ).contentDocument;
+    if (contentDocument.querySelector("svg")) {
+      let clone = this.slideG().cloneNode(true);
+      const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
+      oldSlideG.parentElement.appendChild(clone);
+      oldSlideG.remove();
+    }
+  };
+
+  this.changeDesign = (designData) => {
+    const slideData = this.slideData();
+    if (!chunkDesigns[String(slideData.style.id)]) {
+      slideData.style.shapes = slideData.shapes;
+      slideData.style.colorTemplate = slideData.colorTemplate;
+      slideData.style.background = slideData.background;
+      chunkDesigns[String(slideData.style.id)] = Object.assign(
+        {},
+        slideData.style
+      );
     }
 
-    this.appendNewShape = (newShapeData) => {
-        let addedBefore = false;
-        const shapes = this.slideData().shapes;
-        shapes.forEach(shape_ => {
-            if (shape_.data.shape_id == newShapeData.data.shape_id)
-                addedBefore = true;
-        });
-        if (!addedBefore)
-            shapes.push(newShapeData)
-    }
+    if (!chunkDesigns[String(designData.id)])
+      chunkDesigns[String(designData.id)] = designData;
 
-    this.insertCustomStyles = () => {
-        const styles = reactToDOM(<style>{`
+    slideData.style = chunkDesigns[String(designData.id)];
+    slideData.shapes = chunkDesigns[String(designData.id)].shapes;
+    slideData.colorTemplate = chunkDesigns[String(designData.id)].colorTemplate;
+    slideData.background = chunkDesigns[String(designData.id)].background;
+
+    this.updateOnPage();
+  };
+
+  this.updateOnPage = () => {
+    let slideData = this.slideData();
+    let miniPrev = select(
+      'div.slide-thumbnail[data-slide-id="' + this.slideId + '"]'
+    );
+    let miniPrevObject = select("object", miniPrev);
+    miniPrevObject.setAttribute("data", slideData.style.svgFile);
+    // load event will be triggered
+    let main = select("object[id='" + this.slideId + "']");
+    main.setAttribute("data", slideData.style.svgFile);
+    // load event will be triggered
+    return this;
+  };
+
+  this.appendNewShape = (newShapeData) => {
+    let addedBefore = false;
+    const shapes = this.slideData().shapes;
+    shapes.forEach((shape_) => {
+      if (shape_.data.shape_id == newShapeData.data.shape_id)
+        addedBefore = true;
+    });
+    if (!addedBefore) shapes.push(newShapeData);
+  };
+
+  this.insertCustomStyles = () => {
+    const styles = reactToDOM(
+      <style>{`
         .draggable:hover {
             cursor: pointer;
             outline: solid cyan 20px;
@@ -533,12 +585,10 @@ export default function slide(slideId) {
             display:none !important
         }
         `}</style>,
-            null,
-            "http://www.w3.org/2000/svg"
-        );
+      null,
+      "http://www.w3.org/2000/svg"
+    );
 
-        this.contentDocument().querySelector("svg").appendChild(styles);
-
-    }
+    this.contentDocument().querySelector("svg").appendChild(styles);
+  };
 }
-
