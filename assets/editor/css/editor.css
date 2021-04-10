@@ -473,7 +473,7 @@ body {
 	font-size: x-large;
 }
 
-#sideBarTextEmpty,#sideBarShapeEmpty {
+#sideBarShapeEmpty {
 	margin-top: 20px;
 	color: gray;
 	text-align: center;
