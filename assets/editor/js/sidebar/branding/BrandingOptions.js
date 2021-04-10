@@ -51,7 +51,11 @@ export default function BrandingOptions() {
         session.PRESENTATION.settings = {
           fontFamily: "",
           logo: {
-            url: "",
+            image: {
+              width: 0,
+              height: 0,
+              url: ""
+            },
             isActive: "false"
           }
         }
@@ -59,7 +63,7 @@ export default function BrandingOptions() {
 
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
       setLogoUploadOpened(session.PRESENTATION.settings.logo.isActive);
-      setUploadedImage(session.PRESENTATION.settings.logo.url);
+      setUploadedImage(session.PRESENTATION.settings.logo.image.url);
     })
   }, []);
 
@@ -92,15 +96,18 @@ export default function BrandingOptions() {
       processData: false,
       contentType: false,
       success: (r) => {
-        r.success
-          ? (session.PRESENTATION.settings.logo.url = r.url) && setUploadedImage(r.url)
-          : toastr.error(r.descr);
+        if (r.success) {
+          session.PRESENTATION.settings.logo = { ...r.logo };
+          setUploadedImage(session.PRESENTATION.settings.logo.image.url);
+        } else {
+          toastr.error(r.descr);
+        }
       }
     })
   }
 
   const rmImage = () => {
-    session.PRESENTATION.settings.logo.url = "";
+    session.PRESENTATION.settings.logo.image.url = "";
     setUploadedImage(false);
   }
 

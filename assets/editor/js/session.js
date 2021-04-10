@@ -12,7 +12,7 @@ let session = {
     /**
      * @type {{
      *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[],
-     *  settings: {fontFamily: ?string, logo: {isActive: boolean, url: string}}
+     *  settings: {fontFamily: ?string, logo: {isActive: boolean, image:{url: string, width:number,height:number}}}
      *  }}
      */
     PRESENTATION: null,

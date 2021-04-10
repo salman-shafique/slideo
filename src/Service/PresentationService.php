@@ -212,18 +212,25 @@ class PresentationService
             "uploads/logo/$unique2",
             $newFilename
         );
+
+        list($width, $height) = getimagesize("uploads/logo/$unique2/$newFilename");
+
         $url = "/uploads/logo/$unique2/$newFilename";
 
         $settings = $presentation->getSettings();
         $settings['logo'] = [
             'isActive' => true,
-            'url' => $url
+            'image' => [
+                'url' => $url,
+                'width' => $width,
+                'height' => $height
+            ]
         ];
 
         $presentation->setSettings($settings);
         $this->em->persist($presentation);
         $this->em->flush();
-        return ['success' => true, 'url' => $url];
+        return ['success' => true, 'logo' => $settings['logo']];
     }
 
     public function downloadStart(Presentation $presentation)
