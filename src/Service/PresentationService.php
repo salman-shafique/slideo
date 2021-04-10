@@ -15,6 +15,7 @@ use App\Repository\SlideRepository;
 use App\Repository\StyleRepository;
 use App\Service\FlaskService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -189,6 +190,37 @@ class PresentationService
         $this->em->persist($presentation);
         $this->em->flush();
         return ['success' => true];
+    }
+
+    public function saveBrandLogo(Request $request, Presentation $presentation)
+    {
+        $logo = $request->files->get('logo');
+
+        /** @var UploadedFile $logo */
+        $mimeType = explode("/", $logo->getMimeType())[0];
+        if ($mimeType != "image")
+            return ['success' => false, 'descr' => 'Only images allowed'];
+
+        $unique1 = hash('md2', uniqid());
+        $newFilename = "$unique1." . $logo->getClientOriginalExtension();
+
+        $unique2 = hash('md2', uniqid());
+        $logo->move(
+            "uploads/logo/$unique2",
+            $newFilename
+        );
+        $url = "/uploads/logo/$unique2/$newFilename";
+
+        $settings = $presentation->getSettings();
+        $settings['logo'] = [
+            'isActive' => true,
+            'url' => $url
+        ];
+
+        $presentation->setSettings($settings);
+        $this->em->persist($presentation);
+        $this->em->flush();
+        return ['success' => true, 'url' => $url];
     }
 
     public function downloadStart(Presentation $presentation)

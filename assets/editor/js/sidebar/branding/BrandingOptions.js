@@ -7,11 +7,13 @@ import { defaultFontFamilies } from "Editor/js/sidebar/textboxes/fontActions/fon
 import session from "../../session";
 import shape from "../../entity/shape";
 import getShapeType from "../../shapes/actions/drag/utils/getShapeType";
+import apiService from "../../utils/apiService";
+import toastr from "../../components/toastr";
 
 export default function BrandingOptions() {
   const [background, setBackground] = React.useState();
   const [dropdownOpened, setDropdownOpened] = React.useState();
-  const [logoUploadOpened, setLogoUploadOpened] = React.useState(true);
+  const [logoUploadOpened, setLogoUploadOpened] = React.useState(false);
   const uploadLogoInput = React.useRef();
   const [uploadedImage, setUploadedImage] = React.useState();
   const [selectedFontFamily, setSelectedFontFamily] = React.useState("");
@@ -44,7 +46,9 @@ export default function BrandingOptions() {
     });
 
     Events.listen("presentation.inited", () => {
-      setSelectedFontFamily(session.PRESENTATION?.settings?.fontFamily);
+      setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
+      setLogoUploadOpened(session.PRESENTATION.settings.logo.isActive);
+      setUploadedImage(session.PRESENTATION.settings.logo.url);
     })
   }, []);
 
@@ -61,18 +65,30 @@ export default function BrandingOptions() {
   });
 
   const showLogo = (e) => {
-    setLogoUploadOpened(!logoUploadOpened);
+    session.PRESENTATION.settings.logo.isActive = e.target.checked;
+    setLogoUploadOpened(e.target.checked);
   }
 
   const uploadInputChange = (e) => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      setUploadedImage(e.target.result)
-    }
-    reader.readAsDataURL(e.target.files[0]);
+    if (!e.target.files.length) return;
+    const data = new FormData();
+    const file = e.target.files[0];
+    data.append('logo', file, file.name)
+    apiService({
+      url: "/api/presentation/save/brandLogo",
+      data,
+      processData: false,
+      contentType: false,
+      success: (r) => {
+        r.success
+          ? setUploadedImage(r.url)
+          : toastr.error(r.descr);
+      }
+    })
   }
 
   const rmImage = () => {
+    session.PRESENTATION.settings.logo.url = "";
     setUploadedImage(false);
   }
 

@@ -14,8 +14,14 @@ export default function presentation() {
             document.getElementById("slides_preview").children[0].click();
 
         if (!session.PRESENTATION.settings || session.PRESENTATION.settings == [])
-            session.PRESENTATION.settings = {}
-    
+            session.PRESENTATION.settings = {
+                fontFamily: "",
+                logo: {
+                    url: "",
+                    isActive: false
+                }
+            }
+
         return this;
     }
 

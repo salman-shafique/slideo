@@ -12,7 +12,7 @@ let session = {
     /**
      * @type {{
      *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[],
-     *  settings: {{}}
+     *  settings: {fontFamily: ?string, logo: {isActive: boolean, url: string}}
      *  }}
      */
     PRESENTATION: null,
@@ -51,4 +51,4 @@ let session = {
      */
     SCALING_DIRECTION: null
 }
-export default session 
+export default session
