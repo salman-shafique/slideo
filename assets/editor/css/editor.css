@@ -758,10 +758,9 @@ object[id^="prev_"] {
 
 /* POPUP STYLES */
 #TextEditorPopup {
-	top: 0;
-	left: 0;
 	position: absolute;
 	z-index: 5;
+	width: 300px;
 }
 
 .slidepopup {

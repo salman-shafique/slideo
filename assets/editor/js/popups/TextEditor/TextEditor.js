@@ -16,7 +16,7 @@ export default function TextEditor() {
         left: 40,
         top: 40
     });
-;
+
     // function that normalizes svg view box into normal slide width and height
     const normalize = () => {
         const slideContainer = document.getElementById("SlideContainer");
@@ -26,9 +26,9 @@ export default function TextEditor() {
         const normalHeight = slideContainer.offsetHeight;
 
         if (svgViewBox) {
-            setNormalizedProperties({ 
-                width: normalWidth / svgViewBox.width, 
-                height: normalHeight / svgViewBox.height 
+            setNormalizedProperties({
+                width: normalWidth / svgViewBox.width,
+                height: normalHeight / svgViewBox.height
             });
         }
     }
@@ -74,7 +74,7 @@ export default function TextEditor() {
                     top: topShape * normalizedProperties.height
                 });
             }
-            
+
             setVisible(true);
         });
 
@@ -88,7 +88,7 @@ export default function TextEditor() {
     }, [normalizedProperties]);
 
     return (
-        <Popup visible={ visible } offset={ offset } parent={ 'TextEditorPopup' } >
+        <Popup visible={visible} offset={offset} parent={'TextEditorPopup'} >
             <FontActions />
         </Popup>
     );
