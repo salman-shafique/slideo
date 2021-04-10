@@ -8,30 +8,32 @@ import session from "../../session";
 import shape from "../../entity/shape";
 import getShapeType from "../../shapes/actions/drag/utils/getShapeType";
 
-const updatePresentationFont = (event) => {
-  const newFontFamily = event.target.value;
-  if (!newFontFamily) return;
-
-  session.PRESENTATION.slides.forEach(aSlide => {
-    aSlide.shapes.forEach(aShape => {
-      const shapeData = aShape.data;
-      const shape_ = shape(aSlide.slideId, shapeData.shape_id);
-      const g = shape_.el();
-      if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
-      shapeData.font_family = newFontFamily;
-      g.querySelector("table").style.fontFamily = newFontFamily;
-    });
-  });
-  session.PRESENTATION.settings.fontFamily = newFontFamily;
-}
-
 export default function BrandingOptions() {
   const [background, setBackground] = React.useState();
   const [dropdownOpened, setDropdownOpened] = React.useState();
   const [logoUploadOpened, setLogoUploadOpened] = React.useState(true);
   const uploadLogoInput = React.useRef();
   const [uploadedImage, setUploadedImage] = React.useState();
-  const [fontFamilies, setFontFamilies] = React.useState([]);
+  const [selectedFontFamily, setSelectedFontFamily] = React.useState("");
+
+  const updatePresentationFont = (event) => {
+    const newFontFamily = event.target.value;
+    if (!newFontFamily) return;
+
+    session.PRESENTATION.slides.forEach(aSlide => {
+      aSlide.shapes.forEach(aShape => {
+        const shapeData = aShape.data;
+        const shape_ = shape(aSlide.slideId, shapeData.shape_id);
+        const g = shape_.el();
+        if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
+        shapeData.font_family = newFontFamily;
+        g.querySelector("table").style.fontFamily = newFontFamily;
+      });
+    });
+    session.PRESENTATION.settings.fontFamily = newFontFamily;
+    setSelectedFontFamily(newFontFamily);
+  }
+
 
   React.useEffect(() => {
     Events.listen("slide.display", (event) => {
@@ -40,24 +42,23 @@ export default function BrandingOptions() {
       const slideData = slide_.slideData();
       setBackground(slideData.background.data);
     });
-    
+
     Events.listen("presentation.inited", () => {
-      const fontFamilies_ = [
-        <option key={"empty"} value>
-        </option>
-      ];
-      defaultFontFamilies.forEach((fontFamily, i) => {
-        fontFamilies_.push(
-          <option key={i} value={fontFamily} style={{ fontFamily }} selected={(session.PRESENTATION?.settings?.fontFamily == fontFamily)}>
-            {fontFamily}
-          </option>
-        )
-      });
-      setFontFamilies(fontFamilies_);
+      setSelectedFontFamily(session.PRESENTATION?.settings?.fontFamily);
     })
   }, []);
 
-
+  const fontFamilies = [
+    <option key={"empty"} value="">
+    </option>
+  ];
+  defaultFontFamilies.forEach((fontFamily, i) => {
+    fontFamilies.push(
+      <option key={i} value={fontFamily} style={{ fontFamily }}>
+        {fontFamily}
+      </option>
+    )
+  });
 
   const showLogo = (e) => {
     setLogoUploadOpened(!logoUploadOpened);
@@ -182,7 +183,7 @@ export default function BrandingOptions() {
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>
         <div className="col-12">Presentation font</div>
-        <select onChange={updatePresentationFont} className="form-control form-control-lg">
+        <select value={selectedFontFamily} onChange={updatePresentationFont} className="form-control form-control-lg">
           {fontFamilies}
         </select>
       </div>
