@@ -19,7 +19,7 @@ import selectIconElement from "Editor/js/shapes/icon/selectIconElement";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import reactToDOM from "Editor/js/utils/reactToDOM";
-import React, { useState } from "react";
+import React from "react";
 import keyboardListener from "Editor/js/shapes/actions/keyboard/index";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
