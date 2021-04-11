@@ -19,6 +19,8 @@ import {
   colorPaletteTitles
 } from "./colorPalettes";
 import { getThemeColorNameOfShape } from "../colors/utils";
+import hexToRgb from "../colors/hexToRgb";
+import preloader from "../../components/preloader";
 
 
 export default function BrandingOptions() {
@@ -72,6 +74,7 @@ export default function BrandingOptions() {
             if (!table) return;
             table.style.color = color;
             shapeData.text_theme_color = themeColorName;
+            shapeData.text_rgb = hexToRgb(themeColorName);
             break;
           case "icon_theme_color":
             const shapeId = g.getAttribute("shape_id");
@@ -83,6 +86,8 @@ export default function BrandingOptions() {
             break;
         }
       });
+      Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
+
     });
   }
 
@@ -193,15 +198,17 @@ export default function BrandingOptions() {
 
   const uploadInputChange = (e) => {
     if (!e.target.files.length) return;
+    preloader.show();
     const data = new FormData();
     const file = e.target.files[0];
-    data.append('logo', file, file.name)
+    data.append('logo', file, file.name);
     apiService({
       url: "/api/presentation/save/brandLogo",
       data,
       processData: false,
       contentType: false,
       success: (r) => {
+        preloader.hide();
         if (r.success) {
           session.PRESENTATION.settings.logo = { ...r.logo };
           addLogo(r.logo.image);
@@ -209,6 +216,7 @@ export default function BrandingOptions() {
         } else {
           toastr.error(r.descr);
         }
+
       }
     })
   }
