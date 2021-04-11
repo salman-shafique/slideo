@@ -28,6 +28,7 @@ import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
 import preloader from "Editor/js/components/preloader";
 import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
+import { addLogo } from "../sidebar/branding/BrandingOptions";
 
 
 const chunkDesigns = {};
@@ -273,12 +274,10 @@ export default function slide(slideId) {
                 colorFilters(g).init(this.slideId);
                 // Update color
                 updateColor(g).init(this.slideId);
-
             }
 
             if (shape_.data.active == "false")
                 shapeCls.remove();
-           
         });
 
         // Background
@@ -307,6 +306,9 @@ export default function slide(slideId) {
 
         // Update z-index
         this.updateZIndex();
+
+        // Add logo, if there is not
+        addLogo(session?.PRESENTATION?.settings?.logo?.image, this.slideId);
 
         // Update the mini prevs
         this.cloneToMiniPrev();

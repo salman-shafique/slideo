@@ -9,6 +9,45 @@ import shape from "../../entity/shape";
 import getShapeType from "../../shapes/actions/drag/utils/getShapeType";
 import apiService from "../../utils/apiService";
 import toastr from "../../components/toastr";
+import createNewImage from "../../shapes/image/createNewImage";
+
+
+const addLogoToSlide = (image, x, y, width, height, slideId) => {
+  const slide_ = slide(slideId);
+  const logo = slide_.page().querySelector("g[role='logo']");
+  if (logo) return;
+  createNewImage(
+    {
+      image,
+      x,
+      y,
+      width,
+      height,
+      role: "logo"
+    },
+    slideId
+  );
+}
+export const addLogo = (image, slideId = null) => {
+  if (!image) return;
+  if (!session?.PRESENTATION?.settings?.logo?.isActive) return;
+
+  const imageRatio = image.width / image.height;
+
+  const x = constants.SVG_WIDTH() / 48 * 39;
+  const y = constants.SVG_HEIGHT() / 24;
+  const width = constants.SVG_WIDTH() / 48 * 8;
+  const height = width / imageRatio;
+
+  // For a slide
+  if (slideId)
+    return addLogoToSlide(image, x, y, width, height, slideId);
+
+  // For all slides
+  session.PRESENTATION.slides.forEach(aSlide => {
+    addLogoToSlide(image, x, y, width, height, aSlide.slideId);
+  });
+}
 
 export default function BrandingOptions() {
   const [background, setBackground] = React.useState();
@@ -35,7 +74,6 @@ export default function BrandingOptions() {
     session.PRESENTATION.settings.fontFamily = newFontFamily;
     setSelectedFontFamily(newFontFamily);
   }
-
 
   React.useEffect(() => {
     Events.listen("slide.display", (event) => {
@@ -98,6 +136,7 @@ export default function BrandingOptions() {
       success: (r) => {
         if (r.success) {
           session.PRESENTATION.settings.logo = { ...r.logo };
+          addLogo(r.logo.image);
           setUploadedImage(session.PRESENTATION.settings.logo.image.url);
         } else {
           toastr.error(r.descr);
