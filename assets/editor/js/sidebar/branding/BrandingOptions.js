@@ -43,7 +43,7 @@ export default function BrandingOptions() {
         <strong>{colorPalettes[colorPaletteTitle].title}</strong>
         <br />
 
-        <div className="branding_active_color_palette row col-12 mx-0 mt-3 p-0">
+        <div className="branding_active_color_palette row col-12 m-0 p-0">
           {
             ACCENTS.map(
               (ACCENT) =>
