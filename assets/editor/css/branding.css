@@ -12,9 +12,7 @@
 .branding_color_palette {
     position: absolute;
     background-color: white;
-    width: 332px;
-    bottom: -27px;
-    left: 0;
+    width: 100%;
     z-index: 1;
 }
 

@@ -13,6 +13,12 @@ import {
   rmLogo,
   addLogo
 } from "./utils";
+import {
+  ACCENTS,
+  colorPalettes,
+  colorPaletteTitles
+} from "./colorPalettes";
+
 
 export default function BrandingOptions() {
   const [background, setBackground] = React.useState();
@@ -21,6 +27,46 @@ export default function BrandingOptions() {
   const uploadLogoInput = React.useRef();
   const [uploadedImage, setUploadedImage] = React.useState();
   const [selectedFontFamily, setSelectedFontFamily] = React.useState("");
+  const [selectedColorPalette, setSelectedColorPalette] = React.useState();
+
+  const changeThemeColor = (colorPaletteTitle) => {
+    setSelectedColorPalette(colorPaletteTitle);
+    setDropdownOpened(false);
+  }
+
+  const colorPaletteCards = [];
+  colorPaletteTitles.forEach((colorPaletteTitle, i) => {
+    colorPaletteCards.push(
+      <div key={i} onClick={() => {
+        changeThemeColor(colorPaletteTitle);
+      }}>
+        <strong>{colorPalettes[colorPaletteTitle].title}</strong>
+        <br />
+
+        <div className="branding_active_color_palette row col-12 mx-0 mt-3 p-0">
+          {
+            ACCENTS.map(
+              (ACCENT) =>
+                <div key={ACCENT} className="col-2 p-0 branding_color_circle_container border-bottom">
+                  <div className="branding_active_color_circle" style={{ backgroundColor: colorPalettes[colorPaletteTitle][ACCENT] }}></div>
+                </div>
+            )
+          }
+        </div>
+      </div>
+    )
+  });
+
+  const selectedColorPaletteCircles = [];
+  if (selectedColorPalette)
+    ACCENTS.forEach((ACCENT, i) => {
+      selectedColorPaletteCircles.push(
+        <div key={i} className="col-2 p-0 branding_color_circle_container">
+          <div className="branding_active_color_circle" style={{ backgroundColor: colorPalettes[selectedColorPalette][ACCENT] }}></div>
+        </div>
+      )
+    });
+
 
   const updatePresentationFont = (event) => {
     const newFontFamily = event.target.value;
@@ -126,37 +172,24 @@ export default function BrandingOptions() {
       <p className="col-12 p-0">Color palette</p>
       <div className="col-12 p-0 branding_color_palette_dropdown">
         <div onClick={() => setDropdownOpened(!dropdownOpened)} style={{ width: "100%" }}>
-          <select disabled className="form-control form-control-lg bg-white">
-            <option>Sunset</option>
+          <select disabled className="form-control form-control-lg bg-white cursor-pointer">
+            <option>{
+              selectedColorPalette
+                ? colorPalettes[selectedColorPalette].title
+                : "Default"
+            }</option>
           </select>
         </div>
         {
           dropdownOpened &&
           <div className="branding_color_palette border">
-            Here are some colors
-        </div>
+            {colorPaletteCards}
+          </div>
         }
       </div>
 
       <div className="branding_active_color_palette row col-12 mx-0 mt-3 p-0">
-        <div className="col-2 p-0 branding_color_circle_container">
-          <div className="branding_active_color_circle" style={{ backgroundColor: 'red' }}></div>
-        </div>
-        <div className="col-2 p-0 branding_color_circle_container">
-          <div className="branding_active_color_circle" style={{ backgroundColor: 'red' }}></div>
-        </div>
-        <div className="col-2 p-0 branding_color_circle_container">
-          <div className="branding_active_color_circle" style={{ backgroundColor: 'red' }}></div>
-        </div>
-        <div className="col-2 p-0 branding_color_circle_container">
-          <div className="branding_active_color_circle" style={{ backgroundColor: 'red' }}></div>
-        </div>
-        <div className="col-2 p-0 branding_color_circle_container">
-          <div className="branding_active_color_circle" style={{ backgroundColor: 'red' }}></div>
-        </div>
-        <div className="col-2 p-0 branding_color_circle_container">
-          <div className="branding_active_color_circle" style={{ backgroundColor: 'red' }}></div>
-        </div>
+        {selectedColorPaletteCircles}
       </div>
 
       <div className={"row col-12 mx-0 my-3 p-0 " + (background?.type == "solidFill" ? "" : "d-none")}>
@@ -202,8 +235,8 @@ export default function BrandingOptions() {
         </div>
         <div className="col-3 position-static pt-1">
           <div className="custom-control custom-switch">
-            <input checked={logoUploadOpened} onChange={showLogo} type="checkbox" className="custom-control-input cursor-pointer" id="tmp" />
-            <label className="custom-control-label" htmlFor="tmp"></label>
+            <input checked={logoUploadOpened} onChange={showLogo} type="checkbox" className="custom-control-input" id="tmp" />
+            <label className="custom-control-label cursor-pointer" htmlFor="tmp"></label>
           </div>
         </div>
         {
@@ -226,7 +259,7 @@ export default function BrandingOptions() {
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>
         <div className="col-12">Presentation font</div>
-        <select value={selectedFontFamily} onChange={updatePresentationFont} className="form-control form-control-lg">
+        <select value={selectedFontFamily} onChange={updatePresentationFont} className="form-control form-control-lg cursor-pointer">
           {fontFamilies}
         </select>
       </div>

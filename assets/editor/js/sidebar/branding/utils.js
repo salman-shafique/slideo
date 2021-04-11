@@ -53,7 +53,6 @@ export const rmLogo = () => {
         slide(tmpCurrentSlide).display();
 }
 
-
 /**
  * 
  * @param {{url:string,width:number,height:number}} image 
@@ -88,7 +87,6 @@ export const addLogoToSlide = (image, x, y, width, height, slideId) => {
         slideId
     );
 }
-
 
 /**
  * 
