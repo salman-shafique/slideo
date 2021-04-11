@@ -18,6 +18,7 @@ import {
   colorPalettes,
   colorPaletteTitles
 } from "./colorPalettes";
+import { getThemeColorNameOfShape } from "../colors/utils";
 
 
 export default function BrandingOptions() {
@@ -32,6 +33,57 @@ export default function BrandingOptions() {
   const changeThemeColor = (colorPaletteTitle) => {
     setSelectedColorPalette(colorPaletteTitle);
     setDropdownOpened(false);
+
+    session.PRESENTATION.slides.forEach(aSlide => {
+      aSlide.shapes.forEach(aShape => {
+        const shapeData = aShape.data;
+        const shape_ = shape(aSlide.slideId, shapeData.shape_id);
+        const g = shape_.el();
+        const themeColorAttrs = getThemeColorNameOfShape(g);
+        if (!themeColorAttrs) return;
+        const themeColorName = themeColorAttrs.themeColorName;
+        const color = colorPalettes[colorPaletteTitle][themeColorName];
+        let stop;
+        switch (themeColorAttrs.attributeName) {
+          case "fill_theme_color":
+            const path = g.querySelector("path");
+            if (path)
+              path.style.fill = color;
+            shapeData.fill_theme_color = themeColorName;
+            break;
+          case "fill_gradient_stop_0":
+            stop = g.querySelector('g defs stop[offset="0"]');
+            if (stop) {
+              stop.style.color = color;
+              stop.style.stopColor = color;
+            }
+            shapeData.fill_gradient_stop_0 = themeColorName;
+            break;
+          case "fill_gradient_stop_1":
+            stop = g.querySelector('g defs stop[offset="1"]');
+            if (stop) {
+              stop.style.color = color;
+              stop.style.stopColor = color;
+            }
+            shapeData.fill_gradient_stop_1 = themeColorName;
+            break;
+          case "text_theme_color":
+            const table = g.querySelector('table');
+            if (!table) return;
+            table.style.color = color;
+            shapeData.text_theme_color = themeColorName;
+            break;
+          case "icon_theme_color":
+            const shapeId = g.getAttribute("shape_id");
+            const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
+            feFlood.style.floodColor = color;
+            shapeData.icon_theme_color = themeColorName;
+            break;
+          default:
+            break;
+        }
+      });
+    });
   }
 
   const colorPaletteCards = [];
