@@ -30,7 +30,7 @@ export const updateLogo = (logo, image) => {
     imageElement.setAttribute('height', height);
     imageElement.setAttribute('xlink:href', image.url);
 
-    shapeData = shape(logo).shapeData();
+    const shapeData = shape(logo).data();
     shapeData.image = { ...image };
     shapeData.x = x;
     shapeData.y = y;
