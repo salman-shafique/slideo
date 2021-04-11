@@ -16,31 +16,36 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
         const rgb = hexToRgb(color);
 
         if (BACKGROUND) {
-            const slide_ = slide(session.CURRENT_SLIDE);
-            const slideData = slide_.slideData();
-            const background = slideData.background.data;
-            const documentElement = slide_.documentElement();
-            const g = documentElement.querySelector("g.SlideGroup g.Page g.Background");
-            // Handle if not g!
-            if (background.type == "solidFill") {
-                // fill_theme_color
-                let path = g.querySelector("path");
-                if (path)
-                    path.style.fill = color;
-                background.color = color.replace(/\#/g, "");
-            } else if (background.type == "gradFill") {
-                for (let i = 0; i < 2; i++) {
-                    if (GRADIENT_STOP === i) {
-                        let stop_ = g.querySelector(`g defs stop[offset="${i}"]`);
-                        if (stop_) {
-                            stop_.style.color = color;
-                            stop_.style.stopColor = color;
+            const tmpCurrentSlide = session.CURRENT_SLIDE;
+            session.PRESENTATION.slides.forEach(aSlide => {
+                const slide_ = slide(aSlide.slideId);
+                slide_.display();
+                const slideData = slide_.slideData();
+                const background = slideData.background.data;
+                const documentElement = slide_.documentElement();
+                const g = documentElement.querySelector("g.SlideGroup g.Page g.Background");
+                // Handle if not g!
+                if (background.type == "solidFill") {
+                    // fill_theme_color
+                    let path = g.querySelector("path");
+                    if (path)
+                        path.style.fill = color;
+                    background.color = color.replace(/\#/g, "");
+                } else if (background.type == "gradFill") {
+                    for (let i = 0; i < 2; i++) {
+                        if (GRADIENT_STOP === i) {
+                            let stop_ = g.querySelector(`g defs stop[offset="${i}"]`);
+                            if (stop_) {
+                                stop_.style.color = color;
+                                stop_.style.stopColor = color;
+                            }
+                            background.stops[i].color = color.replace(/\#/g, "");
+                            break;
                         }
-                        background.stops[i].color = color.replace(/\#/g, "");
-                        break;
                     }
                 }
-            }
+            });
+            slide(tmpCurrentSlide).display();
             return;
         }
         if (session.SELECTED_ELEMENTS.length < 1) return;
@@ -93,7 +98,7 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
             }
 
         });
-      
+
     }
     return (
         <div

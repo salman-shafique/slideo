@@ -10,9 +10,7 @@ import getShapeType from "../../shapes/actions/drag/utils/getShapeType";
 import apiService from "../../utils/apiService";
 import toastr from "../../components/toastr";
 import {
-  updateLogo,
   rmLogo,
-  addLogoToSlide,
   addLogo
 } from "./utils";
 
