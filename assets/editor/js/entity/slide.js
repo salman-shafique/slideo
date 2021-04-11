@@ -28,7 +28,7 @@ import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
 import preloader from "Editor/js/components/preloader";
 import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
-import { addLogo } from "../sidebar/branding/BrandingOptions";
+import { addLogo } from "../sidebar/branding/utils";
 
 
 const chunkDesigns = {};
