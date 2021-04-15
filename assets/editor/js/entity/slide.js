@@ -28,6 +28,7 @@ import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
 import preloader from "Editor/js/components/preloader";
 import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
+import { renderDOMPopup } from 'Editor/js/popups';
 
 
 const chunkDesigns = {};
@@ -128,6 +129,8 @@ export default function slide(slideId) {
             );
         });
         document.getElementById("SlideContainer").appendChild(main);
+
+        renderDOMPopup();
 
         return this;
     }
