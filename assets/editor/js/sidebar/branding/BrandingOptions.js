@@ -153,7 +153,7 @@ export default function BrandingOptions() {
 
     Events.listen("presentation.inited", () => {
 
-      if (Array.isArray(session.PRESENTATION.settings))
+      if (Array.isArray(session.PRESENTATION.settings) || !session.PRESENTATION.settings)
         session.PRESENTATION.settings = {
           fontFamily: "",
           logo: {
