@@ -107,7 +107,6 @@ export default function slide(slideId) {
 
     let miniPrev = stringToDOM(miniPrevHtml);
 
-    // Citra's Code
     miniPrev.ondragstart = (e) => {
       e.dataTransfer.setData("dragId", miniPrev.getAttribute("data-slide-id"));
     };
@@ -140,8 +139,6 @@ export default function slide(slideId) {
         }
       });
     };
-
-    // End of Citra's Code
 
     add_event(miniPrev, "click", function () {
       slide(this.dataset.slideId).display();
