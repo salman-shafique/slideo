@@ -44,7 +44,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
     )
 
     editIcon.onclick = () => {        
-        const g = editIcon.parentElement.parentElement
+        const g = editIcon.parentElement.parentElement;
 
         if (session.SELECTED_ELEMENTS.length === 0)
             selectEl({ target: { parentElement: g }});
@@ -52,7 +52,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
         if (session.SELECTED_ELEMENTS.length <= 1)
             selectTextboxElement({ target: { parentElement: g } });
 
-        Events.popup.text.open({ shape: g });
+        Events.popup.text.open({ shapeId: g.getAttribute("shape_id") });
     }
 
     foreignObject.appendChild(editIcon)
