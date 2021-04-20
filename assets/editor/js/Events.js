@@ -53,6 +53,9 @@ const Events = {
     popup:{
         text:{
             open : (data = {}) => dispatchEvent("popup.text.open", data),
+        },
+        icon: {
+            open : (data = {}) => dispatchEvent("popup.icon.open", data),
         }
     },
     colorCircle: {

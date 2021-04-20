@@ -1,16 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TextEditor from './TextEditor/TextEditor';
+import PopupsContainer from './PopupsContainer/PopupsContainer';
 
 // Creates new virtual DOM for the popup component, invoke only once
 export const renderDOMPopup = () => {
-    const textEditorPopup = document.createElement("div");
-    textEditorPopup.setAttribute("id", "TextEditorPopup");
+    const popupsContainer = document.createElement("div");
+    popupsContainer.setAttribute("id", "PopupsContainer");
+    popupsContainer.classList.add('popupscontainer');
 
-    document.getElementById("SlideContainer").appendChild(textEditorPopup);
+    document.getElementById("SlideContainer").appendChild(popupsContainer);    
 
-    ReactDOM.render(
-        <TextEditor />,
-        document.getElementById("TextEditorPopup")
-    );
+    ReactDOM.render(<PopupsContainer />, document.getElementById('PopupsContainer'));
 }

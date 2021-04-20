@@ -757,7 +757,7 @@ object[id^="prev_"] {
 }
 
 /* POPUP STYLES */
-#TextEditorPopup {
+.popupscontainer > div {
 	position: absolute;
 	z-index: 5;
 	width: 300px;
