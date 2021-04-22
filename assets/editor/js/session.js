@@ -11,7 +11,8 @@ let session = {
     NEW_SLIDES: [],
     /**
      * @type {{
-     *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[]}
+     *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[],
+     *  settings: {fontFamily: ?string, logo: {isActive: boolean, image:{url: string, width:number,height:number}}}
      *  }}
      */
     PRESENTATION: null,
@@ -50,4 +51,4 @@ let session = {
      */
     SCALING_DIRECTION: null
 }
-export default session 
+export default session

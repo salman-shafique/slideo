@@ -5,3 +5,4 @@ import "./designs";
 import "./textboxes";
 import "./shapes";
 import "./background";
+import "./branding";

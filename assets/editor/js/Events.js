@@ -20,6 +20,9 @@ export const hash = (str) => {
 
 const registeredListeners = {};
 const Events = {
+    presentation: {
+        inited: (data = {}) => dispatchEvent("presentation.inited", data)
+    },
     slide: {
         display: (data = {}) => dispatchEvent("slide.display", data)
     },

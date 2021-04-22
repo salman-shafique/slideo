@@ -74,6 +74,9 @@ const constants = {
         AUTO_SHAPE: 2,
         ICON: 3
     },
+    SHAPE_ROLES: {
+        LOGO: 0
+    },
     FILL_TYPES: {
         SOLID_FILL: 1,
         GRADIENT_FILL: 3
