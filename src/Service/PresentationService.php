@@ -15,6 +15,7 @@ use App\Repository\SlideRepository;
 use App\Repository\StyleRepository;
 use App\Service\FlaskService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -181,6 +182,55 @@ class PresentationService
         $this->em->persist($presentation);
         $this->em->flush();
         return ['success' => true];
+    }
+
+    public function saveSettings(Request $request, Presentation $presentation)
+    {
+        $presentation->setSettings($request->request->get('settings'));
+        $this->em->persist($presentation);
+        $this->em->flush();
+        return ['success' => true];
+    }
+
+    public function saveBrandLogo(Request $request, Presentation $presentation)
+    {
+        $logo = $request->files->get('logo');
+
+        /** @var UploadedFile $logo */
+        $mimeType = explode("/", $logo->getMimeType())[0];
+        if ($mimeType != "image")
+            return ['success' => false, 'descr' => 'Only images allowed'];
+
+        if ($logo->getSize() > 2000000)
+            return ['success' => false, 'descr' => 'Files must be 2MB at most.'];
+
+        $unique1 = hash('md2', uniqid());
+        $newFilename = "$unique1." . $logo->getClientOriginalExtension();
+
+        $unique2 = hash('md2', uniqid());
+        $logo->move(
+            "uploads/logo/$unique2",
+            $newFilename
+        );
+
+        list($width, $height) = getimagesize("uploads/logo/$unique2/$newFilename");
+
+        $url = "/uploads/logo/$unique2/$newFilename";
+
+        $settings = $presentation->getSettings();
+        $settings['logo'] = [
+            'isActive' => true,
+            'image' => [
+                'url' => $url,
+                'width' => $width,
+                'height' => $height
+            ]
+        ];
+
+        $presentation->setSettings($settings);
+        $this->em->persist($presentation);
+        $this->em->flush();
+        return ['success' => true, 'logo' => $settings['logo']];
     }
 
     public function downloadStart(Presentation $presentation)

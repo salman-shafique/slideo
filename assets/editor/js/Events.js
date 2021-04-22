@@ -20,6 +20,9 @@ export const hash = (str) => {
 
 const registeredListeners = {};
 const Events = {
+    presentation: {
+        inited: (data = {}) => dispatchEvent("presentation.inited", data)
+    },
     slide: {
         display: (data = {}) => dispatchEvent("slide.display", data)
     },
@@ -49,6 +52,11 @@ const Events = {
             changed: (data = {}) => dispatchEvent("shape.image.changed", data),
         },
         deleted: (data = {}) => dispatchEvent("shape.deleted", data),
+    },
+    popup:{
+        text:{
+            open : (data = {}) => dispatchEvent("popup.text.open", data),
+        }
     },
     colorCircle: {
         opened: (data = {}) => dispatchEvent("colorCircle.opened", data),

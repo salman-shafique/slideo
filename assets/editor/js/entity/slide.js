@@ -28,6 +28,9 @@ import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 import updateColor from "Editor/js/shapes/actions/color/updateColor";
 import preloader from "Editor/js/components/preloader";
 import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
+import { addLogo } from "../sidebar/branding/utils";
+import { renderDOMPopup } from 'Editor/js/popups';
+
 
 const chunkDesigns = {};
 
@@ -154,50 +157,215 @@ export default function slide(slideId) {
     let mainHtml = `
         <object id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
         `;
-    let main = stringToDOM(mainHtml);
+        let main = stringToDOM(mainHtml);
 
-    // Init the slide - move etc
-    add_event(main, "load", function () {
-      preloader.show(() => slide(this.dataset.slideId).initSlide());
-    });
-    document.getElementById("SlideContainer").appendChild(main);
+        // Init the slide - move etc
+        add_event(main, "load", function () {
+            preloader.show(
+                () => slide(this.dataset.slideId).initSlide()
+            );
+        });
+        document.getElementById("SlideContainer").appendChild(main);
 
-    return this;
-  };
+        renderDOMPopup();
 
-  this.initSlide = function () {
-    console.log(session);
+        return this;
+    }
 
-    this.object().style.visibility = "visible";
+    this.initSlide = function () {
+        console.log(session);
+        
+        this.object().style.visibility = "visible";
 
-    // Custom styles
-    this.insertCustomStyles();
+        // Custom styles
+        this.insertCustomStyles();
 
-    // Create g for the filters
-    const contentDocument = this.contentDocument();
-    const filterContainer = contentDocument.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "g"
-    );
-    filterContainer.setAttribute("id", "filterContainer");
-    this.slideG().appendChild(filterContainer);
+        // Create g for the filters
+        const contentDocument = this.contentDocument();
+        const filterContainer = contentDocument.createElementNS("http://www.w3.org/2000/svg", "g");
+        filterContainer.setAttribute("id", "filterContainer");
+        this.slideG().appendChild(filterContainer);
 
-    // update textbox style.direction
-    // Show the loaded slide
-    let slideData = this.slideData();
-    slideData.shapes.forEach((shape_) => {
-      const shapeCls = shape(this.slideId, shape_.data.shape_id);
-      let contentNumber, foreignObject, text, direction, content, g;
-      // Built in textboxes
-      if (shape_.data.alt.includes("h1|")) {
-        try {
-          contentNumber = shape_.data.alt.split("|")[1];
-          content = slideData.analyzedContent[contentNumber].h1.data;
-          shape_.data.text = text = content.text;
-          direction = content.direction;
-          Object.assign(shape_.data, content);
-        } catch {
-          shapeCls.remove();
+        // update textbox style.direction
+        // Show the loaded slide
+        let slideData = this.slideData();
+        slideData.shapes.forEach(shape_ => {
+            const shapeCls = shape(this.slideId, shape_.data.shape_id);
+            let contentNumber, foreignObject, text, direction, content, g;
+            // Built in textboxes
+            if (shape_.data.alt.includes("h1|")) {
+                try {
+                    contentNumber = shape_.data.alt.split("|")[1];
+                    content = slideData.analyzedContent[contentNumber].h1.data;
+                    shape_.data.text = text = content.text;
+                    direction = content.direction;
+                    Object.assign(shape_.data, content);
+                } catch {
+                    shapeCls.remove();
+                }
+            } else if (shape_.data.alt.includes("paragraph|")) {
+                try {
+                    contentNumber = shape_.data.alt.split("|")[1];
+                    content = slideData.analyzedContent[contentNumber].originalSentence.data;
+                    shape_.data.text = text = content.text;
+                    direction = content.direction;
+                    Object.assign(shape_.data, content);
+                    if (text == slideData.analyzedContent[contentNumber].h1.data.text)
+                        // Rm paragraph if it is same as h1
+                        throw new DOMException();
+                } catch {
+                    shapeCls.remove();
+                }
+            } else if (shape_.data.alt == "slidetitle") {
+                content = slideData.slideTitle.data;
+                if (!content.text)
+                    // Place holder slide title
+                    content = {
+                        text: constants.SLIDE_TITLE_PLACEHOLDER,
+                        direction: slideData.direction
+                    };
+                shape_.data.text = text = content.text;
+                direction = content.direction;
+                Object.assign(shape_.data, content);
+            } else if (shape_.data.alt == "subtitle") {
+                content = slideData.subTitle.data;
+                if (!content.text)
+                    // Place holder slide title
+                    content = {
+                        text: constants.SLIDE_SUBTITLE_PLACEHOLDER,
+                        direction: slideData.direction
+                    };
+                shape_.data.text = text = content.text;
+                direction = content.direction;
+                Object.assign(shape_.data, content);
+            } else if (shape_.data.alt == "newtextbox") {
+                createNewTextbox(shape_.data, this.slideId);
+            }
+            g = shapeCls.el();
+            if (text && g) {
+                foreignObject = createForeignObject(this.contentDocument(), shape_.data);
+                arrangeForeignObject(foreignObject, shape_.data, text, direction);
+                g.innerHTML = "";
+                g.classList.add("no-outline");
+                g.appendChild(foreignObject);
+            }
+
+            // Built in images icon - h1 - slidetitle
+            if (shape_.data.alt.includes("icon|")) {
+                contentNumber = shape_.data.alt.split("|").pop();
+                content = slideData.analyzedContent[contentNumber].icon.data;
+                Object.assign(shape_.data, content);
+                iconInit(this.slideId, shape_.data.shape_id, content.keyword);
+                // Add event listener
+                shapeCls.addEvent("click", selectIconElement);
+            } else if (shape_.data.alt.includes("h1image|")) {
+                contentNumber = shape_.data.alt.split("|")[1];
+                content = slideData.analyzedContent[contentNumber].h1Image.data;
+                Object.assign(shape_.data, content);
+                h1Image(this.slideId, shape_.data.shape_id, content.keyword);
+                // Add event listener
+                shapeCls.addEvent("click", selectImageElement);
+            } else if (shape_.data.alt == "slidetitleimage") {
+                content = slideData.slideTitleImage.data;
+                if (!content.keyword && !content.image) {
+                    let slideTitleImagePlaceholderUrl = g.querySelector("image").getAttribute("xlink:href");
+                    content = {
+                        image: {
+                            url: slideTitleImagePlaceholderUrl,
+                            keyword: ""
+                        },
+                        keyword: ""
+                    }
+                };
+                Object.assign(shape_.data, content);
+                h1Image(this.slideId, shape_.data.shape_id, content.keyword);
+                // Add event listener
+                shapeCls.addEvent("click", selectImageElement);
+            } else if (shape_.data.alt == "newimage") {
+                createNewImage(shape_.data, this.slideId);
+            } else if (shape_.data.alt == "newicon") {
+                createNewIcon(shape_.data, this.slideId);
+            } else if (shape_.data.alt == "image") {
+                // handle the builtin images
+                if (!shape_.data.keyword && !shape_.data.image) {
+                    const imagePlaceholderUrl = g.querySelector("image").getAttribute("xlink:href");
+
+                    shape_.data.image = {
+                        url: imagePlaceholderUrl,
+                        keyword: ""
+                    }
+                    shape_.data.keyword = "";
+                };
+                h1Image(this.slideId, shape_.data.shape_id, shape_.data.keyword);
+                // Add event listener
+                shapeCls.addEvent("click", selectImageElement);
+            }
+
+            g = shapeCls.el();
+            if (g) {
+                // Update the SVG attributes
+                shapeCls.updateAttrs();
+                // initialize the transform
+                initializeG(g);
+                // Move to saved position
+                shapeCls.moveToSavedPosition();
+                // initialize the filters
+                colorFilters(g).init(this.slideId);
+                // Update color
+                updateColor(g).init(this.slideId);
+            }
+
+            if (shape_.data.active == "false")
+                shapeCls.remove();
+        });
+
+        // Background
+        updateColor().background(this.slideId);
+
+        this.display();
+
+        // Add event listeners
+        makeDraggable(this.contentDocument());
+        keyboardListener(this.contentDocument());
+        this.contentDocument().addEventListener("dblclick", selectTextboxElement);
+        this.contentDocument().addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+             
+            // While triggering the "contextMenu.open" event, send the target too.
+            Events.contextMenu.open({ target: e.target, event: e });
+        });
+
+        // Reduce the font sizes h1
+        reduceFontSize(selectAll("g[alt^='h1|']", this.page()));
+
+        // Reduce the font sizes paragraph
+        reduceFontSize(selectAll("g[alt^='paragraph|']", this.page()));
+
+        // Slide numbers
+        refresh_slide_prev_numbers();
+
+        // Update z-index
+        this.updateZIndex();
+
+        // Add logo, if there is not
+        addLogo(session?.PRESENTATION?.settings?.logo?.image, this.slideId);
+
+        // Update the mini prevs
+        this.cloneToMiniPrev();
+
+        return this;
+    }
+
+    this.updateZIndex = () => {
+        // First check if the shape_index saved before
+        /**
+         * @type {Array} shapes
+         */
+        const shapes = this.slideData().shapes;
+        for (let index = 0; index < shapes.length; index++) {
+            const shape_ = shapes[index];
+            if (!shape_.data.shape_index) return;
+            if (typeof shape_.data.shape_index != "number") return;
         }
       } else if (shape_.data.alt.includes("paragraph|")) {
         try {

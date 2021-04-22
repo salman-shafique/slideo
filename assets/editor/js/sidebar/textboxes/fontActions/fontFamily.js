@@ -5,6 +5,29 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 import Events from "Editor/js/Events";
 
+export const defaultFontFamilies = [
+    "Arial",
+    "Arial Black",
+    "Arial, sans-serif",
+    "Assistant",
+    "Bookman",
+    "Candara",
+    "Comic Sans MS",
+    "Courier",
+    "Courier New",
+    "DejaVu Sans, sans-serif",
+    "DM Sans, sans-serif",
+    "Impact",
+    "Garamond",
+    "Georgia",
+    "Palatino",
+    "Tahoma",
+    "Times",
+    "Times New Roman",
+    "Varela Round",
+    "Verdana"
+];
+
 export default function FontFamily(props) {
     const [selectedFontFamily, setSelectedFontFamily] = React.useState(null);
 
@@ -22,7 +45,7 @@ export default function FontFamily(props) {
 
     const updateDropdown = () => {
         if (!session.INITED) return;
-        
+
         if (session.SELECTED_ELEMENTS.length != 1) {
             setSelectedFontFamily(null);
             return;
@@ -71,29 +94,6 @@ export default function FontFamily(props) {
         if (changed)
             setSelectedFontFamily(newFontFamily);
     }
-
-    const defaultFontFamilies = [
-        "Arial",
-        "Arial Black",
-        "Arial, sans-serif",
-        "Assistant",
-        "Bookman",
-        "Candara",
-        "Comic Sans MS",
-        "Courier",
-        "Courier New",
-        "DejaVu Sans, sans-serif",
-        "DM Sans, sans-serif",
-        "Impact",
-        "Garamond",
-        "Georgia",
-        "Palatino",
-        "Tahoma",
-        "Times",
-        "Times New Roman",
-        "Varela Round",
-        "Verdana"
-    ];
 
     const options = [];
     let selectedFontFamilyAdded = false;

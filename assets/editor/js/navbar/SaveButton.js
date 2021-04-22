@@ -54,6 +54,14 @@ export function saveChanges(callback = null) {
                 }
             });
         });
+
+        // Save presentation settings
+        apiService({
+            url: "/api/presentation/save/settings",
+            data: {
+                settings: session.PRESENTATION.settings
+            }
+        });
         preloader.hide();
     }, 50);
     // Save the history
