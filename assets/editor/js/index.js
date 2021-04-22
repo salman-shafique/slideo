@@ -32,9 +32,14 @@ import "Editor/js/components/ContextMenu";
 // History
 import "Editor/js/history";
 
+// Text Editor Popup
+import "Editor/js/popups";
 
 window.onerror = (r)=>{
     preloader.forceHide();
     console.error(r);
 }
+ 
+
+
 

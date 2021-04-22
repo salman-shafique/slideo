@@ -80,9 +80,6 @@ Events.listen("shape.selected", (event) => {
       cancelEditing({ data: { shape: selectedEl.shape } });
     });
   }
-  // Open the sidebar
-  if (getShapeType(event.data.shape) == constants.SHAPE_TYPES.TEXTBOX)
-    sidebar.open("Text_Tool");
 });
 
 

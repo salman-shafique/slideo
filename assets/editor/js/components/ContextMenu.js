@@ -39,8 +39,9 @@ function ContextMenu() {
 
         const slideObject = slide(session.CURRENT_SLIDE).object().getBoundingClientRect();
         const clickedEl = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect();
-        setContextMenuLeft(slideObject.left + clickedEl.left + clickedEl.width);
-        setContextMenuTop(slideObject.top + clickedEl.top);
+      
+        setContextMenuLeft((slideObject.left + clickedEl.left+clickedEl.width  ) +(e.data.event.offsetX- clickedEl.left-clickedEl.width)   );
+        setContextMenuTop((slideObject.top + clickedEl.top+clickedEl.height)+(e.data.event.y-clickedEl.top-clickedEl.height) );
 
         if (session.SELECTED_ELEMENTS.length == 1) {
             // One element selected
