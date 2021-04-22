@@ -49,6 +49,10 @@ let session = {
     /**
      * @type {string} SCALING_DIRECTION - lt,t,rt,r,rb,b,lb,l
      */
-    SCALING_DIRECTION: null
+    SCALING_DIRECTION: null,
+    /**
+     * @type {{slideId: number}} LAST_MINIPREV_UPDATE 
+     */
+    LAST_MINIPREV_UPDATE: {}
 }
 export default session

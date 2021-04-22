@@ -24,7 +24,10 @@ const Events = {
         inited: (data = {}) => dispatchEvent("presentation.inited", data)
     },
     slide: {
-        display: (data = {}) => dispatchEvent("slide.display", data)
+        display: (data = {}) => dispatchEvent("slide.display", data),
+        preview: {
+            update: (data = {}) => dispatchEvent("slide.preview.update", data),
+        }
     },
     shape: {
         drag: {
@@ -53,9 +56,9 @@ const Events = {
         },
         deleted: (data = {}) => dispatchEvent("shape.deleted", data),
     },
-    popup:{
-        text:{
-            open : (data = {}) => dispatchEvent("popup.text.open", data),
+    popup: {
+        text: {
+            open: (data = {}) => dispatchEvent("popup.text.open", data),
         }
     },
     colorCircle: {

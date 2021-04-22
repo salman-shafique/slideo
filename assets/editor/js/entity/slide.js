@@ -356,7 +356,7 @@ export default function slide(slideId) {
 
     // Add logo, if there is not
     addLogo(session?.PRESENTATION?.settings?.logo?.image, this.slideId);
-    
+
     // Update the mini prevs
     this.cloneToMiniPrev();
 
@@ -425,14 +425,23 @@ export default function slide(slideId) {
   };
 
   this.cloneToMiniPrev = () => {
-    let contentDocument = window.top.document.getElementById(
+    if (session.LAST_MINIPREV_UPDATE[this.slideId] + 1000 > Date.now()) return;
+
+    const contentDocument = window.top.document.getElementById(
       "prev_" + this.slideId
     ).contentDocument;
     if (contentDocument.querySelector("svg")) {
-      let clone = this.slideG().cloneNode(true);
+      const clone = this.slideG().cloneNode(true);
+      clone.style.visibility = "hidden";
+
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
-      oldSlideG.remove();
+
+      setTimeout(() => {
+        oldSlideG.remove();
+        clone.style.visibility = "visible";
+      }, 500);
+      session.LAST_MINIPREV_UPDATE[this.slideId] = Date.now();
     }
   };
 
