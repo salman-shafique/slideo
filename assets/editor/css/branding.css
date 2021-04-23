@@ -1,0 +1,74 @@
+.branding_color_palette_dropdown {
+    color: black;
+    cursor: pointer;
+    position: relative;
+}
+
+.branding_color_palette_arrow {
+    float: right;
+    font-size: 16px;
+}
+
+.branding_color_palette {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    z-index: 1;
+}
+
+.branding_active_color_palette {}
+
+.branding_color_circle_container {
+    display: flex;
+    justify-content: center;
+}
+
+.branding_active_color_circle {
+    border-radius: 100%;
+    border: 2px solid gray;
+    width: 38px;
+    height: 38px;
+    margin: 3px;
+}
+
+.branding_upload_logo_container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+.branding_upload_logo_content {
+    align-self: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.branding_transparent_pattern {
+    --stripe: #cfd8dc;
+    --bg: #e1e1e1;
+    background: linear-gradient(135deg, var(--bg) 25%, transparent 25%) -50px 0, linear-gradient(225deg, var(--bg) 25%, transparent 25%) -50px 0, linear-gradient(315deg, var(--bg) 25%, transparent 25%), linear-gradient(45deg, var(--bg) 25%, transparent 25%);
+    background-size: 100px 100px;
+    background-color: var(--stripe);
+}
+
+.branding_upload_logo_icon {
+    width: auto;
+    height: 60px;
+}
+
+.branding_upload_logo_text {
+    margin: 0;
+    color: #17A2B8;
+}
+
+.branding_upload_logo_rm {
+    position: absolute;
+    right: 0;
+    top: -21px;
+    font-weight: 900;
+    -webkit-text-stroke: 1px gray;
+    color: red;
+    cursor: pointer;
+}

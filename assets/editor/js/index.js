@@ -35,6 +35,10 @@ import "Editor/js/history";
 // Text Editor Popup
 import "Editor/js/popups";
 
+// Update slide mini prev
+import "Editor/js/slides/updateMiniPrev";
+
+
 window.onerror = (r)=>{
     preloader.forceHide();
     console.error(r);

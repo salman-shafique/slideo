@@ -86,6 +86,11 @@ class Presentation
      */
     private $history = null;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $settings = [];
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
@@ -256,6 +261,18 @@ class Presentation
     public function setHistory(?array $history): self
     {
         $this->history = $history;
+
+        return $this;
+    }
+
+    public function getSettings(): ?array
+    {
+        return $this->settings;
+    }
+
+    public function setSettings(?array $settings): self
+    {
+        $this->settings = $settings;
 
         return $this;
     }

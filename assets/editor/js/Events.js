@@ -20,8 +20,14 @@ export const hash = (str) => {
 
 const registeredListeners = {};
 const Events = {
+    presentation: {
+        inited: (data = {}) => dispatchEvent("presentation.inited", data)
+    },
     slide: {
-        display: (data = {}) => dispatchEvent("slide.display", data)
+        display: (data = {}) => dispatchEvent("slide.display", data),
+        preview: {
+            update: (data = {}) => dispatchEvent("slide.preview.update", data),
+        }
     },
     shape: {
         drag: {
@@ -50,12 +56,18 @@ const Events = {
         },
         deleted: (data = {}) => dispatchEvent("shape.deleted", data),
     },
+<<<<<<< HEAD
     popup:{
         text:{
             open : (data = {}) => dispatchEvent("popup.text.open", data),
         },
         icon: {
             open : (data = {}) => dispatchEvent("popup.icon.open", data),
+=======
+    popup: {
+        text: {
+            open: (data = {}) => dispatchEvent("popup.text.open", data),
+>>>>>>> origin/master
         }
     },
     colorCircle: {

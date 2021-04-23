@@ -12,21 +12,27 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
 let addedImageCounter = 0;
 
-export default function createNewImage(imageData,slideId = session.CURRENT_SLIDE) {
+export default function createNewImage(imageData, slideId = session.CURRENT_SLIDE) {
     const x = constants.SVG_WIDTH() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH() / 48;
     const y = constants.SVG_HEIGHT() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT() / 48;
-    const width = constants.SVG_WIDTH() / 12 * 8;
+
     const height = constants.SVG_HEIGHT() / 12 * 8;
+    let width;
+    if (imageData?.image?.width && imageData?.image?.height) {
+        const imageRatio = imageData.image.width / imageData.image.height;
+        width = imageRatio * height;
+    } else
+        width = constants.SVG_WIDTH() / 12 * 8;
 
     const newShapeData = {
         data: {
             active: "true",
             alt: "newimage",
-            height: height,
             rotation: 0,
-            width: width,
-            x: x,
-            y: y
+            height,
+            width,
+            x,
+            y
         }
     }
 
@@ -35,7 +41,7 @@ export default function createNewImage(imageData,slideId = session.CURRENT_SLIDE
         newShapeData.data.shape_id = Math.floor(Math.random() * 1000000) + 1000000;
 
     const newImageShape = reactToDOM(
-        <g xmlns="http://www.w3.org/2000/svg" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} alt="newimage" className="draggable" shape_id={newShapeData.data.shape_id}>
+        <g xmlns="http://www.w3.org/2000/svg" role={newShapeData.data.role} height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} alt={newShapeData.data.alt} className="draggable" shape_id={newShapeData.data.shape_id}>
             <image className="bounding_box" height={newShapeData.data.height} width={newShapeData.data.width} x={newShapeData.data.x} y={newShapeData.data.y} xmlnsXlink="http://www.w3.org/1999/xlink" />
         </g>,
         null,

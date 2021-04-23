@@ -11,7 +11,8 @@ let session = {
     NEW_SLIDES: [],
     /**
      * @type {{
-     *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[]}
+     *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[],
+     *  settings: {fontFamily: ?string, logo: {isActive: boolean, image:{url: string, width:number,height:number}}}
      *  }}
      */
     PRESENTATION: null,
@@ -48,6 +49,10 @@ let session = {
     /**
      * @type {string} SCALING_DIRECTION - lt,t,rt,r,rb,b,lb,l
      */
-    SCALING_DIRECTION: null
+    SCALING_DIRECTION: null,
+    /**
+     * @type {{slideId: number}} LAST_MINIPREV_UPDATE 
+     */
+    LAST_MINIPREV_UPDATE: {}
 }
-export default session 
+export default session

@@ -20,6 +20,10 @@ docker-compose -f docker-compose.dev.yml up
 [Flask](http://localhost:5501)
 [Rabbit MQ](http://localhost:5502)
 [Database management](http://localhost:5503)
+```
+slideo_mysql_user
+slideo_mysql_password
+```
 ### Others:
 #### Disable the PHP cache on development:
 `php.ini`
