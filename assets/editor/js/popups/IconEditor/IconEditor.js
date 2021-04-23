@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Popup from '../Popup/Popup';
 import Events from "Editor/js/Events";
 import session from "Editor/js/session";
-
-// this is imported from sidebar
-import FontActions from '../../sidebar/textboxes/fontActions/FontActions';
+import IconEditorContent from './IconEditorContent';
 
 export default function IconEditor() {
     const [visible, setVisible] = useState(false);
@@ -30,7 +28,7 @@ export default function IconEditor() {
 
     return (
         <Popup visible={ visible } shape={ activeShape } parent={'IconPopup'} >
-            <FontActions />
+            <IconEditorContent />
         </Popup>
     );
 }

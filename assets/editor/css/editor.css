@@ -774,3 +774,29 @@ object[id^="prev_"] {
 .slidepopup--visible {
 	display: block;
 }
+
+.slidepopup .search-section {
+	background-color: #484848;
+	box-shadow: 10px 10px 10px -8px #000;
+	border-radius: 24px 24px 0px 0px;
+}
+
+.slidepopup .main-section {
+	margin-top: -2px;
+	background-color: #484848;
+	border-radius: 0px 0px 24px 24px;
+}
+
+.slidepopup .main-section .images-gallery {
+	max-height: 240px;
+}
+
+
+.slidepopup .keywords-list .search-keyword  {
+	background-color: #929292;
+	opacity: 1 !important;
+}
+
+.slidepopup .keywords-list .active {
+	background-color: #d3d3d3;
+}
