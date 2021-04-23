@@ -56,18 +56,12 @@ const Events = {
         },
         deleted: (data = {}) => dispatchEvent("shape.deleted", data),
     },
-<<<<<<< HEAD
     popup:{
         text:{
             open : (data = {}) => dispatchEvent("popup.text.open", data),
         },
         icon: {
             open : (data = {}) => dispatchEvent("popup.icon.open", data),
-=======
-    popup: {
-        text: {
-            open: (data = {}) => dispatchEvent("popup.text.open", data),
->>>>>>> origin/master
         }
     },
     colorCircle: {
