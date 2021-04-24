@@ -1,6 +1,7 @@
 import shape from "Editor/js/entity/shape";
 import Events from "../../Events";
 import getWhiteIcon from "./getWhiteIcon";
+import createForeignObject from './createForeignObject';
 
 export const updateIcon = (slideId, shapeId, icon) => {
     const shape_ = shape(slideId, shapeId);
@@ -29,6 +30,9 @@ export const updateIcon = (slideId, shapeId, icon) => {
 export default function selectIcon(slideId, shapeId, icon = null) {
     const shape_ = shape(slideId, shapeId);
     const shapeData = shape_.data();
+
+    if (!shape_.el().querySelector('foreignObject'))
+        createForeignObject(shape_.el());
 
     if (icon) {
         Events.shape.icon.changed({ oldIcon: shapeData.icon, newIcon: icon });
