@@ -32,8 +32,9 @@ export default function Popup(props) {
         } else {
             // SECTION 3 (BOTTOM LEFT)
             let left = point.x + shape.width + 40;
-            const top = point.y - popupHeight;   
+            let top = point.y - popupHeight; 
 
+            top =  top > 0 ? top : 0;         
             left = left >= width - popupWidth + 20 ? width - popupWidth + 20 : left;
 
             parentNode.style.left = left + 'px';
@@ -82,7 +83,18 @@ export default function Popup(props) {
             return;
 
         initPopup(slideContainer, parentNode);
+
+        const observer = new ResizeObserver(() => {
+            initPopup(slideContainer, parentNode);
+        });
+
+        observer.observe(parentNode);
+
+        return () => {
+            observer.unobserve(parentNode);
+        };
     });
+
 
     return (
         <div className={ classNames } >

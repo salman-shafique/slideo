@@ -5,11 +5,12 @@ import constants from "Editor/js/constants";
  */
 export default function getShapeType(g) {
     if (!g) return;
-    if (g.querySelector("foreignObject"))
-        return constants.SHAPE_TYPES.TEXTBOX;
 
-    const alt = g.getAttribute("alt") || "";
-    if (alt.includes("icon"))
+    const alt = g.getAttribute("alt");
+
+    if (g.querySelector("foreignObject") && !alt.includes("icon"))
+        return constants.SHAPE_TYPES.TEXTBOX;
+    if (alt && alt.includes("icon"))
         return constants.SHAPE_TYPES.ICON;
     if (alt.includes("image"))
         return constants.SHAPE_TYPES.IMAGE;

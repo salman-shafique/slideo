@@ -56,9 +56,12 @@ const Events = {
         },
         deleted: (data = {}) => dispatchEvent("shape.deleted", data),
     },
-    popup: {
-        text: {
-            open: (data = {}) => dispatchEvent("popup.text.open", data),
+    popup:{
+        text:{
+            open : (data = {}) => dispatchEvent("popup.text.open", data),
+        },
+        icon: {
+            open : (data = {}) => dispatchEvent("popup.icon.open", data),
         }
     },
     colorCircle: {
