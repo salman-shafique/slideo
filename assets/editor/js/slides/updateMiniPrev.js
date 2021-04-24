@@ -12,4 +12,3 @@ Events.listen("shape.textbox.edit.ended", updateMiniPrev);
 Events.listen("shape.icon.changed", updateMiniPrev);
 Events.listen("shape.image.changed", updateMiniPrev);
 Events.listen("slide.preview.update", updateMiniPrev);
-Events.listen("shape.drag.ended", updateMiniPrev);
