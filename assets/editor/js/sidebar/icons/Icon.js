@@ -1,6 +1,4 @@
 import React from "react";
-import session from "Editor/js/session";
-import selectIcon from "Editor/js/shapes/icon/selectIcon";
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
 import highlightIcon from "Editor/js/shapes/icon/highlightIcon";
 
