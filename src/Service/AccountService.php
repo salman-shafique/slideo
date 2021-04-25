@@ -70,7 +70,7 @@ class AccountService
                 'descr' => 'Max file size exceed'
             ];
 
-        $newFilename = uniqid() . '.' . $image->getClientOriginalExtension();
+        $newFilename = hash('md2', uniqid()) . '.' . $image->getClientOriginalExtension();
         $image->move(
             "uploads/user/" . $user->getId(),
             $newFilename

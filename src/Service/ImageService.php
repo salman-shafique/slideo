@@ -75,14 +75,16 @@ class ImageService
             $mimeType = explode("/", $image->getMimeType())[0];
             if ($mimeType != "image") continue;
             if ($image->getSize() > 5000000) continue;
+            $extension = $image->guessExtension();
+            if (!in_array($extension, ["bmp", "gif", "jpg", "jpeg", "png", "tiff", "wmf"])) continue;
 
             $uploadedImage = new UploadedImage;
             list($width, $height) = getimagesize($image);
             $uploadedImage->setWidth((int)$width);
             $uploadedImage->setHeight((int)$height);
 
-            $newFilename = uniqid("image_", true) . '.' . $image->guessClientExtension();
-            $uniqueFolder = uniqid("", true);
+            $newFilename = hash('md2', uniqid()) . ".$extension";
+            $uniqueFolder = hash('md2', uniqid());
             $image->move(
                 "uploads/$uniqueFolder",
                 $newFilename
@@ -111,7 +113,7 @@ class ImageService
         if (count($addedImages) > 0)
             return ["success" => true, "addedImages" => $addedImages];
         else
-            return ["success" => false, "descr" => "No images added"];
+            return ["success" => false, "descr" => "No images added. Only BMP-GIF-JPG-JPEG-PNG-TIFF-WMF allowed"];
     }
 
     public function userImagesGet()
