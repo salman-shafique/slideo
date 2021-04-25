@@ -431,8 +431,15 @@ export default function slide(slideId) {
       "prev_" + this.slideId
     ).contentDocument;
     if (contentDocument.querySelector("svg")) {
+      /**
+       * @type {SVGGElement} clone
+       */
       const clone = this.slideG().cloneNode(true);
       clone.style.visibility = "hidden";
+      // Clear the clone
+      clone
+        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon")
+        ?.forEach(e => e.remove());
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
