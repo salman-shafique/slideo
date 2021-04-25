@@ -8,17 +8,7 @@ import highlightIcon from "Editor/js/shapes/icon/highlightIcon";
 export default function Icon({ iconData }) {
     const onClick = () => {
         highlightIcon(iconData);
-        
-        if (session.SELECTED_ELEMENTS.length == 1) {
-            const g = session.SELECTED_ELEMENTS[0].shape;
-            const alt = g.getAttribute("alt");
-            if (alt.includes("icon|") ||
-                alt == "newicon") {
-                const shapeId = session.SELECTED_ELEMENTS[0].shapeId;
-                selectIcon(session.CURRENT_SLIDE, shapeId, iconData);
-                return;
-            }
-        }
+
         // Add new icon
         createNewIcon({ icon: iconData, keyword: iconData.keyword });
     }
