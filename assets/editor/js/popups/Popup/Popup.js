@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import session from '../../session';
 
 export default function Popup(props) {
     const classNames = `slidepopup ${props.visible ? 'slidepopup--visible' : undefined}`
@@ -71,7 +72,7 @@ export default function Popup(props) {
 
     useEffect(() => {
         const parentNode = document.getElementById(props.parent);
-        const slideContainer = document.getElementById('SlideContainer').children[0];
+        const slideContainer = document.getElementById(session.CURRENT_SLIDE);
 
         // only init popup when shape is active
         if (!props.shape) {            
