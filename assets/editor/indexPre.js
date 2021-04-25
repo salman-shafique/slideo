@@ -1,17 +1,34 @@
 import React from "react";
 import ReactDom from "react-dom";
 import Modal from './js/components/Modal.js';
-
 // Bootstrap JS
 import '../js/bootstrap.bundle.min.js';
-
-// Entry - Modal and editor functions
-// Analyze users content
-import "Editor/js/entry";
-
+import apiService from "Editor/js/utils/apiService";
 // Preloader
 import preloader from "Editor/js/components/preloader";
 import toastr from "./js/components/toastr.js";
+import add_event from "./js/utils/add_event.js";
+
+add_event("#entry_analyze", "click", () => {
+    preloader.show();
+    apiService({
+        url: "/api/editor/create/slides",
+        data: {
+            "innerHtml": window.editor.getData()
+        },
+        success: (response) => {
+            if (response.success === false) {
+                toastr.error(response.descr);
+                preloader.hide();
+                return;
+            }
+            if (response.presentationId) {
+                location.href = "/editor/" + response.presentationId;
+                return;
+            }
+        }
+    });
+});
 
 ReactDom.render(
     <Modal show large id="buttons_modal" >
@@ -57,7 +74,6 @@ ReactDom.render(
 );
 
 
-
 (function () {
     preloader.hide();
 })()
@@ -78,7 +94,7 @@ navigator.saysWho = (() => {
             return temp.slice(1).join(' ').replace('OPR', 'Opera')
 
         temp = userAgent.match(/\b(Edg)\/(\d+)/)
-        if (temp !== null) 
+        if (temp !== null)
             return temp.slice(1).join(' ').replace('Edg', 'Edge (Chromium)')
     }
 
