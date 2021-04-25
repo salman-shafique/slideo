@@ -122,6 +122,9 @@ export default function slide(slideId) {
       let o = session.PRESENTATION.slidesOrder;
       let dragId = e.dataTransfer.getData("dragId");
       let dropId = miniPrev.getAttribute("data-slide-id");
+      if (!dragId || !dropId) return;
+      if (dragId == dropId) return;
+
       let dragOrder = o.findIndex((i) => i === dragId);
       let dropOrder = o.findIndex((i) => i === dropId);
 
