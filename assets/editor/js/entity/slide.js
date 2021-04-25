@@ -140,6 +140,7 @@ export default function slide(slideId) {
           parent.insertBefore(ix[i], parent.children[dragOrder]);
         }
       });
+      refresh_slide_prev_numbers();
     };
 
     add_event(miniPrev, "click", function () {
@@ -290,7 +291,6 @@ export default function slide(slideId) {
         createNewImage(shape_.data, this.slideId);
       } else if (shape_.data.alt == "newicon") {
         createNewIcon(shape_.data, this.slideId);
-        e, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, i;
       } else if (shape_.data.alt == "image") {
         // handle the builtin images
         if (!shape_.data.keyword && !shape_.data.image) {
