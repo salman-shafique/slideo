@@ -10,26 +10,26 @@ export default function TextEditor() {
     const [visible, setVisible] = useState(false);
     const [activeShape, setActiveShape] = useState(null);
 
+    const closePopup = (e) => {
+        setActiveShape(null);
+        setVisible(false);
+    }
+
     // initializing shape listeners
     useEffect(() => {
         Events.listen("popup.text.open", (e) => {
             setActiveShape(session.SELECTED_ELEMENTS.filter(shape => shape.shapeId === e.data.shapeId)[0]);
             setVisible(true);
+            Events.popup.text.opened();
         });
 
-        Events.listen("shape.allReleased", () => {
-            setActiveShape(null);
-            setVisible(false);
-        });
-
-        Events.listen("shape.selected", () => {
-            setActiveShape(null);
-            setVisible(false);
-        });
+        Events.listen("shape.allReleased", closePopup);
+        Events.listen("shape.selected", closePopup);
+        Events.listen("popup.icon.opened", closePopup);
     }, []);
 
     return (
-        <Popup visible={ visible } shape={ activeShape } parent={'TextEditorPopup'} >
+        <Popup visible={visible} shape={activeShape} parent={'TextEditorPopup'} >
             <FontActions />
         </Popup>
     );

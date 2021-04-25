@@ -8,26 +8,27 @@ export default function IconEditor() {
     const [visible, setVisible] = useState(false);
     const [activeShape, setActiveShape] = useState(null);
 
+
+    const closePopup = (e) => {
+        setActiveShape(null);
+        setVisible(false);
+    }
+
     // initializing shape listeners
     useEffect(() => {
         Events.listen("popup.icon.open", (e) => {
             setActiveShape(session.SELECTED_ELEMENTS.filter(shape => shape.shapeId === e.data.shapeId)[0]);
             setVisible(true);
+            Events.popup.icon.opened();
         });
 
-        Events.listen("shape.allReleased", () => {
-            setActiveShape(null);
-            setVisible(false);
-        });
-
-        Events.listen("shape.selected", () => {
-            setActiveShape(null);
-            setVisible(false);
-        });
+        Events.listen("shape.allReleased", closePopup);
+        Events.listen("shape.selected", closePopup);
+        Events.listen("popup.text.opened", closePopup);
     }, []);
 
     return (
-        <Popup visible={ visible } shape={ activeShape } parent={'IconPopup'} >
+        <Popup visible={visible} shape={activeShape} parent={'IconPopup'} >
             <IconEditorContent />
         </Popup>
     );
