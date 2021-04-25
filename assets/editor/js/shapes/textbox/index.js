@@ -42,7 +42,7 @@ const cancelEditing = (event) => {
   */  
 
   const g = event.data.shape;
-  if (g.getAttribute('shape_type').toLowerCase().includes('picture')) return;
+  if (g.getAttribute('shape_type')?.toLowerCase().includes('picture')) return;
   if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
 
   const td = g.querySelector("td");
