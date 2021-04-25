@@ -122,6 +122,9 @@ export default function slide(slideId) {
       let o = session.PRESENTATION.slidesOrder;
       let dragId = e.dataTransfer.getData("dragId");
       let dropId = miniPrev.getAttribute("data-slide-id");
+      if (!dragId || !dropId) return;
+      if (dragId == dropId) return;
+
       let dragOrder = o.findIndex((i) => i === dragId);
       let dropOrder = o.findIndex((i) => i === dropId);
 
@@ -140,6 +143,7 @@ export default function slide(slideId) {
           parent.insertBefore(ix[i], parent.children[dragOrder]);
         }
       });
+      refresh_slide_prev_numbers();
     };
 
     add_event(miniPrev, "click", function () {
@@ -290,7 +294,6 @@ export default function slide(slideId) {
         createNewImage(shape_.data, this.slideId);
       } else if (shape_.data.alt == "newicon") {
         createNewIcon(shape_.data, this.slideId);
-        e, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, ie, i;
       } else if (shape_.data.alt == "image") {
         // handle the builtin images
         if (!shape_.data.keyword && !shape_.data.image) {
@@ -431,8 +434,15 @@ export default function slide(slideId) {
       "prev_" + this.slideId
     ).contentDocument;
     if (contentDocument.querySelector("svg")) {
+      /**
+       * @type {SVGGElement} clone
+       */
       const clone = this.slideG().cloneNode(true);
       clone.style.visibility = "hidden";
+      // Clear the clone
+      clone
+        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon")
+        ?.forEach(e => e.remove());
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);

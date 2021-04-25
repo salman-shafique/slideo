@@ -150,7 +150,6 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
     Events.listen("colorCircle.open", () => {
       if (getSelectedElementsType() === SHAPE_TYPE) {
         if(GRADIENT_STOP != 1){
-          sidebar.open(SHAPE_TYPE);
           setOpened(true);
         }
       }

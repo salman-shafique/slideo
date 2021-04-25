@@ -24,8 +24,6 @@ const shapeSelected = () => {
     if (anyShapeSelected) {
         sideBarShapeEmpty.style.display = "none";
         sideBarShapeOptions.style.display = "";
-        sidebar.open("Shapes_Tool");
-
     } else {
         sideBarShapeEmpty.style.display = "";
         sideBarShapeOptions.style.display = "none";

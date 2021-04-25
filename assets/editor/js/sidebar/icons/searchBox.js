@@ -1,7 +1,6 @@
 import add_event from "Editor/js/utils/add_event";
 import clear_text from "Editor/js/utils/clear_text";
 import select from "Editor/js/utils/selector/select";
-import selectAll from "Editor/js/utils/selector/selectAll";
 import apiService from "Editor/js/utils/apiService";
 import toggleKeyword from "./toggleKeyword";
 import appendIcons from "./appendIcons";

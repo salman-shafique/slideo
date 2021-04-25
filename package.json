@@ -17,7 +17,8 @@
         "deploy:symfony": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'git pull; yarn build; php bin/console d:m:m -n; bash docker/restart.sh;'",
         "deploy:flask": "ssh -t root@slideo.co.il docker exec -ti slideo_flask bash -c 'git pull;';",
         "slideo:download:retry": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'php bin/console slideo:download:retry;'",
-        "slideo:clear:downloads": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'php bin/console slideo:clear:downloads;'"
+        "slideo:clear:downloads": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'php bin/console slideo:clear:downloads;'",
+        "slideo:queue:start": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'php bin/console messenger:stop-workers; php bin/console messenger:consume mail download -vv'"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.34",

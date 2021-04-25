@@ -34,19 +34,23 @@ const createReplaceIcon = (iconShape) => {
     );
 
     replaceIcon.onclick = () => {
-        selectEl({ target: { parentElement: iconShape }});
+        selectEl({ target: { parentElement: iconShape } });
         Events.popup.icon.open({ shapeId: iconShape.getAttribute("shape_id") });
     }
 
     return replaceIcon;
 }
 
-export default function createForeignObject (iconShape) {
+/**
+ * 
+ * @param {SVGGElement} iconShape 
+ */
+export default function createForeignObject(iconShape) {
     const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-    foreignObject.setAttribute("x", iconShape.getBBox().x);
-    foreignObject.setAttribute("y", iconShape.getBBox().y);
-    foreignObject.setAttribute("width", iconShape.getBBox().width);
-    foreignObject.setAttribute("height", iconShape.getBBox().height);
+    foreignObject.setAttribute("x", iconShape.getAttribute("x"));
+    foreignObject.setAttribute("y", iconShape.getAttribute("y"));
+    foreignObject.setAttribute("width", iconShape.getAttribute("width"));
+    foreignObject.setAttribute("height", iconShape.getAttribute("height"));
     foreignObject.setAttribute("class", "bounding_box");
 
     iconShape.appendChild(foreignObject);

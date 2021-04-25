@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import session from '../../session';
 
 export default function Popup(props) {
     const classNames = `slidepopup ${props.visible ? 'slidepopup--visible' : undefined}`
@@ -13,7 +14,7 @@ export default function Popup(props) {
             const left = point.x - popupWidth + 12;
             let top = point.y - popupHeight;
 
-            top =  top > 0 ? top : 0;            
+            top = top > 0 ? top : 0;
 
             parentNode.style.left = left + 'px';
             parentNode.style.top = top + 'px';
@@ -22,7 +23,7 @@ export default function Popup(props) {
             // SECTION 2 (TOP LEFT)
 
             let left = point.x + 24;
-            const top = point.y;       
+            const top = point.y;
 
             left = left > 25 ? left : 25;
 
@@ -32,9 +33,9 @@ export default function Popup(props) {
         } else {
             // SECTION 3 (BOTTOM LEFT)
             let left = point.x + shape.width + 40;
-            let top = point.y - popupHeight; 
+            let top = point.y - popupHeight;
 
-            top =  top > 0 ? top : 0;         
+            top = top > 0 ? top : 0;
             left = left >= width - popupWidth + 20 ? width - popupWidth + 20 : left;
 
             parentNode.style.left = left + 'px';
@@ -71,10 +72,10 @@ export default function Popup(props) {
 
     useEffect(() => {
         const parentNode = document.getElementById(props.parent);
-        const slideContainer = document.getElementById('SlideContainer').children[0];
+        const slideContainer = document.getElementById(session.CURRENT_SLIDE);
 
         // only init popup when shape is active
-        if (!props.shape) {            
+        if (!props.shape) {
             return;
         }
 
@@ -97,8 +98,8 @@ export default function Popup(props) {
 
 
     return (
-        <div className={ classNames } >
-            { props.children }
+        <div className={classNames} >
+            { props.children}
         </div>
     );
 }
