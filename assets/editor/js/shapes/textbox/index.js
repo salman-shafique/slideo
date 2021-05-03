@@ -39,7 +39,7 @@ export const updateText = (g, newText) => {
 const cancelEditing = (event) => {
   /**
   * @type {SVGGElement} g
-  */  
+  */
 
   const g = event.data.shape;
   if (g.getAttribute('shape_type')?.toLowerCase().includes('picture')) return;

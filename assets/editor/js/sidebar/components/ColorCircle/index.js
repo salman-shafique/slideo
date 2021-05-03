@@ -169,6 +169,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
         }}>
       </div>
       <div className="color-circles" style={{ display: opened ? 'block' : 'none' }} >
+        <span className="text-danger" onClick={ () => { setOpened(!opened) } } ><i className="fas fa-times"></i></span>
         {colorCircles}
         <div className="Circles-Opacity ">
           <div className="row col-12 align-items-center">

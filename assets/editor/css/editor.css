@@ -799,3 +799,39 @@ object[id^="prev_"] {
 .slidepopup .keywords-list .active {
 	background-color: #d3d3d3;
 }
+
+#ImagePopup .main-section {
+	border-radius: 0px;
+}
+
+#ImagePopup .control-section {
+	margin-top: -2px;
+	background-color: #484848;
+	border-radius: 0px 0px 24px 24px;
+	box-shadow: none;
+}
+
+#ImagePopup .uploadimagearea {
+	height: 280px;
+	padding: 0px 8px;
+	box-sizing: border-box;
+	background-color: #484848;
+}
+
+#ImagePopup .uploadimagearea > div {
+	background-color: white;
+	height: calc(100% - 108px);
+}
+
+#ImagePopup .uploadimagesfixed {
+	position: fixed;
+	width: 284px;
+	top: 175px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: white;
+}
+
+#ImagePopup .control-overlay-layout {
+	width: calc(100% - 16px);
+}

@@ -12,6 +12,13 @@
     background-color: white;
 }
 
+.color-circles .text-danger {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+}
+
 .color-circle-single {
     width: 30px;
     height: 30px;

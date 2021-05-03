@@ -441,7 +441,7 @@ export default function slide(slideId) {
       clone.style.visibility = "hidden";
       // Clear the clone
       clone
-        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon")
+        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
         ?.forEach(e => e.remove());
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
@@ -530,7 +530,7 @@ export default function slide(slideId) {
             position: fixed;
             word-break: break-word;
         }
-        .edit-textbox-icon, .replace-icon {
+        .edit-textbox-icon, .replace-icon, .image-icon {
             font-size: 1301px;
             position: absolute;
             display: none;
@@ -545,7 +545,7 @@ export default function slide(slideId) {
             left: 180px;
             transition: 0.5s;
         }
-        .edit-textbox-icon:hover, replace-icon:hover {
+        .edit-textbox-icon:hover, .replace-icon:hover, .image-icon:hover {
             box-shadow: -0.06em 0.06em 0.13em 0.04em #8c8c8c;
             transition: 0.5s;
         }
@@ -563,6 +563,13 @@ export default function slide(slideId) {
         .replace-icon {
             padding: 7% 11% 11% 11%;
             box-sizing: border-box;
+        }
+        .image-icon {
+            padding: 100px;
+            box-sizing: border-box;
+        }
+        foreignObject:hover > .image-icon {
+            display: flex;
         }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon{
             display:block;
