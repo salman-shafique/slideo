@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Enum\LanguagesEnum;
 use App\Service\MailService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 
@@ -90,6 +91,8 @@ class HomeController extends AbstractController
      */
     public function sendErrorMail(Request $request, MailService $mailService)
     {
+        if (str_contains($request->server->get("HTTP_REFERER"), 'localhost') || str_contains($request->server->get("HTTP_REFERER"), 'test'))
+            return new JsonResponse(["success" => true]);
         $mailService->sendErrorMail($request->request->get('error'), $request->request->get('title'));
         return new JsonResponse(["success" => true]);
     }
