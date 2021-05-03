@@ -8,11 +8,11 @@ export default function getShapeType(g) {
 
     const alt = g.getAttribute("alt");
 
-    if (g.querySelector("foreignObject") && !alt.includes("icon"))
+    if (g.querySelector("foreignObject .edit-textbox-icon"))
         return constants.SHAPE_TYPES.TEXTBOX;
-    if (alt && alt.includes("icon"))
+    if (alt && alt?.includes("icon"))
         return constants.SHAPE_TYPES.ICON;
-    if (alt.includes("image"))
+    if (alt?.includes("image"))
         return constants.SHAPE_TYPES.IMAGE;
     return constants.SHAPE_TYPES.AUTO_SHAPE;
 }

@@ -441,7 +441,7 @@ export default function slide(slideId) {
       clone.style.visibility = "hidden";
       // Clear the clone
       clone
-        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon")
+        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
         ?.forEach(e => e.remove());
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");

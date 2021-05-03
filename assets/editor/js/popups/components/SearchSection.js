@@ -36,7 +36,7 @@ export default function SearchSection({ keywords, setKeywords, fetchNewData, chi
         <div className="search-section">
             <div className="input-group mb-2">
                 <input ref={ inputRef } type="text" onChange={ handleInput } value={ searchValue }
-                    className="form-control keyword-search" placeholder="Search all icons" />
+                    className="form-control keyword-search" placeholder="Search" />
                 <div className="input-group-append">
                     <span onClick={ handleSearch } className="input-group-text search-button cursor-pointer text-white bg-secondary">
                         <i className="fas fa-search"></i>

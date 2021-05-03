@@ -16,8 +16,8 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
             icon.keyword = keyword;
 
         highlightIcon(iconData);
-        forceUpdate();        
-        
+        forceUpdate();
+
         if (session.SELECTED_ELEMENTS.length == 1) {
             const g = session.SELECTED_ELEMENTS[0].shape;
             const alt = g.getAttribute("alt");
@@ -27,18 +27,11 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
                 selectIcon(session.CURRENT_SLIDE, shapeId, iconData);
                 return;
             }
-        }        
+        }
 
         // Add new icon
         createNewIcon({ icon: iconData, keyword: iconData.keyword });
     }
-
-    const getCorrectIconUrl = () => {
-        const src = 'https://static.thenounproject.com/png/';
-        const splitedUrl = iconData.url.split('/');        
-
-        return splitedUrl.length > 4 ? iconData.url : src + splitedUrl[splitedUrl.length - 1];
-    }   
 
     const getClass = () => {
         if (!session.SELECTED_ELEMENTS[0])
@@ -58,6 +51,6 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
     }
 
     return (
-        <img onClick={onClick} iconid={iconData.id} className={ getClass() } src={ getCorrectIconUrl() } />
+        <img onClick={onClick} iconid={iconData.id} className={getClass()} src={iconData.url} />
     )
 }
