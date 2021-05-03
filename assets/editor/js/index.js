@@ -39,15 +39,15 @@ import "Editor/js/popups";
 import "Editor/js/slides/updateMiniPrev";
 import apiService from "./utils/apiService.js";
 
-window.onerror = (message, source, lineno, colno, err) => {
+window.top.onerror = (message, source, lineno, colno, err) => {
     preloader.forceHide();
     const error = `
-    Message: ${message}
-    Source: ${source}
-    Line no: ${lineno}
-    Col no: ${colno}
-    Stack: ${err.stack}
-    `
+Message: ${message}
+Source: ${source}
+Line no: ${lineno}
+Col no: ${colno}
+Stack: ${err.stack}
+    `;
     apiService({
         url: "/ec22d7e50aa95f0bb54597b2994c339e",
         data: {
