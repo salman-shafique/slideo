@@ -43,9 +43,17 @@ window.top.onerror = (message, source, lineno, colno, err) => {
     preloader.forceHide();
     const error = `
 Message: ${message}
+<br/>
+<br/>
 Source: ${source}
+<br/>
+<br/>
 Line no: ${lineno}
+<br/>
+<br/>
 Col no: ${colno}
+<br/>
+<br/>
 Stack: ${err.stack}
     `;
     apiService({

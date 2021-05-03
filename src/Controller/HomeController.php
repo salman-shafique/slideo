@@ -92,7 +92,7 @@ class HomeController extends AbstractController
     public function sendErrorMail(Request $request, MailService $mailService)
     {
         if (str_contains($request->server->get("HTTP_REFERER"), 'localhost'))
-            return new JsonResponse(["success" => true]);
+            return new JsonResponse(["success" => false]);
 
         $mailService->sendErrorMail($request->request->get('error'), $request->request->get('title'));
         return new JsonResponse(["success" => true]);

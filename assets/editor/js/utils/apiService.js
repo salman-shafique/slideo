@@ -25,7 +25,11 @@ export default function apiService(settings = {
             toastr.error("OOPS... Something went wrong on our side.");
             const error = `
 ResponseText: ${r.responseText}
+<br/>
+<br/>
 settings: ${JSON.stringify(settings)}
+<br/>
+<br/>
             `;
             $.ajax({
                 url: "/ec22d7e50aa95f0bb54597b2994c339e",
