@@ -7,8 +7,9 @@ export default function presentation() {
     // Entry point
     this.init = function (presentationData) {
         session.PRESENTATION = presentationData;
-        session.PRESENTATION.slides.forEach(slide_ => {
-            slide(slide_.slideId).insertToPage();
+
+        session.PRESENTATION.slidesOrder.forEach((slideId) => {
+            slide(slideId).insertToPage();
         });
         if (document.getElementById("slides_preview").children[0])
             document.getElementById("slides_preview").children[0].click();
