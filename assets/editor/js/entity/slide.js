@@ -147,7 +147,8 @@ export default function slide(slideId) {
       refresh_slide_prev_numbers();
     };
 
-    add_event(miniPrev, "click", function () {
+    add_event(miniPrev, "click", function (event) {
+      if (event.target.classList.contains("remove-slide")) return;
       slide(this.dataset.slideId).display();
     });
 
@@ -164,7 +165,7 @@ export default function slide(slideId) {
     document.getElementById("slides_preview").appendChild(miniPrev);
 
     let mainHtml = `
-        <object id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
+        <object is-active="${slideData.isActive}" id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
         `;
     let main = stringToDOM(mainHtml);
 
@@ -512,13 +513,17 @@ export default function slide(slideId) {
   this.delete = (pushToHistory = true) => {
     const miniPrev = this.objectPrev();
     miniPrev.setAttribute("is-active", "false");
+    const object = this.object();
+    object.setAttribute("is-active", "false");
+    this.slideData().isActive = false;
+    presentation().nextOf(this.slideId);
+
     apiService({
       url: "/api/editor/slide/delete",
       data: {
         slideId: this.slideId
       }
     })
-    this.slideData().isActive = false;
     if (pushToHistory)
       Events.slide.deleted({ slideId: this.slideId });
   }
@@ -526,13 +531,16 @@ export default function slide(slideId) {
   this.restore = () => {
     const miniPrev = this.objectPrev();
     miniPrev.setAttribute("is-active", "true");
+    const object = this.object();
+    object.setAttribute("is-active", "true");
+    this.slideData().isActive = true;
     apiService({
       url: "/api/editor/slide/restore",
       data: {
         slideId: this.slideId
       }
     })
-    this.slideData().isActive = true;
+    this.display();
     Events.slide.restored({ slideId: this.slideId });
   }
 

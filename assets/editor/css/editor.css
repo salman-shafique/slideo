@@ -818,6 +818,6 @@ object[id^="prev_"] {
   background-color: #d3d3d3;
 }
 
-.slide-thumbnail[is-active="false"] {
+[is-active="false"] {
   display: none;
 }
