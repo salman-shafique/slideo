@@ -30,6 +30,7 @@ import preloader from "Editor/js/components/preloader";
 import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
 import { addLogo } from "../sidebar/branding/utils";
 import { renderDOMPopup } from 'Editor/js/popups';
+import apiService from "../utils/apiService";
 
 
 const chunkDesigns = {};
@@ -439,7 +440,7 @@ export default function slide(slideId) {
     const contentDocument = window.top.document.getElementById(
       "prev_" + this.slideId
     ).contentDocument;
-    if (contentDocument.querySelector("svg")) {
+    if (contentDocument?.querySelector("svg")) {
       /**
        * @type {SVGGElement} clone
        */
@@ -511,6 +512,13 @@ export default function slide(slideId) {
   this.delete = (pushToHistory = true) => {
     const miniPrev = this.objectPrev();
     miniPrev.setAttribute("is-active", "false");
+    apiService({
+      url: "/api/editor/slide/delete",
+      data: {
+        slideId: this.slideId
+      }
+    })
+    this.slideData().isActive = false;
     if (pushToHistory)
       Events.slide.deleted({ slideId: this.slideId });
   }
@@ -518,6 +526,13 @@ export default function slide(slideId) {
   this.restore = () => {
     const miniPrev = this.objectPrev();
     miniPrev.setAttribute("is-active", "true");
+    apiService({
+      url: "/api/editor/slide/restore",
+      data: {
+        slideId: this.slideId
+      }
+    })
+    this.slideData().isActive = true;
     Events.slide.restored({ slideId: this.slideId });
   }
 
