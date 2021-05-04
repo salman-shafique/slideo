@@ -24,6 +24,7 @@ export default function ImageEditor() {
 
         Events.listen("shape.allReleased", closePopup);
         Events.listen("shape.selected", closePopup);
+        Events.listen("shape.resize.started", closePopup);
         Events.listen("popup.text.opened", closePopup);
         Events.listen("popup.icon.opened", closePopup);
     }, []);
