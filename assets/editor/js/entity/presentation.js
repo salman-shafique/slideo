@@ -11,8 +11,8 @@ export default function presentation() {
         session.PRESENTATION.slidesOrder.forEach((slideId) => {
             slide(slideId).insertToPage();
         });
-        if (document.getElementById("slides_preview").children[0])
-            document.getElementById("slides_preview").children[0].click();
+
+        document.querySelector("#slides_preview .slide-thumbnail[is-active='true']")?.click()
 
         return this;
     }

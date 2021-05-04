@@ -98,10 +98,10 @@ export default function slide(slideId) {
     let slideData = this.slideData();
 
     let miniPrevHtml = `
-    <div class="slide-thumbnail" data-slide-id=${this.slideId} draggable="true">
+    <div class="slide-thumbnail" data-slide-id="${this.slideId}" is-active="${slideData.isActive}" draggable="true">
         <object id="prev_${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded"></object>
-        <div class="remove-slide">
-            <i class="fas fa-trash-alt text-white"></i>
+        <div class="remove-slide" data-slide-id="${this.slideId}">
+            <i class="fas fa-trash-alt text-white" style="pointer-events:none"></i>
         </div>
         <span class="slide-sl text-white mr-2"></span>
     </div>
@@ -155,6 +155,11 @@ export default function slide(slideId) {
       slide(slideId).cloneToMiniPrev();
     });
 
+    add_event(select(".remove-slide", miniPrev), "click", (event) => {
+      const slideId = event.target.dataset.slideId;
+      slide(slideId).delete();
+    });
+
     document.getElementById("slides_preview").appendChild(miniPrev);
 
     let mainHtml = `
@@ -192,6 +197,7 @@ export default function slide(slideId) {
     // update textbox style.direction
     // Show the loaded slide
     let slideData = this.slideData();
+
     slideData.shapes.forEach(shape_ => {
       const shapeCls = shape(this.slideId, shape_.data.shape_id);
       let contentNumber, foreignObject, text, direction, content, g;
@@ -501,6 +507,19 @@ export default function slide(slideId) {
     });
     if (!addedBefore) shapes.push(newShapeData);
   };
+
+  this.delete = (pushToHistory = true) => {
+    const miniPrev = this.objectPrev();
+    miniPrev.setAttribute("is-active", "false");
+    if (pushToHistory)
+      Events.slide.deleted({ slideId: this.slideId });
+  }
+
+  this.restore = () => {
+    const miniPrev = this.objectPrev();
+    miniPrev.setAttribute("is-active", "true");
+    Events.slide.restored({ slideId: this.slideId });
+  }
 
   this.insertCustomStyles = () => {
     const styles = reactToDOM(

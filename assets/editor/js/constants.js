@@ -90,7 +90,8 @@ const constants = {
         EDIT_TEXT: 2,
         CHANGE_ICON: 3,
         CHANGE_IMAGE: 4,
-        DELETE_SHAPE: 5
+        DELETE_SHAPE: 5,
+        DELETE_SLIDE: 6
     }
 }
 
