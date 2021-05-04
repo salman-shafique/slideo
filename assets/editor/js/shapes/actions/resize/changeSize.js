@@ -4,6 +4,32 @@ import calculateMouseDiff from "Editor/js/shapes/actions/drag/utils/calculateMou
 import { resizeCircleContainer, relocateResizeCircleContainer } from "./utils/copyTransform";
 
 
+const changeShapeIconSize = (shape, newScaleX = null, newScaleY = null) => {
+    const ICON_CLASSES = '.edit-textbox-icon, .replace-icon, .image-icon';
+    const ICON_SIZE = 1600;
+    const ICON_MAX_PADDING = 180;
+
+    const icon = Array.from(shape.querySelectorAll(ICON_CLASSES))[0];
+
+    const parsedScale = shape.getAttribute('transform').split(') ')
+                            .filter(item => item.includes('scale('))[0]
+                            .replace('scale(', '').split(' ');
+
+    const shapeBoxSize = Math.min(parseInt(shape.getAttribute('height')) * parsedScale[0], parseInt(shape.getAttribute('width')) * parsedScale[1]);
+
+    if (shapeBoxSize - ICON_MAX_PADDING < ICON_SIZE) {
+        const desiredIconSize = (shapeBoxSize - ICON_MAX_PADDING) / ICON_SIZE;
+        icon.style.transform = `scale(${ desiredIconSize * 1 / parsedScale[0] }, ${ desiredIconSize * 1 / parsedScale[1] })`;
+
+    } else if (newScaleX || newScaleY) {
+        icon.style.transform = `scale(${ 1 / newScaleX }, ${ 1 / newScaleY })`;
+        
+    } else {
+        icon.style.transform = `scale(${ 1 / parsedScale[0] }, ${ 1 / parsedScale[1] })`;
+    }
+}
+
+
 /**
  * 
  * @param {MouseEvent} event 
@@ -52,6 +78,9 @@ export default function changeSize(event) {
                         selectedEl.translate.startingE,
                         selectedEl.translate.startingF + mouseDiff.y
                     );
+
+                    changeShapeIconSize(selectedEl.shape);
+
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -70,6 +99,9 @@ export default function changeSize(event) {
                         ${selectedEl.crop.rb.startingX}% ${selectedEl.crop.rb.startingY}%, 
                         ${selectedEl.crop.lb.startingX}% ${selectedEl.crop.lb.startingY}%
                     )`;
+
+                    changeShapeIconSize(selectedEl.shape);
+
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -81,6 +113,8 @@ export default function changeSize(event) {
                     if (newWidth < 2000) return;
                     selectedEl.shape.setAttribute("width", newWidth + "px");
                     selectedEl.shape.querySelector("foreignObject").setAttribute("width", newWidth + "px");
+
+                    changeShapeIconSize(selectedEl.shape);
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -99,6 +133,8 @@ export default function changeSize(event) {
                         ${selectedEl.crop.rb.startingX + diff}% ${selectedEl.crop.rb.startingY}%, 
                         ${selectedEl.crop.lb.startingX}% ${selectedEl.crop.lb.startingY}%
                     )`;
+
+                    changeShapeIconSize(selectedEl.shape);
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -109,6 +145,8 @@ export default function changeSize(event) {
                     if (newHeight < 1000) return;
                     selectedEl.shape.setAttribute("height", newHeight + "px");
                     selectedEl.shape.querySelector("foreignObject").setAttribute("height", newHeight + "px");
+
+                    changeShapeIconSize(selectedEl.shape);
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -127,6 +165,8 @@ export default function changeSize(event) {
                         ${selectedEl.crop.rb.startingX}% ${selectedEl.crop.rb.startingY + diff}%, 
                         ${selectedEl.crop.lb.startingX}% ${selectedEl.crop.lb.startingY + diff}%
                     )`;
+
+                    changeShapeIconSize(selectedEl.shape);
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -141,6 +181,8 @@ export default function changeSize(event) {
                         selectedEl.translate.startingE + mouseDiff.x,
                         selectedEl.translate.startingF
                     );
+
+                    changeShapeIconSize(selectedEl.shape);
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -159,6 +201,8 @@ export default function changeSize(event) {
                         ${selectedEl.crop.rb.startingX}% ${selectedEl.crop.rb.startingY}%, 
                         ${selectedEl.crop.lb.startingX + diff}% ${selectedEl.crop.lb.startingY}%
                     )`;
+
+                    changeShapeIconSize(selectedEl.shape);
                     relocateResizeCircleContainer(selectedEl.shape);
                     break;
                 }
@@ -172,6 +216,8 @@ export default function changeSize(event) {
                         newScale,
                         newScale
                     );
+
+                    changeShapeIconSize(selectedEl.shape, newScale, newScale);
 
                     selectedEl.translate.transform.setTranslate(
                         selectedEl.translate.startingE + (newRelatedX - firstRelatedX + mvX),
@@ -189,6 +235,8 @@ export default function changeSize(event) {
                         newScale
                     );
 
+                    changeShapeIconSize(selectedEl.shape, newScale, newScale);
+
                     selectedEl.translate.transform.setTranslate(
                         selectedEl.translate.startingE - (newRelatedX - firstRelatedX),
                         selectedEl.translate.startingF - ((newRelatedY - firstRelatedY) - mvY),
@@ -203,6 +251,9 @@ export default function changeSize(event) {
                         newScale,
                         newScale
                     );
+                    
+                    changeShapeIconSize(selectedEl.shape, newScale, newScale);
+
                     selectedEl.translate.transform.setTranslate(
                         selectedEl.translate.startingE - (newRelatedX - firstRelatedX),
                         selectedEl.translate.startingF - (newRelatedY - firstRelatedY),
@@ -219,6 +270,9 @@ export default function changeSize(event) {
                         newScale,
                         newScale
                     );
+
+                    changeShapeIconSize(selectedEl.shape, newScale, newScale);
+
                     selectedEl.translate.transform.setTranslate(
                         selectedEl.translate.startingE + ((newRelatedX - firstRelatedX) + mvX),
                         selectedEl.translate.startingF + ((newRelatedY - firstRelatedY)),

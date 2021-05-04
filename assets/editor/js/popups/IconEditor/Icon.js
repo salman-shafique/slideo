@@ -34,7 +34,7 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
     }
 
     const getClass = () => {
-        if (!session.SELECTED_ELEMENTS[0])
+        if (!session.SELECTED_ELEMENTS[0] || !session.SELECTED_ELEMENTS[0].shape.querySelector('image'))
             return;
 
         const selectedIconUrl = session.SELECTED_ELEMENTS[0].shape.querySelector('image').getAttribute('xlink:href').split('/');
