@@ -12,8 +12,8 @@ export default function FontSize(props) {
     const [selectedFontsize, setSelectedFontsize] = React.useState(null); // In pixels - integer
 
     /**
-     * 
-     * @param {SVGGElement} g 
+     *
+     * @param {SVGGElement} g
      */
     const getFontSize = (g) => {
         const shapeId = g.getAttribute("shape_id");
@@ -48,9 +48,9 @@ export default function FontSize(props) {
 
 
     /**
-     * 
-     * @param {SVGGElement} g 
-     * @param {string} newValue 
+     *
+     * @param {SVGGElement} g
+     * @param {string} newValue
      */
     const set = (g, newValue) => {
         const shapeId = g.getAttribute("shape_id");
@@ -62,6 +62,7 @@ export default function FontSize(props) {
         const startingA = getTransform(g).scale.startingA;
 
         g.querySelector("table").style.fontSize = parseInt(newValue / startingA) + "px";
+        g.querySelector('div').style.fontSize = parseInt(newValue / (startingA*19.60)) + "px";
         autosizeForeignObject(g.querySelector("foreignObject"));
         relocateResizeCircleContainer(g);
     }
