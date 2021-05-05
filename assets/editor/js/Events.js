@@ -66,6 +66,12 @@ const Events = {
         icon: {
             open: (data = {}) => dispatchEvent("popup.icon.open", data),
             opened: (data = {}) => dispatchEvent("popup.icon.opened", data),
+        },
+        image: {
+            open: (data = {}) => dispatchEvent("popup.image.open", data),
+            opened: (data = {}) => dispatchEvent("popup.image.opened", data),
+            upload: (data = {}) => dispatchEvent('popup.image.upload', data),
+            delete: (data = {}) => dispatchEvent('popup.image.delete', data)
         }
     },
     colorCircle: {

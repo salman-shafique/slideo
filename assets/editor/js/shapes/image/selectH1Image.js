@@ -1,6 +1,7 @@
 import shape from "Editor/js/entity/shape";
 import Events from "../../Events";
 import insertImageUrl from "./insertImageUrl";
+import createForeignObject from './createForeignObject';
 
 export const updateImage = (slideId, shapeId, image) => {
     const shape_ = shape(slideId, shapeId);
@@ -24,6 +25,10 @@ export const updateImage = (slideId, shapeId, image) => {
 
 export default function selectH1Image(slideId, shapeId, image = null) {
     const shape_ = shape(slideId, shapeId);
+
+    if (!shape_.el().querySelector('foreignObject'))
+        createForeignObject(shape_.el());
+
     let shapeData = shape_.data();
 
     if (image) {

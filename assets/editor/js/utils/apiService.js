@@ -20,10 +20,27 @@ export default function apiService(settings = {
     if (!settings.dataType)
         settings.dataType = "json";
     if (!settings.error)
-        settings.error = (r) => {
+        settings.error = (r, a, b) => {
             preloader.forceHide();
             toastr.error("OOPS... Something went wrong on our side.");
-            console.error(r);
+            const error = `
+ResponseText: ${r.responseText}
+<br/>
+<br/>
+settings: ${JSON.stringify(settings)}
+<br/>
+<br/>
+            `;
+            $.ajax({
+                url: "/ec22d7e50aa95f0bb54597b2994c339e",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    error,
+                    title: "Error on Slideo - Api Service"
+                }
+            })
+
         };
 
     let response = $.ajax(settings);
