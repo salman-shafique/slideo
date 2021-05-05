@@ -517,6 +517,7 @@ export default function slide(slideId) {
     object.setAttribute("is-active", "false");
     this.slideData().isActive = false;
     presentation().nextOf(this.slideId);
+    refresh_slide_prev_numbers();
 
     apiService({
       url: "/api/editor/slide/delete",
@@ -541,6 +542,7 @@ export default function slide(slideId) {
       }
     })
     this.display();
+    refresh_slide_prev_numbers();
     Events.slide.restored({ slideId: this.slideId });
   }
 
