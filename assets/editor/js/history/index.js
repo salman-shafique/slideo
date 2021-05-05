@@ -24,12 +24,13 @@ import deSelectAll from "../shapes/actions/drag/utils/deSelectAll";
  * @param {{ slideId: string, actionType: number }} action 
  * @returns 
  */
-const addToHistory = (action) => {
+const addToHistory = (event) => {
     if (!session.INITED) return;
     if (!session.PRESENTATION) return;
 
-    if (!action) return;
-    if (!action.slideId) return;
+    if (!event?.historyAction?.slideId) return;
+
+    const action = event.historyAction;
 
     // Slice the old events
     if (session.PRESENTATION.history.current + 1 != session.PRESENTATION.history.actions.length)
@@ -71,6 +72,9 @@ export const undo = () => {
             break;
         case constants.ACTION_TYPES.DELETE_SHAPE:
             undoDeleteShape(action);
+            break;
+        case constants.ACTION_TYPES.DELETE_SLIDE:
+            slide(action.slideId).restore();
             break;
         default:
             return;
@@ -114,6 +118,9 @@ export const redo = () => {
         case constants.ACTION_TYPES.DELETE_SHAPE:
             redoDeleteShape(action);
             break;
+        case constants.ACTION_TYPES.DELETE_SLIDE:
+            slide(action.slideId).delete(false);
+            break;
         default:
             return;
     }
@@ -124,43 +131,19 @@ export const redo = () => {
 
 
 // Drag
-Events.listen('shape.drag.ended', (event) => {
-    addToHistory(event.historyAction);
-});
+Events.listen('shape.drag.ended', addToHistory);
 // Edit textbox
-Events.listen('shape.textbox.edit.ended', (event) => {
-    addToHistory(event.historyAction);
-});
+Events.listen('shape.textbox.edit.ended', addToHistory);
 // Resize
-Events.listen('shape.resize.ended', (event) => {
-    addToHistory(event.historyAction);
-});
+Events.listen('shape.resize.ended', addToHistory);
 // Change Icon
-Events.listen('shape.icon.changed', (event) => {
-    if (session.SELECTED_ELEMENTS.length != 1) return;
-    addToHistory({
-        slideId: session.CURRENT_SLIDE,
-        actionType: constants.ACTION_TYPES.CHANGE_ICON,
-        shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
-        oldIcon: { ...event.data.oldIcon },
-        newIcon: { ...event.data.newIcon }
-    });
-});
+Events.listen('shape.icon.changed', addToHistory);
 // Change Image
-Events.listen('shape.image.changed', (event) => {
-    if (session.SELECTED_ELEMENTS.length != 1) return;
-    addToHistory({
-        slideId: session.CURRENT_SLIDE,
-        actionType: constants.ACTION_TYPES.CHANGE_IMAGE,
-        shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
-        oldImage: { ...event.data.oldImage },
-        newImage: { ...event.data.newImage }
-    });
-});
-// Delete Shaoe
-Events.listen('shape.deleted', (event) => {
-    addToHistory(event.historyAction);
-});
+Events.listen('shape.image.changed', addToHistory);
+// Delete Shape
+Events.listen('shape.deleted', addToHistory);
+// Delete Slide
+Events.listen('slide.deleted', addToHistory);
 
 
 export const historyInit = () => {

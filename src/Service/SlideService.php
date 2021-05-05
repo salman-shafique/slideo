@@ -217,4 +217,40 @@ class SlideService
 
         return $serializedSlides;
     }
+
+    public function deleteSlide(Request $request, Presentation $presentation): array
+    {
+        /**
+         * @var Slide $slide
+         */
+        $success = false;
+        foreach ($presentation->getSlides() as $slide) {
+            if ($slide->getSlideId() == $request->request->get("slideId")) {
+                $slide->setIsActive(false);
+                $this->em->persist($slide);
+                $this->em->flush();
+                $success = true;
+                break;
+            }
+        }
+        return ["success" => $success];
+    }
+
+    public function restoreSlide(Request $request, Presentation $presentation): array
+    {
+        /**
+         * @var Slide $slide
+         */
+        $success = false;
+        foreach ($presentation->getSlides() as $slide) {
+            if ($slide->getSlideId() == $request->request->get("slideId")) {
+                $slide->setIsActive(true);
+                $this->em->persist($slide);
+                $this->em->flush();
+                $success = true;
+                break;
+            }
+        }
+        return ["success" => $success];
+    }
 }
