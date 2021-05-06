@@ -54,6 +54,25 @@ class HomeController extends AbstractController
         return $this->render('pricing/index.html.twig');
     }
 
+
+    /**
+     * @Route("/privacy-policy", name="privacy-policy")
+     */
+    public function privacy_policy()
+    {
+        return $this->render('documentation/privacy_policy.html.twig');
+    }    
+
+
+    /**
+     * @Route("/terms-of-use", name="terms-of-use")
+     */
+    public function terms_of_use()
+    {
+        return $this->render('documentation/terms_of_use.html.twig');
+    }    
+
+
     /**
      * @Route("/contactUs",methods={"POST"})
      */
