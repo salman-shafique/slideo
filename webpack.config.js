@@ -14,7 +14,6 @@ Encore
     .addEntry('editor_download', './assets/editor/js/download/index.js')
     .addEntry('pricing', './assets/pricing/index.js')
     .addEntry('user_account', './assets/account/index.js')
-    .addEntry('documentation', './assets/documentation/index.js')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
