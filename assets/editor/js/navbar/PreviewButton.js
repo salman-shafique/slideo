@@ -104,7 +104,7 @@ export default function PreviewButton() {
         .querySelector("td");
 
       // Condition to check if the slide's subtitle text and placeholder are match
-      if (subtitleCell.innerText === constants.SLIDE_TITLE_PLACEHOLDER) {
+      if (subtitleCell.innerText === constants.SLIDE_SUBTITLE_PLACEHOLDER) {
         // check if the callback's args is true or false, hide if it's true and show if it's false
         if (args === true) {
           // hide the slide subtitle text and underline
