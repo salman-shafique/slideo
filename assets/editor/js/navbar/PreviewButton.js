@@ -60,7 +60,7 @@ export default function PreviewButton() {
 
   // Functions to hide and show the slide elements
   const hide = (elements) => elements.map((e) => (e.style.display = "none"));
-  const show = (elements) => elements.map((e) => (e.style.display = "block"));
+  const show = (elements) => elements.map((e) => (e.style.display = ""));
 
   // Function to hide / show slide's title
   const hideSlideTitle = (args) => {
@@ -70,8 +70,9 @@ export default function PreviewButton() {
     // itirate each slide's objects in the array
     arr.map((el, i) => {
       // Get the slide title of each slide
+      debugger;
       let slideTitleCell = el?.contentDocument
-        .querySelector('g[alt="slidetitle"]');
+        .querySelector('g[alt="slidetitle"] td');
       if (!slideTitleCell) return;
 
 
@@ -98,7 +99,7 @@ export default function PreviewButton() {
     arr.map((el, i) => {
       // Get the slide subtitle of each slide
       let subtitleCell = el?.contentDocument
-        .querySelector('g[alt="subtitle"]');
+        .querySelector('g[alt="subtitle"] td');
       if (!subtitleCell) return;
 
       // Condition to check if the slide's subtitle text and placeholder are match
