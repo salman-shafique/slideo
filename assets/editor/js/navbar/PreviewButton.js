@@ -4,6 +4,7 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import session from "Editor/js/session";
 import sidebar from "Editor/js/entity/sidebar";
 import slide from "Editor/js/entity/slide";
+import constants from "Editor/js/constants"
 
 
 export default function PreviewButton() {
@@ -52,23 +53,91 @@ export default function PreviewButton() {
 
     let status = null;
 
-    const preview = () => {
-        sidebar.closeAll();
-        deSelectAll();
-        SlideContainer.classList.add("full-screen");
-        previewControls.classList.remove("d-none");
-        session.SHAPE_STATE = "PREVIEW";
-    }
+  // Citra's Code
 
+  // Get slide's objects
+  const slidesObj = SlideContainer.getElementsByTagName("OBJECT");
 
-    const endPreview = () => {
-        SlideContainer.classList.remove("full-screen");
-        SlideContainer.classList.remove("completed");
-        previewControls.classList.add("d-none");
-        session.SHAPE_STATE = null;
-        status = null;
+  // Functions to hide and show the slide elements
+  const hide = (elements) => elements.map((e) => (e.style.display = "none"));
+  const show = (elements) => elements.map((e) => (e.style.display = "block"));
 
-    }
+  // Function to hide / show slide's title
+  const hideSlideTitle = (args) => {
+    // store the slide's objects into an array
+    let arr = Array.from(slidesObj);
+
+    // itirate each slide's objects in the array
+    arr.map((el, i) => {
+      // Get the slide title of each slide
+      let slideTitleCell = el.contentDocument
+        .querySelector('g[alt="slidetitle"]')
+        .querySelector("td");
+
+      // Get the underline of each slide
+      let underline = el.contentDocument.querySelector('g[id="id7"]');
+
+      // Condition to check if the slide's title text and placeholder are match
+      if (slideTitleCell.innerText === constants.SLIDE_TITLE_PLACEHOLDER) {
+        // check if the callback's args is true or false, hide if it's true and show if it's false
+        if (args === true) {
+          // hide the slide title text and underline
+          hide([slideTitleCell, underline]);
+        } else {
+          // show the slide title text and underline
+          show([slideTitleCell, underline]);
+        }
+      }
+    });
+  };
+
+  // Function to hide / show subtitle
+  const hideSubtitle = (args) => {
+    // store the slide's objects into an array
+    let arr = Array.from(slidesObj);
+
+    // itirate each slide's objects in the array
+    arr.map((el, i) => {
+      // Get the slide subtitle of each slide
+      let subtitleCell = el.contentDocument
+        .querySelector('g[alt="subtitle"]')
+        .querySelector("td");
+
+      // Condition to check if the slide's subtitle text and placeholder are match
+      if (subtitleCell.innerText === constants.SLIDE_TITLE_PLACEHOLDER) {
+        // check if the callback's args is true or false, hide if it's true and show if it's false
+        if (args === true) {
+          // hide the slide subtitle text and underline
+          hide([subtitleCell]);
+        } else {
+          // show the slide subtitle text and underline
+          show([subtitleCell]);
+        }
+      }
+    });
+  };
+
+  const preview = () => {
+    sidebar.closeAll();
+    deSelectAll();
+    SlideContainer.classList.add("full-screen");
+    previewControls.classList.remove("d-none");
+    session.SHAPE_STATE = "PREVIEW";
+    // Callbacks to hide slide's title and subtitle
+    hideSlideTitle(true);
+    hideSubtitle(true);
+  };
+
+  const endPreview = () => {
+    SlideContainer.classList.remove("full-screen");
+    SlideContainer.classList.remove("completed");
+    previewControls.classList.add("d-none");
+    session.SHAPE_STATE = null;
+    status = null;
+    // Callbacks to show slide's title and subtitle
+    hideSlideTitle(false);
+    hideSubtitle(false);
+  };
 
     const next = () => {
         const currentSlideIndex = session.PRESENTATION.slidesOrder.indexOf(session.CURRENT_SLIDE);
