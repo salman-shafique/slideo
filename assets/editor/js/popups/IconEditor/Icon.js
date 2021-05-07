@@ -51,6 +51,6 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
     }
 
     return (
-        <img onClick={onClick} iconid={iconData.id} className={getClass()} src={iconData.url} />
+        <img onClick={onClick} iconid={iconData.id} className={"icon-item col-4 py-2 rounded"} src={iconData.url} />
     )
 }
