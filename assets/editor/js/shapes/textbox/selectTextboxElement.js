@@ -1,7 +1,7 @@
 import constants from "Editor/js/constants";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
-import reactToDOM from "Editor/js/utils/reactToDOM"; 
+import reactToDOM from "Editor/js/utils/reactToDOM";
 import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
 import React from "react";
 import Events from "../../Events";
@@ -56,6 +56,7 @@ export const createTextNode = (td) => {
  * @param {Event} event 
  */
 export default function selectTextboxElement(event) {
+  if (event.ctrlKey) return;
   /**
     * @type {SVGGElement} g
     */
@@ -72,4 +73,5 @@ export default function selectTextboxElement(event) {
   createTextNode(td);
   Events.shape.textbox.edit.started({ oldText: td.innerText });
   session.TEXT_EDITING = true;
+  Events.popup.text.open({ shapeId: g.getAttribute("shape_id") });
 }
