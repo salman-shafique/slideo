@@ -107,10 +107,10 @@ export default function PreviewButton() {
       if (subtitleCell.innerText === constants.SLIDE_SUBTITLE_PLACEHOLDER) {
         // check if the callback's args is true or false, hide if it's true and show if it's false
         if (args === true) {
-          // hide the slide subtitle text and underline
+          // hide the slide subtitle text
           hide([subtitleCell]);
         } else {
-          // show the slide subtitle text and underline
+          // show the slide subtitle text
           show([subtitleCell]);
         }
       }
