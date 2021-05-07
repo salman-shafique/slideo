@@ -33,7 +33,8 @@ const createReplaceIcon = (iconShape) => {
         </div>
     );
 
-    replaceIcon.onclick = () => {
+    replaceIcon.onclick = (e) => {
+        if (e.ctrlKey) return;
         selectEl({ target: { parentElement: iconShape } });
         Events.popup.icon.open({ shapeId: iconShape.getAttribute("shape_id") });
     }
