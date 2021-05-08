@@ -16,6 +16,7 @@ export default function DownloadButton() {
                 success: (r) => {
                     if (r.success) {
                         $('#downloadModal').modal("show");
+                        window.open(`/editor/${session.PRESENTATION.presentationId}/download`, "_blank").focus()
                     }
                     preloader.hide();
                 }
@@ -30,7 +31,7 @@ export default function DownloadButton() {
     return (
         <>
             <button onClick={download} className="btn btn-danger bevel-btn horizontal-text-clip">
-                <i className="fas fa-download mr-2"></i> הורד מצגת 
+                <i className="fas fa-download mr-2"></i> הורד מצגת
             </button>
             <Modal id={"downloadModal"}>
                 <img src="/img/party.gif" />
