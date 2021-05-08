@@ -9,6 +9,7 @@ import shape from "Editor/js/entity/shape";
 import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import Events from "Editor/js/Events";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
+import createNewIcon from "Editor/js/shapes/icon/createNewIcon.js"
 
 
 export const getSelectedElementsType = () => {
@@ -110,7 +111,6 @@ function ContextMenu() {
                     switch (getShapeType(selectedEl.shape)) {
                         case constants.SHAPE_TYPES.ICON:
                             const oldIconData = shape(selectedEl.shape).data();
-                            console.log(oldIconData);
                             /* 
                             RM 
                             allTransforms
@@ -122,6 +122,31 @@ function ContextMenu() {
                             x
                             y
                             */
+
+                            // Citra's Code
+                     
+                            // Copy the old icon data into a new icon data object
+                            const newIconData = Object.assign({}, oldIconData);
+
+                            // Remove shape_id, shape_index and rotation properties from new icon object
+                            ["shape_id","shape_index","rotation", "scale", "translation"].forEach(p => delete newIconData[p])
+
+                            // Function to generate new x and y coordinate
+                            const newXY = a => (parseInt(a) + 1500).toString()
+
+                            // Object of properties to update
+                            const dataUpdates = {
+                                alt: "newicon", 
+                                x : newXY(newIconData.x), 
+                                y : newXY(newIconData.y),
+                            }
+
+                            // Assign updated properties into new icon data
+                            Object.assign(newIconData, dataUpdates)
+
+                            // Call the createNewIcon callback with new icon data
+                            createNewIcon(newIconData)
+
                             break;
                         case constants.SHAPE_TYPES.IMAGE:
                             break;
