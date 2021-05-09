@@ -9,6 +9,7 @@ import shape from "Editor/js/entity/shape";
 import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import Events from "Editor/js/Events";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
+import createNewIcon from "Editor/js/shapes/icon/createNewIcon.js"
 
 
 export const getSelectedElementsType = () => {
@@ -39,9 +40,9 @@ function ContextMenu() {
 
         const slideObject = slide(session.CURRENT_SLIDE).object().getBoundingClientRect();
         const clickedEl = session.SELECTED_ELEMENTS[0].shape.getBoundingClientRect();
-      
-        setContextMenuLeft((slideObject.left + clickedEl.left+clickedEl.width  ) +(e.data.event.offsetX- clickedEl.left-clickedEl.width)   );
-        setContextMenuTop((slideObject.top + clickedEl.top+clickedEl.height)+(e.data.event.y-clickedEl.top-clickedEl.height) );
+
+        setContextMenuLeft((slideObject.left + clickedEl.left + clickedEl.width) + (e.data.event.offsetX - clickedEl.left - clickedEl.width));
+        setContextMenuTop((slideObject.top + clickedEl.top + clickedEl.height) + (e.data.event.y - clickedEl.top - clickedEl.height));
 
         if (session.SELECTED_ELEMENTS.length == 1) {
             // One element selected
@@ -106,6 +107,41 @@ function ContextMenu() {
                 setIsOpen(false);
                 break;
             case "DUPLICATE":
+                session.SELECTED_ELEMENTS.forEach(selectedEl => {
+                    switch (getShapeType(selectedEl.shape)) {
+                        case constants.SHAPE_TYPES.ICON:
+                            const oldIconData = shape(selectedEl.shape).data();
+                            // Copy the old icon data into a new icon data object
+                            const newIconData = Object.assign({}, oldIconData);
+
+                            // Remove shape_id, shape_index and rotation properties from new icon object
+                            ["shape_id", "shape_index", "rotation", "allTransforms"].forEach(p => delete newIconData[p])
+
+                            // Function to generate new x and y coordinate
+                            const newXY = a => (parseInt(a) + 1500).toString()
+
+                            // Object of properties to update
+                            const dataUpdates = {
+                                alt: "newicon",
+                                x: newXY(newIconData.x),
+                                y: newXY(newIconData.y),
+                            }
+
+                            // Assign updated properties into new icon data
+                            Object.assign(newIconData, dataUpdates)
+
+                            // Call the createNewIcon callback with new icon data
+                            createNewIcon(newIconData)
+
+                            break;
+                        case constants.SHAPE_TYPES.IMAGE:
+                            break;
+                        case constants.SHAPE_TYPES.TEXTBOX:
+                            break;
+                        default:
+                            break;
+                    }
+                })
                 break;
             case "SHOW_FULL_IMAGE":
                 break;
