@@ -111,34 +111,20 @@ function ContextMenu() {
                     switch (getShapeType(selectedEl.shape)) {
                         case constants.SHAPE_TYPES.ICON:
                             const oldIconData = shape(selectedEl.shape).data();
-                            /* 
-                            RM 
-                            allTransforms
-                            shape_id
-                            shape_index
-
-                            UPDATE
-                            alt => newicon
-                            x
-                            y
-                            */
-
-                            // Citra's Code
-                     
                             // Copy the old icon data into a new icon data object
                             const newIconData = Object.assign({}, oldIconData);
 
                             // Remove shape_id, shape_index and rotation properties from new icon object
-                            ["shape_id","shape_index","rotation", "scale", "translation"].forEach(p => delete newIconData[p])
+                            ["shape_id", "shape_index", "rotation", "allTransforms"].forEach(p => delete newIconData[p])
 
                             // Function to generate new x and y coordinate
                             const newXY = a => (parseInt(a) + 1500).toString()
 
                             // Object of properties to update
                             const dataUpdates = {
-                                alt: "newicon", 
-                                x : newXY(newIconData.x), 
-                                y : newXY(newIconData.y),
+                                alt: "newicon",
+                                x: newXY(newIconData.x),
+                                y: newXY(newIconData.y),
                             }
 
                             // Assign updated properties into new icon data
