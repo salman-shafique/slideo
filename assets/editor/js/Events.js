@@ -27,7 +27,9 @@ const Events = {
         display: (data = {}) => dispatchEvent("slide.display", data),
         preview: {
             update: (data = {}) => dispatchEvent("slide.preview.update", data),
-        }
+        },
+        deleted: (data = {}) => dispatchEvent("slide.deleted", data),
+        restored: (data = {}) => dispatchEvent("slide.restored", data),
     },
     shape: {
         drag: {

@@ -30,6 +30,7 @@ import preloader from "Editor/js/components/preloader";
 import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
 import { addLogo } from "../sidebar/branding/utils";
 import { renderDOMPopup } from 'Editor/js/popups';
+import apiService from "../utils/apiService";
 
 
 const chunkDesigns = {};
@@ -98,10 +99,10 @@ export default function slide(slideId) {
     let slideData = this.slideData();
 
     let miniPrevHtml = `
-    <div class="slide-thumbnail" data-slide-id=${this.slideId} draggable="true">
+    <div class="slide-thumbnail" data-slide-id="${this.slideId}" is-active="${slideData.isActive}" draggable="true">
         <object id="prev_${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded"></object>
-        <div class="remove-slide">
-            <i class="fas fa-trash-alt text-white"></i>
+        <div class="remove-slide" data-slide-id="${this.slideId}">
+            <i class="fas fa-trash-alt text-white" style="pointer-events:none"></i>
         </div>
         <span class="slide-sl text-white mr-2"></span>
     </div>
@@ -146,7 +147,8 @@ export default function slide(slideId) {
       refresh_slide_prev_numbers();
     };
 
-    add_event(miniPrev, "click", function () {
+    add_event(miniPrev, "click", function (event) {
+      if (event.target.classList.contains("remove-slide")) return;
       slide(this.dataset.slideId).display();
     });
 
@@ -155,10 +157,15 @@ export default function slide(slideId) {
       slide(slideId).cloneToMiniPrev();
     });
 
+    add_event(select(".remove-slide", miniPrev), "click", (event) => {
+      const slideId = event.target.dataset.slideId;
+      slide(slideId).delete();
+    });
+
     document.getElementById("slides_preview").appendChild(miniPrev);
 
     let mainHtml = `
-        <object id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
+        <object is-active="${slideData.isActive}" id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
         `;
     let main = stringToDOM(mainHtml);
 
@@ -192,6 +199,7 @@ export default function slide(slideId) {
     // update textbox style.direction
     // Show the loaded slide
     let slideData = this.slideData();
+
     slideData.shapes.forEach(shape_ => {
       const shapeCls = shape(this.slideId, shape_.data.shape_id);
       let contentNumber, foreignObject, text, direction, content, g;
@@ -433,7 +441,7 @@ export default function slide(slideId) {
     const contentDocument = window.top.document.getElementById(
       "prev_" + this.slideId
     ).contentDocument;
-    if (contentDocument.querySelector("svg")) {
+    if (contentDocument?.querySelector("svg")) {
       /**
        * @type {SVGGElement} clone
        */
@@ -501,6 +509,42 @@ export default function slide(slideId) {
     });
     if (!addedBefore) shapes.push(newShapeData);
   };
+
+  this.delete = (pushToHistory = true) => {
+    const miniPrev = this.objectPrev();
+    miniPrev.setAttribute("is-active", "false");
+    const object = this.object();
+    object.setAttribute("is-active", "false");
+    this.slideData().isActive = false;
+    presentation().nextOf(this.slideId);
+    refresh_slide_prev_numbers();
+
+    apiService({
+      url: "/api/editor/slide/delete",
+      data: {
+        slideId: this.slideId
+      }
+    })
+    if (pushToHistory)
+      Events.slide.deleted({ slideId: this.slideId });
+  }
+
+  this.restore = () => {
+    const miniPrev = this.objectPrev();
+    miniPrev.setAttribute("is-active", "true");
+    const object = this.object();
+    object.setAttribute("is-active", "true");
+    this.slideData().isActive = true;
+    apiService({
+      url: "/api/editor/slide/restore",
+      data: {
+        slideId: this.slideId
+      }
+    })
+    this.display();
+    refresh_slide_prev_numbers();
+    Events.slide.restored({ slideId: this.slideId });
+  }
 
   this.insertCustomStyles = () => {
     const styles = reactToDOM(

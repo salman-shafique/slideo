@@ -176,17 +176,14 @@ class PresentationService
         return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
     }
 
-    public function saveHistory(Request $request, Presentation $presentation)
-    {
-        $presentation->setHistory($request->request->get('history'));
-        $this->em->persist($presentation);
-        $this->em->flush();
-        return ['success' => true];
-    }
-
     public function saveSettings(Request $request, Presentation $presentation)
     {
-        $presentation->setSettings($request->request->get('settings'));
+        if ($request->request->get('settings'))
+            $presentation->setSettings($request->request->get('settings'));
+        if ($request->request->get('history'))
+            $presentation->setHistory($request->request->get('history'));
+        if ($request->request->get('slidesOrder'))
+            $presentation->setSlidesOrder($request->request->get('slidesOrder'));
         $this->em->persist($presentation);
         $this->em->flush();
         return ['success' => true];

@@ -59,18 +59,13 @@ export function saveChanges(callback = null) {
         apiService({
             url: "/api/presentation/save/settings",
             data: {
-                settings: session.PRESENTATION.settings
+                settings: session.PRESENTATION.settings,
+                history: session.PRESENTATION.history,
+                slidesOrder: session.PRESENTATION.slidesOrder
             }
         });
         preloader.hide();
     }, 50);
-    // Save the history
-    apiService({
-        url: "/api/presentation/save/history",
-        data: {
-            history: session.PRESENTATION.history
-        }
-    });
 }
 
 

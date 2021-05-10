@@ -129,6 +129,32 @@ const extendEvent = (event) => {
                 shapeIds
             };
             break;
+        case 'shape.icon.changed':
+            if (session.SELECTED_ELEMENTS.length != 1) return;
+            event.historyAction = {
+                slideId: session.CURRENT_SLIDE,
+                actionType: constants.ACTION_TYPES.CHANGE_ICON,
+                shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
+                oldIcon: { ...event.data.oldIcon },
+                newIcon: { ...event.data.newIcon }
+            }
+            break;
+        case 'shape.image.changed':
+            if (session.SELECTED_ELEMENTS.length != 1) return;
+            event.historyAction = {
+                slideId: session.CURRENT_SLIDE,
+                actionType: constants.ACTION_TYPES.CHANGE_IMAGE,
+                shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
+                oldImage: { ...event.data.oldImage },
+                newImage: { ...event.data.newImage }
+            }
+            break;
+        case 'slide.deleted':
+            event.historyAction = {
+                slideId: event.data.slideId,
+                actionType: constants.ACTION_TYPES.DELETE_SLIDE
+            }
+            break;
         default:
             break;
     }

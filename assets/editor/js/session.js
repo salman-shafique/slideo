@@ -13,6 +13,8 @@ let session = {
      * @type {{
      *  history: ?{current: number, actions: { slideId: string, actionType: number }[] }[],
      *  settings: {fontFamily: ?string, logo: {isActive: boolean, image:{url: string, width:number,height:number}}}
+     *  slides: [],
+     *  slidesOrder: String[]
      *  }}
      */
     PRESENTATION: null,

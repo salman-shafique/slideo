@@ -43,16 +43,16 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
         </div>
     )
 
-    editIcon.onclick = () => {        
+    editIcon.onclick = (event) => {
+        if (event.ctrlKey) return;
         const g = editIcon.parentElement.parentElement;
 
         if (session.SELECTED_ELEMENTS.length === 0)
-            selectEl({ target: { parentElement: g }});
+            selectEl({ target: { parentElement: g } });
 
         if (session.SELECTED_ELEMENTS.length <= 1)
             selectTextboxElement({ target: { parentElement: g } });
 
-        Events.popup.text.open({ shapeId: g.getAttribute("shape_id") });
     }
 
     foreignObject.appendChild(editIcon)
