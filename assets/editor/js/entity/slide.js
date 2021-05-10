@@ -587,6 +587,9 @@ export default function slide(slideId) {
             box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
             bottom: 180px;
             left: 180px;
+            width: 1600px;
+            height: 1600px;
+            transform-origin: bottom left;
             transition: 0.5s;
         }
         .edit-textbox-icon:hover, .replace-icon:hover, .image-icon:hover {
@@ -605,7 +608,7 @@ export default function slide(slideId) {
             color: #2f53d6;
         }
         .replace-icon {
-            padding: 7% 11% 11% 11%;
+            padding: 5.5% 11% 11% 11%;
             box-sizing: border-box;
         }
         .image-icon {

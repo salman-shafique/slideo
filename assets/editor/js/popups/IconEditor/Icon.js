@@ -34,7 +34,7 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
     }
 
     const getClass = () => {
-        if (!session.SELECTED_ELEMENTS[0])
+        if (!session.SELECTED_ELEMENTS[0] || !session.SELECTED_ELEMENTS[0].shape.querySelector('image'))
             return;
 
         const selectedIconUrl = session.SELECTED_ELEMENTS[0].shape.querySelector('image').getAttribute('xlink:href').split('/');
@@ -50,7 +50,14 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
         return iconClass;
     }
 
+    const getCorrectIconUrl = () => {
+        const src = 'https://static.thenounproject.com/png/';
+        const splitedUrl = iconData.url.split('/');        
+
+        return splitedUrl.length > 4 ? iconData.url : src + splitedUrl[splitedUrl.length - 1];
+    }   
+
     return (
-        <img onClick={onClick} iconid={iconData.id} className={"icon-item col-4 py-2 rounded"} src={iconData.url} />
+        <img onClick={onClick} iconid={iconData.id} className={getClass()} src={getCorrectIconUrl()} />
     )
 }

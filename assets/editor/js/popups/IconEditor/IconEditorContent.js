@@ -75,6 +75,15 @@ export default function IconEditorContent() {
                 }));
             }
         });
+
+        Events.listen('popup.keyword.updated', async (e) => {
+            const keywordExist = hook.keywords.filter(item => item.keyword === e.data.data.keyword.toLowerCase())[0];
+
+            if (!keywordExist) {
+                hook.setKeywords(hook.keywords.concat({ active: false, keyword: e.data.data.keyword.toLowerCase() }));
+                hook.setData(hook.data ? hook.data.concat(await apiCall(e.data.data.keyword.toLowerCase())) : [await apiCall(e.data.data.keyword.toLowerCase())]);
+            }
+        });
     }, [hook.keywords]);
 
     return (

@@ -5,42 +5,36 @@ export default function Popup(props) {
     const classNames = `slidepopup ${props.visible ? 'slidepopup--visible' : undefined}`
 
     const setPopupPosition = (width, height, point, shape, parentNode) => {
+        const scale = session.SELECTED_ELEMENTS[0].scale.startingA;
         const popupWidth = parentNode.offsetWidth;
         const popupHeight = parentNode.offsetHeight;
 
+        let left = null;
+        let top = null;
+
         if (point.x >= width * 1 / 3 && point.x > popupWidth) {
             // SECTION 1 (RIGHT)
-
-            const left = point.x - popupWidth + 12;
-            let top = point.y - popupHeight;
+            left = point.x - popupWidth + 12;
+            top = point.y - popupHeight;
 
             top = top > 0 ? top : 0;
-
-            parentNode.style.left = left + 'px';
-            parentNode.style.top = top + 'px';
-
         } else if (point.y <= height - popupHeight - 20) {
             // SECTION 2 (TOP LEFT)
-
-            let left = point.x + 24;
-            const top = point.y;
+            left = point.x + 24;
+            top = point.y;
 
             left = left > 25 ? left : 25;
-
-            parentNode.style.left = left + 'px';
-            parentNode.style.top = top + 'px';
-
         } else {
             // SECTION 3 (BOTTOM LEFT)
-            let left = point.x + shape.width + 40;
-            let top = point.y - popupHeight;
+            left = point.x + shape.width * scale + 40;
+            top = point.y - popupHeight;
 
             top = top > 0 ? top : 0;
             left = left >= width - popupWidth + 20 ? width - popupWidth + 20 : left;
-
-            parentNode.style.left = left + 'px';
-            parentNode.style.top = top + 'px';
         }
+
+        parentNode.style.left = left + 'px';
+        parentNode.style.top = top + 'px';
     }
 
     const initPopup = (container, parentNode) => {
@@ -48,6 +42,7 @@ export default function Popup(props) {
             return;
 
         const svgViewBox = container.contentDocument.children[0]?.viewBox?.baseVal;
+        const scale = session.SELECTED_ELEMENTS[0].scale.startingA;
 
         if (!svgViewBox)
             return;
@@ -62,9 +57,15 @@ export default function Popup(props) {
             width: props.shape.size.width * normalized.width
         }
 
+        let correctStartingE = props.shape.translate.startingE;
+        let correctStartingF = props.shape.translate.startingF;
+        
+        correctStartingE = correctStartingE - (props.shape.size.x - props.shape.size.x * scale);
+        correctStartingF = correctStartingF - (props.shape.size.y - props.shape.size.y * scale);
+
         const point = {
-            x: (props.shape.size.x + props.shape.translate.startingE) * normalized.width,
-            y: (props.shape.size.y + props.shape.size.height + props.shape.translate.startingF) * normalized.height
+            x: (props.shape.size.x + correctStartingE) * normalized.width,
+            y: (props.shape.size.y + props.shape.size.height * scale + correctStartingF) * normalized.height
         }
 
         setPopupPosition(container.offsetWidth, container.offsetHeight, point, shape, parentNode);
