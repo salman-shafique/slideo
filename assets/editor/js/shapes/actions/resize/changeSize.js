@@ -3,29 +3,27 @@ import constants from "Editor/js/constants";
 import calculateMouseDiff from "Editor/js/shapes/actions/drag/utils/calculateMouseDiff";
 import { resizeCircleContainer, relocateResizeCircleContainer } from "./utils/copyTransform";
 
-
+const ICON_CLASSES = '.edit-textbox-icon, .replace-icon, .image-icon';
+const ICON_SIZE = 1600;
+const ICON_MAX_PADDING = 180;
 const changeShapeIconSize = (shape, newScaleX = null, newScaleY = null) => {
-    const ICON_CLASSES = '.edit-textbox-icon, .replace-icon, .image-icon';
-    const ICON_SIZE = 1600;
-    const ICON_MAX_PADDING = 180;
 
     const icon = Array.from(shape.querySelectorAll(ICON_CLASSES))[0];
+    if (!icon) return;
 
     const parsedScale = shape.getAttribute('transform').split(') ')
-                            .filter(item => item.includes('scale('))[0]
-                            .replace('scale(', '').split(' ');
+        .filter(item => item.includes('scale('))[0]
+        .replace('scale(', '').split(' ');
 
     const shapeBoxSize = Math.min(parseInt(shape.getAttribute('height')) * parsedScale[0], parseInt(shape.getAttribute('width')) * parsedScale[1]);
 
     if (shapeBoxSize - ICON_MAX_PADDING < ICON_SIZE) {
         const desiredIconSize = (shapeBoxSize - ICON_MAX_PADDING) / ICON_SIZE;
-        icon.style.transform = `scale(${ desiredIconSize * 1 / parsedScale[0] }, ${ desiredIconSize * 1 / parsedScale[1] })`;
-
+        icon.style.transform = `scale(${desiredIconSize * 1 / parsedScale[0]}, ${desiredIconSize * 1 / parsedScale[1]})`;
     } else if (newScaleX || newScaleY) {
-        icon.style.transform = `scale(${ 1 / newScaleX }, ${ 1 / newScaleY })`;
-        
+        icon.style.transform = `scale(${1 / newScaleX}, ${1 / newScaleY})`;
     } else {
-        icon.style.transform = `scale(${ 1 / parsedScale[0] }, ${ 1 / parsedScale[1] })`;
+        icon.style.transform = `scale(${1 / parsedScale[0]}, ${1 / parsedScale[1]})`;
     }
 }
 
@@ -251,7 +249,7 @@ export default function changeSize(event) {
                         newScale,
                         newScale
                     );
-                    
+
                     changeShapeIconSize(selectedEl.shape, newScale, newScale);
 
                     selectedEl.translate.transform.setTranslate(
