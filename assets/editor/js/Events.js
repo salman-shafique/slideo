@@ -70,6 +70,9 @@ const Events = {
             opened: (data = {}) => dispatchEvent("popup.image.opened", data),
             upload: (data = {}) => dispatchEvent('popup.image.upload', data),
             delete: (data = {}) => dispatchEvent('popup.image.delete', data)
+        },
+        keyword: {
+            updated: (data = {}) => dispatchEvent("popup.keyword.updated", data),
         }
     },
     colorCircle: {

@@ -12,6 +12,7 @@ import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
 import getClipPath from "Editor/js/shapes/actions/resize/utils/getClipPath";
+import Events from "../Events";
 
 
 /**
@@ -113,6 +114,7 @@ export default function shape(slideId, shapeId) {
 
                 findKeyword(newText, (slideId, shapeId, keyword) => {
                     iconInit(slideId, shapeId, keyword);
+                    Events.popup.keyword.updated({ data: { keyword, slideId } });
                 }, [this.slideId, iconShapeId]);
             }
 
@@ -125,6 +127,7 @@ export default function shape(slideId, shapeId) {
 
                 findKeyword(newText, (slideId, shapeId, keyword) => {
                     h1Image(slideId, shapeId, keyword);
+                    Events.popup.keyword.updated({ data: { keyword, slideId } });
                 }, [this.slideId, imageShapeId]);
             }
 
@@ -168,6 +171,7 @@ export default function shape(slideId, shapeId) {
 
             findKeyword(newText, (slideId, shapeId, keyword) => {
                 h1Image(slideId, shapeId, keyword);
+                Events.popup.keyword.updated({ data: { keyword, slideId } });
             }, [this.slideId, slideTitleImageShapeId]);
         }
         autosizeForeignObject(this.el().querySelector("foreignObject"));

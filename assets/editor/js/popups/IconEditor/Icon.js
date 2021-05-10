@@ -50,7 +50,14 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
         return iconClass;
     }
 
+    const getCorrectIconUrl = () => {
+        const src = 'https://static.thenounproject.com/png/';
+        const splitedUrl = iconData.url.split('/');        
+
+        return splitedUrl.length > 4 ? iconData.url : src + splitedUrl[splitedUrl.length - 1];
+    }   
+
     return (
-        <img onClick={onClick} iconid={iconData.id} className={getClass()} src={iconData.url} />
+        <img onClick={onClick} iconid={iconData.id} className={getClass()} src={getCorrectIconUrl()} />
     )
 }
