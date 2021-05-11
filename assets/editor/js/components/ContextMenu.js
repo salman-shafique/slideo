@@ -10,6 +10,8 @@ import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import Events from "Editor/js/Events";
 import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon.js"
+import createNewImage from "Editor/js/shapes/image/createNewImage.js"
+import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox.js"
 
 
 export const getSelectedElementsType = () => {
@@ -100,6 +102,34 @@ function ContextMenu() {
         });
     }
 
+
+    // Citra's Code
+    // Function to handle shape duplication
+    const duplicateShape = (element, type) => {
+        const oldShapeData = shape(element.shape).data();
+        // Copy the old shape data into a new icon data object
+        const newShapeData = Object.assign({}, oldShapeData);
+        
+        // Remove shape_id, shape_index and rotation properties from new icon object
+        ["shape_id","shape_index","rotation", "allTransforms"].forEach(p => delete newShapeData[p])
+        
+        // Function to generate new x and y coordinate
+        const newXY = a => (parseInt(a) + 1500).toString()
+       
+        // Condition to define alt'x text based on the type of the shape
+        const altText = type === "icon" ? "newicon" : type === "image" ? "newimage" : "newtextbox";
+        
+        // Object of properties to update
+        const dataUpdate = {
+            alt:  altText, 
+            x : newXY(newShapeData.x), 
+            y : newXY(newShapeData.y),
+        }
+
+        // Assign updated properties into new icon data
+        return Object.assign(newShapeData, dataUpdate)
+    }
+
     const contextMenuAction = (type) => {
         switch (type) {
             case "EDIT_TEXT":
@@ -110,33 +140,17 @@ function ContextMenu() {
                 session.SELECTED_ELEMENTS.forEach(selectedEl => {
                     switch (getShapeType(selectedEl.shape)) {
                         case constants.SHAPE_TYPES.ICON:
-                            const oldIconData = shape(selectedEl.shape).data();
-                            // Copy the old icon data into a new icon data object
-                            const newIconData = Object.assign({}, oldIconData);
-
-                            // Remove shape_id, shape_index and rotation properties from new icon object
-                            ["shape_id", "shape_index", "rotation", "allTransforms"].forEach(p => delete newIconData[p])
-
-                            // Function to generate new x and y coordinate
-                            const newXY = a => (parseInt(a) + 1500).toString()
-
-                            // Object of properties to update
-                            const dataUpdates = {
-                                alt: "newicon",
-                                x: newXY(newIconData.x),
-                                y: newXY(newIconData.y),
-                            }
-
-                            // Assign updated properties into new icon data
-                            Object.assign(newIconData, dataUpdates)
 
                             // Call the createNewIcon callback with new icon data
-                            createNewIcon(newIconData)
-
+                            createNewIcon(duplicateShape(selectedEl, "icon"))
                             break;
                         case constants.SHAPE_TYPES.IMAGE:
+                            // Call the createNewImage callback with new icon data
+                            createNewImage(duplicateShape(selectedEl, "image"))
                             break;
                         case constants.SHAPE_TYPES.TEXTBOX:
+                            // Call the createNewTextbox callback with new icon data
+                            createNewTextbox(duplicateShape(selectedEl, "text"))
                             break;
                         default:
                             break;
