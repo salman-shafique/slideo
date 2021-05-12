@@ -24,6 +24,10 @@ let session = {
      */
     CURRENT_SLIDE: "",
     /**
+     * @type {DOMMatrix}
+     */
+    CURRENT_SLIDE_CTM: null,
+    /**
      * @type {{
      *  shapeId: string
      *  shape: SVGGElement
