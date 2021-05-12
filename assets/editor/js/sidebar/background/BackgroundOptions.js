@@ -14,6 +14,7 @@ export default function BackgroundOptions() {
       const slide_ = slide(slideId);
       const slideData = slide_.slideData();
       setBackground(slideData.background.data);
+      Events.slide.preview.update();
     });
   }, []);
 

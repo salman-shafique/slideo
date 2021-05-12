@@ -1,5 +1,6 @@
 import React from "react";
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
+import Events from "Editor/js/Events";
 
 export default function TextboxBtnL() {
 
@@ -16,7 +17,7 @@ export default function TextboxBtnL() {
             "size":"L"
         });
     }
-
+    Events.slide.preview.update();
     return (
         <div onClick={addTextBox} className="btn btn-dark col-12 mb-2" style={{ "fontSize": "40px" }}>
             כותרת משנה

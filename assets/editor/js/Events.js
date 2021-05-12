@@ -55,6 +55,8 @@ const Events = {
         },
         image: {
             changed: (data = {}) => dispatchEvent("shape.image.changed", data),
+            add: (data = {}) => dispatchEvent("shape.image.add", data),
+            remove: (data = {}) => dispatchEvent("shape.image.remove", data),
         },
         deleted: (data = {}) => dispatchEvent("shape.deleted", data),
     },

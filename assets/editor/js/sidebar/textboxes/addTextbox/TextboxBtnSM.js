@@ -1,5 +1,6 @@
 import React from "react";
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
+import Events from "Editor/js/Events";
 
 export default function TextboxBtnSM() {
 
@@ -15,6 +16,7 @@ export default function TextboxBtnSM() {
             "size":"SM"
         });
     }
+    Events.slide.preview.update();
     return (
         <div onClick={addTextBox} className="btn btn-dark col-12 mb-2" style={{ "fontSize": "20px" }}>
             טקסט פסקה

@@ -50,6 +50,7 @@ export default function UnderlineBtn(props) {
 
         shape_.data().underline = (isUnderline ? "true" : "false");
         g.querySelector("table").style.textDecoration = (isUnderline ? "underline" : "");
+        Events.shape.textbox.edit.ended();
 
     }
 

@@ -82,6 +82,7 @@ export const undo = () => {
     deSelectAll();
 
     session.PRESENTATION.history.current--;
+    Events.slide.preview.update();
 }
 
 export const redo = () => {
@@ -127,6 +128,7 @@ export const redo = () => {
     deSelectAll();
 
     session.PRESENTATION.history.current++;
+    Events.slide.preview.update();
 }
 
 
