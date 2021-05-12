@@ -16,11 +16,13 @@ export default function endDrag(event) {
      * @type {SVGGElement} g
      */
     let g = event.target.parentElement;
+    // For outside svg endDrag
+    if (!g && event.target?.tagName?.toLowerCase() == "svg")
+        g = session.SELECTED_ELEMENTS[0]?.shape;
+
     if (!g) return;
 
-
     const shapeId = g.getAttribute("shape_id");
-
 
     if (!(event.which == 3 || event.button == 2)) // Check if it is right click
         if (event.ctrlKey) {

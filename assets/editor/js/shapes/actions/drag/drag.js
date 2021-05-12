@@ -4,7 +4,7 @@ import Events from "Editor/js/Events";
 import dragPreventDefault from "Editor/js/shapes/actions/drag/utils/dragPreventDefault";
 
 /**
- * 
+ *
  * @param {Event} event
  */
 export default function drag(event) {
