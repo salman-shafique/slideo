@@ -428,8 +428,6 @@ export default function slide(slideId) {
 
     // Update the session CURRENT_SLIDE
     session.CURRENT_SLIDE = this.slideId;
-    if (this.documentElement().getScreenCTM)
-      session.CURRENT_SLIDE_CTM = this.documentElement().getScreenCTM();
 
     // Dispatch the selection event
     Events.slide.display({ slideId: this.slideId });
