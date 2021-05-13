@@ -335,8 +335,6 @@ export default function slide(slideId) {
       }
 
       if (shape_.data.active == "false") shapeCls.remove();
-      debugger;
-      slide(session.CURRENT_SLIDE).cloneToMiniPrev();
     });
 
     // Background
