@@ -10,6 +10,7 @@ import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import selectEl from "Editor/js/shapes/actions/drag/utils/selectEl";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import colorFilters from "Editor/js/shapes/actions/color/colorFilters";
+import Events from "Editor/js/Events";
 
 let addedIconCounter = 0;
 
@@ -66,4 +67,5 @@ export default function createNewIcon(iconData, slideId = session.CURRENT_SLIDE)
     colorFilters(newIconShape).init();
 
     addedIconCounter++;
+    Events.slide.preview.update();
 }

@@ -454,7 +454,6 @@ export default function slide(slideId) {
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
-
       setTimeout(() => {
         oldSlideG.remove();
         clone.style.visibility = "visible";
@@ -672,3 +671,5 @@ export default function slide(slideId) {
     this.contentDocument().querySelector("svg").appendChild(styles);
   };
 }
+
+

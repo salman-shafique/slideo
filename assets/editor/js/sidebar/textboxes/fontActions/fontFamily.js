@@ -78,6 +78,7 @@ export default function FontFamily(props) {
         data.font_family = newFontFamily;
 
         g.querySelector("table").style.fontFamily = newFontFamily;
+        Events.shape.textbox.edit.ended();
     }
 
     const fontfamily = (e) => {

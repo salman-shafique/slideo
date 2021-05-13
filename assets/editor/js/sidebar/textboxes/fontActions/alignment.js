@@ -50,6 +50,7 @@ export default function AlignmentBtn(props) {
 
         shape_.data().alignment = alignment;
         g.querySelector("table").style.textAlign = constants.ALIGNMENTS[alignment];
+        Events.shape.textbox.edit.ended();
 
     }
 

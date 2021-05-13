@@ -50,6 +50,7 @@ export default function BoldBtn(props) {
 
         shape_.data().font_weight = (isBold ? "700" : "400");
         g.querySelector("table").style.fontWeight = (isBold ? "700" : "400");
+        Events.shape.textbox.edit.ended();
 
     }
 
