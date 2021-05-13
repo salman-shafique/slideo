@@ -33,12 +33,12 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
 
     // Underline
     let text_decoration;
-    shape.underline.toLowerCase() == "true" ? text_decoration = "underline" : text_decoration = '';
+    shape.underline?.toLowerCase() == "true" ? text_decoration = "underline" : text_decoration = '';
     table.style.textDecoration = text_decoration;
 
     // Italic
     let font_style;
-    shape.italic.toLowerCase() == "true" ? font_style = "italic" : font_style = '';
+    shape.italic?.toLowerCase() == "true" ? font_style = "italic" : font_style = '';
     table.style.fontStyle = font_style;
 
     // Why?
