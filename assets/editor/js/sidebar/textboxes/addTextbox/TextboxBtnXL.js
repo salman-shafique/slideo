@@ -13,10 +13,10 @@ export default function TextboxBtnXL() {
             "font_size": 2000,
             "font_weight": 700,
             "text": "כותרת ראשית",
-            "size":"XL"
+            "size": "XL"
         });
+        Events.slide.preview.update();
     }
-    Events.slide.preview.update();
     return (
         <div onClick={addTextBox} className="btn btn-dark col-12 mb-2" style={{ "fontSize": "50px" }}>
             כותרת ראשית

@@ -13,10 +13,10 @@ export default function TextboxBtnSM() {
             "font_size": 900,
             "font_weight": 400,
             "text": "טקסט פסקה",
-            "size":"SM"
+            "size": "SM"
         });
+        Events.slide.preview.update();
     }
-    Events.slide.preview.update();
     return (
         <div onClick={addTextBox} className="btn btn-dark col-12 mb-2" style={{ "fontSize": "20px" }}>
             טקסט פסקה
