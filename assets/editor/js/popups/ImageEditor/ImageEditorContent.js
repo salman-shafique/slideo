@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchSection from '../components/SearchSection';
 import MainSection from '../components/MainSection';
 import UserImages from './UserImages';
 import ImageContainer from './ImageContainer';
+import session from "Editor/js/session";
 
 import useKeyword from '../hooks/useKeyword';
 
-export default function ImageEditorContent() {
+export default function ImageEditorContent(props) {
     const [uploadImages, setUploadImages] = useState(false);
     const hook = useKeyword('Pexels/find_images', 20);
     const activeImages = hook.getActiveData();
+    console.log('hook',hook.keywords);
+        
+    useEffect(() => {
+                     hook.setKeywords(hook.keywords.concat({ active: true, keyword: props.keyword.toLowerCase() ? props.keyword.toLowerCase() : null }));
+                     hook.fetchNewData(props.keyword.toLowerCase() ? props.keyword.toLowerCase() : null)
+    },[props.keyword])
 
     return (
         <>
@@ -20,7 +27,7 @@ export default function ImageEditorContent() {
             }   
             <MainSection>
                 {
-                    activeImages && !uploadImages ? <ImageContainer images={ activeImages } keyword={ hook.getActiveKeyword() } /> : undefined
+                    activeImages && !uploadImages ? <ImageContainer images={ activeImages } keyword={ props.keyword.toLowerCase() } /> : undefined
                 }
             </MainSection>
             {

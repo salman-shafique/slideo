@@ -19,11 +19,11 @@ const changeShapeIconSize = (shape, newScaleX = null, newScaleY = null) => {
 
     if (shapeBoxSize - ICON_MAX_PADDING < ICON_SIZE) {
         const desiredIconSize = (shapeBoxSize - ICON_MAX_PADDING) / ICON_SIZE;
-        icon.style.transform = `scale(${desiredIconSize * 1 / parsedScale[0]}, ${desiredIconSize * 1 / parsedScale[1]})`;
-    } else if (newScaleX || newScaleY) {
-        icon.style.transform = `scale(${1 / newScaleX}, ${1 / newScaleY})`;
-    } else {
         icon.style.transform = `scale(${1 / parsedScale[0]}, ${1 / parsedScale[1]})`;
+    } else if (newScaleX || newScaleY) {
+        icon.style.transform = `scale(1,1)`;
+    } else {
+        icon.style.transform = `scale(1,1)`;
     }
 }
 

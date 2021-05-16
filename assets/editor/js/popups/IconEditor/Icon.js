@@ -54,7 +54,7 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
         const src = 'https://static.thenounproject.com/png/';
         const splitedUrl = iconData.url.split('/');        
 
-        return splitedUrl.length > 4 ? iconData.url : src + splitedUrl[splitedUrl.length - 1];
+        return splitedUrl.length > 4 ? iconData.url : '/icons/' + splitedUrl[splitedUrl.length - 1];
     }   
 
     return (

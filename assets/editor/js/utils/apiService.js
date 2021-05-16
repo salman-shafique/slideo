@@ -9,7 +9,7 @@ export default function apiService(settings = {
     success: () => { },
     error: null,
     beforeSend: null,
-    async: true,
+    async: false,
     processData: true,
     contentType: 'application/x-www-form-urlencoded; charset=UTF-8'
 }) {
@@ -44,6 +44,7 @@ settings: ${JSON.stringify(settings)}
         };
 
     let response = $.ajax(settings);
+    // console.log('res',response.responseJSON)
     if (settings.async == false)
         return response.responseJSON;
     return null;

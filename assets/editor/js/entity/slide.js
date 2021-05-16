@@ -585,7 +585,7 @@ export default function slide(slideId) {
             border-radius: 10000px;
             box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
             bottom: 180px;
-            left: 180px;
+            left: -1500px;
             width: 1600px;
             height: 1600px;
             transform-origin: bottom left;

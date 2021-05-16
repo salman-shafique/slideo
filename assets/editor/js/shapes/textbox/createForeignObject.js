@@ -36,7 +36,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
     foreignObject.appendChild(contentTemplate);
 
     const editIcon = reactToDOM(
-        <div className="edit-textbox-icon">
+        <div className="edit-textbox-icon" id="edit-textbox-icon">
             <span className="edit-textbox-icon-inner-wrapper">
                 ✎
             </span>
@@ -50,7 +50,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
         if (session.SELECTED_ELEMENTS.length === 0)
             selectEl({ target: { parentElement: g } });
 
-        if (session.SELECTED_ELEMENTS.length <= 1)
+        if (session.SELECTED_ELEMENTS.length >= 1)
             selectTextboxElement({ target: { parentElement: g } });
 
     }
