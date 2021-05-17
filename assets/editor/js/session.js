@@ -41,6 +41,14 @@ let session = {
      */
     SAVED_MOUSE_POS: null,
     /**
+     * @type {{x: number, y: number}}
+     */
+    SAVED_SELECTION_MOUSE_POS: null,
+    /**
+     * @type {string} SELECTION_STATE - "STARTING" | "SELECTING" | null
+     */
+    SELECTION_STATE: null,
+    /**
      * @type {string} SHAPE_STATE - "DRAGGING" | "PREVIEW" null
      */
     SHAPE_STATE: null,
