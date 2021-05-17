@@ -11,23 +11,22 @@ export default function ImageEditorContent(props) {
     const [uploadImages, setUploadImages] = useState(false);
     const hook = useKeyword('Pexels/find_images', 20);
     const activeImages = hook.getActiveData();
-    console.log('hook',hook.keywords);
-        
+
     useEffect(() => {
-                     hook.setKeywords(hook.keywords.concat({ active: true, keyword: props.keyword.toLowerCase() ? props.keyword.toLowerCase() : null }));
-                     hook.fetchNewData(props.keyword.toLowerCase() ? props.keyword.toLowerCase() : null)
-    },[props.keyword])
+        hook.setKeywords(hook.keywords.concat({ active: true, keyword: props.keyword.toLowerCase() ? props.keyword.toLowerCase() : null }));
+        hook.fetchNewData(props.keyword.toLowerCase() ? props.keyword.toLowerCase() : null)
+    }, [props.keyword])
 
     return (
         <>
             {
                 !uploadImages ?
-                <SearchSection keywords={ hook.keywords } setKeywords={ hook.setKeywords } fetchNewData={ hook.fetchNewData } /> :
-                undefined
-            }   
+                    <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} /> :
+                    undefined
+            }
             <MainSection>
                 {
-                    activeImages && !uploadImages ? <ImageContainer images={ activeImages } keyword={ props.keyword.toLowerCase() } /> : undefined
+                    activeImages && !uploadImages ? <ImageContainer images={activeImages} keyword={props.keyword.toLowerCase()} /> : undefined
                 }
             </MainSection>
             {
@@ -35,9 +34,9 @@ export default function ImageEditorContent(props) {
             }
             <div className="control-section">
                 {
-                    uploadImages ? 
-                    <button onClick={ () => { setUploadImages(false); } } className="btn btn-danger btn-sm btn-full horizontal-text-clip">Cancel</button> :
-                    <button onClick={ () => { setUploadImages(true); } } className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip">My Images</button>
+                    uploadImages ?
+                        <button onClick={() => { setUploadImages(false); }} className="btn btn-danger btn-sm btn-full horizontal-text-clip">Cancel</button> :
+                        <button onClick={() => { setUploadImages(true); }} className="btn btn-primary btn-sm btn-full control-button horizontal-text-clip">My Images</button>
                 }
             </div>
         </>

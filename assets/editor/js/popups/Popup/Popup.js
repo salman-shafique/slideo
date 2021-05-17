@@ -8,7 +8,7 @@ export default function Popup(props) {
         const scale = session.SELECTED_ELEMENTS[0].scale.startingA;
         const popupWidth = parentNode.offsetWidth;
         const popupHeight = parentNode.offsetHeight;
-        // console.log('point',point);
+
         let left = null;
         let top = null;
 

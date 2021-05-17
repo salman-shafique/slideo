@@ -36,7 +36,7 @@ export default function ImageEditor() {
         Events.listen("popup.text.opened", closePopup);
         Events.listen("popup.icon.opened", closePopup);
     }, []);
-    console.log(keyword)
+    
     return (
         <Popup visible={visible} shape={activeShape} parent={'ImagePopup'} >
         {keyword ?

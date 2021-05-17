@@ -44,7 +44,7 @@ settings: ${JSON.stringify(settings)}
         };
 
     let response = $.ajax(settings);
-    // console.log('res',response.responseJSON)
+
     if (settings.async == false)
         return response.responseJSON;
     return null;
