@@ -2,13 +2,15 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import session from "Editor/js/session";
 import { undo, redo } from "Editor/js/history/index";
+import {shapeHandler} from "Editor/js/components/ContextMenu.js"
 
 const Z_equivalents = ["z", "ז"];
 const Y_equivalents = ["y", "ט"];
 const C_equivalents = ["c", "ב"];
 const X_equivalents = ["x", "ס"];
 const V_equivalents = ["v", "ה"];
-const S_equivalents = ["s", "ד"];
+const S_equivalents = ["s", "ס"]; 
+const D_equivalents = ["d", "ד"]; 
 
 /**
  * @param {KeyboardEvent} event
@@ -34,6 +36,9 @@ const keyboardHandler = (event) => {
 
     } else if (S_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
 
+    } else if (D_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
+        if (session.TEXT_EDITING) return;
+        shapeHandler("duplication");
     }
 }
 

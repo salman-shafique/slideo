@@ -27,6 +27,102 @@ export const getSelectedElementsType = () => {
     return pureType;
 }
 
+// Citra's Code
+
+export const shapeHandler = (event) => {
+    session.SELECTED_ELEMENTS.forEach(selectedEl => {
+        switch (getShapeType(selectedEl.shape)) {
+            case constants.SHAPE_TYPES.ICON:
+                // Call the createNewIcon callback with new icon data
+                createNewIcon(duplicateShape(selectedEl, "icon"))
+                break;
+            case constants.SHAPE_TYPES.IMAGE:
+                // Call the createNewImage callback with new icon data
+                event === "showfull" ? showFullImage(selectedEl) : createNewImage(duplicateShape(selectedEl, "image"))
+                break;
+            case constants.SHAPE_TYPES.TEXTBOX:
+                // Call the createNewTextbox callback with new icon data
+                createNewTextbox(duplicateShape(selectedEl, "text"))
+                break;
+            default:
+                break;
+        }
+    })
+}
+
+// Function to remove shape props
+const removeShapeProps = (obj) => {
+    ["shape_id","shape_index","rotation", "allTransforms"].forEach(p => delete obj[p])
+}
+
+// Function to DUPLICATE shape
+const duplicateShape = (element, type) => {
+
+    const oldShapeData = shape(element.shape).data();
+    // Copy the old shape data into a new icon data object
+    const newShapeData = Object.assign({}, oldShapeData);
+    
+    // Remove shape_id, shape_index and rotation properties from new icon object
+    removeShapeProps(newShapeData)
+    
+    // Function to generate new x and y coordinate
+    const newXY = a => (parseInt(a) + 1500).toString()
+   
+    // Condition to define alt'x text based on the type of the shape
+    const altText = type === "icon" ? "newicon" : type === "image" ? "newimage" : "newtextbox";
+    
+    // Object of properties to update
+    const dataUpdate = {
+        alt:  altText, 
+        x : newXY(newShapeData.x), 
+        y : newXY(newShapeData.y),
+    }
+
+    // Assign updated properties into new icon data
+    return Object.assign(newShapeData, dataUpdate)
+}
+
+// Function to SHOW FULL IMAGE
+const showFullImage = (element) => {
+    // Assign the old shape data into a new icon data object
+    const newImage = Object.assign({}, shape(element.shape).data())
+
+    // Remove shape_id, shape_index and rotation properties from new icon object
+    removeShapeProps(newImage);
+     
+    // Define image width & height
+    const imageWidth = newImage.image.width
+    const imageHeight = newImage.image.height
+      
+    // Assign a new alt and width RELATED to image ratio
+    // Define image's width & height ratio
+    const imageRatio = imageWidth / imageHeight;
+
+    const dataUpdate ={
+        alt: "newimage",
+        width: imageWidth ? (newImage.height * imageRatio ).toString() : newImage.width 
+    }
+
+    const fullImage = Object.assign(newImage, dataUpdate)
+    
+    // Assign a new alt and size with the image's ORIGINAL width and height
+    // const dataUpdate = {
+    //     alt: "newimage", 
+    //     width: imageWidth ? imageWidth.toString() : newImage.width, 
+    //     height: imageHeight ? imageHeight.toString() : newImage.height,
+    // }
+    // const fullImage = Object.assign(newImage, dataUpdate)
+   
+    // Assign x and y props into the image object
+    Object.assign(newImage.image, {x:newImage.x, y:newImage.y})
+
+    // Remove current image
+    shape(element.shape).remove()
+
+    // Call the createNewImage callback with new full image data
+    createNewImage(fullImage)
+}
+
 function ContextMenu() {
     const [isOpen, setIsOpen] = React.useState(false);
     const [contextMenuLeft, setContextMenuLeft] = React.useState(null);
@@ -103,32 +199,7 @@ function ContextMenu() {
     }
 
 
-    // Citra's Code
-    // Function to handle shape duplication
-    const duplicateShape = (element, type) => {
-        const oldShapeData = shape(element.shape).data();
-        // Copy the old shape data into a new icon data object
-        const newShapeData = Object.assign({}, oldShapeData);
-        
-        // Remove shape_id, shape_index and rotation properties from new icon object
-        ["shape_id","shape_index","rotation", "allTransforms"].forEach(p => delete newShapeData[p])
-        
-        // Function to generate new x and y coordinate
-        const newXY = a => (parseInt(a) + 1500).toString()
-       
-        // Condition to define alt'x text based on the type of the shape
-        const altText = type === "icon" ? "newicon" : type === "image" ? "newimage" : "newtextbox";
-        
-        // Object of properties to update
-        const dataUpdate = {
-            alt:  altText, 
-            x : newXY(newShapeData.x), 
-            y : newXY(newShapeData.y),
-        }
-
-        // Assign updated properties into new icon data
-        return Object.assign(newShapeData, dataUpdate)
-    }
+   
 
     const contextMenuAction = (type) => {
         switch (type) {
@@ -137,27 +208,10 @@ function ContextMenu() {
                 setIsOpen(false);
                 break;
             case "DUPLICATE":
-                session.SELECTED_ELEMENTS.forEach(selectedEl => {
-                    switch (getShapeType(selectedEl.shape)) {
-                        case constants.SHAPE_TYPES.ICON:
-
-                            // Call the createNewIcon callback with new icon data
-                            createNewIcon(duplicateShape(selectedEl, "icon"))
-                            break;
-                        case constants.SHAPE_TYPES.IMAGE:
-                            // Call the createNewImage callback with new icon data
-                            createNewImage(duplicateShape(selectedEl, "image"))
-                            break;
-                        case constants.SHAPE_TYPES.TEXTBOX:
-                            // Call the createNewTextbox callback with new icon data
-                            createNewTextbox(duplicateShape(selectedEl, "text"))
-                            break;
-                        default:
-                            break;
-                    }
-                })
+                shapeHandler("duplication")
                 break;
             case "SHOW_FULL_IMAGE":
+                shapeHandler("showfull")
                 break;
             case "CHANGE_COLOR":
                 Events.colorCircle.open();
