@@ -31,7 +31,7 @@ export default function selectIcon(slideId, shapeId, icon = null) {
     const shape_ = shape(slideId, shapeId);
     const shapeData = shape_.data();
 
-    if (!shape_.el().querySelector('foreignObject'))
+    if (!shape_.el()?.querySelector('foreignObject'))
         createForeignObject(shape_.el());
 
     if (icon) {
