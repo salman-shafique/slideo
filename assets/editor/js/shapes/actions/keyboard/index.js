@@ -2,15 +2,16 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import session from "Editor/js/session";
 import { undo, redo } from "Editor/js/history/index";
-import {shapeHandler} from "Editor/js/components/ContextMenu.js"
+import { shapeHandler } from "Editor/js/components/ContextMenu.js"
+import shape from "Editor/js/entity/shape";
 
 const Z_equivalents = ["z", "ז"];
 const Y_equivalents = ["y", "ט"];
 const C_equivalents = ["c", "ב"];
 const X_equivalents = ["x", "ס"];
 const V_equivalents = ["v", "ה"];
-const S_equivalents = ["s", "ס"]; 
-const D_equivalents = ["d", "ד"]; 
+const S_equivalents = ["s", "ס"];
+const D_equivalents = ["d", "ד"];
 
 /**
  * @param {KeyboardEvent} event
@@ -29,11 +30,18 @@ const keyboardHandler = (event) => {
         if (session.TEXT_EDITING) return;
         redo();
     } else if (C_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
-
+        session.COPIED_ELEMENTS = session.SELECTED_ELEMENTS.map((e) => {
+            return { shapeId: e.shapeId, slideId: session.CURRENT_SLIDE }
+        })
     } else if (X_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
 
     } else if (V_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
+        console.log(session.COPIED_ELEMENTS);
+        session.COPIED_ELEMENTS?.forEach(copiedElement => {
+            const shape_ = shape(copiedElement.slideId, copiedElement.shapeId);
 
+        });
+        session.COPIED_ELEMENTS = [];
     } else if (S_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
 
     } else if (D_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {

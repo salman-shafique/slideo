@@ -37,6 +37,13 @@ let session = {
      */
     SELECTED_ELEMENTS: [],
     /**
+     * @type {{
+     * slideId: string,
+     * shapeId: string
+     * }[]}
+     */
+    COPIED_ELEMENTS: [],
+    /**
      * @type {{x: number, y: number}}
      */
     SAVED_MOUSE_POS: null,
