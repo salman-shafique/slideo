@@ -29,16 +29,22 @@ export const getSelectedElementsType = () => {
 
 // Citra's Code
 
-export const shapeHandler = (event) => {
-    session.SELECTED_ELEMENTS.forEach(selectedEl => {
-        switch (getShapeType(selectedEl.shape)) {
+export const shapeHandler = (e) => {
+    const element = typeof e === "object" ? e : session.SELECTED_ELEMENTS;
+   
+   element.forEach(selectedEl => {
+        const selectedType = getShapeType(selectedEl.shape)
+        const copiedType = selectedEl.shape_type
+        const type = typeof e === "object" ? copiedType : selectedType ;
+    
+        switch (type) {
             case constants.SHAPE_TYPES.ICON:
                 // Call the createNewIcon callback with new icon data
                 createNewIcon(duplicateShape(selectedEl, "icon"))
                 break;
             case constants.SHAPE_TYPES.IMAGE:
                 // Call the createNewImage callback with new icon data
-                event === "showfull" ? showFullImage(selectedEl) : createNewImage(duplicateShape(selectedEl, "image"))
+                e === "showfull" ? showFullImage(selectedEl) : createNewImage(duplicateShape(selectedEl, "image"))
                 break;
             case constants.SHAPE_TYPES.TEXTBOX:
                 // Call the createNewTextbox callback with new icon data
@@ -56,11 +62,13 @@ const removeShapeProps = (obj) => {
 }
 
 // Function to DUPLICATE shape
-const duplicateShape = (element, type) => {
+export const duplicateShape = (element, type) => {
 
-    const oldShapeData = shape(element.shape).data();
+    const oldShapeData = element.shape ? shape(element.shape).data() : element ;
     // Copy the old shape data into a new icon data object
     const newShapeData = Object.assign({}, oldShapeData);
+
+    console.log("ini duplicate shape", newShapeData);
     
     // Remove shape_id, shape_index and rotation properties from new icon object
     removeShapeProps(newShapeData)
@@ -74,8 +82,8 @@ const duplicateShape = (element, type) => {
     // Object of properties to update
     const dataUpdate = {
         alt:  altText, 
-        x : newXY(newShapeData.x), 
-        y : newXY(newShapeData.y),
+        x : newShapeData.x ? newXY(newShapeData.x) : newShapeData.size.x, 
+        y : newShapeData.y ? newXY(newShapeData.y) : newShapeData.size.y,
     }
 
     // Assign updated properties into new icon data

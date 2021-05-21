@@ -31,15 +31,16 @@ const keyboardHandler = (event) => {
         redo();
     } else if (C_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
         session.COPIED_ELEMENTS = session.SELECTED_ELEMENTS.map((e) => {
-            return { shapeId: e.shapeId, slideId: session.CURRENT_SLIDE }
+            return {shapeId: e.shapeId, slideId: session.CURRENT_SLIDE, shapeType: e.shapeType}
         })
     } else if (X_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
 
     } else if (V_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
-        console.log(session.COPIED_ELEMENTS);
         session.COPIED_ELEMENTS?.forEach(copiedElement => {
-            const shape_ = shape(copiedElement.slideId, copiedElement.shapeId);
-
+            const shape_ = shape(copiedElement.slideId, copiedElement.shapeId).data();
+            shape_.shape_type = copiedElement.shapeType
+            const data = [shape_]
+            shapeHandler(data);
         });
         session.COPIED_ELEMENTS = [];
     } else if (S_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
