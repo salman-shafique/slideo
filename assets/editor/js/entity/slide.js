@@ -71,7 +71,7 @@ export default function slide(slideId) {
    * @returns {HTMLElement}
    */
   this.documentElement = function () {
-    return select(`object.main-container[id="${this.slideId}"]`).contentDocument
+    return select(`object.main-container[id="${this.slideId}"]`)?.contentDocument
       .documentElement;
   };
 
@@ -86,7 +86,7 @@ export default function slide(slideId) {
    * @returns {HTMLElement} Slide G element
    */
   this.slideG = function () {
-    return this.documentElement().querySelector("g.SlideGroup g.Slide");
+    return this.documentElement()?.querySelector("g.SlideGroup g.Slide");
   };
 
   this.appendToPresentation = function (slideData) {
@@ -445,7 +445,9 @@ export default function slide(slideId) {
       /**
        * @type {SVGGElement} clone
        */
-      const clone = this.slideG().cloneNode(true);
+      const clone = this.slideG()?.cloneNode(true);
+      if (!clone) return;
+
       clone.style.visibility = "hidden";
       // Clear the clone
       clone
