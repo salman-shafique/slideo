@@ -55,7 +55,7 @@ const keyboardHandler = (event) => {
             shapeData.shape_type = cutElement.shapeType
             shapeHandler([shapeData]);
             shape_.remove();
-        }) && (session.COPIED_ELEMENTS = session.CUT_ELEMENTS = []);
+        }) || (session.COPIED_ELEMENTS = session.CUT_ELEMENTS = []);
     } else if (S_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
 
     } else if (D_equivalents.includes(key.toLowerCase()) && event.ctrlKey) {
