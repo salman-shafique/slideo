@@ -75,9 +75,8 @@ Events.listen("shape.resize.started", () => {
   });
 });
 
-// Cancel editing when multiple elements selected
 Events.listen("shape.selected", (event) => {
-  if (session.SELECTED_ELEMENTS.length > 1) {
+  if (session.SELECTED_ELEMENTS.length >= 1) {
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
       cancelEditing({ data: { shape: selectedEl.shape } });
       Events.popup.text.open({ shapeId: selectedEl.shape_id });
