@@ -67,8 +67,6 @@ export const duplicateShape = (element, type) => {
     const oldShapeData = element.shape ? shape(element.shape).data() : element ;
     // Copy the old shape data into a new icon data object
     const newShapeData = Object.assign({}, oldShapeData);
-
-    console.log("ini duplicate shape", newShapeData);
     
     // Remove shape_id, shape_index and rotation properties from new icon object
     removeShapeProps(newShapeData)
