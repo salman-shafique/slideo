@@ -14,7 +14,7 @@ export default function selectImageElement(event) {
     const shapeId = g.getAttribute("shape_id");
     const shape_ = shape(session.CURRENT_SLIDE, shapeId);
 
-    if (!shape_.el().querySelector('foreignObject'))
+    if (!shape_.el()?.querySelector('foreignObject'))
         createForeignObject(shape_.el());
 
     const shapeData = shape_.data();

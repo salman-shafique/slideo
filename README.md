@@ -8,22 +8,36 @@ cd slideo-symfony
 
 ### 2. Build the image
 ```
-docker-compose build
+docker-compose -f docker-compose.dev.yml build
 ```
 
-### 3. Start the container
+### 3. Paste `.env.local` file to folder
+[Symfony-.env.local.zip](https://github.com/alperendurmus/slideo-symfony/files/6514539/Symfony-.env.local.zip)
+
+
+### 4. Start the container
 ```
-docker-compose -f docker-compose.dev.yml up
+docker-compose -f docker-compose.dev.yml up --remove-orphans
 ```
 
-[Login Page](https://localhost:5500/login)
-[Flask](http://localhost:5501)
-[Rabbit MQ](http://localhost:5502)
-[Database management](http://localhost:5503)
+[Landing Page - https://localhost:5500](https://localhost:5500)
+
+[Rabbit MQ - http://localhost:5502](http://localhost:5502)
+
+[PhpMyAdmin - http://localhost:5503](http://localhost:5503)
 ```
-slideo_mysql_user
+root
 slideo_mysql_password
 ```
+
+### 5. Follow up the Flask side intructions
+
+[Installation](https://github.com/alperendurmus/slideo-flask/blob/main/README.md)
+
+### 6. Install designs
+
+[Layout and design installation](https://github.com/alperendurmus/slideo-symfony/wiki/Layout-and-design-installation)
+
 ### Others:
 #### Disable the PHP cache on development:
 `php.ini`
@@ -31,17 +45,8 @@ slideo_mysql_password
 opcache.enable=0
 ```
 Do not commit `php.ini` file.
-#### Openning a new terminal inside the docker container:
-```
-docker exec -ti slideo_symfony bash
-```
-#### Restarting the server
-Open a new terminal inside the docker container and run this:
-```
-bash docker/restart.sh
-```
 
-#### DATABASE_URL in `.env.local` file:
+#### Restarting the server
 ```
-DATABASE_URL=mysql://slideo_mysql_user:slideo_mysql_password@slideo_mysql:3306/slideo?serverVersion=8.0
+docker exec -ti slideo_symfony bash docker/restart.sh
 ```

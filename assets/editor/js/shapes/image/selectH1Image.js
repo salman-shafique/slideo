@@ -26,7 +26,7 @@ export const updateImage = (slideId, shapeId, image) => {
 export default function selectH1Image(slideId, shapeId, image = null) {
     const shape_ = shape(slideId, shapeId);
 
-    if (!shape_.el().querySelector('foreignObject'))
+    if (!shape_.el()?.querySelector('foreignObject'))
         createForeignObject(shape_.el());
 
     let shapeData = shape_.data();
