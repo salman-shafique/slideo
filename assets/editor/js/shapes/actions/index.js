@@ -3,4 +3,8 @@ import "./resize";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 
 
-document.getElementById('MainPanel').onclick = deSelectAll;
+let panel = document.getElementById('MainPanel');
+
+panel.onclick = function () {
+    deSelectAll()
+}

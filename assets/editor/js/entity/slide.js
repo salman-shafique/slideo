@@ -575,7 +575,7 @@ export default function slide(slideId) {
             position: fixed;
             word-break: break-word;
         }
-        .edit-textbox-icon, .replace-icon, .image-icon {
+        .edit-textbox-icon, .replace-icon {
             font-size: 1301px;
             position: absolute;
             display: none;
@@ -593,6 +593,44 @@ export default function slide(slideId) {
             transform-origin: bottom left;
             transition: 0.5s;
         }
+        .image-icon {
+            font-size: 1301px;
+            position: absolute;
+            display: none;
+            pointer-events:all !important;
+            justify-content: center;
+            width: 1.3em;
+            height: 1.3em;
+            background: white;
+            border-radius: 10000px;
+            box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
+            bottom: 180px;
+            left: 180px;
+            width: 1600px;
+            height: 1600px;
+            transform-origin: bottom left;
+            transition: 0.5s;
+        }
+        .active{
+          display: block
+        }
+         foreignObject.bounding_box:hover .edit-textbox-icon,foreignObject.bounding_box:hover .replace-icon 
+            {
+              display: block!important;
+            }
+            foreignObject.bounding_box:hover .image-icon{
+              display: flex !important;              
+            }
+
+            foreignObject.bounding_box::selection .edit-textbox-icon,foreignObject.bounding_box::selection .replace-icon 
+            {
+              display: block!important;
+            }
+            foreignObject.bounding_box::selection .image-icon{
+              display: flex !important;              
+            }
+
+
         .edit-textbox-icon:hover, .replace-icon:hover, .image-icon:hover {
             box-shadow: -0.06em 0.06em 0.13em 0.04em #8c8c8c;
             transition: 0.5s;
