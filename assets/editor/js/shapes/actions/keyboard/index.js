@@ -72,9 +72,7 @@ const keyboardHandler = (event) => {
  * @description For slide SVGs
  */
 export default function keyboardListener(contentDocument) {
-
     contentDocument.addEventListener('keyup', keyboardHandler);
-
 }
 
 /**
