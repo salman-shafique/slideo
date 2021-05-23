@@ -2,10 +2,6 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import deleteShapes from "Editor/js/shapes/actions/delete/deleteShapes";
 import session from "Editor/js/session";
 import { undo, redo } from "Editor/js/history/index";
-import arrowHandler from "./arrowHandler";
-import reactToDOM from "Editor/js/utils/reactToDOM";
-import React from "react";
-import constants from "Editor/js/constants";
 import { shapeHandler } from "Editor/js/components/ContextMenu.js"
 import shape from "Editor/js/entity/shape";
 import toastr from "Editor/js/components/toastr";
@@ -77,16 +73,7 @@ const keyboardHandler = (event) => {
  */
 export default function keyboardListener(contentDocument) {
 
-    const rect = reactToDOM(
-        <rect x="0" y="0" width={constants.SVG_WIDTH()} height={constants.SVG_HEIGHT()} fill="white"/>,
-        null,
-        "http://www.w3.org/2000/svg"
-    )
-    contentDocument.querySelector(".SlideGroup .Slide").prepend(rect);
-
-
     contentDocument.addEventListener('keyup', keyboardHandler);
-    contentDocument.addEventListener('keydown', arrowHandler);
 
 }
 
@@ -94,4 +81,3 @@ export default function keyboardListener(contentDocument) {
  * @description For the window, one time
  */
 window.addEventListener('keyup', keyboardHandler);
-// window.addEventListener('keydown', arrowHandler);
