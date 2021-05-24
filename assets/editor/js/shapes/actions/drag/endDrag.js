@@ -4,6 +4,7 @@ import disableTextSelect from "./utils/disableTextSelect";
 import Events from "Editor/js/Events";
 import updateAllTransforms from "./utils/updateAllTransforms";
 import dragPreventDefault from "./utils/dragPreventDefault";
+import constants from "Editor/js/constants";
 
 /**
  * 
@@ -38,12 +39,12 @@ export default function endDrag(event) {
     // Update saved transfroms for next actions
     updateAllTransforms();
 
-    if (session.SHAPE_STATE == "DRAGGING") {
+    if (session.SHAPE_STATE == constants.SHAPE_STATES.DRAGGING) {
         dragPreventDefault(g, true);
         // Trigger event
         Events.shape.drag.ended();
     }
-    if (session.SHAPE_STATE == "RESIZING") {
+    if (session.SHAPE_STATE == constants.SHAPE_STATES.RESIZING) {
         dragPreventDefault(g, true);
         // Trigger event
         Events.shape.resize.ended();

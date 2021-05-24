@@ -1,4 +1,5 @@
 import session from "Editor/js/session";
+import constants from "Editor/js/constants";
 import selectEl from "./utils/selectEl";
 import deSelectAll from "./utils/deSelectAll";
 import getMousePosition from "./utils/getMousePosition";
@@ -10,8 +11,8 @@ import updateAllTransforms from "./utils/updateAllTransforms";
  */
 export default function startDrag(event) {
     //Disable for text editor popup
-    if(event.target.classList.contains('edit-textbox-icon')) return;
-    
+    if (event.target.classList.contains('edit-textbox-icon')) return;
+
     /**
      * @type {SVGGElement} g
      */
@@ -35,5 +36,5 @@ export default function startDrag(event) {
     updateAllTransforms();
 
     session.SAVED_MOUSE_POS = getMousePosition(event);
-    session.SHAPE_STATE = "DRAG_STARTING";
+    session.SHAPE_STATE = constants.SHAPE_STATES.DRAG_STARTING;
 }

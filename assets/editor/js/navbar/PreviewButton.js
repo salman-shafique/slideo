@@ -18,7 +18,7 @@ export default function PreviewButton() {
   React.useEffect(() => {
 
     window.addEventListener('keyup', (event) => {
-      if (session.SHAPE_STATE != "PREVIEW") return;
+      if (session.SHAPE_STATE != constants.SHAPE_STATES.PREVIEW) return;
       const key = event.key;
       switch (key) {
         case "Escape":
@@ -38,14 +38,14 @@ export default function PreviewButton() {
     });
 
     window.addEventListener('wheel', (event) => {
-      if (session.SHAPE_STATE != "PREVIEW") return;
+      if (session.SHAPE_STATE != constants.SHAPE_STATES.PREVIEW) return;
       (event.deltaY > 0)
         ? prev()
         : next();
     });
 
     window.addEventListener('mouseup', (event) => {
-      if (session.SHAPE_STATE != "PREVIEW") return;
+      if (session.SHAPE_STATE != constants.SHAPE_STATES.PREVIEW) return;
       if (event.target.classList.contains('preview-btn')) return;
       next();
     });
@@ -70,7 +70,6 @@ export default function PreviewButton() {
     // itirate each slide's objects in the array
     arr.map((el, i) => {
       // Get the slide title of each slide
-      debugger;
       let slideTitleCell = el?.contentDocument
         .querySelector('g[alt="slidetitle"] td');
       if (!slideTitleCell) return;
@@ -121,7 +120,7 @@ export default function PreviewButton() {
     deSelectAll();
     SlideContainer.classList.add("full-screen");
     previewControls.classList.remove("d-none");
-    session.SHAPE_STATE = "PREVIEW";
+    session.SHAPE_STATE = constants.SHAPE_STATES.PREVIEW;
     // Callbacks to hide slide's title and subtitle
     hideSlideTitle(true);
     hideSubtitle(true);

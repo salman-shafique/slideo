@@ -33,7 +33,7 @@ const changeShapeIconSize = (shape, newScaleX = null, newScaleY = null) => {
  * @param {MouseEvent} event 
  */
 export default function changeSize(event) {
-    if (session.SHAPE_STATE != "RESIZING") return;
+    if (session.SHAPE_STATE != constants.SHAPE_STATES.RESIZING) return;
     if (!session.SCALING_DIRECTION) return;
     if (!session.SAVED_MOUSE_POS) return;
     if (session.SELECTED_ELEMENTS.length == 0) return;
