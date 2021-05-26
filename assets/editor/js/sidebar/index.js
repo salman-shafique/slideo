@@ -6,3 +6,4 @@ import "./textboxes";
 import "./shapes";
 import "./background";
 import "./branding";
+import "./addShape";

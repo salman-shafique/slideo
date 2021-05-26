@@ -19,6 +19,7 @@
   {% include "editor/navbar/index.html.twig" with {'presentation':presentation} %}
   <div id="MasterContainer">
     {% include "editor/sidebar/index.html.twig" with {'presentation':presentation} %}
+    {% include "editor/sidebar/panels/addShape/index.html.twig" %}
     {% include "editor/main.html.twig" with {'presentation':presentation} %}
     {% include "editor/slides.html.twig" with {'presentation':presentation} %}
   </div>
