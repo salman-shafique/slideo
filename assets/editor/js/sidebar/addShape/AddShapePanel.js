@@ -4,17 +4,17 @@ export default function AddShapePanel() {
 
     return (
         <>
-            <div id="Images_Tool" class="tool">
-                <i class="fas fa-images"></i>
-                <p class="single-line">Images</p>
+            <div id="Images_Tool" className="tool">
+                <i className="fas fa-images"></i>
+                <p className="single-line">Images</p>
             </div>
-            <div id="Icons_Tool" class="tool">
-                <i class="fas fa-icons"></i>
-                <p class="single-line">Icons</p>
+            <div id="Icons_Tool" className="tool">
+                <i className="fas fa-icons"></i>
+                <p className="single-line">Icons</p>
             </div>
-            <div id="Text_Tool" class="tool">
-                <i class="fas fa-font"></i>
-                <p class="single-line">Text</p>
+            <div id="Text_Tool" className="tool">
+                <i className="fas fa-font"></i>
+                <p className="single-line">Text</p>
             </div>
         </>
     )
