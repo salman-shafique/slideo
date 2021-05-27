@@ -19,6 +19,7 @@ function sidebarClass() {
             this.open(event.target.getAttribute("id"));
 
         });
+
     }
 
     /**
@@ -37,6 +38,27 @@ function sidebarClass() {
         select("#" + currActiveTablId).classList.remove("active-tool");
     }
 
+    // Citra's Code
+    const addShapeTool = select("#AddShape_Tool").childNodes;
+    const addButtonToggle = (opt) => {
+        if(opt === "close"){
+            addShapeTool.forEach(e => {
+                if(e.tagName === "I"){
+                    e.className = "fas fa-times-circle"
+                }else{
+                    e.innerHTML = "Close"
+                } 
+            })
+            select("#AddShape_Tool").classList.add("active-tool")
+        }else if(opt === "add") {
+            if (select(".active-tool"))
+            select(".active-tool").classList.remove("active-tool");
+            const allPanels = selectAll(".action-panel");
+            allPanels.forEach(e => e.classList.add("collapse"));
+            addShapeTool.forEach(e => e.tagName === "I" ? e.className = "fas fa-plus-circle": e.innerHTML = "Add")
+        }
+    }
+
     /**
      * 
      * @param {string} id 
@@ -47,6 +69,7 @@ function sidebarClass() {
         select("#ActionsPanel").classList.add("closed");
         select("#MainPanel").classList.add("expanded");
         select("#" + id).classList.remove("active-tool");
+        addButtonToggle("add")
     }
 
     /**
@@ -76,16 +99,29 @@ function sidebarClass() {
         // Open new tab
         const newActivePanel = select("#" + id.replace("Tool", "Panel"));
 
-        const allPanels = selectAll(".action-panel");
-        allPanels.forEach(e => e.classList.add("collapse"));
+        // const allPanels = selectAll(".action-panel");
+        // allPanels.forEach(e => e.classList.add("collapse"));
+        
+        addButtonToggle("add")
         newActivePanel.classList.remove("collapse");
 
-        select("#ActionsPanel").classList.remove("closed");
-        select("#MainPanel").classList.remove("expanded");
+        newActivePanel.id !== "AddShape_Panel" ? select("#AddShape_Panel").classList.add("collapse") : null;
+
+        if(newActivePanel.id === "AddShape_Panel"){
+            select("#ActionsPanel").classList.add("closed")
+            select("#MainPanel").classList.add("expanded")
+        }else{
+            select("#ActionsPanel").classList.remove("closed")
+            select("#MainPanel").classList.remove("expanded")
+        }
+       
 
         if (select(".active-tool"))
             select(".active-tool").classList.remove("active-tool");
         select("#" + id).classList.add("active-tool");
+
+        newActivePanel.id === "Images_Panel" || newActivePanel.id === "Icons_Panel" || newActivePanel.id === "Text_Panel"? addButtonToggle("close") : null;
+        
     }
 
 }

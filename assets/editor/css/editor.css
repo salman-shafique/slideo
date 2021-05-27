@@ -858,3 +858,33 @@ object[id^="prev_"] {
 	width: calc(100% - 16px);
 }
 
+
+/* Citra's Code*/
+
+.add-shape-popmenu {
+  width: 80px;
+  height: 240px;
+  background: #000;
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 162px;
+  z-index: 100;
+  box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.3);
+  animation: smoothing 0.25s;
+}
+
+@keyframes smoothing {
+  from {width: 0px; opacity: 0;}
+  to {width: 80px; opacity: 1;}
+}
+
+.add-shape-popmenu.active {
+  background: #d69797;
+}
+
+.tool:hover{
+  background: #484848;
+}
+
+
+
