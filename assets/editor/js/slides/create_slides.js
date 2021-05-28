@@ -7,8 +7,12 @@ import apiService from "Editor/js/utils/apiService";
 import preloader from "Editor/js/components/preloader";
 import toastr from "Editor/js/components/toastr";
 import sidebar from "Editor/js/entity/sidebar";
+import manipulateHtml from "./manipulateHtml";
+
 
 export default function create_slides() {
+
+
 
     create_slide_modal.close();
 
@@ -18,10 +22,10 @@ export default function create_slides() {
     apiService({
         url: "/api/editor/create/slides",
         data: {
-            "innerHtml": window.editor.getData()
+            "innerHtml": manipulateHtml()
         },
         success: (response) => {
-            window.editor.setData("");
+            window.editor?.setData("");
             if (response.success === false) {
                 toastr.error(response.descr);
                 preloader.hide();
