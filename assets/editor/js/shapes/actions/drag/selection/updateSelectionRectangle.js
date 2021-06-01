@@ -20,25 +20,14 @@ export default function updateSelectionRectangle(selectionRectangleData, slideId
     let width = selectionRectangleData.width;
     let height = selectionRectangleData.height;
 
-    const newShapeData = {
-        data: {
-            active: "true",
-            alt: "newimage",
-            rotation: 0,
-            height,
-            width,
-            x,
-            y
-        }
-    }
-    
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectangle').setAttribute("height", newShapeData.data.height);
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectangle').setAttribute("width", newShapeData.data.width);    
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectangle').setAttribute("x", newShapeData.data.x);
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectangle').setAttribute("y", newShapeData.data.y);
 
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("height", newShapeData.data.height);
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("width", newShapeData.data.width);        
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("x", newShapeData.data.x);
-    $('object.main-container')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("y", newShapeData.data.y);
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectangle').setAttribute("height", height);
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectangle').setAttribute("width", width);    
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectangle').setAttribute("x", x);
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectangle').setAttribute("y", y);
+
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("height", height);
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("width", width);        
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("x", x);
+    $('object.main-container[data-slide-id="'+slideId+'"]')[0].contentDocument.getElementById('selectionRectanglebounding').setAttribute("y", y);
 }
