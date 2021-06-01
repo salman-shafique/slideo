@@ -583,7 +583,7 @@ export default function slide(slideId) {
             height: 1.6em;
             background: cyan;
             bottom: -50px;
-            left: -1600px;
+            left: -1550px;
             border-top-left-radius: 300px;
             border-bottom-left-radius: 300px;
 
