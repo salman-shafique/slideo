@@ -71,15 +71,14 @@ export default function slide(slideId) {
    * @returns {HTMLElement}
    */
   this.documentElement = function () {
-    return select(`object.main-container[id="${this.slideId}"]`)?.contentDocument
-      .documentElement;
+    return select(`object.main-container[id="${this.slideId}"]`)?.contentDocument?.documentElement;
   };
 
   /**
    * @returns {HTMLElement} Page G element
    */
   this.page = function () {
-    return this.documentElement().querySelector("g.SlideGroup g.Page");
+    return this.documentElement()?.querySelector("g.SlideGroup g.Page");
   };
 
   /**

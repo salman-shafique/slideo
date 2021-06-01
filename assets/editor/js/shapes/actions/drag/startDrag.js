@@ -37,4 +37,5 @@ export default function startDrag(event) {
 
     session.SAVED_MOUSE_POS = getMousePosition(event);
     session.SHAPE_STATE = constants.SHAPE_STATES.DRAG_STARTING;
+
 }
