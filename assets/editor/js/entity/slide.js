@@ -67,6 +67,11 @@ export default function slide(slideId) {
       .contentDocument;
   };
 
+  this.prevDocument = function () {
+    return window.top.document.getElementById(
+      "prev_" + this.slideId
+    )?.contentDocument;
+  };
   /**
    * @returns {HTMLElement}
    */
@@ -447,6 +452,18 @@ export default function slide(slideId) {
 
       clone.style.visibility = "hidden";
       // Clear the clone
+      let title;
+      let subTitle;
+      if (clone.querySelector("[alt='slidetitle']") !== null) {
+        title = clone.querySelector("[alt='slidetitle'] td")
+        if (title?.outerText === constants.SLIDE_TITLE_PLACEHOLDER)
+          clone.querySelector("[alt='slidetitle']").remove()
+      } else if (clone.querySelector("[alt='subtitle']") !== null) {
+        subTitle = clone.querySelector("[alt='subtitle'] td")
+        if (subTitle?.outerText === constants.SLIDE_SUBTITLE_PLACEHOLDER)
+          clone.querySelector("[alt='subtitle']").remove();
+      }
+
       clone
         .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
         ?.forEach(e => e.remove());
@@ -689,7 +706,9 @@ export default function slide(slideId) {
     );
 
     this.contentDocument().querySelector("svg").appendChild(styles);
+    this.prevDocument().querySelector("svg").appendChild(styles.cloneNode());
   };
 }
+
 
 
