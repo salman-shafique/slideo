@@ -77,6 +77,12 @@ const constants = {
     SHAPE_ROLES: {
         LOGO: 0
     },
+    SHAPE_STATES: {
+        PREVIEW: 0,
+        DRAG_STARTING: 1,
+        DRAGGING: 2,
+        RESIZING: 3
+    },
     FILL_TYPES: {
         SOLID_FILL: 1,
         GRADIENT_FILL: 3

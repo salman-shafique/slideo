@@ -47,11 +47,18 @@ export default function BrandingOptions() {
         const color = colorPalettes[colorPaletteTitle][themeColorName];
         let stop;
         switch (themeColorAttrs.attributeName) {
-          case "fill_theme_color":
-            const path = g.querySelector("path");
-            if (path)
-              path.style.fill = color;
-            shapeData.fill_theme_color = themeColorName;
+          case "icon_theme_color":
+            const shapeId = g.getAttribute("shape_id");
+            const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
+            feFlood.style.floodColor = color;
+            shapeData.icon_theme_color = themeColorName;
+            break;
+          case "text_theme_color":
+            const table = g.querySelector('table');
+            if (!table) return;
+            table.style.color = color;
+            shapeData.text_theme_color = themeColorName;
+            shapeData.text_rgb = hexToRgb(themeColorName);
             break;
           case "fill_gradient_stop_0":
             stop = g.querySelector('g defs stop[offset="0"]');
@@ -69,18 +76,11 @@ export default function BrandingOptions() {
             }
             shapeData.fill_gradient_stop_1 = themeColorName;
             break;
-          case "text_theme_color":
-            const table = g.querySelector('table');
-            if (!table) return;
-            table.style.color = color;
-            shapeData.text_theme_color = themeColorName;
-            shapeData.text_rgb = hexToRgb(themeColorName);
-            break;
-          case "icon_theme_color":
-            const shapeId = g.getAttribute("shape_id");
-            const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
-            feFlood.style.floodColor = color;
-            shapeData.icon_theme_color = themeColorName;
+          case "fill_theme_color":
+            const path = g.querySelector("path");
+            if (path)
+              path.style.fill = color;
+            shapeData.fill_theme_color = themeColorName;
             break;
           default:
             break;
@@ -89,6 +89,7 @@ export default function BrandingOptions() {
       Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
 
     });
+    Events.slide.preview.update();
   }
 
   const colorPaletteCards = [];

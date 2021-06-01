@@ -65,6 +65,7 @@ export default function FontSize(props) {
         g.querySelector('div').style.fontSize = parseInt(newValue / (startingA*19.60)) + "px";
         autosizeForeignObject(g.querySelector("foreignObject"));
         relocateResizeCircleContainer(g);
+        Events.shape.textbox.edit.ended();
     }
 
     const fontsize = (e) => {

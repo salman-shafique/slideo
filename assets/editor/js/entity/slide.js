@@ -182,8 +182,6 @@ export default function slide(slideId) {
   }
 
   this.initSlide = function () {
-    console.log(session);
-
     this.object().style.visibility = "visible";
 
     // Custom styles
@@ -444,7 +442,9 @@ export default function slide(slideId) {
       /**
        * @type {SVGGElement} clone
        */
-      const clone = this.slideG().cloneNode(true);
+      const clone = this.slideG()?.cloneNode(true);
+      if (!clone) return;
+
       clone.style.visibility = "hidden";
       // Clear the clone
       clone
@@ -453,7 +453,6 @@ export default function slide(slideId) {
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
-
       setTimeout(() => {
         oldSlideG.remove();
         clone.style.visibility = "visible";
@@ -579,18 +578,39 @@ export default function slide(slideId) {
             display: none;
             pointer-events:all !important;
             justify-content: center;
-            width: 1.3em;
-            height: 1.3em;
-            background: white;
-            border-radius: 10000px;
-            box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
-            bottom: 180px;
-            left: 180px;
+            width: 1.6em;
+            height: 1.6em;
+            background: cyan;
+            bottom: -50px;
+            left: -1550px;
+            border-top-left-radius: 300px;
+            border-bottom-left-radius: 300px;
+
             width: 1600px;
             height: 1600px;
             transform-origin: bottom left;
             transition: 0.5s;
         }
+        .active{
+          display: block
+        }
+         foreignObject.bounding_box:hover .edit-textbox-icon,foreignObject.bounding_box:hover .replace-icon 
+            {
+              display: block!important;
+            }
+            foreignObject.bounding_box:hover .image-icon{
+              display: flex !important;              
+            }
+
+            foreignObject.bounding_box::selection .edit-textbox-icon,foreignObject.bounding_box::selection .replace-icon 
+            {
+              display: block!important;
+            }
+            foreignObject.bounding_box::selection .image-icon{
+              display: flex !important;              
+            }
+
+
         .edit-textbox-icon:hover, .replace-icon:hover, .image-icon:hover {
             box-shadow: -0.06em 0.06em 0.13em 0.04em #8c8c8c;
             transition: 0.5s;
@@ -671,3 +691,5 @@ export default function slide(slideId) {
     this.contentDocument().querySelector("svg").appendChild(styles);
   };
 }
+
+

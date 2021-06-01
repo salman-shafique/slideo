@@ -50,7 +50,7 @@ export default function createNewTextbox(textboxData, slideId = session.CURRENT_
             "rotation": "0",
             "alignment": "2",
             "underline": "False",
-            "word_wrap": "False",
+            "word_wrap": "true",
             "font_color": "0 0 0",
             "shape_type": "TEXT_BOX (17)",
             "font_family": session.PRESENTATION?.settings?.fontFamily ? session.PRESENTATION?.settings?.fontFamily : "Arial, sans-serif",

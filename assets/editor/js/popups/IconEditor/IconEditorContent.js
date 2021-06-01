@@ -23,7 +23,7 @@ export default function IconEditorContent() {
                     "keyword": keyword,
                     "limit": 50
                 },
-                "success": (response) => {       
+                "success": (response) => {
                     resolve({
                         keyword: keyword,
                         data: response.body
@@ -40,9 +40,9 @@ export default function IconEditorContent() {
 
                 for (const slide of session.PRESENTATION.slides)
                     shapes.push(...slide.shapes);
-                
+
                 const icons = shapes.filter(shape => shape.data.alt.includes('icon'));
-                const keywords = new Set(icons.map(icon => icon.data.keyword.toLowerCase()));
+                const keywords = new Set(icons.map(icon => icon.data.keyword?.toLowerCase()).filter(e => e));
 
                 hook.setKeywords(Array.from(keywords).map((keyword, index) => {
                     return {
@@ -55,7 +55,7 @@ export default function IconEditorContent() {
 
                 for (const keyword of keywords.values())
                     data.push(await apiCall(keyword));
-                    
+
                 hook.setData(data);
             }, 3000);
         });
@@ -75,20 +75,11 @@ export default function IconEditorContent() {
                 }));
             }
         });
-
-        Events.listen('popup.keyword.updated', async (e) => {
-            const keywordExist = hook.keywords.filter(item => item.keyword === e.data.data.keyword.toLowerCase())[0];
-
-            if (!keywordExist) {
-                hook.setKeywords(hook.keywords.concat({ active: false, keyword: e.data.data.keyword.toLowerCase() }));
-                hook.setData(hook.data ? hook.data.concat(await apiCall(e.data.data.keyword.toLowerCase())) : [await apiCall(e.data.data.keyword.toLowerCase())]);
-            }
-        });
-    }, [hook.keywords]);
+    }, []);
 
     return (
         <>
-            <SearchSection keywords={ hook.keywords } setKeywords={ hook.setKeywords } fetchNewData={ hook.fetchNewData } >
+            <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} >
                 <div className="col-9 m-0 d-flex align-items-center my-white-text">Icon Color</div>
                 <div className="col-3 position-static pt-1">
                     <ColorCircle key={"icon"} SHAPE_TYPE={constants.SHAPE_TYPES.ICON} />
@@ -96,7 +87,7 @@ export default function IconEditorContent() {
             </SearchSection>
             <MainSection>
                 {
-                    activeIcons ? <IconContainer icons={ activeIcons } keyword={ hook.getActiveKeyword() } /> : undefined
+                    activeIcons ? <IconContainer icons={activeIcons} keyword={hook.getActiveKeyword()} /> : undefined
                 }
             </MainSection>
         </>

@@ -29,11 +29,11 @@ const themeColorNames = [
 ]
 
 const validColorAttributes = [
-    "fill_theme_color",
+    "icon_theme_color",
+    "text_theme_color",
     "fill_gradient_stop_0",
     "fill_gradient_stop_1",
-    "text_theme_color",
-    "icon_theme_color"
+    "fill_theme_color",
 ];
 
 

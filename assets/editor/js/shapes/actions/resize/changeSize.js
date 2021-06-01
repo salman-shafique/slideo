@@ -19,11 +19,11 @@ const changeShapeIconSize = (shape, newScaleX = null, newScaleY = null) => {
 
     if (shapeBoxSize - ICON_MAX_PADDING < ICON_SIZE) {
         const desiredIconSize = (shapeBoxSize - ICON_MAX_PADDING) / ICON_SIZE;
-        icon.style.transform = `scale(${desiredIconSize * 1 / parsedScale[0]}, ${desiredIconSize * 1 / parsedScale[1]})`;
-    } else if (newScaleX || newScaleY) {
-        icon.style.transform = `scale(${1 / newScaleX}, ${1 / newScaleY})`;
-    } else {
         icon.style.transform = `scale(${1 / parsedScale[0]}, ${1 / parsedScale[1]})`;
+    } else if (newScaleX || newScaleY) {
+        icon.style.transform = `scale(1,1)`;
+    } else {
+        icon.style.transform = `scale(1,1)`;
     }
 }
 
@@ -33,7 +33,7 @@ const changeShapeIconSize = (shape, newScaleX = null, newScaleY = null) => {
  * @param {MouseEvent} event 
  */
 export default function changeSize(event) {
-    if (session.SHAPE_STATE != "RESIZING") return;
+    if (session.SHAPE_STATE != constants.SHAPE_STATES.RESIZING) return;
     if (!session.SCALING_DIRECTION) return;
     if (!session.SAVED_MOUSE_POS) return;
     if (session.SELECTED_ELEMENTS.length == 0) return;

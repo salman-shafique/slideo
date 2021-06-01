@@ -10,5 +10,9 @@ export const renderDOMPopup = () => {
 
     document.getElementById("SlideContainer").appendChild(popupsContainer);    
 
+    document.getElementById('PopupsContainer').onclick = function (event) {
+        event.stopPropagation();
+    }
+
     ReactDOM.render(<PopupsContainer />, document.getElementById('PopupsContainer'));
 }

@@ -37,6 +37,7 @@ export const updateText = (g, newText) => {
 
 
 const cancelEditing = (event) => {
+  if (!session.TEXT_EDITING) return;
   /**
   * @type {SVGGElement} g
   */
@@ -53,10 +54,10 @@ const cancelEditing = (event) => {
     td.removeAttribute("contenteditable");
   }
 
+  updateText(g, newText);
+
   Events.shape.textbox.edit.ended({ newText });
   session.TEXT_EDITING = false;
-
-  updateText(g, newText);
 }
 
 // Cancel editing here
@@ -75,11 +76,11 @@ Events.listen("shape.resize.started", () => {
   });
 });
 
-// Cancel editing when multiple elements selected
 Events.listen("shape.selected", (event) => {
-  if (session.SELECTED_ELEMENTS.length > 1) {
+  if (session.SELECTED_ELEMENTS.length >= 1) {
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
       cancelEditing({ data: { shape: selectedEl.shape } });
+      Events.popup.text.open({ shapeId: selectedEl.shape_id });
     });
   }
 });

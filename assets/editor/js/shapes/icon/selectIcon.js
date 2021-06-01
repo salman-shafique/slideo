@@ -21,23 +21,28 @@ export const updateIcon = (slideId, shapeId, icon) => {
         getWhiteIcon(slideId, shapeId)
 }
 
+
+
 /**
  * 
  * @param {string} slideId 
  * @param {string} shapeId 
  * @param {{id:string,url:string,uploader_id:string}} icon
  */
-export default function selectIcon(slideId, shapeId, icon = null) {
+export default function selectIcon(slideId, shapeId, icon = null, fromUser = false) {
     const shape_ = shape(slideId, shapeId);
     const shapeData = shape_.data();
 
-    if (!shape_.el().querySelector('foreignObject'))
+    if (!shape_.el()?.querySelector('foreignObject'))
         createForeignObject(shape_.el());
 
     if (icon) {
         Events.shape.icon.changed({ oldIcon: shapeData.icon, newIcon: icon });
+        if (fromUser)
+            shapeData.isIconChanged = true;
         updateIcon(slideId, shapeId, icon);
         return;
     }
     updateIcon(slideId, shapeId, shapeData.icon);
 }
+

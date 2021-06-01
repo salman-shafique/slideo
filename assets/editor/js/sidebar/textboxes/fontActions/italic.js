@@ -51,6 +51,7 @@ export default function ItalicBtn(props) {
 
         shape_.data().italic = (isItalic ? "true" : "false");
         g.querySelector("table").style.fontStyle = (isItalic ? "italic" : "");
+        Events.shape.textbox.edit.ended();
 
     }
 

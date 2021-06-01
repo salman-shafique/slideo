@@ -63,7 +63,7 @@ export default function selectTextboxElement(event) {
   const g = event.target.parentElement;
   if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
 
-  if (session.SELECTED_ELEMENTS.length != 1) return;
+  // if (session.SELECTED_ELEMENTS.length != 1) return;
   if (session.SELECTED_ELEMENTS[0].shape != g) return;
 
   if (!g.classList.contains("text_editing"))

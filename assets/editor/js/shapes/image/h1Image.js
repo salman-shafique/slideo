@@ -17,7 +17,7 @@ export default function h1Image(slideId, shapeId, keyword) {
             success: (response) => {
                 if (response.success) {
                     const shapeData = shape(response.slideId, response.shapeId).data();
-                    if(!shapeData) return;
+                    if (!shapeData) return;
                     shapeData.image = response.images[0];
                     shapeData.keyword = response.keyword;
                     selectH1Image(response.slideId, response.shapeId, response.images[0]);

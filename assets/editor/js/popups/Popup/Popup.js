@@ -14,7 +14,7 @@ export default function Popup(props) {
 
         if (point.x >= width * 1 / 3 && point.x > popupWidth) {
             // SECTION 1 (RIGHT)
-            left = point.x - popupWidth + 12;
+            left = point.x - popupWidth;
             top = point.y - popupHeight;
 
             top = top > 0 ? top : 0;
@@ -30,8 +30,10 @@ export default function Popup(props) {
             top = point.y - popupHeight;
 
             top = top > 0 ? top : 0;
+        
             left = left >= width - popupWidth + 20 ? width - popupWidth + 20 : left;
         }
+
 
         parentNode.style.left = left + 'px';
         parentNode.style.top = top + 'px';

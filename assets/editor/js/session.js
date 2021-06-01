@@ -37,6 +37,20 @@ let session = {
      */
     SELECTED_ELEMENTS: [],
     /**
+     * @type {{
+     * slideId: string,
+     * shapeId: string
+     * }[]}
+     */
+    COPIED_ELEMENTS: [],
+    /**
+     * @type {{
+     * slideId: string,
+     * shapeId: string
+     * }[]}
+     */
+    CUT_ELEMENTS: [],
+    /**
      * @type {{x: number, y: number}}
      */
     SAVED_MOUSE_POS: null,
@@ -50,6 +64,11 @@ let session = {
     SELECTION_STATE: null,
     /**
      * @type {string} SHAPE_STATE - "DRAGGING" | "PREVIEW" null
+     * @type {number} 
+     * PREVIEW: 0,
+     * DRAG_STARTING: 1,
+     * DRAGGING: 2,
+     * RESIZING: 3
      */
     SHAPE_STATE: null,
     /**
@@ -65,4 +84,6 @@ let session = {
      */
     LAST_MINIPREV_UPDATE: {}
 }
+
+window.session = session;
 export default session
