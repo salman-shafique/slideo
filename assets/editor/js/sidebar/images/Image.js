@@ -8,21 +8,7 @@ import Events from "Editor/js/Events";
 export default function Image({ imageData }) {
     const onClick = () => {
         highlightImage(imageData);
-        
-        if (session.SELECTED_ELEMENTS.length == 1) {
-            const g = session.SELECTED_ELEMENTS[0].shape;
-            const alt = g.getAttribute("alt");
-            if (
-                alt.includes("h1image|") ||
-                alt == "slidetitleimage" ||
-                alt == "newimage" || 
-                alt == "image"
-            ) {
-                const shapeId = session.SELECTED_ELEMENTS[0].shapeId;
-                selectH1Image(session.CURRENT_SLIDE, shapeId, imageData);
-                return;
-            }
-        }
+
         // Add new picture
         createNewImage({ image: imageData, keyword: imageData.keyword });
         Events.slide.preview.update();

@@ -54,7 +54,7 @@ export default function IconEditorContent() {
                 const data = [];
 
                 for (const keyword of keywords.values())
-                        data.push(await apiCall(keyword));
+                    data.push(await apiCall(keyword));
 
                 hook.setData(data);
             }, 3000);
@@ -75,16 +75,7 @@ export default function IconEditorContent() {
                 }));
             }
         });
-
-        Events.listen('popup.keyword.updated', async (e) => {
-            const keywordExist = hook.keywords.filter(item => item.keyword === e.data.data.keyword.toLowerCase())[0];
-
-            if (!keywordExist) {
-                hook.setKeywords(hook.keywords.concat({ active: false, keyword: e.data.data.keyword.toLowerCase() }));
-                hook.setData(hook.data ? hook.data.concat(await apiCall(e.data.data.keyword.toLowerCase())) : [await apiCall(e.data.data.keyword.toLowerCase())]);
-            }
-        });
-    }, [hook.keywords]);
+    }, []);
 
     return (
         <>

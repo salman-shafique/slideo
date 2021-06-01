@@ -14,13 +14,15 @@ import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
 import getClipPath from "Editor/js/shapes/actions/resize/utils/getClipPath";
 import Events from "../Events";
 
-
 /**
  * 
  * @param {SVGGElement|String} slideId 
  * @param {String} shapeId 
  */
 export default function shape(slideId, shapeId) {
+
+
+
     if (!(this instanceof shape)) return new shape(...arguments);
 
     if (slideId.tagName == "g") {
@@ -93,11 +95,14 @@ export default function shape(slideId, shapeId) {
             content.image = image;
         }
     }
+
+
     /**
      * 
      * @param {String} newText 
      */
     this.setH1 = (newText) => {
+
         // Update the analyzed content
         const contentNumber = this.data().alt.split("|").pop();
         const slide_ = slide(this.slideId);
@@ -106,29 +111,33 @@ export default function shape(slideId, shapeId) {
             this.data().text = content.text = newText;
 
             const iconG = slide_.page().querySelector("g[alt$='icon|" + contentNumber + "']");
+
             if (iconG) {
-                // page has an icon, update it
                 const iconShapeId = iconG.getAttribute("shape_id");
                 const iconShape = shape(this.slideId, iconShapeId);
-                iconShape.data().icon = null;
-
-                findKeyword(newText, (slideId, shapeId, keyword) => {
-                    iconInit(slideId, shapeId, keyword);
-                    Events.popup.keyword.updated({ data: { keyword, slideId } });
-                }, [this.slideId, iconShapeId]);
+                const iconShapeData = iconShape.data();
+                if (!iconShapeData.isIconChanged && iconShapeData.active != "false") {
+                    // page has an icon, update it
+                    iconShapeData.icon = null;
+                    findKeyword(newText, (slideId, shapeId, keyword) => {
+                        iconInit(slideId, shapeId, keyword);
+                    }, [this.slideId, iconShapeId]);
+                }
             }
 
             const h1ImageG = slide_.page().querySelector("g[alt='h1image|" + contentNumber + "']");
+
             if (h1ImageG) {
-                // page has an h1 image update it
                 const imageShapeId = h1ImageG.getAttribute("shape_id");
                 const imageShape = shape(this.slideId, imageShapeId);
-                imageShape.data().image = null;
+                const imageShapeData = imageShape.data();
 
-                findKeyword(newText, (slideId, shapeId, keyword) => {
-                    h1Image(slideId, shapeId, keyword);
-                    Events.popup.keyword.updated({ data: { keyword, slideId } });
-                }, [this.slideId, imageShapeId]);
+                if (!imageShapeData.isImageChanged && imageShapeData.active != "false") {
+                    imageShapeData.image = null;
+                    findKeyword(newText, (slideId, shapeId, keyword) => {
+                        h1Image(slideId, shapeId, keyword);
+                    }, [this.slideId, imageShapeId]);
+                }
             }
 
             autosizeForeignObject(this.el().querySelector("foreignObject"));
@@ -167,12 +176,14 @@ export default function shape(slideId, shapeId) {
             // page has the slidetitleimage
             const slideTitleImageShapeId = slideTitleImageG.getAttribute("shape_id");
             const slideTitleImageShape = shape(this.slideId, slideTitleImageShapeId);
-            slideTitleImageShape.data().image = null;
+            const slideTitleImageShapeData = slideTitleImageShape.data();
 
-            findKeyword(newText, (slideId, shapeId, keyword) => {
-                h1Image(slideId, shapeId, keyword);
-                Events.popup.keyword.updated({ data: { keyword, slideId } });
-            }, [this.slideId, slideTitleImageShapeId]);
+            if (!slideTitleImageShapeData.isImageChanged && slideTitleImageShapeData.active != "false") {
+                slideTitleImageShapeData.image = null;
+                findKeyword(newText, (slideId, shapeId, keyword) => {
+                    h1Image(slideId, shapeId, keyword);
+                }, [this.slideId, slideTitleImageShapeId]);
+            }
         }
         autosizeForeignObject(this.el().querySelector("foreignObject"));
         relocateResizeCircleContainer(this.el());
