@@ -121,7 +121,6 @@ export default function shape(slideId, shapeId) {
                     iconShapeData.icon = null;
                     findKeyword(newText, (slideId, shapeId, keyword) => {
                         iconInit(slideId, shapeId, keyword);
-                        Events.popup.keyword.updated({ data: { keyword, slideId } });
                     }, [this.slideId, iconShapeId]);
                 }
             }
@@ -137,7 +136,6 @@ export default function shape(slideId, shapeId) {
                     imageShapeData.image = null;
                     findKeyword(newText, (slideId, shapeId, keyword) => {
                         h1Image(slideId, shapeId, keyword);
-                        Events.popup.keyword.updated({ data: { keyword, slideId } });
                     }, [this.slideId, imageShapeId]);
                 }
             }
@@ -178,12 +176,14 @@ export default function shape(slideId, shapeId) {
             // page has the slidetitleimage
             const slideTitleImageShapeId = slideTitleImageG.getAttribute("shape_id");
             const slideTitleImageShape = shape(this.slideId, slideTitleImageShapeId);
-            slideTitleImageShape.data().image = null;
+            const slideTitleImageShapeData = slideTitleImageShape.data();
 
-            findKeyword(newText, (slideId, shapeId, keyword) => {
-                h1Image(slideId, shapeId, keyword);
-                Events.popup.keyword.updated({ data: { keyword, slideId } });
-            }, [this.slideId, slideTitleImageShapeId]);
+            if (!slideTitleImageShapeData.isImageChanged && slideTitleImageShapeData.active != "false") {
+                slideTitleImageShapeData.image = null;
+                findKeyword(newText, (slideId, shapeId, keyword) => {
+                    h1Image(slideId, shapeId, keyword);
+                }, [this.slideId, slideTitleImageShapeId]);
+            }
         }
         autosizeForeignObject(this.el().querySelector("foreignObject"));
         relocateResizeCircleContainer(this.el());
