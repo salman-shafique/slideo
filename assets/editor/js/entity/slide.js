@@ -67,6 +67,11 @@ export default function slide(slideId) {
       .contentDocument;
   };
 
+  this.prevDocument = function () {
+    return window.top.document.getElementById(
+      "prev_" + this.slideId
+    ).contentDocument;
+  };
   /**
    * @returns {HTMLElement}
    */
@@ -448,10 +453,37 @@ export default function slide(slideId) {
 
       clone.style.visibility = "hidden";
       // Clear the clone
-      clone
-        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
-        ?.forEach(e => e.remove());
+      let title;
+      let subTitle;
+      if(clone.querySelector("[alt='slidetitle']") !== null){
+        title = clone.querySelector("[alt='slidetitle']").querySelectorAll('td')[0]
 
+        if(title.outerText === constants.SLIDE_TITLE_PLACEHOLDER){
+          clone
+          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon,[alt='slidetitle']")
+          ?.forEach(e => e.remove());  
+        }
+        else{
+          clone
+          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
+          ?.forEach(e => e.remove());  
+        }
+      }
+      if(clone.querySelector("[alt='subtitle']") !== null)
+      {
+        subTitle = clone.querySelector("[alt='subtitle']").querySelectorAll('td')[0]
+        
+        if(subTitle.outerText === constants.SLIDE_SUBTITLE_PLACEHOLDER){
+          clone
+          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon,[alt='subtitle']")
+          ?.forEach(e => e.remove());  
+        }
+        else{
+          clone
+          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
+          ?.forEach(e => e.remove());  
+        }
+      }
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
       setTimeout(() => {
@@ -690,7 +722,32 @@ export default function slide(slideId) {
     );
 
     this.contentDocument().querySelector("svg").appendChild(styles);
+
+    const cloneStyles = reactToDOM(
+      <style>{`
+        
+        foreignObject { overflow: visible; }
+        foreignObject table {
+            position: fixed;
+            word-break: break-word;
+        }
+        editing.highlighted{
+            background-color: #3390ff;
+            color: white;
+        }
+        .d-none {
+            display:none !important
+        }
+        `}</style>,
+      null,
+      "http://www.w3.org/2000/svg"
+    );
+
+    this.prevDocument().querySelector("svg").appendChild(cloneStyles);
+
+
   };
 }
+
 
 
