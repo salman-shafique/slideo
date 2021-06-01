@@ -70,7 +70,7 @@ export default function slide(slideId) {
   this.prevDocument = function () {
     return window.top.document.getElementById(
       "prev_" + this.slideId
-    ).contentDocument;
+    )?.contentDocument;
   };
   /**
    * @returns {HTMLElement}
@@ -722,30 +722,7 @@ export default function slide(slideId) {
     );
 
     this.contentDocument().querySelector("svg").appendChild(styles);
-
-    const cloneStyles = reactToDOM(
-      <style>{`
-        
-        foreignObject { overflow: visible; }
-        foreignObject table {
-            position: fixed;
-            word-break: break-word;
-        }
-        editing.highlighted{
-            background-color: #3390ff;
-            color: white;
-        }
-        .d-none {
-            display:none !important
-        }
-        `}</style>,
-      null,
-      "http://www.w3.org/2000/svg"
-    );
-
-    this.prevDocument().querySelector("svg").appendChild(cloneStyles);
-
-
+    this.prevDocument().querySelector("svg").appendChild(styles);
   };
 }
 
