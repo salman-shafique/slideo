@@ -21,7 +21,7 @@ import Events from "../Events";
  */
 export default function shape(slideId, shapeId) {
 
-   
+
 
     if (!(this instanceof shape)) return new shape(...arguments);
 
@@ -96,13 +96,13 @@ export default function shape(slideId, shapeId) {
         }
     }
 
-    
+
     /**
      * 
      * @param {String} newText 
      */
     this.setH1 = (newText) => {
-       
+
         // Update the analyzed content
         const contentNumber = this.data().alt.split("|").pop();
         const slide_ = slide(this.slideId);
@@ -111,32 +111,35 @@ export default function shape(slideId, shapeId) {
             this.data().text = content.text = newText;
 
             const iconG = slide_.page().querySelector("g[alt$='icon|" + contentNumber + "']");
-            
-             // page has an icon, update it
-             const iconShapeId = iconG.getAttribute("shape_id");
-             const iconShape = shape(this.slideId, iconShapeId);
 
-            if (iconG && !iconShape.data().isIconChanged) {
-                // page has an icon, update it
-                iconShape.data().icon = null;
-
-                findKeyword(newText, (slideId, shapeId, keyword) => {
-                    iconInit(slideId, shapeId, keyword);
-                    Events.popup.keyword.updated({ data: { keyword, slideId } });
-                }, [this.slideId, iconShapeId]);
+            if (iconG) {
+                const iconShapeId = iconG.getAttribute("shape_id");
+                const iconShape = shape(this.slideId, iconShapeId);
+                const iconShapeData = iconShape.data();
+                if (!iconShapeData.isIconChanged && iconShapeData.active != "false") {
+                    // page has an icon, update it
+                    iconShapeData.icon = null;
+                    findKeyword(newText, (slideId, shapeId, keyword) => {
+                        iconInit(slideId, shapeId, keyword);
+                        Events.popup.keyword.updated({ data: { keyword, slideId } });
+                    }, [this.slideId, iconShapeId]);
+                }
             }
 
             const h1ImageG = slide_.page().querySelector("g[alt='h1image|" + contentNumber + "']");
-            const imageShapeId = h1ImageG.getAttribute("shape_id");
-            const imageShape = shape(this.slideId, imageShapeId);
-            
-            if (h1ImageG && !imageShape.data().isImageChanged) {
-                // page has an h1 image update it 
-                imageShape.data().image = null;
-                findKeyword(newText, (slideId, shapeId, keyword) => {
-                    h1Image(slideId, shapeId, keyword);
-                    Events.popup.keyword.updated({ data: { keyword, slideId } });
-                }, [this.slideId, imageShapeId]);
+
+            if (h1ImageG) {
+                const imageShapeId = h1ImageG.getAttribute("shape_id");
+                const imageShape = shape(this.slideId, imageShapeId);
+                const imageShapeData = imageShape.data();
+
+                if (!imageShapeData.isImageChanged && imageShapeData.active != "false") {
+                    imageShapeData.image = null;
+                    findKeyword(newText, (slideId, shapeId, keyword) => {
+                        h1Image(slideId, shapeId, keyword);
+                        Events.popup.keyword.updated({ data: { keyword, slideId } });
+                    }, [this.slideId, imageShapeId]);
+                }
             }
 
             autosizeForeignObject(this.el().querySelector("foreignObject"));
