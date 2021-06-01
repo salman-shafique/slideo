@@ -455,35 +455,20 @@ export default function slide(slideId) {
       // Clear the clone
       let title;
       let subTitle;
-      if(clone.querySelector("[alt='slidetitle']") !== null){
-        title = clone.querySelector("[alt='slidetitle']").querySelectorAll('td')[0]
+      if (clone.querySelector("[alt='slidetitle']") !== null) {
+        title = clone.querySelector("[alt='slidetitle'] td")
+        if (title?.outerText === constants.SLIDE_TITLE_PLACEHOLDER)
+          clone.querySelector("[alt='slidetitle']").remove()
+      } else if (clone.querySelector("[alt='subtitle']") !== null) {
+        subTitle = clone.querySelector("[alt='subtitle'] td")
+        if (subTitle?.outerText === constants.SLIDE_SUBTITLE_PLACEHOLDER)
+          clone.querySelector("[alt='subtitle']").remove();
+      }
 
-        if(title.outerText === constants.SLIDE_TITLE_PLACEHOLDER){
-          clone
-          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon,[alt='slidetitle']")
-          ?.forEach(e => e.remove());  
-        }
-        else{
-          clone
-          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
-          ?.forEach(e => e.remove());  
-        }
-      }
-      if(clone.querySelector("[alt='subtitle']") !== null)
-      {
-        subTitle = clone.querySelector("[alt='subtitle']").querySelectorAll('td')[0]
-        
-        if(subTitle.outerText === constants.SLIDE_SUBTITLE_PLACEHOLDER){
-          clone
-          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon,[alt='subtitle']")
-          ?.forEach(e => e.remove());  
-        }
-        else{
-          clone
-          .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
-          ?.forEach(e => e.remove());  
-        }
-      }
+      clone
+        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
+        ?.forEach(e => e.remove());
+
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
       setTimeout(() => {
@@ -722,7 +707,7 @@ export default function slide(slideId) {
     );
 
     this.contentDocument().querySelector("svg").appendChild(styles);
-    this.prevDocument().querySelector("svg").appendChild(styles);
+    this.prevDocument().querySelector("svg").appendChild(styles.cloneNode());
   };
 }
 
