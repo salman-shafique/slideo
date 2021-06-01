@@ -8,6 +8,8 @@ import getSelectionRectangleAttributes from "../utils/getSelectionRectangleAttri
  * @param {MouseEvent} event
  */
 export default function startSelection(event) {
+    console.log(event);
+    
     session.SELECTION_STATE = "STARTING";
     session.SAVED_SELECTION_MOUSE_POS = getMousePosition(event);
     createSelectionRectangle(getSelectionRectangleAttributes(event));
