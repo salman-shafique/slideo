@@ -4,6 +4,7 @@ import slide from "Editor/js/entity/slide";
 import session from "Editor/js/session";
 import selectEl from "../utils/selectEl";
 import getSelectionRectangleAttributes from "../utils/getSelectionRectangleAttributes.js"
+import getTransform from "../utils/getTransform";
 /**
  *
  * @param {MouseEvent} event
@@ -39,13 +40,14 @@ export default function endSelection(event, slideId = session.CURRENT_SLIDE) {
     session.SELECTION_STATE = null;
 
     slide(session.CURRENT_SLIDE).slideData().shapes.forEach(shape_ => {
-        if (shape_.active == "false") return;
-
-        let shape_center_x = parseInt(shape_.data.x) + parseInt(shape_.data.width) / 2;
-        let shape_center_y = parseInt(shape_.data.y) + parseInt(shape_.data.height) / 2;
+        if (shape_.data.active != "true") return;
 
         const shapeCls = shape(session.CURRENT_SLIDE, shape_.data.shape_id);
-        console.log(getTransform(shapeCls.el()));
+        const allTransforms = getTransform(shapeCls.el());
+
+        let shape_center_x = allTransforms.translate.startingE + parseInt(shape_.data.x) + parseInt(shape_.data.width) / 2;
+        let shape_center_y = allTransforms.translate.startingF + parseInt(shape_.data.y) + parseInt(shape_.data.height) / 2;
+
         if ((shape_center_x >= parseInt(start_x)) & (shape_center_x <= parseInt(end_x)) & (shape_center_y >= parseInt(start_y)) & (shape_center_y <= parseInt(end_y))) {
 
             const g = shapeCls.el();
