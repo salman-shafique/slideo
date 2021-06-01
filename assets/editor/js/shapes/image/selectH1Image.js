@@ -3,11 +3,17 @@ import Events from "../../Events";
 import insertImageUrl from "./insertImageUrl";
 import createForeignObject from './createForeignObject';
 
-export const updateImage = (slideId, shapeId, image) => {
+export const updateImage = (slideId, shapeId, image, keyword) => {
     const shape_ = shape(slideId, shapeId);
     const shapeData = shape_.data();
 
     shapeData.image = image;
+
+    if(keyword === undefined){
+        shapeData.isImageChanged = true
+    }else{
+        shapeData.isImageChanged = false
+    }
 
     if (image.keyword)
         shapeData.keyword = image.keyword
@@ -23,7 +29,7 @@ export const updateImage = (slideId, shapeId, image) => {
  * @param {{height:number,width:number,id:number,photographer:string,photographer_url:string,url:string}} image 
  */
 
-export default function selectH1Image(slideId, shapeId, image = null) {
+export default function selectH1Image(slideId, shapeId, image = null, keyword) {
     const shape_ = shape(slideId, shapeId);
 
     if (!shape_.el()?.querySelector('foreignObject'))
@@ -32,9 +38,9 @@ export default function selectH1Image(slideId, shapeId, image = null) {
     let shapeData = shape_.data();
 
     if (image) {
-        Events.shape.image.changed({ oldImage: shapeData.image, newImage: image });
-        updateImage(slideId, shapeId, image);
+        Events.shape.image.changed({ oldImage: shapeData.image, newImage: image});
+        updateImage(slideId, shapeId, image, keyword);
         return;
     }
-    updateImage(slideId, shapeId, shapeData.image);
+    updateImage(slideId, shapeId, shapeData.image, keyword);
 }

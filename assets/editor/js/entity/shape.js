@@ -14,13 +14,15 @@ import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
 import getClipPath from "Editor/js/shapes/actions/resize/utils/getClipPath";
 import Events from "../Events";
 
-
 /**
  * 
  * @param {SVGGElement|String} slideId 
  * @param {String} shapeId 
  */
 export default function shape(slideId, shapeId) {
+
+   
+
     if (!(this instanceof shape)) return new shape(...arguments);
 
     if (slideId.tagName == "g") {
@@ -93,11 +95,14 @@ export default function shape(slideId, shapeId) {
             content.image = image;
         }
     }
+
+    
     /**
      * 
      * @param {String} newText 
      */
     this.setH1 = (newText) => {
+       
         // Update the analyzed content
         const contentNumber = this.data().alt.split("|").pop();
         const slide_ = slide(this.slideId);
@@ -106,10 +111,13 @@ export default function shape(slideId, shapeId) {
             this.data().text = content.text = newText;
 
             const iconG = slide_.page().querySelector("g[alt$='icon|" + contentNumber + "']");
-            if (iconG) {
+            
+             // page has an icon, update it
+             const iconShapeId = iconG.getAttribute("shape_id");
+             const iconShape = shape(this.slideId, iconShapeId);
+
+            if (iconG && !iconShape.data().isIconChanged) {
                 // page has an icon, update it
-                const iconShapeId = iconG.getAttribute("shape_id");
-                const iconShape = shape(this.slideId, iconShapeId);
                 iconShape.data().icon = null;
 
                 findKeyword(newText, (slideId, shapeId, keyword) => {
@@ -119,12 +127,12 @@ export default function shape(slideId, shapeId) {
             }
 
             const h1ImageG = slide_.page().querySelector("g[alt='h1image|" + contentNumber + "']");
-            if (h1ImageG) {
-                // page has an h1 image update it
-                const imageShapeId = h1ImageG.getAttribute("shape_id");
-                const imageShape = shape(this.slideId, imageShapeId);
+            const imageShapeId = h1ImageG.getAttribute("shape_id");
+            const imageShape = shape(this.slideId, imageShapeId);
+            
+            if (h1ImageG && !imageShape.data().isImageChanged) {
+                // page has an h1 image update it 
                 imageShape.data().image = null;
-
                 findKeyword(newText, (slideId, shapeId, keyword) => {
                     h1Image(slideId, shapeId, keyword);
                     Events.popup.keyword.updated({ data: { keyword, slideId } });
