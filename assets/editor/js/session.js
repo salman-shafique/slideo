@@ -75,4 +75,6 @@ let session = {
      */
     LAST_MINIPREV_UPDATE: {}
 }
+
+window.session = session;
 export default session

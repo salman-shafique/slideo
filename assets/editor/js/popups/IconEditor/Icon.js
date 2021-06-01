@@ -24,7 +24,7 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
             if (alt.includes("icon|") ||
                 alt == "newicon") {
                 const shapeId = session.SELECTED_ELEMENTS[0].shapeId;
-                selectIcon(session.CURRENT_SLIDE, shapeId, iconData);
+                selectIcon(session.CURRENT_SLIDE, shapeId, iconData, true);
                 return;
             }
         }
@@ -52,10 +52,10 @@ export default function Icon({ iconData, keyword, forceUpdate }) {
 
     const getCorrectIconUrl = () => {
         const src = 'https://static.thenounproject.com/png/';
-        const splitedUrl = iconData.url.split('/');        
+        const splitedUrl = iconData.url.split('/');
 
         return splitedUrl.length > 4 ? iconData.url : '/icons/' + splitedUrl[splitedUrl.length - 1];
-    }   
+    }
 
     return (
         <img onClick={onClick} iconid={iconData.id} className={getClass()} src={getCorrectIconUrl()} />
