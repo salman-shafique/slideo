@@ -33,7 +33,8 @@ export default function selectH1Image(slideId, shapeId, image = null, fromUser =
 
     if (image) {
         Events.shape.image.changed({ oldImage: shapeData.image, newImage: image });
-        shapeData.isImageChanged = fromUser;
+        if (fromUser)
+            shapeData.isImageChanged = true;
         updateImage(slideId, shapeId, image);
         return;
     }

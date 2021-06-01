@@ -38,7 +38,8 @@ export default function selectIcon(slideId, shapeId, icon = null, fromUser = fal
 
     if (icon) {
         Events.shape.icon.changed({ oldIcon: shapeData.icon, newIcon: icon });
-        shapeData.isIconChanged = fromUser;
+        if (fromUser)
+            shapeData.isIconChanged = true;
         updateIcon(slideId, shapeId, icon);
         return;
     }
