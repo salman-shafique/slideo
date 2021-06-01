@@ -19,11 +19,6 @@ export default function createSelectionRectangle(selectionRectangleData, slideId
         "http://www.w3.org/2000/svg"
     );
     const slide_ = slide(slideId);
-    // Insert to page
     slide_.page().appendChild(newSelectionRectangleShape);
-    // slide_.appendNewShape(newShapeData);
-
-    // Transforms
-    // initializeG(newSelectionRectangleShape);
 
 }

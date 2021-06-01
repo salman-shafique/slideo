@@ -9,8 +9,7 @@ import getSelectionRectangleAttributes from "../utils/getSelectionRectangleAttri
  */
 export default function dragSelection(event) {
     if ( session.SELECTION_STATE == "SELECTING"){
-        console.log("getMousePosition(event)", getMousePosition(event));
-
+        
         updateSelectionRectangle(getSelectionRectangleAttributes(event))
         return;
     }

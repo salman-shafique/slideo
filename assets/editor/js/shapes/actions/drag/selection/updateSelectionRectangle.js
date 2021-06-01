@@ -15,8 +15,7 @@ export default function updateSelectionRectangle(selectionRectangleData, slideId
     else{
         y = selectionRectangleData.start_y;
     }
-    // const y = selectionRectangleData.start_y;
-
+    
     let width = selectionRectangleData.width;
     let height = selectionRectangleData.height;
 
