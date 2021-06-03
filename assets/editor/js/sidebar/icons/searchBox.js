@@ -34,8 +34,7 @@ export function addToIconsBar(keyword) {
     apiService({
         "url": "/api/editor/call/Icon/find_icons",
         "data": {
-            "keyword": keyword,
-            "limit": 50
+            "keyword": keyword
         },
         "success": (response) => {
             appendIcons(response.body, response.request.keyword);
