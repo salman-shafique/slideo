@@ -12,7 +12,7 @@ import constants from "Editor/js/constants";
 import useKeyword from '../hooks/useKeyword';
 
 export default function IconEditorContent() {
-    const hook = useKeyword('Icon/find_icons', 50);
+    const hook = useKeyword('Icon/find_icons');
     const activeIcons = hook.getActiveData();
 
     const apiCall = (keyword) => {
@@ -20,8 +20,7 @@ export default function IconEditorContent() {
             apiService({
                 "url": `/api/editor/call/Icon/find_icons`,
                 "data": {
-                    "keyword": keyword,
-                    "limit": 50
+                    "keyword": keyword
                 },
                 "success": (response) => {
                     resolve({

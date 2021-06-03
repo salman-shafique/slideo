@@ -3,13 +3,12 @@ import SearchSection from '../components/SearchSection';
 import MainSection from '../components/MainSection';
 import UserImages from './UserImages';
 import ImageContainer from './ImageContainer';
-import session from "Editor/js/session";
 
 import useKeyword from '../hooks/useKeyword';
 
 export default function ImageEditorContent(props) {
     const [uploadImages, setUploadImages] = useState(false);
-    const hook = useKeyword('Pexels/find_images', 20);
+    const hook = useKeyword('Pexels/find_images');
     const activeImages = hook.getActiveData();
 
     useEffect(() => {
