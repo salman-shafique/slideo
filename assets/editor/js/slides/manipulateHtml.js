@@ -21,15 +21,28 @@ export default function manipulateHtml() {
 
     else {
         let match = content1.innerHTML.matchAll(regex1)
-        for (res of match) {
-            content1.innerHTML = content1.innerHTML.replace("<p>" + res[0], "<li>").replace('</p>', '</li>');
+        console.log(match)
+        try{
+            for (res of match) {
+                content1.innerHTML = content1.innerHTML.replace("<p>" + res[0], "<li>").replace('</p>', '</li>');
+            }
         }
+        catch{
+            content1.innerHTML = content1.innerHTML
+        }
+        
 
         let match0 = content1.innerHTML.matchAll(regex3)
         //			console.log(match0)
-        for (res0 of match0) {
-            content1.innerHTML = content1.innerHTML.replace("<p>" + res0[0], "<li>").replace('</p>', '</li>');
+        try{
+            for (res0 of match0) {
+                content1.innerHTML = content1.innerHTML.replace("<p>" + res0[0], "<li>").replace('</p>', '</li>');
+            }
         }
+        catch{
+            content1.innerHTML = content1.innerHTML 
+        }
+        
     }
 
     content1.innerHTML = content1.innerHTML.replace('</p><li>', '</p><ul><li>').replace('</li><p>', '</li></ul><p>');

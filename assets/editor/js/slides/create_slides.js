@@ -9,9 +9,10 @@ import toastr from "Editor/js/components/toastr";
 import sidebar from "Editor/js/entity/sidebar";
 import manipulateHtml from "./manipulateHtml";
 
+// import manipulateHtml from "./js/slides/manipulateHtml";
+
 
 export default function create_slides() {
-
 
 
     create_slide_modal.close();
