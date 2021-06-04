@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Icon from './Icon';
 import apiService from "Editor/js/utils/apiService";
+import toastr from '../../components/toastr';
 
 export default function IconContainer({ icons, keyword }) {
     const [force, setForce] = useState(0);
@@ -20,6 +21,10 @@ export default function IconContainer({ icons, keyword }) {
                 page
             },
             "success": (response) => {
+                if (response?.body?.length === 1) {
+                    toastr.error("There are no more results!");
+                    return;
+                }
                 setIcons([...currentIcons, ...response.body])
                 setPage(page + 1);
             }
