@@ -33,12 +33,10 @@ export function addToImagesBar(keyword) {
     apiService({
         "url": "/api/editor/call/Pexels/find_images",
         "data": {
-            "keyword": keyword,
-            "per_page": 20
+            "keyword": keyword
         },
         "success": (response) => {
             appendImages(response.body, response.request.keyword);
         }
     })
-
 }
