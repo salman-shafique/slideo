@@ -371,7 +371,9 @@ export default function slide(slideId) {
     addLogo(session?.PRESENTATION?.settings?.logo?.image, this.slideId);
 
     // Update the mini prevs
-    this.cloneToMiniPrev();
+    setTimeout(() => {
+      this.cloneToMiniPrev();
+    }, 4500);
 
     return this;
   };
@@ -438,17 +440,22 @@ export default function slide(slideId) {
   };
 
   this.cloneToMiniPrev = () => {
+    // console.log(session.LAST_MINIPREV_UPDATE[this.slideId]);
     if (session.LAST_MINIPREV_UPDATE[this.slideId] + 1000 > Date.now()) return;
 
     const contentDocument = window.top.document.getElementById(
       "prev_" + this.slideId
     ).contentDocument;
+    
     if (contentDocument?.querySelector("svg")) {
       /**
        * @type {SVGGElement} clone
        */
+
       const clone = this.slideG()?.cloneNode(true);
+
       if (!clone) return;
+
 
       clone.style.visibility = "hidden";
       // Clear the clone
@@ -465,11 +472,12 @@ export default function slide(slideId) {
       }
 
       clone
-        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
+        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon,.d-none")
         ?.forEach(e => e.remove());
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
+      
       setTimeout(() => {
         oldSlideG.remove();
         clone.style.visibility = "visible";
