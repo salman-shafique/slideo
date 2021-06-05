@@ -3,6 +3,7 @@ import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
 import preloader from "Editor/js/components/preloader";
 
+
 export default function DesignItem({ designData }) {
 
     const selectDesign = () => {
