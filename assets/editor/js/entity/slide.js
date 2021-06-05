@@ -373,7 +373,7 @@ export default function slide(slideId) {
     // Update the mini prevs
     setTimeout(() => {
       this.cloneToMiniPrev();
-    }, 4500);
+    }, 2500);
 
     return this;
   };
@@ -440,7 +440,6 @@ export default function slide(slideId) {
   };
 
   this.cloneToMiniPrev = () => {
-    // console.log(session.LAST_MINIPREV_UPDATE[this.slideId]);
     if (session.LAST_MINIPREV_UPDATE[this.slideId] + 1000 > Date.now()) return;
 
     const contentDocument = window.top.document.getElementById(
