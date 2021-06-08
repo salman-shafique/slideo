@@ -51,6 +51,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
             selectEl({ target: { parentElement: g } });
 
         if (session.SELECTED_ELEMENTS.length >= 1)
+            selectEl({ target: { parentElement: g } });
             selectTextboxElement({ target: { parentElement: g } });
 
     }
