@@ -78,7 +78,7 @@ export default function IconEditorContent() {
 
     return (
         <>
-            <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} >
+            <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} type="icon">
                 <div className="col-9 m-0 d-flex align-items-center my-white-text">Icon Color</div>
                 <div className="col-3 position-static pt-1">
                     <ColorCircle key={"icon"} SHAPE_TYPE={constants.SHAPE_TYPES.ICON} />

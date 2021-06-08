@@ -3,7 +3,7 @@ import KeywordContainer from './KeywordContainer';
 import constants from "Editor/js/constants";
 import OpacitySlider from "Editor/js/sidebar/components/OpacitySlider/OpacitySlider.js"
 
-export default function SearchSection({ keywords, setKeywords, fetchNewData, children }) {
+export default function SearchSection({ keywords, setKeywords, fetchNewData, children, type }) {
 
     const [searchValue, setSearchValue] = useState('');
     const inputRef = useRef(null);
@@ -50,9 +50,9 @@ export default function SearchSection({ keywords, setKeywords, fetchNewData, chi
                 <KeywordContainer keywords={ keywords } setKeywords={ setKeywords } />
                 { children }
             </div>
-           
-            <OpacitySlider SHAPE_TYPE={constants.SHAPE_TYPES.IMAGE}/>
-            
+            {
+                type === 'icon' ? '' : <OpacitySlider SHAPE_TYPE={constants.SHAPE_TYPES.IMAGE}/>
+            }          
         </div>
     );
 }
