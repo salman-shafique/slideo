@@ -68,14 +68,7 @@ export default function IconEditorContent() {
             hook.fetchNewData(keyword.toLowerCase())
            
             if (hook.keywords.filter(oldKeyword => oldKeyword.keyword === keyword.toLowerCase()).length) {
-                // hook.setKeywords(hook.keywords.map(oldKeyword => {
-                //     return {
-                //         keyword: oldKeyword.keyword,
-                //         active: oldKeyword.keyword === keyword.toLowerCase() ? true : false
-                //     }
-                // }));
                 return hook.setKeywords(hook.keywords)
-                
             } 
             
             hook.keywords.map(k => k.keyword !== keyword ? k.active = false : null );
