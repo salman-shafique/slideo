@@ -20,7 +20,7 @@ export default function ImageEditorContent(props) {
         <>
             {
                 !uploadImages ?
-                    <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} /> :
+                    <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} type="image"/> :
                     undefined
             }
             <MainSection>
