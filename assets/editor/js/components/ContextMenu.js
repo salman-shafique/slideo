@@ -12,8 +12,6 @@ import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement"
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon.js"
 import createNewImage from "Editor/js/shapes/image/createNewImage.js"
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox.js"
-import sidebar from "Editor/js/entity/sidebar";
-import { addToIconsBar } from "Editor/js/sidebar/icons/searchBox";
 
 export const getSelectedElementsType = () => {
     let pureType = null;
