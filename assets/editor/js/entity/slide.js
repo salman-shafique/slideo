@@ -347,7 +347,21 @@ export default function slide(slideId) {
     // Add event listeners
     makeDraggable(this.contentDocument());
     keyboardListener(this.contentDocument());
-    this.contentDocument().addEventListener("dblclick", selectTextboxElement);
+    this.contentDocument().addEventListener("dblclick", ()=>{
+      if(session.SELECTED_ELEMENTS[0].shapeType === 0){
+        //text
+        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
+      }
+      else if(session.SELECTED_ELEMENTS[0].shapeType === 1){
+        //image
+        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
+      }
+      else if(session.SELECTED_ELEMENTS[0].shapeType === 3){
+        //icon
+        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
+        }
+    });
+
     this.contentDocument().addEventListener("contextmenu", (e) => {
       e.preventDefault();
 
