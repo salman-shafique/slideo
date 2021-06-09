@@ -13,7 +13,6 @@ import createNewIcon from "Editor/js/shapes/icon/createNewIcon.js"
 import createNewImage from "Editor/js/shapes/image/createNewImage.js"
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox.js"
 
-
 export const getSelectedElementsType = () => {
     let pureType = null;
     for (let index = 0; index < session.SELECTED_ELEMENTS.length; index++) {
@@ -40,7 +39,7 @@ export const shapeHandler = (e) => {
         switch (type) {
             case constants.SHAPE_TYPES.ICON:
                 // Call the createNewIcon callback with new icon data
-                createNewIcon(duplicateShape(selectedEl, "icon"))
+                e === "changecolor"? changecolor(selectedEl) : createNewIcon(duplicateShape(selectedEl, "icon"))
                 break;
             case constants.SHAPE_TYPES.IMAGE:
                 // Call the createNewImage callback with new icon data
@@ -127,6 +126,12 @@ const showFullImage = (element) => {
 
     // Call the createNewImage callback with new full image data
     createNewImage(fullImage)
+}
+
+// Function to CHANGE ICON COLOR
+const changecolor = (e) => {
+    Events.colorCircle.open();
+    Events.popup.icon.open({ shapeId: e.shapeId }); 
 }
 
 function ContextMenu() {
@@ -220,7 +225,7 @@ function ContextMenu() {
                 shapeHandler("showfull")
                 break;
             case "CHANGE_COLOR":
-                Events.colorCircle.open();
+                shapeHandler("changecolor")
                 setIsOpen(false);
                 break;
             default:
