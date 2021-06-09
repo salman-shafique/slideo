@@ -10,4 +10,5 @@ export default function deleteShapes() {
     });
     Events.shape.deleted();
     deSelectAll();
+    Events.slide.preview.update();
 }
