@@ -74,9 +74,8 @@ export default function IconEditorContent() {
                 //         active: oldKeyword.keyword === keyword.toLowerCase() ? true : false
                 //     }
                 // }));
-                hook.keywords.forEach(oldKeyword => {
-                    hook.setKeywords(hook.keywords.push(...oldKeyword))
-                })
+                return hook.setKeywords(hook.keywords)
+                
             } 
             
             hook.keywords.map(k => k.keyword !== keyword ? k.active = false : null );
