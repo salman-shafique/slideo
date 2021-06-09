@@ -282,7 +282,7 @@ function ContextMenu() {
                 </div>
             }
             {
-                ([constants.SHAPE_TYPES.TEXTBOX, constants.SHAPE_TYPES.ICON, constants.SHAPE_TYPES.AUTO_SHAPE].includes(clickedElementType))
+                ([constants.SHAPE_TYPES.ICON, constants.SHAPE_TYPES.AUTO_SHAPE].includes(clickedElementType))
                     ? <div
                         className="contextMenu-line-wrapper noselect"
                         onClick={() => { contextMenuAction("CHANGE_COLOR") }}>
