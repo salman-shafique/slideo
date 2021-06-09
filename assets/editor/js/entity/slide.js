@@ -347,16 +347,17 @@ export default function slide(slideId) {
     // Add event listeners
     makeDraggable(this.contentDocument());
     keyboardListener(this.contentDocument());
-    this.contentDocument().addEventListener("dblclick", ()=>{
-      if(session.SELECTED_ELEMENTS[0].shapeType === 0){
+    this.contentDocument().addEventListener("dblclick", (e)=>{
+      if(session.SELECTED_ELEMENTS.length !== 1) return;
+      if(session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.TEXTBOX){
         //text
-        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
+        selectTextboxElement(e); 
       }
-      else if(session.SELECTED_ELEMENTS[0].shapeType === 1){
+      else if(session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.IMAGE){
         //image
-        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
+        Events.popup.image.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
       }
-      else if(session.SELECTED_ELEMENTS[0].shapeType === 3){
+      else if(session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.ICON){
         //icon
         Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
         }
