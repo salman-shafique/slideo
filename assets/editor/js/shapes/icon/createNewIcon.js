@@ -66,6 +66,7 @@ export default function createNewIcon(iconData, slideId = session.CURRENT_SLIDE)
     // Insert color filters
     colorFilters(newIconShape).init();
 
-    addedIconCounter++;
     Events.slide.preview.update();
+
+    addedIconCounter++;
 }
