@@ -44,6 +44,7 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
                         }
                     }
                 }
+                slide_.cloneToMiniPrev(true);
             });
             slide(tmpCurrentSlide).display();
             return;

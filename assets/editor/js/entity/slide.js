@@ -347,20 +347,20 @@ export default function slide(slideId) {
     // Add event listeners
     makeDraggable(this.contentDocument());
     keyboardListener(this.contentDocument());
-    this.contentDocument().addEventListener("dblclick", (e)=>{
-      if(session.SELECTED_ELEMENTS.length !== 1) return;
-      if(session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.TEXTBOX){
+    this.contentDocument().addEventListener("dblclick", (e) => {
+      if (session.SELECTED_ELEMENTS.length !== 1) return;
+      if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.TEXTBOX) {
         //text
-        selectTextboxElement(e); 
+        selectTextboxElement(e);
       }
-      else if(session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.IMAGE){
+      else if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.IMAGE) {
         //image
-        Events.popup.image.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
+        Events.popup.image.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });
       }
-      else if(session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.ICON){
+      else if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.ICON) {
         //icon
-        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });    
-        }
+        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });
+      }
     });
 
     this.contentDocument().addEventListener("contextmenu", (e) => {
@@ -454,13 +454,13 @@ export default function slide(slideId) {
     return this;
   };
 
-  this.cloneToMiniPrev = () => {
-    if (session.LAST_MINIPREV_UPDATE[this.slideId] + 1000 > Date.now()) return;
+  this.cloneToMiniPrev = (force = false) => {
+    if (session.LAST_MINIPREV_UPDATE[this.slideId] + 1000 > Date.now() && !force) return;
 
     const contentDocument = window.top.document.getElementById(
       "prev_" + this.slideId
     ).contentDocument;
-    
+
     if (contentDocument?.querySelector("svg")) {
       /**
        * @type {SVGGElement} clone
@@ -491,7 +491,7 @@ export default function slide(slideId) {
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
-      
+
       setTimeout(() => {
         oldSlideG.remove();
         clone.style.visibility = "visible";
