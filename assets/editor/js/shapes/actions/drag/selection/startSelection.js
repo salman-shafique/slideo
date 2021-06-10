@@ -12,5 +12,8 @@ export default function startSelection(event) {
 
     session.SELECTION_STATE = "STARTING";
     session.SAVED_SELECTION_MOUSE_POS = getMousePosition(event);
-    createSelectionRectangle(getSelectionRectangleAttributes(event));
+
+    if(session.SELECTED_ELEMENTS.length === 0){
+        createSelectionRectangle(getSelectionRectangleAttributes(event));
+    }    
 }

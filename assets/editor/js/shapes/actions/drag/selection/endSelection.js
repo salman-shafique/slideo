@@ -35,8 +35,9 @@ export default function endSelection(event, slideId = session.CURRENT_SLIDE) {
         end_y = selectionRectangleData.start_y;
     }
 
-
-    $('object.main-container[data-slide-id="' + slideId + '"]')[0].contentDocument.getElementById('selectionRectanglebounding').remove();
+    if($('object.main-container[data-slide-id="' + slideId + '"]')[0].contentDocument.getElementById('selectionRectanglebounding')){
+        $('object.main-container[data-slide-id="' + slideId + '"]')[0].contentDocument.getElementById('selectionRectanglebounding').remove();
+     }
     session.SELECTION_STATE = null;
 
     slide(session.CURRENT_SLIDE).slideData().shapes.forEach(shape_ => {
