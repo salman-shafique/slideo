@@ -8,6 +8,7 @@ import "./upload";
 import Events from "Editor/js/Events";
 import {addToImagesBar} from "./searchBox"
 import React from "react"
+import slide from "../../entity/slide";
 
 const showEmptyList = () => {
     $('#Images_Panel div[data-keyword].search-keyword').removeClass("active");
@@ -17,14 +18,14 @@ const showEmptyList = () => {
 } 
 
 Events.listen("presentation.inited", () => {
-    const slide = session.PRESENTATION.slides.map(e => e.analyzedContent)
-    const analizedc = slide.map(e => e.map(d => d))
-    const d = analizedc.map(k=> k[0])
+    const slides = session.PRESENTATION.slides.map(slide => slide.analyzedContent)
+    const analyzedContents = slides.map(a => a.map(ac => ac))
+    const analyzedData = analyzedContents.map(e => e[0])
    
-    d.map(k => {
-        for (const p in k) {
-        if(k[p]){
-            k[p].data.keyword ? addToImagesBar(k[p].data.keyword) : null;
+    analyzedData.map(d => {
+        for (const property in analyzedData) {
+        if(d[property]){
+            d[property].data.keyword ? addToImagesBar(d[property].data.keyword) : null;
         }
       }
     })
