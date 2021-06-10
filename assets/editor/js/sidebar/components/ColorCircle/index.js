@@ -96,6 +96,13 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
 
 
       });
+
+      Events.listen("shape.selected", () => {
+      
+        setOpened(false);     
+      
+      });
+
       return;
     };
 
