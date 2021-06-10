@@ -7,8 +7,6 @@ import "./searchBox";
 import "./upload";
 import Events from "Editor/js/Events";
 import {addToImagesBar} from "./searchBox"
-import React from "react"
-import slide from "../../entity/slide";
 
 const showEmptyList = () => {
     $('#Images_Panel div[data-keyword].search-keyword').removeClass("active");
