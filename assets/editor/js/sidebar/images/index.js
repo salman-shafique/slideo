@@ -15,23 +15,24 @@ const showEmptyList = () => {
     document.querySelector("#sideBarImagesEmpty").style.display = "";
 } 
 
-Events.listen("presentation.inited", () => {
+Events.listen("shape.allReleased", () => {
     const slides = session.PRESENTATION.slides.map(slide => slide.analyzedContent)
     const analyzedContents = slides.map(a => a.map(ac => ac))
-    const analyzedData = analyzedContents.map(e => e[0])
-   
+    const analyzedData = analyzedContents.map(e => e)
+
     analyzedData.map(d => {
-        for (const property in analyzedData) {
-        if(d[property]){
-            d[property].data.keyword ? addToImagesBar(d[property].data.keyword) : null;
-        }
-      }
+        const datas = d[0]
+        const dataObjArr = Object.keys(datas)
+        const keywords = dataObjArr.map(d => datas[d])
+        keywords.map((key,i)  => {
+          typeof keywords[i] === "object" && keywords[i] !== null && keywords[i].data && keywords[i].data.keyword ?
+          addToImagesBar(keywords[i].data.keyword) : null
+        })
     })
+   
+    // Show empty image list when all released
+    showEmptyList
 })
-
-
-// Show empty image list when all released
-Events.listen("shape.allReleased", showEmptyList);
 
 Events.listen("shape.selected", () => {
     if (session.SELECTED_ELEMENTS.length != 1) return;
