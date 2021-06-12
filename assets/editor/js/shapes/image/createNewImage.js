@@ -9,6 +9,7 @@ import React from "react";
 import initializeG from "Editor/js/shapes/actions/drag/utils/initializeG";
 import selectEl from "Editor/js/shapes/actions/drag/utils/selectEl";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
+import Events from "Editor/js/Events";
 
 let addedImageCounter = 0;
 
@@ -66,4 +67,8 @@ export default function createNewImage(imageData, slideId = session.CURRENT_SLID
     insertImageUrl(newImageShape, newShapeData.data.image.url);
 
     addedImageCounter++;
+
+    Events.slide.preview.update();
+
+
 }

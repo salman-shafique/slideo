@@ -124,7 +124,7 @@ export function relocateResizeCircleContainer(g) {
             case "ll":
                 resizeEl.setAttribute("x1",
                     sizeAttr.x +
-                    clipPath.lb.startingX / 100 * sizeAttr.width
+                    clipPath.lb.startingX / 100 * sizeAttr.width + 100
                 );
                 resizeEl.setAttribute("y1",
                     sizeAttr.y +

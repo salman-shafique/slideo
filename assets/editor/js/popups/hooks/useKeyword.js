@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import apiService from "Editor/js/utils/apiService";
 
-export default function useKeyword(apiEndpoint, fetchLimit) {
+export default function useKeyword(apiEndpoint) {
     const [keywords, setKeywords] = useState([]);
     const [data, setData] = useState([]);
 
@@ -28,19 +28,18 @@ export default function useKeyword(apiEndpoint, fetchLimit) {
         setKeywords([{
             keyword: searchKeyword,
             active: true
-        }].concat(keywords.map(keyword => { return { ...keyword, active: false }})));
+        }].concat(keywords.map(keyword => { return { ...keyword, active: false } })));
 
 
         if (data.filter(item => item.keyword.toLowerCase() === searchKeyword.toLowerCase()).length)
             return;
-    
+
         apiService({
-            "url": `/api/editor/call/${ apiEndpoint }`,
+            "url": `/api/editor/call/${apiEndpoint}`,
             "data": {
-                "keyword": searchKeyword,
-                "limit": fetchLimit
+                "keyword": searchKeyword
             },
-            "success": (response) => {       
+            "success": (response) => {
                 setData(data.concat({
                     keyword: searchKeyword,
                     data: response.body
@@ -48,7 +47,7 @@ export default function useKeyword(apiEndpoint, fetchLimit) {
             }
         });
     }
-    
+
     return {
         keywords,
         setKeywords,

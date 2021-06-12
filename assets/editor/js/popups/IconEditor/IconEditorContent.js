@@ -12,7 +12,7 @@ import constants from "Editor/js/constants";
 import useKeyword from '../hooks/useKeyword';
 
 export default function IconEditorContent() {
-    const hook = useKeyword('Icon/find_icons', 50);
+    const hook = useKeyword('Icon/find_icons');
     const activeIcons = hook.getActiveData();
 
     const apiCall = (keyword) => {
@@ -20,8 +20,7 @@ export default function IconEditorContent() {
             apiService({
                 "url": `/api/editor/call/Icon/find_icons`,
                 "data": {
-                    "keyword": keyword,
-                    "limit": 50
+                    "keyword": keyword
                 },
                 "success": (response) => {
                     resolve({
@@ -54,7 +53,7 @@ export default function IconEditorContent() {
                 const data = [];
 
                 for (const keyword of keywords.values())
-                        data.push(await apiCall(keyword));
+                    data.push(await apiCall(keyword));
 
                 hook.setData(data);
             }, 3000);
@@ -65,30 +64,23 @@ export default function IconEditorContent() {
             const selectedShape = session.SELECTED_ELEMENTS[0].shapeId;
 
             const keyword = shapes.filter(shape => shape.data.shape_id == selectedShape)[0].data.keyword;
-
+            hook.setKeywords(hook.keywords.concat({keyword:keyword.toLowerCase(), active:false}))
+            hook.fetchNewData(keyword.toLowerCase())
+           
             if (hook.keywords.filter(oldKeyword => oldKeyword.keyword === keyword.toLowerCase()).length) {
-                hook.setKeywords(hook.keywords.map(oldKeyword => {
-                    return {
-                        keyword: oldKeyword.keyword,
-                        active: oldKeyword.keyword === keyword.toLowerCase() ? true : false
-                    }
-                }));
-            }
+                return hook.setKeywords(hook.keywords)
+            } 
+            
+            hook.keywords.map(k => k.keyword !== keyword ? k.active = false : null );
+            hook.fetchNewData(keyword.toLowerCase())
+            hook.setKeywords(hook.keywords = [ {keyword:keyword.toLowerCase(), active: true}, ...hook.keywords])
         });
+    }, []);
 
-        Events.listen('popup.keyword.updated', async (e) => {
-            const keywordExist = hook.keywords.filter(item => item.keyword === e.data.data.keyword.toLowerCase())[0];
-
-            if (!keywordExist) {
-                hook.setKeywords(hook.keywords.concat({ active: false, keyword: e.data.data.keyword.toLowerCase() }));
-                hook.setData(hook.data ? hook.data.concat(await apiCall(e.data.data.keyword.toLowerCase())) : [await apiCall(e.data.data.keyword.toLowerCase())]);
-            }
-        });
-    }, [hook.keywords]);
 
     return (
         <>
-            <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} >
+            <SearchSection keywords={hook.keywords} setKeywords={hook.setKeywords} fetchNewData={hook.fetchNewData} type="icon">
                 <div className="col-9 m-0 d-flex align-items-center my-white-text">Icon Color</div>
                 <div className="col-3 position-static pt-1">
                     <ColorCircle key={"icon"} SHAPE_TYPE={constants.SHAPE_TYPES.ICON} />

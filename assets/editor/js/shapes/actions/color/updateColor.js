@@ -18,12 +18,12 @@ export default function updateColor(g) {
     this.g = g;
 
     this.init = (slideId) => {
+
+        const shapeId = this.g.getAttribute("shape_id");
+        const shape_ = shape(slideId, shapeId);
+        const data = shape_.data();
         switch (getShapeType(this.g)) {
             case constants.SHAPE_TYPES.AUTO_SHAPE:
-                const shapeId = this.g.getAttribute("shape_id");
-                const shape_ = shape(slideId, shapeId);
-                const data = shape_.data();
-
                 const fillType = getFillType(this.g)
                 if (fillType == constants.FILL_TYPES.SOLID_FILL) {
                     let color;
@@ -36,8 +36,8 @@ export default function updateColor(g) {
                     }
                     if (color) {
                         const path = this.g.querySelector("path");
-						if(path)
-							path.style.fill = color;
+                        if (path)
+                            path.style.fill = color;
                     }
                 } else if (fillType == constants.FILL_TYPES.GRADIENT_FILL) {
 
@@ -91,6 +91,18 @@ export default function updateColor(g) {
                 }
                 else data.shape_opacity = tmpOpacity;
 
+                break;
+
+            case constants.SHAPE_TYPES.IMAGE:
+
+                if (data.shape_opacity != undefined)
+                    this.g.style.opacity = data.shape_opacity;
+                else if (g.getAttribute("shape_opacity") && g.getAttribute("shape_opacity") != "0.0") {
+                    data.shape_opacity =
+                        this.g.style.opacity =
+                        parseFloat(g.getAttribute("shape_opacity"));
+                }
+                else data.shape_opacity = 1;
                 break;
             default:
                 break;

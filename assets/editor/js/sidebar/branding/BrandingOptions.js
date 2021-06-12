@@ -26,7 +26,6 @@ import preloader from "../../components/preloader";
 export default function BrandingOptions() {
   const [background, setBackground] = React.useState();
   const [dropdownOpened, setDropdownOpened] = React.useState();
-  const [logoUploadOpened, setLogoUploadOpened] = React.useState(false);
   const uploadLogoInput = React.useRef();
   const [uploadedImage, setUploadedImage] = React.useState();
   const [selectedFontFamily, setSelectedFontFamily] = React.useState("");
@@ -169,7 +168,6 @@ export default function BrandingOptions() {
       session.PRESENTATION.settings.logo.isActive = (session.PRESENTATION.settings.logo.isActive == "true");
 
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
-      setLogoUploadOpened(session.PRESENTATION.settings.logo.isActive);
       setUploadedImage(session.PRESENTATION.settings.logo.image.url);
     })
   }, []);
@@ -186,16 +184,6 @@ export default function BrandingOptions() {
       </option>
     )
   });
-
-  const showLogo = (e) => {
-    session.PRESENTATION.settings.logo.isActive = e.target.checked;
-
-    e.target.checked
-      ? addLogo()
-      : rmLogo();
-
-    setLogoUploadOpened(e.target.checked);
-  }
 
   const uploadInputChange = (e) => {
     if (!e.target.files.length) return;
@@ -291,17 +279,6 @@ export default function BrandingOptions() {
       </div>
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>
-        <div className="col-9 d-flex align-items-center">
-          Show logo
-        </div>
-        <div className="col-3 position-static pt-1">
-          <div className="custom-control custom-switch">
-            <input checked={logoUploadOpened} onChange={showLogo} type="checkbox" className="custom-control-input" id="tmp" />
-            <label className="custom-control-label cursor-pointer" htmlFor="tmp"></label>
-          </div>
-        </div>
-        {
-          logoUploadOpened &&
           <div className="branding_upload_logo_container branding_transparent_pattern mt-3">
             {!uploadedImage
               ? <div className="branding_upload_logo_content" onClick={() => uploadLogoInput.current.click()}>
@@ -315,7 +292,6 @@ export default function BrandingOptions() {
               </div>
             }
           </div>
-        }
       </div>
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>

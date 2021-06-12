@@ -67,19 +67,23 @@ export default function slide(slideId) {
       .contentDocument;
   };
 
+  this.prevDocument = function () {
+    return window.top.document.getElementById(
+      "prev_" + this.slideId
+    )?.contentDocument;
+  };
   /**
    * @returns {HTMLElement}
    */
   this.documentElement = function () {
-    return select(`object.main-container[id="${this.slideId}"]`)?.contentDocument
-      .documentElement;
+    return select(`object.main-container[id="${this.slideId}"]`)?.contentDocument?.documentElement;
   };
 
   /**
    * @returns {HTMLElement} Page G element
    */
   this.page = function () {
-    return this.documentElement().querySelector("g.SlideGroup g.Page");
+    return this.documentElement()?.querySelector("g.SlideGroup g.Page");
   };
 
   /**
@@ -343,7 +347,22 @@ export default function slide(slideId) {
     // Add event listeners
     makeDraggable(this.contentDocument());
     keyboardListener(this.contentDocument());
-    this.contentDocument().addEventListener("dblclick", selectTextboxElement);
+    this.contentDocument().addEventListener("dblclick", (e) => {
+      if (session.SELECTED_ELEMENTS.length !== 1) return;
+      if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.TEXTBOX) {
+        //text
+        selectTextboxElement(e);
+      }
+      else if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.IMAGE) {
+        //image
+        Events.popup.image.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });
+      }
+      else if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.ICON) {
+        //icon
+        Events.popup.icon.open({ shapeId: session.SELECTED_ELEMENTS[0].shapeId });
+      }
+    });
+
     this.contentDocument().addEventListener("contextmenu", (e) => {
       e.preventDefault();
 
@@ -367,7 +386,9 @@ export default function slide(slideId) {
     addLogo(session?.PRESENTATION?.settings?.logo?.image, this.slideId);
 
     // Update the mini prevs
-    this.cloneToMiniPrev();
+    setTimeout(() => {
+      this.cloneToMiniPrev();
+    }, 2500);
 
     return this;
   };
@@ -433,27 +454,44 @@ export default function slide(slideId) {
     return this;
   };
 
-  this.cloneToMiniPrev = () => {
-    if (session.LAST_MINIPREV_UPDATE[this.slideId] + 1000 > Date.now()) return;
+  this.cloneToMiniPrev = (force = false) => {
+    if (session.LAST_MINIPREV_UPDATE[this.slideId] + 1000 > Date.now() && !force) return;
 
     const contentDocument = window.top.document.getElementById(
       "prev_" + this.slideId
     ).contentDocument;
+
     if (contentDocument?.querySelector("svg")) {
       /**
        * @type {SVGGElement} clone
        */
+
       const clone = this.slideG()?.cloneNode(true);
+
       if (!clone) return;
+
 
       clone.style.visibility = "hidden";
       // Clear the clone
+      let title;
+      let subTitle;
+      if (clone.querySelector("[alt='slidetitle']") !== null) {
+        title = clone.querySelector("[alt='slidetitle'] td")
+        if (title?.outerText === constants.SLIDE_TITLE_PLACEHOLDER)
+          clone.querySelector("[alt='slidetitle']").remove()
+      } else if (clone.querySelector("[alt='subtitle']") !== null) {
+        subTitle = clone.querySelector("[alt='subtitle'] td")
+        if (subTitle?.outerText === constants.SLIDE_SUBTITLE_PLACEHOLDER)
+          clone.querySelector("[alt='subtitle']").remove();
+      }
+
       clone
-        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon")
+        .querySelectorAll("circle[direction],line[direction],.replace-icon,.edit-textbox-icon,.image-icon,.d-none")
         ?.forEach(e => e.remove());
 
       const oldSlideG = contentDocument.querySelector("g.SlideGroup g.Slide");
       oldSlideG.parentElement.appendChild(clone);
+
       setTimeout(() => {
         oldSlideG.remove();
         clone.style.visibility = "visible";
@@ -573,37 +611,20 @@ export default function slide(slideId) {
             position: fixed;
             word-break: break-word;
         }
-        .edit-textbox-icon, .replace-icon {
+        .edit-textbox-icon, .replace-icon, .image-icon {
             font-size: 1301px;
             position: absolute;
             display: none;
             pointer-events:all !important;
             justify-content: center;
-            width: 1.3em;
-            height: 1.3em;
-            background: white;
-            border-radius: 10000px;
-            box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
-            bottom: 180px;
-            left: -1500px;
-            width: 1600px;
-            height: 1600px;
-            transform-origin: bottom left;
-            transition: 0.5s;
-        }
-        .image-icon {
-            font-size: 1301px;
-            position: absolute;
-            display: none;
-            pointer-events:all !important;
-            justify-content: center;
-            width: 1.3em;
-            height: 1.3em;
-            background: white;
-            border-radius: 10000px;
-            box-shadow: -0.06em 0.06em 0.13em 0.04em #afafaf;
-            bottom: 180px;
-            left: 180px;
+            width: 1.6em;
+            height: 1.6em;
+            background: cyan;
+            bottom: -50px;
+            left: -1550px;
+            border-top-left-radius: 300px;
+            border-bottom-left-radius: 300px;
+
             width: 1600px;
             height: 1600px;
             transform-origin: bottom left;
@@ -707,7 +728,9 @@ export default function slide(slideId) {
     );
 
     this.contentDocument().querySelector("svg").appendChild(styles);
+    this.prevDocument().querySelector("svg").appendChild(styles.cloneNode());
   };
 }
+
 
 

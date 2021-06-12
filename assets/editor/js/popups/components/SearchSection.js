@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import KeywordContainer from './KeywordContainer';
+import constants from "Editor/js/constants";
+import OpacitySlider from "Editor/js/sidebar/components/OpacitySlider/OpacitySlider.js"
 
-export default function SearchSection({ keywords, setKeywords, fetchNewData, children }) {
+export default function SearchSection({ keywords, setKeywords, fetchNewData, children, type }) {
+
     const [searchValue, setSearchValue] = useState('');
     const inputRef = useRef(null);
 
@@ -31,7 +34,7 @@ export default function SearchSection({ keywords, setKeywords, fetchNewData, chi
                 inputRef.current.removeEventListener('keydown', listerner);
         }
     }, [searchValue]);
-
+    
     return (
         <div className="search-section">
             <div className="input-group mb-2">
@@ -47,6 +50,9 @@ export default function SearchSection({ keywords, setKeywords, fetchNewData, chi
                 <KeywordContainer keywords={ keywords } setKeywords={ setKeywords } />
                 { children }
             </div>
+            {
+                type === 'icon' ? '' : <OpacitySlider SHAPE_TYPE={constants.SHAPE_TYPES.IMAGE}/>
+            }          
         </div>
     );
 }

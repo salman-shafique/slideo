@@ -23,7 +23,7 @@ export const updateImage = (slideId, shapeId, image) => {
  * @param {{height:number,width:number,id:number,photographer:string,photographer_url:string,url:string}} image 
  */
 
-export default function selectH1Image(slideId, shapeId, image = null) {
+export default function selectH1Image(slideId, shapeId, image = null, fromUser = false) {
     const shape_ = shape(slideId, shapeId);
 
     if (!shape_.el()?.querySelector('foreignObject'))
@@ -33,6 +33,8 @@ export default function selectH1Image(slideId, shapeId, image = null) {
 
     if (image) {
         Events.shape.image.changed({ oldImage: shapeData.image, newImage: image });
+        if (fromUser)
+            shapeData.isImageChanged = true;
         updateImage(slideId, shapeId, image);
         return;
     }

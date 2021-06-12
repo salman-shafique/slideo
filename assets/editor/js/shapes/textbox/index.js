@@ -37,6 +37,7 @@ export const updateText = (g, newText) => {
 
 
 const cancelEditing = (event) => {
+  if (!session.TEXT_EDITING) return;
   /**
   * @type {SVGGElement} g
   */
@@ -53,10 +54,10 @@ const cancelEditing = (event) => {
     td.removeAttribute("contenteditable");
   }
 
+  updateText(g, newText);
+
   Events.shape.textbox.edit.ended({ newText });
   session.TEXT_EDITING = false;
-
-  updateText(g, newText);
 }
 
 // Cancel editing here

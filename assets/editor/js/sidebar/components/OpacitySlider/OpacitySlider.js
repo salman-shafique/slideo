@@ -9,8 +9,6 @@ import Events from "Editor/js/Events";
 
 
 export default function OpacitySlider({ SHAPE_TYPE }) {
-  if (SHAPE_TYPE != constants.SHAPE_TYPES.AUTO_SHAPE) return null;
-  
   const [opacity, setOpacity] = React.useState(1.0);
 
   React.useEffect(() => {
@@ -20,7 +18,7 @@ export default function OpacitySlider({ SHAPE_TYPE }) {
         return;
       };
       const g = session.SELECTED_ELEMENTS[0].shape;
-      if (getShapeType(g) == constants.SHAPE_TYPES.AUTO_SHAPE)
+      if (getShapeType(g) == SHAPE_TYPE)
         setOpacity(getOpacity(g));
 
     });
@@ -32,7 +30,7 @@ export default function OpacitySlider({ SHAPE_TYPE }) {
   const updateOpacity = (event) => {
     const newOpacity = event.target.value;
     session.SELECTED_ELEMENTS.forEach(selectedEl => {
-      if (getShapeType(selectedEl.shape) == constants.SHAPE_TYPES.AUTO_SHAPE) {
+      if (getShapeType(selectedEl.shape) == SHAPE_TYPE) {
         // Opacity will used seen on g element
         selectedEl.shape.style.opacity = newOpacity;
         shape(selectedEl.shape).data().shape_opacity = newOpacity;
@@ -44,9 +42,10 @@ export default function OpacitySlider({ SHAPE_TYPE }) {
 
   return (
     <>
-      <div className="col-3 d-flex ">Opacity:</div>
-      <div className="col-9 position-static pt-1 ">
-        <input className="opacity-slider form-range" onChange={updateOpacity} type="range" value={opacity} min="0" max="1" step="0.01" />
+      <div className="opacity-slider">
+        <label>Opacity</label>
+        <input className="form-range" onChange={updateOpacity} type="range" value={opacity} min="0" max="1" step="0.01" />
+        <i className="fas fa-chess-board"></i>
       </div>
     </>
   )

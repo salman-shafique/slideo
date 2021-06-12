@@ -8,6 +8,7 @@ import selectEl from "Editor/js/shapes/actions/drag/utils/selectEl";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
+import Events from "Editor/js/Events";
 
 
 let addedTextboxCounter = {
@@ -50,7 +51,7 @@ export default function createNewTextbox(textboxData, slideId = session.CURRENT_
             "rotation": "0",
             "alignment": "2",
             "underline": "False",
-            "word_wrap": "False",
+            "word_wrap": "true",
             "font_color": "0 0 0",
             "shape_type": "TEXT_BOX (17)",
             "font_family": session.PRESENTATION?.settings?.fontFamily ? session.PRESENTATION?.settings?.fontFamily : "Arial, sans-serif",
@@ -94,4 +95,7 @@ export default function createNewTextbox(textboxData, slideId = session.CURRENT_
     selectEl({ target: { parentElement: newTextboxShape } })
 
     addedTextboxCounter[textboxData.size]++;
+
+    Events.slide.preview.update();
+
 }
