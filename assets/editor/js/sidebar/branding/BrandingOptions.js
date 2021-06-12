@@ -84,7 +84,7 @@ export default function BrandingOptions() {
             shapeData.fill_theme_color = themeColorName;
             break;
           default:
-            break; 
+            break;
         }
       });
       Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
@@ -168,22 +168,17 @@ export default function BrandingOptions() {
           }
         }
       session.PRESENTATION.settings.logo.isActive = (session.PRESENTATION.settings.logo.isActive == "true");
-      
-      session.PRESENTATION.slides.forEach(slide => {
-                const defaultColorTemplate =  slide.colorTemplate
-        
-                const newDefaultKeys = {};
-        
-                delete defaultColorTemplate.id;
-        
-                for (const [key, value] of Object.entries(defaultColorTemplate)) {
-                    const underscoredKey = key.slice(0, -1) + "_" + key.slice(-1);
-                    newDefaultKeys[underscoredKey.toUpperCase()] = value;
-                }
-                Object.assign(colorPalettes.DEFAULT, newDefaultKeys)
-      })
 
-      setSelectedColorPalette("DEFAULT");
+      const firstSlide = session.PRESENTATION.slides[0];
+      const defaultColorTemplate = firstSlide.colorTemplate
+      const newDefaultKeys = {};
+      delete defaultColorTemplate.id;
+      for (const [key, value] of Object.entries(defaultColorTemplate)) {
+        const underscoredKey = key.slice(0, -1) + "_" + key.slice(-1);
+        newDefaultKeys[underscoredKey.toUpperCase()] = value;
+      }
+      Object.assign(colorPalettes.DEFAULT, newDefaultKeys)
+
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
       setUploadedImage(session.PRESENTATION.settings.logo.image.url);
     })
@@ -296,19 +291,19 @@ export default function BrandingOptions() {
       </div>
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>
-          <div className="branding_upload_logo_container branding_transparent_pattern mt-3">
-            {!uploadedImage
-              ? <div className="branding_upload_logo_content" onClick={() => uploadLogoInput.current.click()}>
-                <img src="/img/icon-camera.png" className="branding_upload_logo_icon" />
-                <p className="branding_upload_logo_text">Upload logo</p>
-                <input onChange={uploadInputChange} ref={uploadLogoInput} type="file" className="d-none" accept="image/*" />
-              </div>
-              : <div className="branding_upload_logo_content">
-                <img src={uploadedImage} className="branding_upload_logo_icon" />
-                <div className="branding_upload_logo_rm" onClick={rmImage}>X</div>
-              </div>
-            }
-          </div>
+        <div className="branding_upload_logo_container branding_transparent_pattern mt-3">
+          {!uploadedImage
+            ? <div className="branding_upload_logo_content" onClick={() => uploadLogoInput.current.click()}>
+              <img src="/img/icon-camera.png" className="branding_upload_logo_icon" />
+              <p className="branding_upload_logo_text">Upload logo</p>
+              <input onChange={uploadInputChange} ref={uploadLogoInput} type="file" className="d-none" accept="image/*" />
+            </div>
+            : <div className="branding_upload_logo_content">
+              <img src={uploadedImage} className="branding_upload_logo_icon" />
+              <div className="branding_upload_logo_rm" onClick={rmImage}>X</div>
+            </div>
+          }
+        </div>
       </div>
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>
