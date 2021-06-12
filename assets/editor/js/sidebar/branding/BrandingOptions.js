@@ -31,11 +31,13 @@ export default function BrandingOptions() {
   const [selectedFontFamily, setSelectedFontFamily] = React.useState("");
   const [selectedColorPalette, setSelectedColorPalette] = React.useState();
 
+
   const changeThemeColor = (colorPaletteTitle) => {
     setSelectedColorPalette(colorPaletteTitle);
     setDropdownOpened(false);
 
     session.PRESENTATION.slides.forEach(aSlide => {
+
       aSlide.shapes.forEach(aShape => {
         const shapeData = aShape.data;
         const shape_ = shape(aSlide.slideId, shapeData.shape_id);
@@ -82,7 +84,7 @@ export default function BrandingOptions() {
             shapeData.fill_theme_color = themeColorName;
             break;
           default:
-            break;
+            break; 
         }
       });
       Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
@@ -166,7 +168,22 @@ export default function BrandingOptions() {
           }
         }
       session.PRESENTATION.settings.logo.isActive = (session.PRESENTATION.settings.logo.isActive == "true");
+      
+      session.PRESENTATION.slides.forEach(slide => {
+                const defaultColorTemplate =  slide.colorTemplate
+        
+                const newDefaultKeys = {};
+        
+                delete defaultColorTemplate.id;
+        
+                for (const [key, value] of Object.entries(defaultColorTemplate)) {
+                    const underscoredKey = key.slice(0, -1) + "_" + key.slice(-1);
+                    newDefaultKeys[underscoredKey.toUpperCase()] = value;
+                }
+                Object.assign(colorPalettes.DEFAULT, newDefaultKeys)
+      })
 
+      setSelectedColorPalette("DEFAULT");
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
       setUploadedImage(session.PRESENTATION.settings.logo.image.url);
     })
