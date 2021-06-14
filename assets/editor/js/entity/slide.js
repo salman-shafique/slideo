@@ -31,6 +31,7 @@ import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
 import { addLogo } from "../sidebar/branding/utils";
 import { renderDOMPopup } from 'Editor/js/popups';
 import apiService from "../utils/apiService";
+import getMousePosition from "../shapes/actions/drag/utils/getMousePosition";
 
 
 const chunkDesigns = {};
@@ -172,6 +173,25 @@ export default function slide(slideId) {
         <object is-active="${slideData.isActive}" id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
         `;
     let main = stringToDOM(mainHtml);
+
+    main.ondragover = (e) => {
+      e.preventDefault();
+    }
+
+    main.ondrop = (e) => {
+
+      let data;
+      let mouseDiff = getMousePosition(e);
+      if(e.dataTransfer.getData("imageData")){
+        data = JSON.parse(e.dataTransfer.getData("imageData"))
+        createNewImage({ image: data, keyword: data.keyword, mouseDiff: mouseDiff });
+      }
+      else{
+          data = JSON.parse(e.dataTransfer.getData("iconData"))
+          createNewIcon({ image: data, keyword: data.keyword, mouseDiff: mouseDiff });
+        }
+      Events.slide.preview.update();
+    };
 
     // Init the slide - move etc
     add_event(main, "load", function () {
