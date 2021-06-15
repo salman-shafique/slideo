@@ -21,6 +21,7 @@ import {
 import { getThemeColorNameOfShape } from "../colors/utils";
 import hexToRgb from "../colors/hexToRgb";
 import preloader from "../../components/preloader";
+import { allDesigns } from "../designs/DesignItems";
 
 
 export default function BrandingOptions() {
@@ -37,6 +38,19 @@ export default function BrandingOptions() {
     setDropdownOpened(false);
 
     session.PRESENTATION.slides.forEach(aSlide => {
+      if (
+        aSlide.colorTemplate.title &&
+        aSlide.colorTemplate.title === "Default"
+      ) {
+        return;
+      }
+
+      if (
+        colorPaletteTitle === "DEFAULT" &&
+        aSlide.slideId !== session.CURRENT_SLIDE
+      ) {
+        return;
+      }
 
       aSlide.shapes.forEach(aShape => {
         const shapeData = aShape.data;
@@ -150,6 +164,19 @@ export default function BrandingOptions() {
       const slideId = event.data.slideId;
       const slide_ = slide(slideId);
       const slideData = slide_.slideData();
+
+      const allD = allDesigns[0].map((design) => design);
+      const designs = allD.filter((f) => f.id === slideData.style.id);
+
+      const defaultColorTemplate = designs[0].colorTemplate;
+
+      Object.assign(colorPalettes.DEFAULT, defaultColorTemplate);
+
+      slideData.colorTemplate.title?.title === "Default"
+        ? setSelectedColorPalette("DEFAULT")
+        : setSelectedColorPalette(slideData.colorTemplate.title?.toUpperCase());
+
+
       setBackground(slideData.background.data);
     });
 
@@ -169,15 +196,15 @@ export default function BrandingOptions() {
         }
       session.PRESENTATION.settings.logo.isActive = (session.PRESENTATION.settings.logo.isActive == "true");
 
-      const firstSlide = session.PRESENTATION.slides[0];
-      const defaultColorTemplate = firstSlide.colorTemplate
-      const newDefaultKeys = {};
-      delete defaultColorTemplate.id;
-      for (const [key, value] of Object.entries(defaultColorTemplate)) {
-        const underscoredKey = key.slice(0, -1) + "_" + key.slice(-1);
-        newDefaultKeys[underscoredKey.toUpperCase()] = value;
-      }
-      Object.assign(colorPalettes.DEFAULT, newDefaultKeys)
+      // const firstSlide = session.PRESENTATION.slides[0];
+      // const defaultColorTemplate = firstSlide.colorTemplate
+      // const newDefaultKeys = {};
+      // delete defaultColorTemplate.id;
+      // for (const [key, value] of Object.entries(defaultColorTemplate)) {
+      //   const underscoredKey = key.slice(0, -1) + "_" + key.slice(-1);
+      //   newDefaultKeys[underscoredKey.toUpperCase()] = value;
+      // }
+      // Object.assign(colorPalettes.DEFAULT, newDefaultKeys)
 
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
       setUploadedImage(session.PRESENTATION.settings.logo.image.url);
