@@ -39,11 +39,12 @@ export default function colorFilters(g) {
             if (rgb) {
                 floodColor = "rgb(" + rgb.replace(/ /g, ",") + ")";
             } else {
-                const themeColorName = g.getAttribute("icon_theme_color");
+                const themeColorName = "ACCENT_1";
                 const themeColor = getThemeColor(themeColorName);
+                
                 if (themeColor) {
                     floodColor = themeColor;
-                    data.rgb = hexToRgb(themeColor);
+                    data.rgb = hexToRgb(floodColor);
                 }
             }
 
