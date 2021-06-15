@@ -502,21 +502,15 @@ export default function slide(slideId) {
 
   this.changeDesign = (designData) => {
     const slideData = this.slideData();
-    if (!chunkDesigns[String(slideData.style.id)]) {
-      slideData.style.colorTemplate = slideData.colorTemplate;
-      slideData.style.background = slideData.background;
-      chunkDesigns[String(slideData.style.id)] = Object.assign(
-        {},
-        slideData.style
-      );
-    }
+    const newAddedShapes = slideData.shapes.map(shape_ => {
+      if (["newtextbox", "newimage", "newicon"].includes(shape_.data.alt))
+        return shape_;
+    }).filter(e => e);
 
-    if (!chunkDesigns[String(designData.id)])
-      chunkDesigns[String(designData.id)] = designData;
-
-    slideData.style = chunkDesigns[String(designData.id)];
-    slideData.colorTemplate = chunkDesigns[String(designData.id)].colorTemplate;
-    slideData.background = chunkDesigns[String(designData.id)].background;
+    slideData.style = { ...designData };
+    slideData.shapes = [...designData.shapes, ...newAddedShapes];
+    slideData.colorTemplate = { ...designData.colorTemplate };
+    slideData.background = { ...designData.background };
 
     this.updateOnPage();
   };
