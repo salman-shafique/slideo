@@ -182,14 +182,14 @@ export default function slide(slideId) {
 
       let data;
       let mouseDiff = getMousePosition(e);
-      if(e.dataTransfer.getData("imageData")){
+      if (e.dataTransfer.getData("imageData")) {
         data = JSON.parse(e.dataTransfer.getData("imageData"))
         createNewImage({ image: data, keyword: data.keyword, mouseDiff: mouseDiff });
       }
-      else{
-          data = JSON.parse(e.dataTransfer.getData("iconData"))
-          createNewIcon({ icon: data, keyword: data.keyword, mouseDiff: mouseDiff });
-        }
+      else {
+        data = JSON.parse(e.dataTransfer.getData("iconData"))
+        createNewIcon({ icon: data, keyword: data.keyword, mouseDiff: mouseDiff });
+      }
       Events.slide.preview.update();
     };
 

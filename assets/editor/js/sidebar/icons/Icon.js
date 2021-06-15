@@ -15,10 +15,10 @@ export default function Icon({ iconData }) {
     }
 
     const onDragStart = (e) => {
-        e.dataTransfer.setData("iconData", JSON.stringify(iconData)); 
+        e.dataTransfer.setData("iconData", JSON.stringify(iconData));
     }
 
     return (
-        <img onClick={onClick}  draggable="true" onDragStart={onDragStart} iconid={iconData.id} className={"icon-item col-4 py-2 rounded"} src={iconData.url} />
+        <img onClick={onClick} draggable="true" onDragStart={onDragStart} iconid={iconData.id} className={"icon-item col-4 py-2 rounded"} src={iconData.url} />
     )
 }

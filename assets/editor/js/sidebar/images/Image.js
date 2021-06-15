@@ -13,7 +13,7 @@ export default function Image({ imageData }) {
     }
 
     const onDragStart = (e) => {
-        e.dataTransfer.setData("imageData", JSON.stringify(imageData)); 
+        e.dataTransfer.setData("imageData", JSON.stringify(imageData));
     }
 
     return (
