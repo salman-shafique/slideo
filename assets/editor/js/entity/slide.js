@@ -188,7 +188,7 @@ export default function slide(slideId) {
       }
       else{
           data = JSON.parse(e.dataTransfer.getData("iconData"))
-          createNewIcon({ image: data, keyword: data.keyword, mouseDiff: mouseDiff });
+          createNewIcon({ icon: data, keyword: data.keyword, mouseDiff: mouseDiff });
         }
       Events.slide.preview.update();
     };
