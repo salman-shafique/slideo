@@ -196,16 +196,6 @@ export default function BrandingOptions() {
         }
       session.PRESENTATION.settings.logo.isActive = (session.PRESENTATION.settings.logo.isActive == "true");
 
-      // const firstSlide = session.PRESENTATION.slides[0];
-      // const defaultColorTemplate = firstSlide.colorTemplate
-      // const newDefaultKeys = {};
-      // delete defaultColorTemplate.id;
-      // for (const [key, value] of Object.entries(defaultColorTemplate)) {
-      //   const underscoredKey = key.slice(0, -1) + "_" + key.slice(-1);
-      //   newDefaultKeys[underscoredKey.toUpperCase()] = value;
-      // }
-      // Object.assign(colorPalettes.DEFAULT, newDefaultKeys)
-
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
       setUploadedImage(session.PRESENTATION.settings.logo.image.url);
     })
