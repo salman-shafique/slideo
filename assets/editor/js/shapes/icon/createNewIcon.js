@@ -15,9 +15,17 @@ import Events from "Editor/js/Events";
 let addedIconCounter = 0;
 
 export default function createNewIcon(iconData, slideId = session.CURRENT_SLIDE) {
+    let x, y;
+    if (iconData.mouseDiff) {
+        x = iconData.mouseDiff.x - 18000;
+        y = iconData.mouseDiff.y - 8000;
+    }
+    else {
+        x = constants.SVG_WIDTH() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH() / 48;
+        y = constants.SVG_HEIGHT() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_HEIGHT() / 48;
+    }
 
-    const x = constants.SVG_WIDTH() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_WIDTH() / 48;
-    const y = constants.SVG_HEIGHT() / 12 * 5 + (addedIconCounter % 10) * constants.SVG_HEIGHT() / 48;
+
     const width = constants.SVG_WIDTH() / 12;
     const height = constants.SVG_WIDTH() / 12;
 
