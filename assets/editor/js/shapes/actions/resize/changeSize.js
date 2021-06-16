@@ -21,7 +21,8 @@ const changeShapeIconSize = (shape, newScaleX = null, newScaleY = null) => {
         const desiredIconSize = (shapeBoxSize - ICON_MAX_PADDING) / ICON_SIZE;
         icon.style.transform = `scale(${1 / parsedScale[0]}, ${1 / parsedScale[1]})`;
     } else if (newScaleX || newScaleY) {
-        icon.style.transform = `scale(1,1)`;
+        icon.style.transform = `scale(0.5,0.5)`;
+        icon.style.transformOrigin = `bottom right`;
     } else {
         icon.style.transform = `scale(1,1)`;
     }
@@ -222,7 +223,7 @@ export default function changeSize(event) {
                         selectedEl.translate.startingF + ((newRelatedY - firstRelatedY) + mvY),
                     );
 
-                    resizeCircleContainer(selectedEl.shape, newScale);
+                    resizeCircleContainer(selectedEl.shape, 0);
                 }
                 break;
             case "rt":
