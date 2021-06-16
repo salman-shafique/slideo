@@ -156,7 +156,6 @@ export default function BrandingOptions() {
 
   React.useEffect(() => {
     Events.listen("slide.display", (event) => {
-      console.log(allDesigns);
       const slideId = event.data.slideId;
       const slide_ = slide(slideId);
       const slideData = slide_.slideData();
