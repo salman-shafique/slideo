@@ -18,13 +18,19 @@
         "deploy:flask": "ssh -t root@slideo.co.il docker exec -ti slideo_flask bash -c 'git reset --hard HEAD; git pull;';",
         "download:retry": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'php bin/console slideo:download:retry;'",
         "clear:downloads": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'php bin/console slideo:clear:downloads;'",
+        "ssh": "ssh -t root@slideo.co.il",
+        "ssh:symfony": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash",
+        "ssh:flask": "ssh -t root@slideo.co.il docker exec -ti slideo_flask bash",
         "queue:start": "ssh -t root@slideo.co.il docker exec -ti slideo_symfony bash -c 'php bin/console messenger:stop-workers; php bin/console messenger:consume mail download -vv'",
         "test:deploy": "ssh -t root@51.15.202.136 docker exec -ti slideo_flask bash -c 'git reset --hard HEAD; git pull;'; docker exec -ti slideo_symfony bash -c 'git reset --hard HEAD; git pull; yarn build; php bin/console d:m:m -n; bash docker/restart.sh;'",
         "test:deploy:symfony": "ssh -t root@51.15.202.136 docker exec -ti slideo_symfony bash -c 'git reset --hard HEAD; git pull; yarn build; php bin/console d:m:m -n; bash docker/restart.sh;'",
         "test:deploy:flask": "ssh -t root@51.15.202.136 docker exec -ti slideo_flask bash -c 'git reset --hard HEAD; git pull;';",
         "test:download:retry": "ssh -t root@51.15.202.136 docker exec -ti slideo_symfony bash -c 'php bin/console slideo:download:retry;'",
         "test:clear:downloads": "ssh -t root@51.15.202.136 docker exec -ti slideo_symfony bash -c 'php bin/console slideo:clear:downloads;'",
-        "test:queue:start": "ssh -t root@51.15.202.136 docker exec -ti slideo_symfony bash -c 'php bin/console messenger:stop-workers; php bin/console messenger:consume mail download -vv'"
+        "test:queue:start": "ssh -t root@51.15.202.136 docker exec -ti slideo_symfony bash -c 'php bin/console messenger:stop-workers; php bin/console messenger:consume mail download -vv'",
+        "test:ssh": "ssh -t root@51.15.202.136",
+        "test:ssh:symfony": "ssh -t root@51.15.202.136 docker exec -ti slideo_symfony bash",
+        "test:ssh:flask": "ssh -t root@51.15.202.136 docker exec -ti slideo_flask bash"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.34",
