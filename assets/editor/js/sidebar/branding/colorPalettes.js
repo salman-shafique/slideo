@@ -2,12 +2,13 @@ export const ACCENTS = [
     "ACCENT_1",
     "ACCENT_2",
     "ACCENT_3",
-    "ACCENT_4",
+    "ACCENT_4", 
     "ACCENT_5",
     "ACCENT_6"
 ]
 
 export const colorPaletteTitles = [
+    "DEFAULT",
     "SUNRISE",
     "RED",
     "BLUE",
@@ -22,6 +23,11 @@ export const colorPaletteTitles = [
 ];
 
 export const colorPalettes = {
+
+    DEFAULT: {
+        title: "Default",
+    },
+
     SUNRISE: {
         title: "Sunrise",
         BACKGROUND_1: "#FFFFFF",

@@ -96,6 +96,9 @@ class PresentationService
         isset($colorTemplateJson['TEXT_2'])
             ? $colorTemplate->setTEXT2($colorTemplateJson['TEXT_2'])
             : $colorTemplate->setTEXT2($colorTemplateJson['tEXT2']);
+        isset($colorTemplateJson['title'])
+            ? $colorTemplate->setTitle($colorTemplateJson['title'])
+            : $colorTemplate->setTitle("DEFAULT");
 
         $this->em->persist($colorTemplate);
         $this->em->flush();
