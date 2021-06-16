@@ -104,7 +104,7 @@ export default function BrandingOptions() {
       Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
 
     });
-    Events.slide.preview.update();
+    Events.slide.preview.updateAll();
   }
 
   const colorPaletteCards = [];
