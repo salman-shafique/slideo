@@ -639,7 +639,7 @@ export default function slide(slideId) {
 
             width: 1600px;
             height: 1600px;
-            transform-origin: bottom left;
+            transform-origin: bottom right;
             transition: 0.5s;
         }
         .active{
