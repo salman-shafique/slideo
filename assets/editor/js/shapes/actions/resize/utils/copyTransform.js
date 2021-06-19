@@ -124,7 +124,7 @@ export function relocateResizeCircleContainer(g) {
             case "ll":
                 resizeEl.setAttribute("x1",
                     sizeAttr.x +
-                    clipPath.lb.startingX / 100 * sizeAttr.width + 100
+                    clipPath.lb.startingX / 100 * sizeAttr.width
                 );
                 resizeEl.setAttribute("y1",
                     sizeAttr.y +
@@ -133,7 +133,7 @@ export function relocateResizeCircleContainer(g) {
                 );
                 resizeEl.setAttribute("x2",
                     sizeAttr.x +
-                    clipPath.lt.startingX / 100 * sizeAttr.width + 100
+                    clipPath.lt.startingX / 100 * sizeAttr.width
                 );
                 resizeEl.setAttribute("y2",
                     sizeAttr.y +
@@ -143,7 +143,7 @@ export function relocateResizeCircleContainer(g) {
             case "lt":
                 resizeEl.setAttribute("cx",
                     sizeAttr.x +
-                    clipPath.lt.startingX / 100 * sizeAttr.width + 100
+                    clipPath.lt.startingX / 100 * sizeAttr.width
                 );
                 resizeEl.setAttribute("cy",
                     sizeAttr.y +
@@ -176,7 +176,7 @@ export function relocateResizeCircleContainer(g) {
             case "lb":
                 resizeEl.setAttribute("cx",
                     sizeAttr.x +
-                    clipPath.lb.startingX / 100 * sizeAttr.width + 100
+                    clipPath.lb.startingX / 100 * sizeAttr.width
                 );
                 resizeEl.setAttribute("cy",
                     sizeAttr.y +
@@ -225,7 +225,7 @@ export function relocateResizeCircleContainer(g) {
             case "l":
                 resizeEl.setAttribute("cx",
                     sizeAttr.x +
-                    clipPath.lb.startingX / 100 * sizeAttr.width + 100
+                    clipPath.lb.startingX / 100 * sizeAttr.width
                 );
                 resizeEl.setAttribute("cy",
                     sizeAttr.y +
