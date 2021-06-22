@@ -24,6 +24,7 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
+    .enablePostCssLoader()
     .addAliases({
         JS: path.resolve(__dirname, 'assets/js'),
         CSS: path.resolve(__dirname, 'assets/css'),
