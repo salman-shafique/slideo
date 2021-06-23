@@ -4,17 +4,12 @@ $(document).ready(function(){
 
 		var x  = document.getElementsByTagName('iframe')[0].contentWindow;
 		direction = x.document.getElementsByTagName('body')[0].dir;
-//		console.log(direction);
 
 		var content = tinymce.get("texteditor").getContent();
-//		console.log(content);
+
 		$("#data-container").html(content);
 		
-		// var dir1 = document.getElementById('get-data-form').style.direction;
-		// console.log(dir1);
-
 		var content1 = document.getElementById('data-container')
-//        console.log(content1);
 		const regex1 = /\.*\d+\.+/g;
 		const regex2 = /\.*\d+\.+/g;
 		const regex3 = /\-/g;
@@ -33,7 +28,7 @@ $(document).ready(function(){
 			}
 
 			let match0 = content1.innerHTML.matchAll(regex3)
-//			console.log(match0)
+			
 			for (res0 of match0) {
 				content1.innerHTML = content1.innerHTML.replace("<p>"+res0[0],"<li>").replace('</p>','</li>');
 			}
