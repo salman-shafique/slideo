@@ -14,8 +14,15 @@ import Events from "Editor/js/Events";
 let addedImageCounter = 0;
 
 export default function createNewImage(imageData, slideId = session.CURRENT_SLIDE) {
-    const x = constants.SVG_WIDTH() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH() / 48;
-    const y = constants.SVG_HEIGHT() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT() / 48;
+    let x, y;
+    if (imageData.mouseDiff) {
+        x = imageData.mouseDiff.x - 20000;
+        y = imageData.mouseDiff.y - 10000;
+    }
+    else {
+        x = constants.SVG_WIDTH() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_WIDTH() / 48;
+        y = constants.SVG_HEIGHT() / 12 * 2 + (addedImageCounter % 5) * constants.SVG_HEIGHT() / 48;
+    }
 
     const height = constants.SVG_HEIGHT() / 12 * 8;
     let width;

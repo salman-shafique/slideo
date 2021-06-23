@@ -9,11 +9,9 @@ import getSelectionRectangleAttributes from "../utils/getSelectionRectangleAttri
  */
 export default function startSelection(event) {
     if (event.target.classList.contains("bounding_box")) return;
+    if (session.SELECTED_ELEMENTS.length !== 0) return;
 
     session.SELECTION_STATE = "STARTING";
     session.SAVED_SELECTION_MOUSE_POS = getMousePosition(event);
-
-    if(session.SELECTED_ELEMENTS.length === 0){
-        createSelectionRectangle(getSelectionRectangleAttributes(event));
-    }    
+    createSelectionRectangle(getSelectionRectangleAttributes(event));
 }

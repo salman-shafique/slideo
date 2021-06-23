@@ -67,6 +67,11 @@ class ColorTemplate
      */
     private $TEXT_2;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $title;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,5 +200,17 @@ class ColorTemplate
     public function __toString()
     {
         return "#".(string)$this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
     }
 }

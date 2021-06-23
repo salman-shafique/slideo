@@ -36,7 +36,12 @@
               {% endif %}
             </div>
           </a>
-          <p class="ppt-title ppt-title">{{presentation.title}}</p>
+         
+          <div class="expandable-holder">
+            <i class="fas fa-edit text-grey"></i>
+            <input class="ppt-title" id="{{presentation.presentationId}}" type="text" value="{{presentation.title}}" placeholder="Project Name">
+          </div>
+          
           <p class="ppt-last-modified text-secondary no-margin">{% trans %}Created{% endtrans %}:
             <span class="modified-datetime">{{presentation.created|date("F jS \\a\\t g:ia")}}</span>
           </p>

@@ -4,6 +4,7 @@ import slide from "Editor/js/entity/slide";
 import DesignItem from "./DesignItem";
 import preloader from "Editor/js/components/preloader";
 
+export let allDesigns = [];
 
 export default function DesignItems() {
 
@@ -51,6 +52,7 @@ export default function DesignItems() {
                         designs[direction][capacity] = r;
                         setDesigns(designs);
                         arrangeDesignItems(designs[direction][capacity]);
+                        allDesigns.push(designs[direction][capacity]);
                         preloader.hide();
                     }
                 })

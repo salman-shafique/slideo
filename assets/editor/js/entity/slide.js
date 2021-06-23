@@ -31,6 +31,7 @@ import reduceFontSize from "Editor/js/shapes/textbox/reduceFontSize";
 import { addLogo } from "../sidebar/branding/utils";
 import { renderDOMPopup } from 'Editor/js/popups';
 import apiService from "../utils/apiService";
+import getMousePosition from "../shapes/actions/drag/utils/getMousePosition";
 
 
 const chunkDesigns = {};
@@ -172,6 +173,25 @@ export default function slide(slideId) {
         <object is-active="${slideData.isActive}" id="${this.slideId}" data-slide-id="${this.slideId}" type="image/svg+xml" data="${slideData.style.svgFile}" class="col-12 p-0 rounded main-container" style="visibility:hidden"></object>
         `;
     let main = stringToDOM(mainHtml);
+
+    main.ondragover = (e) => {
+      e.preventDefault();
+    }
+
+    main.ondrop = (e) => {
+
+      let data;
+      let mouseDiff = getMousePosition(e);
+      if (e.dataTransfer.getData("imageData")) {
+        data = JSON.parse(e.dataTransfer.getData("imageData"))
+        createNewImage({ image: data, keyword: data.keyword, mouseDiff: mouseDiff });
+      }
+      else {
+        data = JSON.parse(e.dataTransfer.getData("iconData"))
+        createNewIcon({ icon: data, keyword: data.keyword, mouseDiff: mouseDiff });
+      }
+      Events.slide.preview.update();
+    };
 
     // Init the slide - move etc
     add_event(main, "load", function () {
@@ -502,23 +522,15 @@ export default function slide(slideId) {
 
   this.changeDesign = (designData) => {
     const slideData = this.slideData();
-    if (!chunkDesigns[String(slideData.style.id)]) {
-      slideData.style.shapes = slideData.shapes;
-      slideData.style.colorTemplate = slideData.colorTemplate;
-      slideData.style.background = slideData.background;
-      chunkDesigns[String(slideData.style.id)] = Object.assign(
-        {},
-        slideData.style
-      );
-    }
+    const newAddedShapes = slideData.shapes.map(shape_ => {
+      if (["newtextbox", "newimage", "newicon"].includes(shape_.data.alt))
+        return shape_;
+    }).filter(e => e);
 
-    if (!chunkDesigns[String(designData.id)])
-      chunkDesigns[String(designData.id)] = designData;
-
-    slideData.style = chunkDesigns[String(designData.id)];
-    slideData.shapes = chunkDesigns[String(designData.id)].shapes;
-    slideData.colorTemplate = chunkDesigns[String(designData.id)].colorTemplate;
-    slideData.background = chunkDesigns[String(designData.id)].background;
+    slideData.style = { ...designData };
+    slideData.shapes = [...designData.shapes, ...newAddedShapes];
+    slideData.colorTemplate = { ...designData.colorTemplate };
+    slideData.background = { ...designData.background };
 
     this.updateOnPage();
   };
@@ -627,7 +639,7 @@ export default function slide(slideId) {
 
             width: 1600px;
             height: 1600px;
-            transform-origin: bottom left;
+            transform-origin: bottom right;
             transition: 0.5s;
         }
         .active{

@@ -29,16 +29,16 @@ export default function insertResizeCircles(g) {
 
     let resizeEls = [];
     resizeEls.push(<line key={"tl"} direction="tl" strokeWidth={"50"} x1={x} y1={y} x2={x + width} y2={y}
-        style={{ "stroke": "gray", "strokeWidth": "50" }}
+        style={{ "stroke": "gray", "strokeWidth": "50", pointerEvents: "none" }}
     />);
     resizeEls.push(<line key={"rl"} direction="rl" strokeWidth={"50"} x1={x + width} y1={y} x2={x + width} y2={y + height}
-        style={{ "stroke": "gray", "strokeWidth": "50" }}
+        style={{ "stroke": "gray", "strokeWidth": "50", pointerEvents: "none" }}
     />);
     resizeEls.push(<line key={"bl"} direction="bl" strokeWidth={"50"} x1={x + width} y1={y + height} x2={x} y2={y + height}
-        style={{ "stroke": "gray", "strokeWidth": "50" }}
+        style={{ "stroke": "gray", "strokeWidth": "50", pointerEvents: "none" }}
     />);
     resizeEls.push(<line key={"ll"} direction="ll" strokeWidth={"50"} x1={x} y1={y + height} x2={x} y2={y}
-        style={{ "stroke": "gray", "strokeWidth": "50" }}
+        style={{ "stroke": "gray", "strokeWidth": "50", pointerEvents: "none" }}
     />);
 
     resizeEls.push(<ResizeCirle g={g} cx={x} cy={y} direction="lt" key={"lt"} />);

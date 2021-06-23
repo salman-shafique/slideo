@@ -9,6 +9,7 @@ import shape from "../../entity/shape";
 import getShapeType from "../../shapes/actions/drag/utils/getShapeType";
 import apiService from "../../utils/apiService";
 import toastr from "../../components/toastr";
+import colorTemplate from "Editor/js/entity/colorTemplate";
 import {
   rmLogo,
   addLogo
@@ -21,6 +22,7 @@ import {
 import { getThemeColorNameOfShape } from "../colors/utils";
 import hexToRgb from "../colors/hexToRgb";
 import preloader from "../../components/preloader";
+import { allDesigns } from "../designs/DesignItems";
 
 
 export default function BrandingOptions() {
@@ -31,64 +33,73 @@ export default function BrandingOptions() {
   const [selectedFontFamily, setSelectedFontFamily] = React.useState("");
   const [selectedColorPalette, setSelectedColorPalette] = React.useState();
 
+
+  const updateShapeThemeColors = (aSlide, colorPalette) => {
+    aSlide.shapes.forEach(aShape => {
+      const shapeData = aShape.data;
+      const shape_ = shape(aSlide.slideId, shapeData.shape_id);
+      const g = shape_.el();
+      if (!g) return;
+      const themeColorAttrs = getThemeColorNameOfShape(g);
+      if (!themeColorAttrs) return;
+      const themeColorName = themeColorAttrs.themeColorName;
+      const color = colorPalette[themeColorName];
+      let stop;
+      switch (themeColorAttrs.attributeName) {
+        case "icon_theme_color":
+          const shapeId = g.getAttribute("shape_id");
+          const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
+          feFlood.style.floodColor = color;
+          shapeData.icon_theme_color = themeColorName;
+          break;
+        case "text_theme_color":
+          const table = g.querySelector('table');
+          if (!table) return;
+          table.style.color = color;
+          shapeData.text_theme_color = themeColorName;
+          shapeData.text_rgb = hexToRgb(themeColorName);
+          break;
+        case "fill_gradient_stop_0":
+          stop = g.querySelector('g defs stop[offset="0"]');
+          if (stop) {
+            stop.style.color = color;
+            stop.style.stopColor = color;
+          }
+          shapeData.fill_gradient_stop_0 = themeColorName;
+          break;
+        case "fill_gradient_stop_1":
+          stop = g.querySelector('g defs stop[offset="1"]');
+          if (stop) {
+            stop.style.color = color;
+            stop.style.stopColor = color;
+          }
+          shapeData.fill_gradient_stop_1 = themeColorName;
+          break;
+        case "fill_theme_color":
+          const path = g.querySelector("path");
+          if (path)
+            path.style.fill = color;
+          shapeData.fill_theme_color = themeColorName;
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
   const changeThemeColor = (colorPaletteTitle) => {
     setSelectedColorPalette(colorPaletteTitle);
     setDropdownOpened(false);
 
     session.PRESENTATION.slides.forEach(aSlide => {
-      aSlide.shapes.forEach(aShape => {
-        const shapeData = aShape.data;
-        const shape_ = shape(aSlide.slideId, shapeData.shape_id);
-        const g = shape_.el();
-        const themeColorAttrs = getThemeColorNameOfShape(g);
-        if (!themeColorAttrs) return;
-        const themeColorName = themeColorAttrs.themeColorName;
-        const color = colorPalettes[colorPaletteTitle][themeColorName];
-        let stop;
-        switch (themeColorAttrs.attributeName) {
-          case "icon_theme_color":
-            const shapeId = g.getAttribute("shape_id");
-            const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
-            feFlood.style.floodColor = color;
-            shapeData.icon_theme_color = themeColorName;
-            break;
-          case "text_theme_color":
-            const table = g.querySelector('table');
-            if (!table) return;
-            table.style.color = color;
-            shapeData.text_theme_color = themeColorName;
-            shapeData.text_rgb = hexToRgb(themeColorName);
-            break;
-          case "fill_gradient_stop_0":
-            stop = g.querySelector('g defs stop[offset="0"]');
-            if (stop) {
-              stop.style.color = color;
-              stop.style.stopColor = color;
-            }
-            shapeData.fill_gradient_stop_0 = themeColorName;
-            break;
-          case "fill_gradient_stop_1":
-            stop = g.querySelector('g defs stop[offset="1"]');
-            if (stop) {
-              stop.style.color = color;
-              stop.style.stopColor = color;
-            }
-            shapeData.fill_gradient_stop_1 = themeColorName;
-            break;
-          case "fill_theme_color":
-            const path = g.querySelector("path");
-            if (path)
-              path.style.fill = color;
-            shapeData.fill_theme_color = themeColorName;
-            break;
-          default:
-            break;
-        }
-      });
-      Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
+      // if (aSlide.colorTemplate?.title === "Default") return;
+      if (colorPaletteTitle === "DEFAULT" && aSlide.slideId !== session.CURRENT_SLIDE) return;
 
+      updateShapeThemeColors(aSlide, colorPalettes[colorPaletteTitle]);
+
+      Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
     });
-    Events.slide.preview.update();
+    Events.slide.preview.updateAll();
   }
 
   const colorPaletteCards = [];
@@ -148,9 +159,24 @@ export default function BrandingOptions() {
       const slideId = event.data.slideId;
       const slide_ = slide(slideId);
       const slideData = slide_.slideData();
-      setBackground(slideData.background.data);
-    });
 
+      if (allDesigns?.length) {
+        const allD = allDesigns[0].map((design) => design);
+        const designs = allD.filter((f) => f.id === slideData.style.id);
+        const defaultColorTemplate = designs[0]?.colorTemplate;
+        Object.assign(colorPalettes.DEFAULT, defaultColorTemplate);
+      }
+
+      slideData.colorTemplate?.title === "Default"
+        ? setSelectedColorPalette("DEFAULT")
+        : setSelectedColorPalette(slideData.colorTemplate.title?.toUpperCase());
+
+
+      setBackground(slideData.background.data);
+    })
+  }, [allDesigns]);
+
+  React.useEffect(() => {
     Events.listen("presentation.inited", () => {
 
       if (Array.isArray(session.PRESENTATION.settings) || !session.PRESENTATION.settings)
@@ -166,6 +192,15 @@ export default function BrandingOptions() {
           }
         }
       session.PRESENTATION.settings.logo.isActive = (session.PRESENTATION.settings.logo.isActive == "true");
+
+      // Theme colors
+      setTimeout(() => {
+        session.PRESENTATION.slides.forEach(aSlide => {
+          updateShapeThemeColors(aSlide, colorTemplate(aSlide.slideId).getAllColors());
+        });
+        Events.slide.preview.updateAll();
+      }, 1000)
+
 
       setSelectedFontFamily(session.PRESENTATION.settings.fontFamily);
       setUploadedImage(session.PRESENTATION.settings.logo.image.url);
@@ -220,15 +255,15 @@ export default function BrandingOptions() {
     <div className={"row mx-0 mt-3 text-white rounded px-3 pb-5"}>
       <p className="col-12 p-0">Color palette</p>
       <div className="col-12 p-0 branding_color_palette_dropdown">
-        <div onClick={() => setDropdownOpened(!dropdownOpened)} style={{ width: "100%" }}>
-          <select disabled className="form-control form-control-lg bg-white cursor-pointer">
-            <option>{
-              selectedColorPalette
-                ? colorPalettes[selectedColorPalette].title
-                : "Default"
-            }</option>
-          </select>
+        <div onClick={() => setDropdownOpened(!dropdownOpened)} style={{position : "absolute", width: "100%", height : "50px"}}>      
         </div>
+        <select disabled className="form-control form-control-lg bg-light cursor-pointer">
+              <option>{
+                selectedColorPalette
+                  ? colorPalettes[selectedColorPalette].title
+                  : "Default"
+              }</option>
+        </select>
         {
           dropdownOpened &&
           <div className="branding_color_palette border">
@@ -279,19 +314,19 @@ export default function BrandingOptions() {
       </div>
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>
-          <div className="branding_upload_logo_container branding_transparent_pattern mt-3">
-            {!uploadedImage
-              ? <div className="branding_upload_logo_content" onClick={() => uploadLogoInput.current.click()}>
-                <img src="/img/icon-camera.png" className="branding_upload_logo_icon" />
-                <p className="branding_upload_logo_text">Upload logo</p>
-                <input onChange={uploadInputChange} ref={uploadLogoInput} type="file" className="d-none" accept="image/*" />
-              </div>
-              : <div className="branding_upload_logo_content">
-                <img src={uploadedImage} className="branding_upload_logo_icon" />
-                <div className="branding_upload_logo_rm" onClick={rmImage}>X</div>
-              </div>
-            }
-          </div>
+        <div className="branding_upload_logo_container branding_transparent_pattern mt-3">
+          {!uploadedImage
+            ? <div className="branding_upload_logo_content" onClick={() => uploadLogoInput.current.click()}>
+              <img src="/img/icon-camera.png" className="branding_upload_logo_icon" />
+              <p className="branding_upload_logo_text">Upload logo</p>
+              <input onChange={uploadInputChange} ref={uploadLogoInput} type="file" className="d-none" accept="image/*" />
+            </div>
+            : <div className="branding_upload_logo_content">
+              <img src={uploadedImage} className="branding_upload_logo_icon" />
+              <div className="branding_upload_logo_rm" onClick={rmImage}>X</div>
+            </div>
+          }
+        </div>
       </div>
       <hr style={{ border: "lightgray solid 1px", width: "100%", opacity: ".4" }} />
       <div className={"row col-12 mx-0 my-3 p-0 "}>

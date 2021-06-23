@@ -116,18 +116,20 @@ class PresentationApiController extends AbstractController
 
 
     /**
-     * @Route("/change_name")
+     * @Route("/change_name/{presentationId}")
      */
-    public function changeName(Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
+    public function changeName(string $presentationId, Request $request, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
     {
-        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        $presentation = $presentationSecurity->getPresentation($presentationId, $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $presentation->setTitle($request->request->get("presentation_name"));
-        $this->getDoctrine()->getManager()->persist($presentation);
-        $this->getDoctrine()->getManager()->flush();
-
-        return new JsonResponse(['success' => true]);
+        if ($request->request->get("presentation_name")) {
+            $presentation->setTitle($request->request->get("presentation_name"));
+            $this->getDoctrine()->getManager()->persist($presentation);
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse(['success' => true]);
+        }
+        return new JsonResponse(['success' => false]);
     }
 
     /**
