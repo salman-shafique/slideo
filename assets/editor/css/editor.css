@@ -39,6 +39,7 @@ body {
   width: 165px;
   margin-right: 20px;
   margin-top: 1rem;
+  white-space: nowrap;
 }
 
 #PreviewBtn, #downloadBtn {
