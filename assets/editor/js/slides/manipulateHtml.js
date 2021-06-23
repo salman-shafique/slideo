@@ -7,7 +7,7 @@ export default function manipulateHtml() {
     $("#data-container").html(content);
 
     const content1 = document.getElementById('data-container')
-    //        console.log(content1);
+
     const regex1 = /\.*\d+\.+/g;
     const regex2 = /\.*\d+\.+/g;
     const regex3 = /\-/g;
@@ -21,7 +21,6 @@ export default function manipulateHtml() {
 
     else {
         let match = content1.innerHTML.matchAll(regex1)
-        console.log(match)
         try{
             for (res of match) {
                 content1.innerHTML = content1.innerHTML.replace("<p>" + res[0], "<li>").replace('</p>', '</li>');
@@ -33,7 +32,6 @@ export default function manipulateHtml() {
         
 
         let match0 = content1.innerHTML.matchAll(regex3)
-        //			console.log(match0)
         try{
             for (res0 of match0) {
                 content1.innerHTML = content1.innerHTML.replace("<p>" + res0[0], "<li>").replace('</p>', '</li>');
