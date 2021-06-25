@@ -123,7 +123,7 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
           color = toHex(data.font_color);
         else if (SHAPE_TYPE == constants.SHAPE_TYPES.ICON){
           const originalColor = getThemeColor('ACCENT_1');
-          data.icon_theme_color === originalColor || toHex(data.rgb) === originalColor ? color = originalColor : color = toHex(data.rgb);
+          data.icon_theme_color === originalColor ? color = originalColor : color = toHex(data.rgb);
         }
         else if (SHAPE_TYPE == constants.SHAPE_TYPES.AUTO_SHAPE) {
           if (FILL_TYPE == constants.FILL_TYPES.SOLID_FILL) {
