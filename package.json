@@ -2,7 +2,10 @@
     "devDependencies": {
         "@babel/preset-react": "^7.12.7",
         "@symfony/webpack-encore": "^0.30.2",
+        "autoprefixer": "9.0.0",
         "core-js": "^3.0.0",
+        "postcss": "^8.3.5",
+        "postcss-loader": "^3.0.0",
         "regenerator-runtime": "^0.13.2",
         "webpack-notifier": "^1.6.0"
     },
@@ -42,5 +45,10 @@
         "react-dom": "^17.0.1",
         "react-icons": "^4.2.0",
         "toastr": "^2.1.4"
-    }
+    },
+    "browserslist": [
+        "last 2 years",
+        "> 0.5%",
+        "not dead"
+    ]
 }

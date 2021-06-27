@@ -19,7 +19,7 @@ import {
   colorPalettes,
   colorPaletteTitles
 } from "./colorPalettes";
-import { getThemeColorNameOfShape } from "../colors/utils";
+import { getThemeColor, getThemeColorNameOfShape } from "../colors/utils";
 import hexToRgb from "../colors/hexToRgb";
 import preloader from "../../components/preloader";
 import { allDesigns } from "../designs/DesignItems";
@@ -37,6 +37,11 @@ export default function BrandingOptions() {
   const updateShapeThemeColors = (aSlide, colorPalette) => {
     aSlide.shapes.forEach(aShape => {
       const shapeData = aShape.data;
+     
+       if(shapeData.alt.includes("icon|")){
+        shapeData.rgb === hexToRgb(getThemeColor("ACCENT_1")) ? shapeData.rgb = hexToRgb(colorPalette["ACCENT_1"]) : null
+      }
+
       const shape_ = shape(aSlide.slideId, shapeData.shape_id);
       const g = shape_.el();
       if (!g) return;
@@ -44,6 +49,7 @@ export default function BrandingOptions() {
       if (!themeColorAttrs) return;
       const themeColorName = themeColorAttrs.themeColorName;
       const color = colorPalette[themeColorName];
+     
       let stop;
       switch (themeColorAttrs.attributeName) {
         case "icon_theme_color":
@@ -51,7 +57,7 @@ export default function BrandingOptions() {
           const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
           feFlood.style.floodColor = color;
           shapeData.icon_theme_color = themeColorName;
-          break;
+          break;""
         case "text_theme_color":
           const table = g.querySelector('table');
           if (!table) return;
@@ -255,15 +261,15 @@ export default function BrandingOptions() {
     <div className={"row mx-0 mt-3 text-white rounded px-3 pb-5"}>
       <p className="col-12 p-0">Color palette</p>
       <div className="col-12 p-0 branding_color_palette_dropdown">
-        <div onClick={() => setDropdownOpened(!dropdownOpened)} style={{ width: "100%" }}>
-          <select disabled className="form-control form-control-lg bg-white cursor-pointer">
-            <option>{
-              selectedColorPalette
-                ? colorPalettes[selectedColorPalette].title
-                : "Default"
-            }</option>
-          </select>
+        <div onClick={() => setDropdownOpened(!dropdownOpened)} style={{position : "absolute", width: "100%", height : "50px"}}>      
         </div>
+        <select disabled className="form-control form-control-lg bg-light cursor-pointer">
+              <option>{
+                selectedColorPalette
+                  ? colorPalettes[selectedColorPalette].title
+                  : "Default"
+              }</option>
+        </select>
         {
           dropdownOpened &&
           <div className="branding_color_palette border">
