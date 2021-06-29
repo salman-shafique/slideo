@@ -169,7 +169,7 @@ class SlideService
                 $analyzedContent = new AnalyzedContent();
 
                 $h1 = new Content();
-                $h1->setData($sentence);
+                $h1->setData(array_merge($sentence, ["text" => $sentence["title"]]));
                 $h1->setKeyword("h1");
 
                 $icon = new Content();
