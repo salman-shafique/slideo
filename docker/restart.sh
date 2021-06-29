@@ -22,8 +22,7 @@ echo_ "Retry the failed downloads";
 php bin/console slideo:download:retry;
 
 echo_ "Restart crons";
-service cron start;
-crontab -u root -r;
-crontab -u root /var/www/app/docker/cron;
+service cron restart
+crontab -u root /var/www/app/docker/cron
 
 echo_ "Done";

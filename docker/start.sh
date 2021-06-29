@@ -40,6 +40,7 @@ php bin/console d:m:m -n;
 
 # Crons
 echo_ "Start crons"
+service cron start
 crontab -u root /var/www/app/docker/cron
 
 # Consume messages
