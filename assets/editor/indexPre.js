@@ -8,13 +8,14 @@ import apiService from "Editor/js/utils/apiService";
 import preloader from "Editor/js/components/preloader";
 import toastr from "./js/components/toastr.js";
 import add_event from "./js/utils/add_event.js";
+import manipulateHtml from "./js/slides/manipulateHtml";
 
 add_event("#entry_analyze", "click", () => {
     preloader.show();
     apiService({
         url: "/api/editor/create/slides",
         data: {
-            "innerHtml": window.editor.getData()
+            "innerHtml": manipulateHtml()
         },
         success: (response) => {
             if (response.success === false) {

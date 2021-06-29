@@ -37,14 +37,13 @@ class EditorApiController extends AbstractController
             $presentation = $presentationSecurity->getPresentation($presentationId, $sessionInterface->getId(), $this->getUser());
             if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
         }
-        
-        $analyzedInput = $flaskService->call("NLP", "analyze_docx", $request->request->all());
 
-        $r = $flaskService->call("NLP", "prepare_slides", ['slides'=>$analyzedInput]);
-        if (isset($r['Error']))
-            return new JsonResponse($r, 500);
+        $analyzedSlides = $flaskService->call("NLP", "analyze_docx", $request->request->all());
 
-        $slides = $slideService->createSlides($r['slides'], $presentation);
+        if (isset($analyzedSlides['Error']))
+            return new JsonResponse($analyzedSlides, 500);
+
+        $slides = $slideService->createSlides($analyzedSlides, $presentation);
 
         if ($fresh) {
             $response = new JsonResponse(['presentationId' => $presentation->getPresentationId()]);

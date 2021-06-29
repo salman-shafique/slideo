@@ -1,34 +1,62 @@
 <style>
-  .ck-editor__editable_inline {
-    min-height: 300px;
-  }
-  .buttons_modal_img {
-    width: 80%;
-  }
-  .fully-centered-flow {
-    border-radius: 20px;
-    cursor: pointer;
-    text-align: center !important;
-  }
-  .encloser {
-    transition: all 0.5s;
-  }
-  .encloser:hover {
-    transform: translate(0, -10px);
-  }
+	.buttons_modal_img {
+		width: 80%;
+	}
+	.fully-centered-flow {
+		border-radius: 20px;
+		cursor: pointer;
+		text-align: center !important;
+	}
+	.encloser {
+		transition: all 0.5s;
+	}
+	.encloser:hover {
+		transform: translate(0, -10px);
+	}
 </style>
-<textarea id="ckarea" rows="40" cols="50" class="d-none"></textarea>
+
+<textarea class="tinymce" id="texteditor"></textarea>
+<div id="data-container" class="d-none"></div>
 <div class="text-center mb-3">
-  <button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px; font-size: 28px; border-radius: 50px;" style="cursor:pointer">
-    <span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
-  </button>
+	<button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px; font-size: 28px; border-radius: 50px;" style="cursor:pointer">
+		<span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
+	</button>
 </div>
 
-<script src="/static/ckeditor.js"></script>
+<script src="/static/tinymce.min.js"></script>
 <script>
-  ClassicEditor.create(document.querySelector('#ckarea')).then((e) => {
-    window.editor = e
-  }).catch(error => {
-    console.error(error);
-  });
+	tinymce.init({
+/* replace textarea having class .tinymce with tinymce editor */
+selector: "textarea.tinymce",
+plugins: 'directionality',
+directionality: 'rtl',
+toolbar: 'ltr rtl',
+
+/* theme of the editor */
+theme: "modern",
+skin: "lightgray",
+
+/* width and height of the editor */
+width: "100%",
+height: 300,
+
+/* display statusbar */
+statubar: true,
+
+/* plugin */
+plugins: [
+"advlist autolink link image lists charmap print preview hr anchor pagebreak",
+],
+
+advlist_bullet_styles: 'arrow,star,square,tick',
+
+/* toolbar */
+toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+
+lists_indent_on_tab: false,
+fix_list_elements: true
+
+
+});
+window.tinymce = tinymce;
 </script>

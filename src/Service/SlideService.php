@@ -119,22 +119,22 @@ class SlideService
         $this->em->flush();
     }
 
-    public function createSlides(array $rawSlides, Presentation $presentation): array
+    public function createSlides($analyzedSlides, Presentation $presentation): array
     {
         $slides = [];
-        foreach ($rawSlides as  $key => $rawSlide) {
+        foreach ($analyzedSlides as  $key => $analyzedSlide) {
 
             $slide = new Slide();
             $slide->setSlideId(hash("md4", time() + rand(), false));
             $presentation->addSlide($slide);
 
-            $slide->setDirection($rawSlide['direction']);
+            $slide->setDirection($analyzedSlide['direction']);
             $this->em->persist($slide);
 
             // Slide title
             $slideTitle = new Content();
-            if (isset($rawSlide['slideTitle']))
-                $slideTitle->setData($rawSlide['slideTitle']);
+            if (isset($analyzedSlide['slideTitle']))
+                $slideTitle->setData($analyzedSlide['slideTitle']);
             else
                 $slideTitle->setData([]);
             $slideTitle->setKeyword('slideTitle');
@@ -144,8 +144,8 @@ class SlideService
 
             // Slide title image
             $slideTitleImage = new Content();
-            if (isset($rawSlide['slideTitleImage']))
-                $slideTitleImage->setData($rawSlide['slideTitleImage']);
+            if (isset($analyzedSlide['slideTitleImage']))
+                $slideTitleImage->setData($analyzedSlide['slideTitleImage']);
             else
                 $slideTitleImage->setData([]);
 
@@ -156,8 +156,8 @@ class SlideService
 
             // Sub title
             $subTitle = new Content();
-            if (isset($rawSlide['subTitle']))
-                $subTitle->setData($rawSlide['subTitle']);
+            if (isset($analyzedSlide['subTitle']))
+                $subTitle->setData($analyzedSlide['subTitle']);
             else
                 $subTitle->setData([]);
             $subTitle->setKeyword('subTitle');
@@ -165,23 +165,23 @@ class SlideService
             $this->em->persist($subTitle);
 
             // Analyzed content
-            foreach ($rawSlide['analyzed_content'] as $rawAnalyzedContent) {
+            foreach ($analyzedSlide['sentences'] as $sentence) {
                 $analyzedContent = new AnalyzedContent();
 
                 $h1 = new Content();
-                $h1->setData($rawAnalyzedContent['h1']);
+                $h1->setData(array_merge($sentence, ["text" => $sentence["title"]]));
                 $h1->setKeyword("h1");
 
                 $icon = new Content();
-                $icon->setData($rawAnalyzedContent['icon']);
+                $icon->setData($sentence);
                 $icon->setKeyword("icon");
 
                 $h1image = new Content();
-                $h1image->setData($rawAnalyzedContent['h1image']);
+                $h1image->setData($sentence);
                 $h1image->setKeyword("h1image");
 
                 $originalSentence = new Content();
-                $originalSentence->setData($rawAnalyzedContent['originalSentence']);
+                $originalSentence->setData($sentence);
                 $originalSentence->setKeyword("originalSentence");
 
                 $analyzedContent->setH1($h1);
@@ -198,7 +198,9 @@ class SlideService
             }
 
             // Sentences
-            $slide->setSentences($rawSlide['sentences']);
+            $slide->setSentences(array_map(function ($e) {
+                return $e['text'];
+            }, $analyzedSlide['sentences']));
 
             // Find the style
             $this->findAndApplyStyle($slide);
