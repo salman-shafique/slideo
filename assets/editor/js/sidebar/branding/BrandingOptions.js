@@ -37,8 +37,8 @@ export default function BrandingOptions() {
   const updateShapeThemeColors = (aSlide, colorPalette) => {
     aSlide.shapes.forEach(aShape => {
       const shapeData = aShape.data;
-     
-       if(shapeData.alt.includes("icon|")){
+
+      if (shapeData.alt.includes("icon|")) {
         shapeData.rgb === hexToRgb(getThemeColor("ACCENT_1")) ? shapeData.rgb = hexToRgb(colorPalette["ACCENT_1"]) : null
       }
 
@@ -49,15 +49,16 @@ export default function BrandingOptions() {
       if (!themeColorAttrs) return;
       const themeColorName = themeColorAttrs.themeColorName;
       const color = colorPalette[themeColorName];
-     
+
       let stop;
       switch (themeColorAttrs.attributeName) {
         case "icon_theme_color":
           const shapeId = g.getAttribute("shape_id");
           const feFlood = g.ownerSVGElement.querySelector("#color_filter_" + shapeId + " feFlood");
+          if (!feFlood) break;
           feFlood.style.floodColor = color;
           shapeData.icon_theme_color = themeColorName;
-          break;""
+          break;
         case "text_theme_color":
           const table = g.querySelector('table');
           if (!table) return;
@@ -261,14 +262,14 @@ export default function BrandingOptions() {
     <div className={"row mx-0 mt-3 text-white rounded px-3 pb-5"}>
       <p className="col-12 p-0">Color palette</p>
       <div className="col-12 p-0 branding_color_palette_dropdown">
-        <div onClick={() => setDropdownOpened(!dropdownOpened)} style={{position : "absolute", width: "100%", height : "50px"}}>      
+        <div onClick={() => setDropdownOpened(!dropdownOpened)} style={{ position: "absolute", width: "100%", height: "50px" }}>
         </div>
         <select disabled className="form-control form-control-lg bg-light cursor-pointer">
-              <option>{
-                selectedColorPalette
-                  ? colorPalettes[selectedColorPalette].title
-                  : "Default"
-              }</option>
+          <option>{
+            selectedColorPalette
+              ? colorPalettes[selectedColorPalette].title
+              : "Default"
+          }</option>
         </select>
         {
           dropdownOpened &&
