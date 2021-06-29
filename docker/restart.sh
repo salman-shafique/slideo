@@ -9,6 +9,16 @@ symfony self:update -y;
 symfony server:stop;
 php bin/console cache:clear;
 
+# Composer install
+echo_ "Updating composer dependencies..."
+composer self-update --2;
+composer install;
+composer update;
+
+# Yarn install
+echo_ "Installing yarn dependencies...";
+yarn install;
+
 symfony server:start -d;
 chmod -R 777 var;
 chmod -R 777 public;
