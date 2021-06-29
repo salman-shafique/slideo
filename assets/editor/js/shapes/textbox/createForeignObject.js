@@ -17,7 +17,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
 
     // Clone the template
     const contentTemplate = reactToDOM(
-        <table style={{ "width": "100%" }}>
+        <table style={{ "width": "100%", "height": "100%" }}>
             <tbody style={{ "padding": "0" }}>
                 <tr style={{ "padding": "0" }}>
                     <td style={{ "padding": "0", "lineHeight": "1.23" }}>
@@ -46,7 +46,7 @@ export default function createForeignObject(svg, positionObj = { x: 2000, y: 200
     editIcon.onclick = (event) => {
         if (event.ctrlKey) return;
         const g = editIcon.parentElement.parentElement;
-        
+
         selectEl({ target: { parentElement: g } });
         selectTextboxElement({ target: { parentElement: g } });
     }

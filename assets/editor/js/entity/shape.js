@@ -12,7 +12,7 @@ import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
 import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import { validColorAttributes } from "Editor/js/sidebar/colors/utils";
 import getClipPath from "Editor/js/shapes/actions/resize/utils/getClipPath";
-import Events from "../Events";
+import getSizeAttributes from "../shapes/actions/drag/utils/getSizeAttributes";
 
 /**
  * 
@@ -236,6 +236,11 @@ export default function shape(slideId, shapeId) {
 
         data.allTransforms.SVG_WIDTH = SVG_WIDTH;
         data.allTransforms.SVG_HEIGHT = SVG_HEIGHT;
+
+        const sizeAttr = getSizeAttributes(this.el());
+        data.width = sizeAttr.width;
+        data.height = sizeAttr.height;
+
 
     }
 
