@@ -94,3 +94,8 @@ __pycache__
 /public/layouts/*
 /public/presentations/*
 /public/uploads/*
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
