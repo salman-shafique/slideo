@@ -1,8 +1,22 @@
 <style>
+	.buttons_modal_img {
+		width: 80%;
+	}
+	.fully-centered-flow {
+		border-radius: 20px;
+		cursor: pointer;
+		text-align: center !important;
+	}
+	.encloser {
+		transition: all 0.5s;
+	}
+	.encloser:hover {
+		transform: translate(0, -10px);
+	}
 </style>
 
 <textarea class="tinymce" id="texteditor"></textarea>
-<div id="data-container"></div>
+<div id="data-container" class="d-none"></div>
 <div class="text-center mb-3">
 	<button class="btn btn-info bevel-btn horizontal-text-clip" id="entry_analyze" style="margin-top: 10px;padding: 10px 30px; font-size: 28px; border-radius: 50px;" style="cursor:pointer">
 		<span>{% trans %}BTN_Create_Slide_Design{% endtrans %}</span>
@@ -40,7 +54,7 @@ advlist_bullet_styles: 'arrow,star,square,tick',
 toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
 
 lists_indent_on_tab: false,
-fix_list_elements: true,
+fix_list_elements: true
 
 
 });
