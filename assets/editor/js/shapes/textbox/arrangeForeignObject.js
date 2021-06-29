@@ -12,11 +12,15 @@ export default function arrangeForeignObject(foreignObject, shape, text, directi
     let table = foreignObject.querySelector("table");
 
     table.style.top = "0";
+    // Default
     table.querySelector("td").setAttribute("valign", "top");
-    
-    if (shape.vertical_anchor === "3" || shape.vertical_anchor === "4") {
+
+    if (shape.vertical_anchor === "3")
+        table.querySelector("td").setAttribute("valign", "middle");
+
+    if (shape.vertical_anchor === "4")
         table.querySelector("td").setAttribute("valign", "bottom");
-    }
+
 
     // Default h-alignment 2 - center - from python
     table.style.textAlign = constants.ALIGNMENTS[shape.alignment];
