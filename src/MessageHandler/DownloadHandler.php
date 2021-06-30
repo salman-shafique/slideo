@@ -68,13 +68,13 @@ class DownloadHandler implements MessageHandlerInterface
                         'title' => "Your download is ready",
                         'body' => '
                         <div style="text-align:center">
-                            <img src="https://www.slideo.co.il' . $downloadPresentation->getPrevFile() . '"/>
+                            <img src="' . getenv('APP_DOMAIN') . $downloadPresentation->getPrevFile() . '"/>
                             <br>
-                            <a href="https://www.slideo.co.il' . $downloadPresentation->getPptxFile() . '">' . $presentation->getTitle() . '.pptx</a>
+                            <a href="' . getenv('APP_DOMAIN') . $downloadPresentation->getPptxFile() . '">' . $presentation->getTitle() . '.pptx</a>
                             <br>
-                            <a href="https://www.slideo.co.il' . $downloadPresentation->getPdfFile() . '">' . $presentation->getTitle() . '.pdf</a>
+                            <a href="' . getenv('APP_DOMAIN') . $downloadPresentation->getPdfFile() . '">' . $presentation->getTitle() . '.pdf</a>
                             <br>
-                            You can go to <a href="https://www.slideo.co.il/editor/' . $presentation->getPresentationId() . '/download">downloads</a> page account in order to see all downloads.
+                            You can go to <a href="' . getenv('APP_DOMAIN') . '/editor/' . $presentation->getPresentationId() . '/download">downloads</a> page account in order to see all downloads.
                         </div>
                             '
                     ]);
