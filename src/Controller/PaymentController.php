@@ -24,11 +24,9 @@ class PaymentController extends AbstractController
             $r = $paymentService->captureCheckout($token);
             if ($r)
                 return $this->redirect('/editor/' . $r['presentationId'] . '/download');
-            else
-                return $this->redirect("/");
         }
 
-        return $this->redirect("/");
+        return $this->render('homepage/index.html.twig');
     }
 
     /**

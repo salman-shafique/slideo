@@ -247,7 +247,8 @@ class PresentationService
 
             $this->bus->dispatch($dowloadPresentation);
             return [
-                'paymentRequired' => false
+                'paymentRequired' => false,
+                'paidBefore' => false
             ];
         }
 
@@ -272,7 +273,8 @@ class PresentationService
 
             $this->bus->dispatch($dowloadPresentation);
             return [
-                'paymentRequired' => false
+                'paymentRequired' => false,
+                'paidBefore' => true
             ];
         }
 
