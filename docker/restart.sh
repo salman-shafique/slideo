@@ -15,9 +15,14 @@ composer self-update --2;
 composer install;
 composer update;
 
+
+echo_ "Updating database structure..."
+php bin/console d:m:m -n;
+
 # Yarn install
 echo_ "Installing yarn dependencies...";
 yarn install;
+yarn build;
 
 symfony server:start -d;
 chmod -R 777 var;

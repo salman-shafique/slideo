@@ -12,7 +12,7 @@ services:
       - slideo_rabbitmq
     env_file:
       - .env.test
-    command: ["/bin/bash", "/var/www/app/docker/start.sh"]
+    command: ["/bin/bash", "/var/www/app/docker/start.test.sh"]
 
   slideo_rabbitmq:
     image: rabbitmq:3-management
