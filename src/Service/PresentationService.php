@@ -9,11 +9,12 @@ use App\Entity\Slide;
 use App\Entity\Presentation;
 use App\Entity\Style;
 use App\Entity\User;
+use App\Enum\PricingEnum;
 use App\Repository\ContentRepository;
 use App\Repository\ColorTemplateRepository;
 use App\Repository\SlideRepository;
 use App\Repository\StyleRepository;
-use App\Service\FlaskService;
+use App\Service\PaymentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,16 +24,16 @@ class PresentationService
 {
     private $em;
     private $serializer;
-    private $flaskService;
+    private $paymentService;
     private $bus;
 
 
-    public function __construct(EntityManagerInterface $em, MessageBusInterface $bus, SerializerService $serializer, FlaskService $flaskService)
+    public function __construct(EntityManagerInterface $em, MessageBusInterface $bus, SerializerService $serializer, PaymentService $paymentService)
     {
         $this->em = $em;
         $this->bus = $bus;
         $this->serializer = $serializer;
-        $this->flaskService = $flaskService;
+        $this->paymentService = $paymentService;
     }
 
     public function create(?User $user, string $sessionId): Presentation
@@ -235,6 +236,12 @@ class PresentationService
 
     public function downloadStart(Presentation $presentation)
     {
+
+        if (count($presentation->getSlides()) > PricingEnum::DOWNLOAD_PRESENTATION_SLIDE_LIMIT) {
+            $paymentUrl = $this->paymentService->getCheckoutUrl($presentation);
+            return ['success' => true, 'paymentUrl' => $paymentUrl];
+        }
+
         $dowloadPresentation = new DownloadPresentation;
         $presentation->addDownloadedPresenatation($dowloadPresentation);
         $dowloadPresentation->setNumberOfSlides(count($presentation->getSlides()));

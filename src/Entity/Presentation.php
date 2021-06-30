@@ -91,6 +91,11 @@ class Presentation
      */
     private $settings = [];
 
+    /**
+     * @ORM\OneToOne(targetEntity=Checkout::class, mappedBy="presentation", cascade={"persist", "remove"})
+     */
+    private $checkout;
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
@@ -273,6 +278,28 @@ class Presentation
     public function setSettings(?array $settings): self
     {
         $this->settings = $settings;
+
+        return $this;
+    }
+
+    public function getCheckout(): ?Checkout
+    {
+        return $this->checkout;
+    }
+
+    public function setCheckout(?Checkout $checkout): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($checkout === null && $this->checkout !== null) {
+            $this->checkout->setPresentation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($checkout !== null && $checkout->getPresentation() !== $this) {
+            $checkout->setPresentation($this);
+        }
+
+        $this->checkout = $checkout;
 
         return $this;
     }

@@ -2,15 +2,17 @@
 
 namespace App\Service;
 
-use App\Entity\CheckOut;
+use App\Entity\Checkout;
 use App\Entity\Meeting;
 use App\Entity\Payout;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\PaypalWebhook;
+use App\Entity\Presentation;
 use App\Entity\Subscription;
-use App\Repository\CheckOutRepository;
+use App\Enum\PricingEnum;
+use App\Repository\CheckoutRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use PayPalHttp\HttpRequest;
@@ -48,63 +50,57 @@ class PaymentService
     }
 
 
-    public function startCheckout(Meeting $meeting): array
+    public function getCheckoutUrl(Presentation $presentation): string
     {
-        $category = $meeting->getCategory();
-        $client = $meeting->getClient();
-        $hypnotherapist = $meeting->getHypnotherapist();
+        if (!$presentation->getCheckout()) {
 
-        $meetingPrice = $category->getPrice();
-        $description = $category->getTitle() . ': '
-            . $category->getDescription() . ', '
-            . $client->getName() . ' ' . $client->getSurname();
+            $description = $presentation->getTitle() . ', Presentation ID: #'
+                . $presentation->getId();
 
-        $request = new OrdersCreateRequest();
-        $request->prefer('return=representation');
-        $request->body = [
-            "intent" => "CAPTURE",
-            "purchase_units" => [[
-                "amount" => [
-                    "value" => $meetingPrice,
-                    "currency_code" => "USD"
-                ],
-                "description" => $description,
-                "items" => []
-            ]],
-            "application_context" => [
-                "brand_name" => "Hypnotes",
-                "landing_page" => "BILLING",
-                "user_action" => "PAY_NOW",
-                "shipping_preference" => "NO_SHIPPING",
-                "cancel_url" => getenv("PAYPAL_CANCEL_URL"),
-                "return_url" => getenv("PAYPAL_RETURN_URL")
-            ]
-        ];
-        /** @var object $response */
-        $response = $this->client->execute($request);
-        $r = ['success' => true];
-        foreach ($response->result->links as $link)
-            if ($link->rel == "approve")
-                $r['paymentUrl'] = $link->href;
-        $r['token'] = $response->result->id;
+            $request = new OrdersCreateRequest();
+            $request->prefer('return=representation');
+            $request->body = [
+                "intent" => "CAPTURE",
+                "purchase_units" => [[
+                    "amount" => [
+                        "value" => PricingEnum::DOWNLOAD_PRESENTATION_PRICE,
+                        "currency_code" => "USD"
+                    ],
+                    "description" => $description,
+                    "items" => []
+                ]],
+                "application_context" => [
+                    "brand_name" => "Slideo",
+                    "landing_page" => "BILLING",
+                    "user_action" => "PAY_NOW",
+                    "shipping_preference" => "NO_SHIPPING",
+                    "cancel_url" => getenv("PAYPAL_CANCEL_URL"),
+                    "return_url" => getenv("PAYPAL_RETURN_URL")
+                ]
+            ];
+            /** @var object $response */
+            $response = $this->client->execute($request);
 
-        $checkOut = new CheckOut;
-        $checkOut->setToken($r['token']);
-        $checkOut->setDescription($description);
-        $checkOut->setAmount((float)$meetingPrice);
-        $this->em->persist($checkOut);
+            $paymentUrl = "";
+            foreach ($response->result->links as $link)
+                if ($link->rel == "approve") {
+                    $paymentUrl = $link->href;
+                    break;
+                }
+            $token = $response->result->id;
 
-        $client->addCheckOut($checkOut);
-        $checkOut->addMeeting($meeting);
-        $hypnotherapist->addCheckOut($checkOut);
+            $checkout = new Checkout;
+            $checkout->setToken($token);
+            $checkout->setPaymentUrl($paymentUrl);
+            $checkout->setAmount((float)PricingEnum::DOWNLOAD_PRESENTATION_PRICE);
+            $this->em->persist($checkout);
+            $presentation->setCheckout($checkout);
+            $this->em->persist($presentation);
+            $this->em->flush();
+        }
 
-        $this->em->persist($hypnotherapist);
-        $this->em->persist($meeting);
-        $this->em->persist($checkOut);
-        $this->em->persist($client);
-        $this->em->flush();
 
-        return $r;
+        return $presentation->getCheckout()->getPaymentUrl();
     }
 
     public function captureCheckout(string $token): ?array
@@ -117,15 +113,15 @@ class PaymentService
         $response = $this->client->execute($captureCheckoutRequest);
         if ($response->statusCode == 201) {
             if ($response->result->status == "COMPLETED") {
-                /**  @var CheckOutRepository $checkOutRepository */
-                $checkOutRepository = $this->em->getRepository(CheckOut::class);
-                $checkOut = $checkOutRepository->findOneBy(["token" => $token]);
-                if (!$checkOut) return null;
+                /**  @var CheckoutRepository $checkoutRepository */
+                $checkoutRepository = $this->em->getRepository(Checkout::class);
+                $checkout = $checkoutRepository->findOneBy(["token" => $token]);
+                if (!$checkout) return null;
 
-                $checkOut->setIsCompleted(true);
+                $checkout->setIsCompleted(true);
                 $payer = json_decode(json_encode($response->result->payer), true);
-                $checkOut->setPayer($payer);
-                $this->em->persist($checkOut);
+                $checkout->setPayer($payer);
+                $this->em->persist($checkout);
                 $this->em->flush();
                 return ['descr' => 'Check out captured'];
             }
