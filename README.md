@@ -34,8 +34,8 @@ docker-compose -f docker-compose.dev.yml build
     # Paypal sandbox
     PAYPAL_CLIENT_ID=Aa9GJlXuW2y2K_o8AzRLr7gVp_93TpuezheYrISZPDQZR-4j6vqFCs4D4Qp8mP1V0-1UidZnFAaAyclm
     PAYPAL_CLIENT_SECRET=EC7APu2nPEPGtxfZp13KitCmMH1GD55XYwdSB5OESbHeil__xpOgOB7IAjy5IUFPlH648R7H5WdRtzu7
-    PAYPAL_RETURN_URL=localhost:5500/api/payment/checkout/capture
-    PAYPAL_CANCEL_URL=localhost:5500/api/payment/checkout/cancel
+    PAYPAL_RETURN_URL=https://test.slideo.co.il/api/payment/checkout/capture
+    PAYPAL_CANCEL_URL=https://test.slideo.co.il/api/payment/checkout/cancel
 
     # Rabbit MQ
     MESSENGER_TRANSPORT_DSN=amqp://slideo:df711f9a1119082a711a238acf944677@slideo_rabbitmq:5672/%2f/messages/
