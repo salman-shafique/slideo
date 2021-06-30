@@ -11,9 +11,40 @@ cd slideo-symfony
 docker-compose -f docker-compose.dev.yml build
 ```
 
-### 3. Paste `.env.local` file to folder
-[Symfony-.env.local.zip](https://github.com/alperendurmus/slideo-symfony/files/6514539/Symfony-.env.local.zip)
+### 3. Create the `.env.local` file to the main index
 
+<details>
+    <summary>.env.local</summary>
+
+    APP_DOMAIN=https://localhost:5500
+    APP_ENV=dev
+    APP_SECRET=c253db41596c420e7c7f032abd63fb58
+    DATABASE_URL=mysql://slideo_mysql_user:slideo_mysql_password@slideo_mysql:3306/slideo?serverVersion=8.0
+
+    MAILER_DSN=smtp://no-reply@slideo.co.il:sw21qazxS%21123@mail.slideo.co.il:465
+
+    # Auth with google
+    OAUTH_GOOGLE_CLIENT_ID=287627035531-hhvi1m9olqc468d5p2hrvnbvm63e2bht.apps.googleusercontent.com
+    OAUTH_GOOGLE_CLIENT_SECRET=j0J9oLC7RGlMxgsnJpff692Y
+
+    # Auth with Facebook
+    OAUTH_FACEBOOK_ID=1519709544881058
+    OAUTH_FACEBOOK_SECRET=b48004678277927c3fc4ba3bd1c2f204
+
+    # Paypal sandbox
+    PAYPAL_CLIENT_ID=Aa9GJlXuW2y2K_o8AzRLr7gVp_93TpuezheYrISZPDQZR-4j6vqFCs4D4Qp8mP1V0-1UidZnFAaAyclm
+    PAYPAL_CLIENT_SECRET=EC7APu2nPEPGtxfZp13KitCmMH1GD55XYwdSB5OESbHeil__xpOgOB7IAjy5IUFPlH648R7H5WdRtzu7
+    PAYPAL_RETURN_URLlocalhost:5500/api/payment/checkout/capture
+    PAYPAL_CANCEL_URLlocalhost:5500/api/payment/checkout/cancel
+
+    # Rabbit MQ
+    MESSENGER_TRANSPORT_DSN=amqp://slideo:df711f9a1119082a711a238acf944677@slideo_rabbitmq:5672/%2f/messages/
+
+
+    CHOKIDAR_USEPOLLING=true
+
+
+</details>
 
 ### 4. Start the container
 ```
