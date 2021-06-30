@@ -53,7 +53,11 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
                 <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center mt-0">{downloadCardDetail.numberOfSlides}</div>
                 <div className="col-4 col-sm-2 d-flex justify-content-center align-items-center mt-0">{downloadCardDetail.created.date.slice(0, -10)}</div>
                 <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center mt-0">
-                    <span className="badge badge-success">Free</span>
+                    {
+                        downloadCardDetail.isPaid
+                            ? <span className="badge badge-success">Paid</span>
+                            : <span className="badge badge-info">Free</span>
+                    }
                 </div>
                 <div className="col-3 col-sm-2 d-flex justify-content-center align-items-center mt-0">
                     {pdfButton}
