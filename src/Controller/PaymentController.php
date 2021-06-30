@@ -23,9 +23,9 @@ class PaymentController extends AbstractController
         if ($token) {
             $r = $paymentService->captureCheckout($token);
             if ($r)
-                return $this->redirect("https://scheduler.hypnotes.net/success");
+                return $this->redirect('/editor/' . $r['presentationId'] . '/download');
             else
-                return $this->redirect("https://scheduler.hypnotes.net/fail");
+                return $this->redirect("/");
         }
 
         return $this->redirect("/");

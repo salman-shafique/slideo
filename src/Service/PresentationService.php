@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Checkout;
 use App\Entity\ColorTemplate;
 use App\Entity\Content;
 use App\Entity\DownloadPresentation;
@@ -234,23 +235,52 @@ class PresentationService
         return ['success' => true, 'logo' => $settings['logo']];
     }
 
-    public function downloadStart(Presentation $presentation)
+    public function downloadStart(Presentation $presentation, bool $isPaid = false)
     {
+        if (!$isPaid) {
+            $dowloadPresentation = new DownloadPresentation;
+            $presentation->addDownloadedPresenatation($dowloadPresentation);
+            $dowloadPresentation->setNumberOfSlides(count($presentation->getSlides()));
+            $this->em->persist($dowloadPresentation);
+            $this->em->persist($presentation);
+            $this->em->flush();
 
-        if (count($presentation->getSlides()) > PricingEnum::DOWNLOAD_PRESENTATION_SLIDE_LIMIT) {
-            $paymentUrl = $this->paymentService->getCheckoutUrl($presentation);
-            return ['success' => true, 'paymentUrl' => $paymentUrl];
+            $this->bus->dispatch($dowloadPresentation);
+            return [
+                'paymentRequired' => false
+            ];
         }
 
-        $dowloadPresentation = new DownloadPresentation;
-        $presentation->addDownloadedPresenatation($dowloadPresentation);
-        $dowloadPresentation->setNumberOfSlides(count($presentation->getSlides()));
-        $this->em->persist($dowloadPresentation);
-        $this->em->persist($presentation);
-        $this->em->flush();
+        /**
+         * @var Checkout $checkout
+         */
+        $checkout = $this->paymentService->getCheckoutUrl($presentation);
 
-        $this->bus->dispatch($dowloadPresentation);
-        return ['success' => true];
+        if ($checkout->getIsCompleted()) {
+            // Paid before
+            /**
+             * @var DownloadPresentation $dowloadPresentation
+             */
+            $dowloadPresentation = (new DownloadPresentation)
+                ->setNumberOfSlides(count($presentation->getSlides()))
+                ->setIsPaid(true);
+            $presentation->addDownloadedPresenatation($dowloadPresentation);
+
+            $this->em->persist($dowloadPresentation);
+            $this->em->persist($presentation);
+            $this->em->flush();
+
+            $this->bus->dispatch($dowloadPresentation);
+            return [
+                'paymentRequired' => false
+            ];
+        }
+
+
+        return [
+            'paymentRequired' => true,
+            'paymentUrl' => $checkout->getPaymentUrl()
+        ];
     }
 
     public function getDownloadedPresentation(Presentation $presentation)

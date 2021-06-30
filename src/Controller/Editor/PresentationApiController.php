@@ -33,12 +33,12 @@ class PresentationApiController extends AbstractController
     /**
      * @Route("/download/start/{presenationId}")
      */
-    public function downloadPresentation(string $presenationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
+    public function downloadPresentation(Request $request, string $presenationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
     {
         $presentation = $presentationSecurity->getPresentation($presenationId, $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
-        $r = $presentationService->downloadStart($presentation);
+        $r = $presentationService->downloadStart($presentation, $request->request->get("isPaid") === "true");
 
         return new JsonResponse($r);
     }

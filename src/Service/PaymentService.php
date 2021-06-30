@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Checkout;
+use App\Entity\DownloadPresentation;
 use App\Entity\Meeting;
 use App\Entity\Payout;
 use App\Entity\User;
@@ -23,14 +24,16 @@ use Exception;
 use PayPalCheckoutSdk\Core\AccessTokenRequest;
 use Symfony\Component\HttpFoundation\Request;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class PaymentService
 {
     private $em;
     private $security;
     private $client;
+    private $bus;
 
-    public function __construct(EntityManagerInterface $em, Security $security)
+    public function __construct(EntityManagerInterface $em, Security $security, MessageBusInterface $bus)
     {
         $this->em = $em;
         $this->security = $security;
@@ -47,10 +50,11 @@ class PaymentService
                     getenv("PAYPAL_CLIENT_SECRET")
                 )
             );
+        $this->bus = $bus;
     }
 
 
-    public function getCheckoutUrl(Presentation $presentation): string
+    public function getCheckoutUrl(Presentation $presentation): Checkout
     {
         if (!$presentation->getCheckout()) {
 
@@ -100,7 +104,7 @@ class PaymentService
         }
 
 
-        return $presentation->getCheckout()->getPaymentUrl();
+        return $presentation->getCheckout();
     }
 
     public function captureCheckout(string $token): ?array
@@ -121,9 +125,30 @@ class PaymentService
                 $checkout->setIsCompleted(true);
                 $payer = json_decode(json_encode($response->result->payer), true);
                 $checkout->setPayer($payer);
+
+                /**
+                 * @var Presentation $presentation
+                 */
+                $presentation = $checkout->getPresentation();
+
+                /**
+                 * @var DownloadPresentation $dowloadPresentation
+                 */
+                $dowloadPresentation = (new DownloadPresentation)
+                    ->setNumberOfSlides(count($presentation->getSlides()))
+                    ->setIsPaid(true);
+                $presentation->addDownloadedPresenatation($dowloadPresentation);
+
+                $this->em->persist($dowloadPresentation);
+                $this->em->persist($presentation);
+                $this->em->flush();
+
+                $this->bus->dispatch($dowloadPresentation);
+
+
                 $this->em->persist($checkout);
                 $this->em->flush();
-                return ['descr' => 'Check out captured'];
+                return ['presentationId' => $presentation->getPresentationId()];
             }
         }
         return null;
@@ -193,6 +218,21 @@ class PaymentService
         ])) {
             // Update Payout Status
 
+        }
+
+        if (in_array($data['event_type'], [
+            "CHECKOUT.ORDER.VOIDED"
+        ])) {
+            // Rm checkout
+            $token = $data['resource']['id'];
+            /** @var Checkout $checkout */
+            $checkout = $this->em->getRepository(Checkout::class)
+                ->findOneBy(["token" => $token]);
+
+            if ($checkout && !$checkout->getIsCompleted()) {
+                $this->em->remove($checkout);
+                $this->em->flush();
+            }
         }
     }
 }
