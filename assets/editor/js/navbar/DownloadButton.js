@@ -10,16 +10,17 @@ import Events from "../Events";
 export default function DownloadButton() {
     const [numberOfSlides, setNumberOfSlides] = React.useState(0);
     const [state, setState] = React.useState(false);
-    const [isPaid, setIsPaid] = React.useState(false);
+    const [isPaidBefore, setIsPaidBefore] = React.useState(false);
+    const [paymentUrl, setPaymentUrl] = React.useState();
 
     React.useEffect(() => {
         Events.listen("presentation.inited", () => {
             setState(!state);
-            setIsPaid(session?.PRESENTATION?.checkout?.isCompleted);
+            setIsPaidBefore(session?.PRESENTATION?.checkout?.isCompleted);
         })
     }, [])
 
-    const saveAndDownload = () => {
+    const saveAndDownload = (isPaid) => {
         preloader.show();
         saveChanges(() => {
             apiService({
@@ -38,7 +39,8 @@ export default function DownloadButton() {
                     if (r.paymentUrl) {
                         window.open(r.paymentUrl, "_blank").focus();
                         preloader.hide();
-                        setIsPaid(true);
+                        setPaymentUrl(r.paymentUrl);
+                        toastr.info("Please complete your payment")
                         return;
                     }
                 }
@@ -48,12 +50,16 @@ export default function DownloadButton() {
 
     const download = () => {
         setState(!state);
-        if (session.PRESENTATION.slides.length > 5 && !isPaid) {
+        if (isPaidBefore) {
+            saveAndDownload(true);
+            return;
+        }
+        if (session.PRESENTATION.slides.length > 5 && !isPaidBefore) {
             $('#paymentModal').modal("show");
             setNumberOfSlides(session.PRESENTATION.slides.length);
             return;
         }
-        saveAndDownload();
+        saveAndDownload(false);
     }
 
     const closeModal = () => {
@@ -64,7 +70,7 @@ export default function DownloadButton() {
     return (
         <>
             {
-                session?.PRESENTATION?.checkout?.isCompleted
+                isPaidBefore
                     ? <span style=
                         {{
                             fontSize: "xx-small",
@@ -111,12 +117,27 @@ export default function DownloadButton() {
                         <h5>Download Full PPTX</h5>
                         <p>Download all {numberOfSlides} Slides, PPTX Format</p>
                     </div>
-                    <button onClick={() => {
-                        closeModal();
-                        saveAndDownload(true);
-                    }} className="btn btn-info">
-                        Pay $5
-                    </button>
+                    {
+                        paymentUrl
+                            ? <>
+                                <button onClick={() => {
+                                    closeModal();
+                                    saveAndDownload(true);
+                                }} className="btn btn-info">
+                                    Download
+                                </button>
+                                <a href={paymentUrl} target="_blank">
+                                    Go to payment if you did not pay yet.
+                                </a>
+                            </>
+                            : <button onClick={() => {
+                                closeModal();
+                                saveAndDownload(true);
+                            }} className="btn btn-info">
+                                Pay $5
+                            </button>
+                    }
+
                 </div>
 
             </Modal>
