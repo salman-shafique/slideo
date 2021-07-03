@@ -126,6 +126,7 @@ export default function DownloadButton() {
                                 }} className="btn btn-info">
                                     Download
                                 </button>
+                                <br/>
                                 <a href={paymentUrl} target="_blank">
                                     Go to payment if you did not pay yet.
                                 </a>
