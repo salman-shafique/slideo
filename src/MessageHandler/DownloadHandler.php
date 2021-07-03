@@ -54,20 +54,19 @@ class DownloadHandler implements MessageHandlerInterface
 
         if (!$r['success'])
             $this->mailService->sendErrorMail(json_encode($r));
-        else if ($downloadPresentation->getCreated() < new \DateTime("-10 minutes")) {
-            if ($downloadPresentation->getPresentation()->getOwner()) {
-                $presentation = $downloadPresentation->getPresentation();
-                $email = (new TemplatedEmail())
-                    ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
-                    ->to(new Address(
-                        $presentation->getOwner()->getEmail(),
-                        $presentation->getOwner()->getFullname()
-                    ))
-                    ->subject('Your download is ready')
-                    ->htmlTemplate('emails/base.html.twig')
-                    ->context([
-                        'title' => "Your download is ready",
-                        'body' => '
+        else if ($downloadPresentation->getPresentation()->getOwner()) {
+            $presentation = $downloadPresentation->getPresentation();
+            $email = (new TemplatedEmail())
+                ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
+                ->to(new Address(
+                    $presentation->getOwner()->getEmail(),
+                    $presentation->getOwner()->getFullname()
+                ))
+                ->subject('Your download is ready')
+                ->htmlTemplate('emails/base.html.twig')
+                ->context([
+                    'title' => "Your download is ready",
+                    'body' => '
                         <div style="text-align:center">
                             <img src="' . getenv('APP_DOMAIN') . $downloadPresentation->getPrevFile() . '"/>
                             <br>
@@ -78,9 +77,8 @@ class DownloadHandler implements MessageHandlerInterface
                             You can go to <a href="' . getenv('APP_DOMAIN') . '/editor/' . $presentation->getPresentationId() . '/download">downloads</a> page account in order to see all downloads.
                         </div>
                             '
-                    ]);
-                $this->mailService->sendMail($email);
-            }
+                ]);
+            $this->mailService->sendMail($email);
         }
     }
 }
