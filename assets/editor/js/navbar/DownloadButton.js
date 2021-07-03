@@ -10,14 +10,16 @@ import Events from "../Events";
 export default function DownloadButton() {
     const [numberOfSlides, setNumberOfSlides] = React.useState(0);
     const [state, setState] = React.useState(false);
+    const [isPaid, setIsPaid] = React.useState(false);
 
     React.useEffect(() => {
         Events.listen("presentation.inited", () => {
             setState(!state);
+            setIsPaid(session?.PRESENTATION?.checkout?.isCompleted);
         })
     }, [])
 
-    const saveAndDownload = (isPaid = false) => {
+    const saveAndDownload = () => {
         preloader.show();
         saveChanges(() => {
             apiService({
@@ -36,6 +38,7 @@ export default function DownloadButton() {
                     if (r.paymentUrl) {
                         window.open(r.paymentUrl, "_blank").focus();
                         preloader.hide();
+                        setIsPaid(true);
                         return;
                     }
                 }
@@ -45,7 +48,7 @@ export default function DownloadButton() {
 
     const download = () => {
         setState(!state);
-        if (session.PRESENTATION.slides.length > 5 && !session?.PRESENTATION?.checkout?.isCompleted) {
+        if (session.PRESENTATION.slides.length > 5 && !isPaid) {
             $('#paymentModal').modal("show");
             setNumberOfSlides(session.PRESENTATION.slides.length);
             return;
