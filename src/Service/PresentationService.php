@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Checkout;
 use App\Entity\ColorTemplate;
 use App\Entity\Content;
 use App\Entity\DownloadPresentation;
@@ -9,11 +10,12 @@ use App\Entity\Slide;
 use App\Entity\Presentation;
 use App\Entity\Style;
 use App\Entity\User;
+use App\Enum\PricingEnum;
 use App\Repository\ContentRepository;
 use App\Repository\ColorTemplateRepository;
 use App\Repository\SlideRepository;
 use App\Repository\StyleRepository;
-use App\Service\FlaskService;
+use App\Service\PaymentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,16 +25,16 @@ class PresentationService
 {
     private $em;
     private $serializer;
-    private $flaskService;
+    private $paymentService;
     private $bus;
 
 
-    public function __construct(EntityManagerInterface $em, MessageBusInterface $bus, SerializerService $serializer, FlaskService $flaskService)
+    public function __construct(EntityManagerInterface $em, MessageBusInterface $bus, SerializerService $serializer, PaymentService $paymentService)
     {
         $this->em = $em;
         $this->bus = $bus;
         $this->serializer = $serializer;
-        $this->flaskService = $flaskService;
+        $this->paymentService = $paymentService;
     }
 
     public function create(?User $user, string $sessionId): Presentation
@@ -233,17 +235,54 @@ class PresentationService
         return ['success' => true, 'logo' => $settings['logo']];
     }
 
-    public function downloadStart(Presentation $presentation)
+    public function downloadStart(Presentation $presentation, bool $isPaid = false)
     {
-        $dowloadPresentation = new DownloadPresentation;
-        $presentation->addDownloadedPresenatation($dowloadPresentation);
-        $dowloadPresentation->setNumberOfSlides(count($presentation->getSlides()));
-        $this->em->persist($dowloadPresentation);
-        $this->em->persist($presentation);
-        $this->em->flush();
+        if (!$isPaid) {
+            $dowloadPresentation = new DownloadPresentation;
+            $presentation->addDownloadedPresenatation($dowloadPresentation);
+            $dowloadPresentation->setNumberOfSlides(count($presentation->getSlides()));
+            $this->em->persist($dowloadPresentation);
+            $this->em->persist($presentation);
+            $this->em->flush();
 
-        $this->bus->dispatch($dowloadPresentation);
-        return ['success' => true];
+            $this->bus->dispatch($dowloadPresentation);
+            return [
+                'paymentRequired' => false,
+                'paidBefore' => false
+            ];
+        }
+
+        /**
+         * @var Checkout $checkout
+         */
+        $checkout = $this->paymentService->getCheckoutUrl($presentation);
+
+        if ($checkout->getIsCompleted()) {
+            // Paid before
+            /**
+             * @var DownloadPresentation $dowloadPresentation
+             */
+            $dowloadPresentation = (new DownloadPresentation)
+                ->setNumberOfSlides(count($presentation->getSlides()))
+                ->setIsPaid(true);
+            $presentation->addDownloadedPresenatation($dowloadPresentation);
+
+            $this->em->persist($dowloadPresentation);
+            $this->em->persist($presentation);
+            $this->em->flush();
+
+            $this->bus->dispatch($dowloadPresentation);
+            return [
+                'paymentRequired' => false,
+                'paidBefore' => true
+            ];
+        }
+
+
+        return [
+            'paymentRequired' => true,
+            'paymentUrl' => $checkout->getPaymentUrl()
+        ];
     }
 
     public function getDownloadedPresentation(Presentation $presentation)

@@ -44,6 +44,8 @@ class DownloadPresentationCrudController extends AbstractCrudController
                     $presentationId = $entity->getPresentation()->getPresentationId();
                     return "<a href='/editor/$presentationId'>$presentationId</a>";
                 }),
+            BooleanField::new('isPaid')
+                ->setFormTypeOption('disabled','true'),
             UrlField::new('pptxFile'),
             UrlField::new('pdfFile'),
             ImageField::new('prevFile'),

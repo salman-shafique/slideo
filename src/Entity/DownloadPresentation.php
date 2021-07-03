@@ -65,6 +65,11 @@ class DownloadPresentation
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : 0})
+     */
+    private $isPaid = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +155,18 @@ class DownloadPresentation
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    public function getIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
     }
 
 }

@@ -58,9 +58,7 @@ class MailService
             ->htmlTemplate('emails/verification.html.twig')
             ->context([
                 'secret' => $secret,
-                'host' => getenv("APP_ENV") == "prod"
-                    ? "https://www.slideo.co.il"
-                    : "https://localhost:5500"
+                'host' => getenv("APP_DOMAIN")
             ]);
         $this->bus->dispatch($email);
 
