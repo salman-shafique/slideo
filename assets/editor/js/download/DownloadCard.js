@@ -50,7 +50,15 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
                 <div downloadid={downloadCardDetail.id} className="col-12 col-sm-3 d-flex justify-content-center align-items-center mt-0">
                     <img className="download-thumbnail" src={imgSrc} />
                 </div>
-                <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center mt-0">{downloadCardDetail.numberOfSlides}</div>
+                <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center mt-0">
+                    {
+                        downloadCardDetail.isPaid
+                            ? downloadCardDetail.numberOfSlides
+                            : (downloadCardDetail.numberOfSlides <= 5)
+                                ? downloadCardDetail.numberOfSlides
+                                : 5
+                    }
+                </div>
                 <div className="col-4 col-sm-2 d-flex justify-content-center align-items-center mt-0">{downloadCardDetail.created.date.slice(0, -10)}</div>
                 <div className="col-1 col-sm-1 d-flex justify-content-center align-items-center mt-0">
                     {

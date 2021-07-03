@@ -47,7 +47,8 @@ class DownloadHandler implements MessageHandlerInterface
             "create",
             [
                 'downloadPresentationId' => $downloadPresentation->getId(),
-                'presentationId' => $downloadPresentation->getPresentation()->getId()
+                'presentationId' => $downloadPresentation->getPresentation()->getId(),
+                'isPaid' => $downloadPresentation->getIsPaid()
             ]
         );
 
