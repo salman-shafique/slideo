@@ -20,7 +20,7 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
                         }
                     }
                 });
-            }, 5000);
+            }, 10000);
     }, [])
 
     const pptxButton = downloadCardDetail.pptxFile
