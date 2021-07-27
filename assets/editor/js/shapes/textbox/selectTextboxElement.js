@@ -19,9 +19,9 @@ export const createTextNode = (td) => {
   const editorWidth = gParentAttributes.width / fontScale;
 
   const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
-
+  const valign = td.getAttribute("valign");
   const textDiv = reactToDOM(
-    <div style={{ transform: `scale(${fontScale})`, transformOrigin: 'top center', fontSize: textFontSize, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ transform: `scale(${fontScale})`, transformOrigin: `${valign} center`, fontSize: textFontSize, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
     </div>
   );
   const editing = reactToDOM(
