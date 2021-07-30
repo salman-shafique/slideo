@@ -29,14 +29,18 @@
 
 <script src="/static/tinymce.min.js"></script>
 <script>
-    tinymce.init({
+    function myCustomOnChangeHandler(inst) {
+        console.log('onKeyDown', inst)
+    }
+
+    let tmc = tinymce.init({
         /* replace textarea having class .tinymce with tinymce editor */
         selector: "textarea.tinymce",
         // plugins: 'directionality',
         directionality: 'rtl',
         // toolbar: 'ltr rtl',
         menubar: false,
-        content_style: "body { font-size: 14px !important; }",
+        content_style: "body { font-size: 16px !important; }",
         /* theme of the editor */
         theme: "modern",
         skin: "lightgray",
@@ -59,9 +63,31 @@
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | ltr rtl",
 
         lists_indent_on_tab: false,
-        fix_list_elements: true
-
-
+        fix_list_elements: true,
+        setup: function (ed) {
+            ed.on('keyup', function (e) {
+                let str = ed.getContent({format: "text"}).trim();
+                if (str.length > 0) {
+                    var rtl_rx = /[\u0591-\u07FF]/;
+                    if (rtl_rx.test(str.substring(0, 1))) {
+                        if (ed.text_direction !== "rtl") {
+                            ed.text_direction = 'rtl';
+                            ed.execCommand("mceDirectionRTL")
+                        }
+                    } else {
+                        if (ed.text_direction !== "ltr") {
+                            ed.execCommand("mceDirectionLTR")
+                            ed.text_direction = 'ltr';
+                        }
+                    }
+                } else {
+                    ed.text_direction = 'rtl';
+                    ed.execCommand("mceDirectionRTL")
+                }
+                return ed;
+            });
+        }
     });
+
     window.tinymce = tinymce;
 </script>
