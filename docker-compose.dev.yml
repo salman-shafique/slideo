@@ -39,7 +39,8 @@ services:
       - MYSQL_DATABASE=slideo
       - MYSQL_USER=slideo_mysql_user
       - MYSQL_PASSWORD=slideo_mysql_password
-
+    volumes:
+      - ./sqldata:/var/lib/mysql
   slideo_phpmyadmin:
     image: phpmyadmin:latest
     container_name: slideo_phpmyadmin

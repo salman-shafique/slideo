@@ -99,3 +99,6 @@ __pycache__
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+# SQL Volume
+/sqldata
+.idea/
