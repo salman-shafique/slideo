@@ -4,100 +4,102 @@
   </span>
 </button>
 <div id="mainMenu" class="sidenav">
-  <a class="navbar-brand" href="{{path('index')}}">Slideo</a>
-  {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{path('admin')}}">{% trans %}Dashboard{% endtrans %}</a>
-  {% endif %}
-  <a href="{{path('editor')}}">{% trans %}Editor{% endtrans %}</a>
-  <a href="{{path('pricing')}}">{% trans %}Pricing{% endtrans %}</a>
-  {% if app.user %}
-    <a href="{{path('user_account')}}">{% trans %}Account{% endtrans %}</a>
-    <!--  <a href="{{path('app_logout')}}">{% trans %}Logout{% endtrans %}</a> -->
-  {% else %}
-    <a href="{{path('app_login')}}">{% trans %}Login{% endtrans %}</a>
-    <a href="{{path('app_register')}}">{% trans %}Sign_Up{% endtrans %}</a>
-  {% endif %}
+    <a class="navbar-brand" href="{{ path('index') }}">{{ app.request.server.get('APP_NAME')|capitalize }}</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin') }}">{% trans %}Dashboard{% endtrans %}</a>
+    {% endif %}
+    <a href="{{ path('editor') }}">{% trans %}Editor{% endtrans %}</a>
+    <a href="{{ path('pricing') }}">{% trans %}Pricing{% endtrans %}</a>
+    {% if app.user %}
+        <a href="{{ path('user_account') }}">{% trans %}Account{% endtrans %}</a>
+        <!--  <a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a> -->
+    {% else %}
+        <a href="{{ path('app_login') }}">{% trans %}Login{% endtrans %}</a>
+        <a href="{{ path('app_register') }}">{% trans %}Sign_Up{% endtrans %}</a>
+    {% endif %}
 </div>
 <nav id="BrandNav" class="navbar navbar-expand-sm container">
-  <a class="navbar-brand d-md-flex d-none" href="{{path('index')}}">
-    Slideo
-  </a>
-  <ul class="navbar-nav d-md-flex ml-auto d-none">
-    {% if is_granted('ROLE_ADMIN') %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{path('admin')}}">
-          <button class="btn d-md-flex d-none">{% trans %}Dashboard{% endtrans %}
-            🔑</button>
-        </a>
-      </li>
-    {% endif %}
-    <li class="nav-item d-none">
-      <a class="nav-link" href="{{path('editor')}}">
-        <button class="btn d-md-flex d-none">
-          {% trans %}
-          Editor
-          {% endtrans %}
-        </button>
-      </a>
-    </li>
-    <li class="nav-item d-none">
-      <a class="nav-link" href="{{path('pricing')}}">
-        <button class="btn d-md-flex d-none">
-          {% trans %}
-          Pricing
-          {% endtrans %}
-        </button>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#" data-toggle="modal" data-target="#contact_us_modal">
-        <button class="btn d-md-flex d-none">
-          {% trans %}
-          Contact_us
-          {% endtrans %}
-        </button>
-      </a>
-    </li>
-    {% if app.user %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{path('user_account')}}">
-          <button class="btn d-md-flex btn-outline-dark d-none">{% trans %}Account{% endtrans %}</button>
-        </a>
-      </li>
-      <!-- <li class="nav-item">
-              <a class="nav-link" href="{{path('app_logout')}}">
+    <a class="navbar-brand d-md-flex d-none" href="{{ path('index') }}">
+        {{ app.request.server.get('APP_NAME') | capitalize }}
+    </a>
+    <ul class="navbar-nav d-md-flex ml-auto d-none">
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin') }}">
+                    <button class="btn d-md-flex d-none">{% trans %}Dashboard{% endtrans %}
+                        🔑
+                    </button>
+                </a>
+            </li>
+        {% endif %}
+        <li class="nav-item d-none">
+            <a class="nav-link" href="{{ path('editor') }}">
+                <button class="btn d-md-flex d-none">
+                    {% trans %}
+                        Editor
+                    {% endtrans %}
+                </button>
+            </a>
+        </li>
+        <li class="nav-item d-none">
+            <a class="nav-link" href="{{ path('pricing') }}">
+                <button class="btn d-md-flex d-none">
+                    {% trans %}
+                        Pricing
+                    {% endtrans %}
+                </button>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#contact_us_modal">
+                <button class="btn d-md-flex d-none">
+                    {% trans %}
+                        Contact_us
+                    {% endtrans %}
+                </button>
+            </a>
+        </li>
+        {% if app.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('user_account') }}">
+                    <button class="btn d-md-flex btn-outline-dark d-none">{% trans %}Account{% endtrans %}</button>
+                </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_logout') }}">
                 <button class="btn d-md-flex d-none">{% trans %}Logout{% endtrans %}</button>
               </a>
             </li> -->
-    {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{path('app_login')}}">
-          <button class="btn d-md-flex d-none">{% trans %}Login{% endtrans %}</button>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{path('app_register')}}">
-          <button id="loginBtn" class="btn btn-outline-dark d-md-flex d-none">{% trans %}Sign_Up{% endtrans %}</button>
-        </a>
-      </li>
-    {% endif %}
-  </ul>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}">
+                    <button class="btn d-md-flex d-none">{% trans %}Login{% endtrans %}</button>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_register') }}">
+                    <button id="loginBtn"
+                            class="btn btn-outline-dark d-md-flex d-none">{% trans %}Sign_Up{% endtrans %}</button>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
 </nav>
 
 <div class="modal fade" id="contact_us_modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header py-1">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header py-1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
         <span id="ContactUsForm">
 
         </span>
-        <iframe name="tmp_iframe" class="d-none" src="#"></iframe>
-      </div>
+                <iframe name="tmp_iframe" class="d-none" src="#"></iframe>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

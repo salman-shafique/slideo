@@ -3,7 +3,7 @@
     <div class="row no-margin">
       <div class="col-lg-4 col-md-6 col-12 medium-bottom-margin bottom-bordered">
         <a class="navbar-brand float-left" href="#">
-          Slideo
+          {{ app.request.server.get('APP_NAME') | capitalize }}
         </a>
         <div id="Contact_Points">
           <a href="#" target="_blank" class="mx-1">
@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="col-12">
-        <p id="Copyright_Statement">&copy;Copyright <span id="Copyright_Year">2020</span> Slideo</p>
+        <p id="Copyright_Statement">&copy;Copyright <span id="Copyright_Year">2020</span> {{ app.request.server.get('APP_NAME') }}</p>
       </div>
     </div>
   </div>

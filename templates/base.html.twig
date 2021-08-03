@@ -1,142 +1,150 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
 
     {% if app.environment != "dev" and "test" not in app.request.getSchemeAndHttpHost() %}
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148876191-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148876191-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        gtag('config', 'UA-148876191-1');
-      </script>
-      <!-- Yandex.Metrika counter -->
-      <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-          m[i] = m[i] || function () {
-            (m[i].a = m[i].a || []).push(arguments)
-          };
-          m[i].l = 1 * new Date();
-          k = e.createElement(t),
-          a = e.getElementsByTagName(t)[0],
-          k.async = 1,
-          k.src = r,
-          a.parentNode.insertBefore(k, a)
-        })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+            function gtag() {
+                dataLayer.push(arguments);
+            }
 
-        ym(74276686, "init", {
-          clickmap: true,
-          trackLinks: true,
-          accurateTrackBounce: true,
-          webvisor: true
-        });
-      </script>
-      <noscript>
-        <div><img src="https://mc.yandex.ru/watch/74276686" style="position:absolute; left:-9999px;" alt=""/></div>
-      </noscript>
-      <!-- /Yandex.Metrika counter -->
-      <!-- Facebook Pixel Code -->
-      <script>
-        !function (f, b, e, v, n, t, s) {
-          if (f.fbq) 
-            return;
-          
-          n = f.fbq = function () {
-            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-          };
-          if (! f._fbq) 
-            f._fbq = n;
-          
-          n.push = n;
-          n.loaded = !0;
-          n.version = '2.0';
-          n.queue = [];
-          t = b.createElement(e);
-          t.async = !0;
-          t.src = v;
-          s = b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t, s)
-        }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '447090039704556');
-        fbq('track', 'PageView');
-      </script>
-      <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=447090039704556&ev=PageView&noscript=1"/></noscript>
-      <!-- DO NOT MODIFY -->
-      <!-- End Facebook Pixel Code -->
+            gtag('js', new Date());
+
+            gtag('config', 'UA-148876191-1');
+        </script>
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function (m, e, t, r, i, k, a) {
+                m[i] = m[i] || function () {
+                    (m[i].a = m[i].a || []).push(arguments)
+                };
+                m[i].l = 1 * new Date();
+                k = e.createElement(t),
+                    a = e.getElementsByTagName(t)[0],
+                    k.async = 1,
+                    k.src = r,
+                    a.parentNode.insertBefore(k, a)
+            })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(74276686, "init", {
+                clickmap: true,
+                trackLinks: true,
+                accurateTrackBounce: true,
+                webvisor: true
+            });
+        </script>
+        <noscript>
+            <div><img src="https://mc.yandex.ru/watch/74276686" style="position:absolute; left:-9999px;" alt=""/></div>
+        </noscript>
+        <!-- /Yandex.Metrika counter -->
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function (f, b, e, v, n, t, s) {
+                if (f.fbq)
+                    return;
+
+                n = f.fbq = function () {
+                    n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                };
+                if (!f._fbq)
+                    f._fbq = n;
+
+                n.push = n;
+                n.loaded = !0;
+                n.version = '2.0';
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s)
+            }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '447090039704556');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+                       src="https://www.facebook.com/tr?id=447090039704556&ev=PageView&noscript=1"/></noscript>
+        <!-- DO NOT MODIFY -->
+        <!-- End Facebook Pixel Code -->
     {% endif %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="The easiest way to create stunning presentations, add visuals and amaze your audience. Get started now, no account required.">
-    <link rel="canonical" href="https://www.slideo.co.il"/>
-    <meta name="robots" content="index, follow">
-
+    <meta name="description"
+          content="The easiest way to create stunning presentations, add visuals and amaze your audience. Get started now, no account required.">
+    <link rel="canonical" href="{{ app.request.server.get('APP_DOMAIN') }}"/>
+    <meta name="robots" content="{{ app.environment == 'prod' ? 'index, follow':'noindex, nofollow' }}">
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Slideo"/>
-    <meta property="og:description" content="The easiest way to create stunning presentations, add visuals and amaze your audience. Get started now, no account required."/>
-    <meta property="og:image" content="{{ asset('favicon/favicon-196x196.png')}}"/>
-    <meta property="og:url" content="https://www.slideo.co.il"/>
-    <meta property="og:site_name" content="Slideo"/>
+    <meta property="og:title" content="{{ app.request.server.get('APP_NAME') }}"/>
+    <meta property="og:description"
+          content="The easiest way to create stunning presentations, add visuals and amaze your audience. Get started now, no account required."/>
+    <meta property="og:image" content="{{ asset('favicon/favicon-196x196.png') }}"/>
+    <meta property="og:url" content="{{ app.request.server.get('APP_DOMAIN') }}"/>
+    <meta property="og:site_name" content="{{ app.request.server.get('APP_NAME') }}"/>
 
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('favicon/apple-touch-icon-114x114.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('favicon/apple-touch-icon-144x144.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ asset('favicon/apple-touch-icon-120x120.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png')}}"/>
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ asset('favicon/apple-touch-icon-152x152.png')}}"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-196x196.png')}}" sizes="196x196"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-96x96.png')}}" sizes="96x96"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-32x32.png')}}" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-16x16.png')}}" sizes="16x16"/>
-    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-128.png')}}" sizes="128x128"/>
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ asset('favicon/apple-touch-icon-57x57.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{{ asset('favicon/apple-touch-icon-114x114.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('favicon/apple-touch-icon-72x72.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{{ asset('favicon/apple-touch-icon-144x144.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="{{ asset('favicon/apple-touch-icon-60x60.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+          href="{{ asset('favicon/apple-touch-icon-120x120.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="{{ asset('favicon/apple-touch-icon-76x76.png') }}"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+          href="{{ asset('favicon/apple-touch-icon-152x152.png') }}"/>
+    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-196x196.png') }}" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-96x96.png') }}" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-32x32.png') }}" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-16x16.png') }}" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-128.png') }}" sizes="128x128"/>
     <meta name="application-name" content="&nbsp;"/>
     <meta name="msapplication-TileColor" content="#018790"/>
-    <meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png')}}"/>
-    <meta name="msapplication-square70x70logo" content="{{ asset('favicon/mstile-70x70.png')}}"/>
-    <meta name="msapplication-square150x150logo" content="{{ asset('favicon/mstile-150x150.png')}}"/>
-    <meta name="msapplication-wide310x150logo" content="{{ asset('favicon/mstile-310x150.png')}}"/>
-    <meta name="msapplication-square310x310logo" content="{{ asset('favicon/mstile-310x310.png')}}"/>
+    <meta name="msapplication-TileImage" content="{{ asset('favicon/mstile-144x144.png') }}"/>
+    <meta name="msapplication-square70x70logo" content="{{ asset('favicon/mstile-70x70.png') }}"/>
+    <meta name="msapplication-square150x150logo" content="{{ asset('favicon/mstile-150x150.png') }}"/>
+    <meta name="msapplication-wide310x150logo" content="{{ asset('favicon/mstile-310x150.png') }}"/>
+    <meta name="msapplication-square310x310logo" content="{{ asset('favicon/mstile-310x310.png') }}"/>
 
     <title>
-      {% block title %}Slideo
-      {% endblock %}
+        {% block title %}{{ app.request.server.get('APP_NAME') }}
+        {% endblock %}
     </title>
 
     {% block style %}
-      {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_link_tags('app') }}
     {% endblock %}
-  </head>
+</head>
 
-  <body>
+<body>
 
-    {% if app.user %}
-      <user style="display:none" user-id="{{app.user.id}}" session-id={{app.session.id}}></user>
-    {% else %}
-      <user style="display:none" session-id={{app.session.id}}></user>
-    {% endif %}
+{% if app.user %}
+    <user style="display:none" user-id="{{ app.user.id }}" session-id={{ app.session.id }}></user>
+{% else %}
+    <user style="display:none" session-id={{ app.session.id }}></user>
+{% endif %}
 
-    {% block header %}
-      {% include "components/header.html.twig" %}
-    {% endblock %}
+{% block header %}
+    {% include "components/header.html.twig" %}
+{% endblock %}
 
-    {% block body %}{% endblock %}
-
-
-    {% block footer %}
-      {% include "components/footer.html.twig" %}
-    {% endblock %}
+{% block body %}{% endblock %}
 
 
-    {% block script %}
-      {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+{% block footer %}
+    {% include "components/footer.html.twig" %}
+{% endblock %}
 
-  </body>
+
+{% block script %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+
+</body>
 
 </html>

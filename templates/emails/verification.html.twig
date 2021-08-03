@@ -1,6 +1,6 @@
 {% extends "emails/base.html.twig" %}
 
-{% block title %}Welcome to Slideo
+{% block title %}Welcome to {{ app.request.server.get('APP_NAME') | capitalize }}
 {% endblock %}
 
 

@@ -2,7 +2,7 @@
 
 ### 1. Get project
 ```
-git clone https://github.com/alperendurmus/slideo-symfony.git slideo-symfony
+git clone https://github.com/Slide-ai/slideo-symfony.git
 cd slideo-symfony
 ```
 
@@ -15,7 +15,8 @@ docker-compose -f docker-compose.dev.yml build
 
 <details>
     <summary>.env.local</summary>
-
+    
+    APP_NAME=slide.ai
     APP_DOMAIN=https://localhost:5500
     APP_ENV=dev
     APP_SECRET=c253db41596c420e7c7f032abd63fb58
@@ -42,8 +43,8 @@ docker-compose -f docker-compose.dev.yml build
 
 
     CHOKIDAR_USEPOLLING=true
-
-
+    # Support Email
+    SUPPORT_EMAIL=support@slide.ai
 </details>
 
 ### 4. Start the container
