@@ -22,7 +22,7 @@ services:
     command: ["/bin/bash", "/var/www/app/docker/start.sh"]
     
   slideo_rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8-management
     container_name: slideo_rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=slideo 
