@@ -19,13 +19,13 @@ services:
     env_file:
       - .env
     restart: always
-    command: ["/bin/bash", "/var/www/app/docker/start.sh"]
-    
+    command: [ "/bin/bash", "/var/www/app/docker/start.sh" ]
+
   slideo_rabbitmq:
     image: rabbitmq:3.8-management
     container_name: slideo_rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER=slideo 
+      - RABBITMQ_DEFAULT_USER=slideo
       - RABBITMQ_DEFAULT_PASS=df711f9a1119082a711a238acf944677
     restart: always
     logging:
@@ -35,7 +35,7 @@ services:
         max-file: "5"
     ports:
       - 5502:15672
-    
+
 networks:
-  default:
-    name: slideo_network
+  slideo_network:
+    external: true
