@@ -7,6 +7,6 @@
   {% include "editor/navbar/action.html.twig" with {'presentation':presentation} %}
 
   <a id="Logo" class="navbar-brand d-md-flex d-none" href="/">
-    <sup class="ml-auto">BETA</sup>slideo
+    <sup class="ml-auto">BETA</sup>{{ app.request.server.get('APP_NAME') }}
   </a>
 </nav>

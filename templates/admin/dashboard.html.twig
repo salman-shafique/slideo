@@ -1,7 +1,7 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
 {% block page_title %}
-  Slideo Admin page
+  {{ app.request.server.get('APP_NAME') }} Admin page
 {% endblock %}
 
 {% block page_content %}
