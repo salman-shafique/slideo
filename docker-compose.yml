@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
   slideo_symfony:
@@ -20,7 +20,8 @@ services:
       - .env
     restart: always
     command: [ "/bin/bash", "/var/www/app/docker/start.sh" ]
-
+    networks:
+      - slide_ai_network
   slideo_rabbitmq:
     image: rabbitmq:3.8-management
     container_name: slideo_rabbitmq
@@ -35,7 +36,8 @@ services:
         max-file: "5"
     ports:
       - 5502:15672
-
+    networks:
+      - slide_ai_network
 networks:
-  slideo_network:
-    external: true
+  slide_ai_network:
+    driver: bridge
