@@ -28,7 +28,7 @@ services:
         max-file: "5"
     ports:
       - 5502:15672
-
+    restart: always
   slideo_mysql:
     image: mysql:8.0
     container_name: slideo_mysql
