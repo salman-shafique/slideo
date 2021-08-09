@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\StyleRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +21,7 @@ class Style
      * @ORM\Column(type="integer")
      */
     private $id;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Ignore()
@@ -43,7 +44,7 @@ class Style
     private $direction;
 
     /**
-     * @var \DateTime $created
+     * @var DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -90,15 +91,16 @@ class Style
      */
     private $background;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $company;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isDefault = false;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="styles")
+     */
+    private $company;
 
     public function __construct()
     {
@@ -266,18 +268,6 @@ class Style
         return $this;
     }
 
-    public function getCompany(): ?string
-    {
-        return $this->company;
-    }
-
-    public function setCompany(?string $company): self
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
     public function getIsDefault(): ?bool
     {
         return $this->isDefault;
@@ -286,6 +276,18 @@ class Style
     public function setIsDefault(?bool $isDefault): self
     {
         $this->isDefault = $isDefault;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
 
         return $this;
     }

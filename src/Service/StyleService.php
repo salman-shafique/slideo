@@ -3,12 +3,14 @@
 namespace App\Service;
 
 use App\Entity\ColorTemplate;
+use App\Entity\Company;
 use App\Entity\Content;
 use App\Entity\Layout;
 use App\Entity\Style;
 use App\Entity\User;
 use App\Repository\LayoutRepository;
 use App\Repository\StyleRepository;
+use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
@@ -72,8 +74,12 @@ class StyleService
 
         // Is private design?
         $companyName = $request->request->get("company_name");
-        if ($companyName)
-            $style->setCompany($companyName);
+        if ($companyName) {
+            $companyRepository = $this->em->getRepository(Company::class);
+            $company = $companyRepository->findOneBy(['id' => $request->request->get("company_name")]);
+            $style->setCompany($company);
+        }
+
 
         $style->setKeywords($jsonFile['keywords']);
         $style->setPptxFile("/styles/$styleId/$styleId.pptx");
@@ -139,11 +145,11 @@ class StyleService
             ->setParameter("capacity", $request->request->get("capacity"));
 
         ($user && $user->getCompany())
-            ? $query->andWhere("style.company = :company")->setParameter("company", $user->getCompany())
-            : $query->andWhere("style.company IS NULL");
+            ? $query->andWhere("style.company_id = :company_id")->setParameter("company_id", $user->getCompany()->getId())
+            : $query->andWhere("style.company_id IS NULL");
 
         $styles = $query->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $styles;
     }

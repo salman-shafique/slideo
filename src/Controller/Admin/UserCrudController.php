@@ -32,12 +32,13 @@ class UserCrudController extends AbstractCrudController
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
             ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
+
     public function configureFields(string $pageName): iterable
     {
-        $companies = [];
-        foreach (CompanyEnum::COMPANIES as $companyName)
-            $companies[$companyName] =  $companyName;
-        
+//        $companies = [];
+//        foreach (CompanyEnum::COMPANIES as $companyName)
+//            $companies[$companyName] = $companyName;
+
         return [
             IdField::new('id')->hideOnForm(),
             EmailField::new('email'),
@@ -45,7 +46,9 @@ class UserCrudController extends AbstractCrudController
             TextField::new('fullname'),
             BooleanField::new('isVerified'),
             TextField::new('userType')->onlyOnIndex(),
-            ChoiceField::new('company')->setChoices($companies),
+            AssociationField::new('company', 'Company')->formatValue(function ($value, $entity) {
+                return $entity->getCompany() ? $entity->getCompany()->getName() : "Null";
+            }),
             AssociationField::new('presentations')->hideOnForm(),
             DateField::new('created')->hideOnForm()
         ];

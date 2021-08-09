@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -71,7 +72,7 @@ class User implements UserInterface
     private $presentations;
 
     /**
-     * @var \DateTime $created
+     * @var DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
@@ -79,7 +80,7 @@ class User implements UserInterface
     private $created;
 
     /**
-     * @var \DateTime $updated
+     * @var DateTime $updated
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
@@ -97,7 +98,7 @@ class User implements UserInterface
     private $uploadedImages;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="users")
      */
     private $company;
 
@@ -172,7 +173,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -359,16 +360,17 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCompany(): ?string
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
 
-    public function setCompany(?string $company): self
+    public function setCompany(?Company $company): self
     {
         $this->company = $company;
 
         return $this;
     }
+
 
 }

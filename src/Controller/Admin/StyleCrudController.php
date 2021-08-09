@@ -35,10 +35,12 @@ class StyleCrudController extends AbstractCrudController
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
             ->remove(Crud::PAGE_DETAIL, Action::EDIT);
     }
+
     public function configureFields(string $pageName): iterable
-    {        $companies = [];
-        foreach (CompanyEnum::COMPANIES as $companyName)
-            $companies[$companyName] =  $companyName;
+    {
+//        $companies = [];
+//        foreach (CompanyEnum::COMPANIES as $companyName)
+//            $companies[$companyName] = $companyName;
         return [
             IdField::new('id')->hideOnForm(),
             BooleanField::new('isActive'),
@@ -47,7 +49,9 @@ class StyleCrudController extends AbstractCrudController
             TextField::new('direction'),
             AssociationField::new('layout'),
             BooleanField::new('isDefault'),
-            ChoiceField::new('company')->setChoices($companies),
+            AssociationField::new('company','Company')->formatValue(function ($value, $entity) {
+                return $entity->getCompany() ? $entity->getCompany()->getName() : "Null";
+            }),
             UrlField::new('pptxFile')->hideOnForm(),
             UrlField::new('svgFile')->hideOnForm(),
             ImageField::new('prevFile')->hideOnForm(),

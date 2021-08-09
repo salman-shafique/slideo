@@ -46,8 +46,8 @@ class SlideService
             ->andWhere('s.isDefault = :isDefault')
             ->setParameter(':isDefault', True);
         ($user && $user->getCompany())
-            ? $query->andWhere("s.company = :company")->setParameter("company", $user->getCompany())
-            : $query->andWhere("s.company IS NULL");
+            ? $query->andWhere("s.company_id = :company_id")->setParameter("company_id", $user->getCompany()->getId())
+            : $query->andWhere("s.company_id IS NULL");
 
         $totalRecords = $query->getQuery()->getSingleScalarResult();
         if ($totalRecords == 0) {
@@ -62,9 +62,9 @@ class SlideService
                 ->andWhere('s.direction = :direction')
                 ->setParameter(':direction', $direction);
             ($user && $user->getCompany())
-                ? $query->andWhere("s.company = :company")->setParameter("company", $user->getCompany())
-                : $query->andWhere("s.company IS NULL");
-        };
+                ? $query->andWhere("s.company = :company_id")->setParameter("company_id", $user->getCompany()->getId())
+                : $query->andWhere("s.company_id IS NULL");
+        }
 
         $totalRecords = $query->getQuery()->getSingleScalarResult();
         if ($totalRecords == 0) return null;
@@ -122,7 +122,7 @@ class SlideService
     public function createSlides($analyzedSlides, Presentation $presentation): array
     {
         $slides = [];
-        foreach ($analyzedSlides as  $key => $analyzedSlide) {
+        foreach ($analyzedSlides as $key => $analyzedSlide) {
 
             $slide = new Slide();
             $slide->setSlideId(hash("md4", time() + rand(), false));
