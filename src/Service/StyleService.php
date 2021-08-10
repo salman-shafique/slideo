@@ -145,8 +145,8 @@ class StyleService
             ->setParameter("capacity", $request->request->get("capacity"));
 
         ($user && $user->getCompany())
-            ? $query->andWhere("style.company_id = :company_id")->setParameter("company_id", $user->getCompany()->getId())
-            : $query->andWhere("style.company_id IS NULL");
+            ? $query->andWhere("style.company = :company_id")->setParameter("company_id", $user->getCompany()->getId())
+            : $query->andWhere("style.company IS NULL");
 
         $styles = $query->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);

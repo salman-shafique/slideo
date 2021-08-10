@@ -46,8 +46,8 @@ class SlideService
             ->andWhere('s.isDefault = :isDefault')
             ->setParameter(':isDefault', True);
         ($user && $user->getCompany())
-            ? $query->andWhere("s.company_id = :company_id")->setParameter("company_id", $user->getCompany()->getId())
-            : $query->andWhere("s.company_id IS NULL");
+            ? $query->andWhere("s.company = :company_id")->setParameter("company_id", $user->getCompany()->getId())
+            : $query->andWhere("s.company IS NULL");
 
         $totalRecords = $query->getQuery()->getSingleScalarResult();
         if ($totalRecords == 0) {
@@ -63,7 +63,7 @@ class SlideService
                 ->setParameter(':direction', $direction);
             ($user && $user->getCompany())
                 ? $query->andWhere("s.company = :company_id")->setParameter("company_id", $user->getCompany()->getId())
-                : $query->andWhere("s.company_id IS NULL");
+                : $query->andWhere("s.company IS NULL");
         }
 
         $totalRecords = $query->getQuery()->getSingleScalarResult();
