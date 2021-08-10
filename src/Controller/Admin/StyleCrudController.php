@@ -49,9 +49,7 @@ class StyleCrudController extends AbstractCrudController
             TextField::new('direction'),
             AssociationField::new('layout'),
             BooleanField::new('isDefault'),
-            AssociationField::new('company','Company')->formatValue(function ($value, $entity) {
-                return $entity->getCompany() ? $entity->getCompany()->getName() : "Null";
-            }),
+            AssociationField::new('company'),
             UrlField::new('pptxFile')->hideOnForm(),
             UrlField::new('svgFile')->hideOnForm(),
             ImageField::new('prevFile')->hideOnForm(),

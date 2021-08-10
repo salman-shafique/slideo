@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Company;
 use App\Entity\Presentation;
 use App\Entity\User;
 use App\Entity\Slide;
@@ -49,6 +50,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
+        yield MenuItem::linkToCrud('Companies', 'fas fa-building', Company::class);
         yield MenuItem::linkToCrud('Presentations', 'far fa-file-powerpoint', Presentation::class);
         yield MenuItem::linkToCrud('Slides', 'fas fa-table', Slide::class);
         yield MenuItem::linkToCrud('Downloads', 'fas fa-download', DownloadPresentation::class);
