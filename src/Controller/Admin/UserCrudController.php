@@ -25,13 +25,7 @@ class UserCrudController extends AbstractCrudController
         return User::class;
     }
 
-    public function configureActions(Actions $actions): Actions
-    {
-        return $actions
-            ->remove(Crud::PAGE_INDEX, Action::NEW)
-            ->remove(Crud::PAGE_INDEX, Action::DELETE)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT);
-    }
+
 
     public function configureFields(string $pageName): iterable
     {
@@ -46,9 +40,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('fullname'),
             BooleanField::new('isVerified'),
             TextField::new('userType')->onlyOnIndex(),
-            AssociationField::new('company', 'Company')->formatValue(function ($value, $entity) {
-                return $entity->getCompany() ? $entity->getCompany()->getName() : "Null";
-            }),
+            AssociationField::new('company'),
             AssociationField::new('presentations')->hideOnForm(),
             DateField::new('created')->hideOnForm()
         ];
