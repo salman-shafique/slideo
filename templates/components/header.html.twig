@@ -15,7 +15,7 @@
         <!--  <a href="{{ path('app_logout') }}">{% trans %}Logout{% endtrans %}</a> -->
     {% else %}
         <a href="{{ path('app_login') }}">{% trans %}Login{% endtrans %}</a>
-        <a href="{{ path('app_register') }}">{% trans %}Sign_Up{% endtrans %}</a>
+{#        <a href="{{ path('app_register') }}">{% trans %}Sign_Up{% endtrans %}</a>#}
     {% endif %}
 </div>
 <nav id="BrandNav" class="navbar navbar-expand-sm container">
@@ -76,12 +76,12 @@
                     <button class="btn d-md-flex d-none">{% trans %}Login{% endtrans %}</button>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_register') }}">
-                    <button id="loginBtn"
-                            class="btn btn-outline-dark d-md-flex d-none">{% trans %}Sign_Up{% endtrans %}</button>
-                </a>
-            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="{{ path('app_register') }}">#}
+{#                    <button id="loginBtn"#}
+{#                            class="btn btn-outline-dark d-md-flex d-none">{% trans %}Sign_Up{% endtrans %}</button>#}
+{#                </a>#}
+{#            </li>#}
         {% endif %}
     </ul>
 </nav>
