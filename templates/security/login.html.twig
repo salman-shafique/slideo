@@ -28,7 +28,7 @@
             <input class="form-control mb-1" type="email" name="email" value="{{last_username}}" placeholder="{% trans %}Email{% endtrans %}" required autofocus/>
             <input class="form-control mb-1" type="password" name="password" placeholder="{% trans %}Password{% endtrans %}" required/>
             <input class="form-control mb-1" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <button type="submit" class="btn btn-info col-12 mt-2">{% trans %}Login{% endtrans %}</button>
+            <button type="submit" class="btn btn-info col-12 mt-2">{% trans %}log_in{% endtrans %}</button>
             <p class=" my-2">{% trans %}Dont_have_an_account{% endtrans %}
               <a href="#" data-toggle="modal" data-target="#contact_us_modal">{% trans %}BTN_Sign_Up{% endtrans %}
               </a>
