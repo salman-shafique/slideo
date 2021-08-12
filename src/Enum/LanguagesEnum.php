@@ -6,7 +6,7 @@ class LanguagesEnum
 {
 
     public const
-    DEFAULT = 'en';
+    DEFAULT = 'he';
 
     public const ENGLISH = 'en';
     public const TURKISH = 'tr';
