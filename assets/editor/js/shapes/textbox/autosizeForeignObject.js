@@ -6,6 +6,7 @@ import getTransform from "Editor/js/shapes/actions/drag/utils/getTransform";
  * @param {SVGForeignObjectElement} foreignObject 
  */
 export default function autosizeForeignObject(foreignObject) {
+    console.log("AUTOSIZE", foreignObject);
     const table = foreignObject.querySelector("table");
 
     const tableScreenHeight = table.getBoundingClientRect().height;
@@ -21,4 +22,6 @@ export default function autosizeForeignObject(foreignObject) {
 
     foreignObject.setAttribute("height", newHeight);
     foreignObject.parentElement.setAttribute("height", newHeight);
+
+    console.log("NEW HEIGHT", foreignObject);
 }
