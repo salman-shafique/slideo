@@ -3,6 +3,8 @@ framework:
         transports:
             download: '%env(MESSENGER_TRANSPORT_DSN)%'
             mail: '%env(MESSENGER_TRANSPORT_DSN)%'
+            thumnail: '%env(MESSENGER_TRANSPORT_DSN)%'
         routing:
             'App\Entity\DownloadPresentation': download
+            'App\Entity\Presentation': thumnail
             'Symfony\Bridge\Twig\Mime\TemplatedEmail': mail

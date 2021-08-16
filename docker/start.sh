@@ -47,7 +47,7 @@ do
 echo_ "Waiting for the Rabbit MQ server..."
 sleep 10s;
 done
-nohup php bin/console messenger:consume mail download -vv &
+nohup php bin/console messenger:consume mail download thumnail -vv &
 
 symfony server:start -d;
 

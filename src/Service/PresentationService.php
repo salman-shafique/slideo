@@ -17,6 +17,7 @@ use App\Repository\SlideRepository;
 use App\Repository\StyleRepository;
 use App\Service\PaymentService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -66,6 +67,7 @@ class PresentationService
 
         return $content;
     }
+
     private function updateColorTemplate($colorTemplateJson, ColorTemplate $colorTemplate)
     {
         isset($colorTemplateJson['ACCENT_1'])
@@ -285,6 +287,11 @@ class PresentationService
         ];
     }
 
+    public function generateThumbnail(Presentation $presentation, bool $isPaid = false)
+    {
+        $this->bus->dispatch($presentation);
+    }
+
     public function getDownloadedPresentation(Presentation $presentation)
     {
         return $this->em
@@ -294,7 +301,7 @@ class PresentationService
             ->where("d.presentation = :presentation")
             ->setParameter("presentation", $presentation)
             ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function getOneDownloadedPresentation(string $downloadPresentationId)
@@ -306,7 +313,7 @@ class PresentationService
             ->where("d.id = :downloadPresentationId")
             ->setParameter("downloadPresentationId", $downloadPresentationId)
             ->getQuery()
-            ->getOneOrNullResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 
     private function saveBase64File(string $filepath, string $base64)
@@ -356,6 +363,43 @@ class PresentationService
         $downloadPresentation->setCompleted(true);
 
         $this->em->persist($downloadPresentation);
+        $this->em->flush();
+
+        return ["success" => true];
+    }
+
+    public function saveFromFlaskThumbnail(Request $request)
+    {
+        if (!$request->request->get("A2A3EF62A0498A46531B71DBD6969004")) return ["success" => false];
+        if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11") return ["success" => false];
+
+        $path = $request->request->get('path');
+        $jsonFile = json_decode(file_get_contents("http://slideo_flask$path"), true);
+
+        $now = time();
+        $presentation_hash = $jsonFile['presentation_hash'];
+        $presentationId = $jsonFile['presentation_id'];
+        $thumbnailDir = "presentations/thumbnails";
+        $thumbnailPath = "presentations/thumbnails/$presentation_hash.png";
+        if (!is_dir($thumbnailDir))
+            mkdir($thumbnailDir, 0777, true);
+
+
+        $this->saveBase64File($thumbnailPath, $jsonFile['png']);
+
+        /** @var Presentation $presentation */
+        $presentation = $this->em
+            ->createQueryBuilder()
+            ->select('d')
+            ->from('App\Entity\Presentation', 'd')
+            ->where("d.id = :id")
+            ->setParameter("id", $presentationId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        $presentation->setThumbnail('/' . $thumbnailPath);
+
+        $this->em->persist($presentation);
         $this->em->flush();
 
         return ["success" => true];
