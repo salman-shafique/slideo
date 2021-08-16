@@ -27,7 +27,6 @@ export default function TextEditor() {
         Events.listen("shape.selected", closePopup);
         Events.listen("shape.resize.started", closePopup);
         Events.listen("shape.drag.started", closePopup);
-
         Events.listen("popup.icon.opened", closePopup);
         Events.listen("popup.image.opened", closePopup);
     }, []);
