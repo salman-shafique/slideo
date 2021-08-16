@@ -3,6 +3,7 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
+
 import React from "react";
 import Events from "../../Events";
 
@@ -12,7 +13,7 @@ import Events from "../../Events";
  * @param {HTMLElement} td
  */
 export const createTextNode = (td) => {
-    const fontScale = 20;
+    const fontScale = 19.5;
     const gParentAttributes = getSizeAttributes(td.closest('g'));
     const tableParent = td.closest("table");
     const tableFont = parseInt(tableParent.style.fontSize, 10);
@@ -29,14 +30,14 @@ export const createTextNode = (td) => {
             display: 'flex',
             width: '100%',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
         }}>
         </div>
     );
     const alt = td.closest("g").getAttribute("alt");
     if (alt.includes("h1|") || alt == "slidetitle" || alt == "subtitle" || alt == "newtextbox") {
-        editing_style["minWidth"] = editorWidth;
-        editing_style["width"] = "fit-content";
+        editing_style["width"] = editorWidth;   
+     
     }
     const editing = reactToDOM(
         <editing contentEditable="true" className="highlighted" style={editing_style}></editing>

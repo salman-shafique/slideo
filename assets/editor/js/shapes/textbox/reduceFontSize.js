@@ -11,7 +11,6 @@ export const getMinFontSize = (g) => {
   if (!foreignObject) return null;
 
   let fontSize = parseFloat(foreignObject.querySelector("table").style.fontSize.replace("px", ""));
-
   let tableHeight, foreignObjectHeight;
 
   constants.IS_CHROME
@@ -27,8 +26,9 @@ export const getMinFontSize = (g) => {
       break;
 
     fontSize--;
-    foreignObject.querySelector("table").style.fontSize = fontSize + "px";
+    foreignObject.querySelector("table").style.fontSize = fontSize  + "px";
   }
+
   return parseInt(fontSize);
 }
 /**
@@ -39,6 +39,7 @@ export const getMinFontSize = (g) => {
 export default function reduceFontSize(gs) {
 
   let minFontSize = Infinity;
+
   gs.forEach(g => {
     const shape_ = shape(g);
     const shapeData = shape_.data();
@@ -48,8 +49,10 @@ export default function reduceFontSize(gs) {
     const fontSize = getMinFontSize(g);
     if (fontSize === null) return;
 
-    if (minFontSize > fontSize)
+    
+    if (g.getAttribute("alt") !== "h1|0")
       minFontSize = fontSize;
+    
   });
 
   gs.forEach(g => {
