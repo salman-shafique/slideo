@@ -187,14 +187,10 @@ export default function shape(slideId, shapeId) {
 		const slide_ = slide(this.slideId);
 		const content = slide_.slideData().slideTitle.data;
 
-		console.log("CONTENT", content);
-
 		if (content.text == newText) return;
 		if (newText.trim() == constants.SLIDE_TITLE_PLACEHOLDER.trim()) return;
 
 		this.data().text = content.text = newText;
-
-		console.log("CONTENT", this.data());
 
 		const slideTitleImageG = slide_
 			.page()

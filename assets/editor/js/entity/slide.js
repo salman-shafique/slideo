@@ -8,9 +8,6 @@ import stringToDOM from "Editor/js/utils/stringToDOM";
 import add_event from "Editor/js/utils/add_event";
 import select from "Editor/js/utils/selector/select";
 import selectAll from "Editor/js/utils/selector/selectAll";
-import { updateText } from "../shapes/textbox/index";
-import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
-import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
 import createForeignObject from "Editor/js/shapes/textbox/createForeignObject";
 import arrangeForeignObject from "Editor/js/shapes/textbox/arrangeForeignObject";
 import h1Image from "Editor/js/shapes/image/h1Image";
@@ -290,12 +287,7 @@ export default function slide(slideId) {
 				g.innerHTML = "";
 				g.classList.add("no-outline");
 				g.appendChild(foreignObject);
-
-       
-
 			}
-
-     
      
 			// Built in images icon - h1 - slidetitle
 			if (shape_.data.alt.includes("icon|")) {
@@ -375,9 +367,9 @@ export default function slide(slideId) {
 		});
 
 
-    // Adjust slidetitle bounding_box
-    const stitle = this.page().querySelector('g[alt="slidetitle"]')
-    autosizeForeignObject(stitle.querySelector("foreignObject"));
+		// Adjust slidetitle bounding_box
+		// const stitle = this.page().querySelector('g[alt="slidetitle"]')
+		// autosizeForeignObject(stitle.querySelector("foreignObject"));
 
 		// Background
 		updateColor().background(this.slideId);
@@ -417,6 +409,9 @@ export default function slide(slideId) {
 			// While triggering the "contextMenu.open" event, send the target too.
 			Events.contextMenu.open({ target: e.target, event: e });
 		});
+
+		// Reduce the font sizes slidetitle
+		reduceFontSize(selectAll("g[alt^='slidetitle']", this.page()));
 
 		// Reduce the font sizes h1
 		reduceFontSize(selectAll("g[alt^='h1|']", this.page()));
