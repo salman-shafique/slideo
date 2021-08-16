@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from './Icon';
 import apiService from "Editor/js/utils/apiService";
 import toastr from '../../components/toastr';
 
 export default function IconContainer({ icons, keyword }) {
+    console.log("KEYWORD", keyword);
+    console.log("ICONS", icons);
     const [force, setForce] = useState(0);
     const [currentIcons, setIcons] = useState(icons)
+
+    console.log("CURRENT ICONS", currentIcons);
 
     const [page, setPage] = useState(2);
 
@@ -30,6 +34,10 @@ export default function IconContainer({ icons, keyword }) {
             }
         });
     }
+
+    useEffect(() => {
+       setIcons(icons)
+    }, [icons]);
 
     return (
         <div className={"icon-container"} data-keyword={keyword} style={{ "filter": "invert(100%) sepia(100%) saturate(0%) hue-rotate(46deg) brightness(104%) contrast(102%)" }}>
