@@ -2,6 +2,7 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import calculateMouseDiff from "Editor/js/shapes/actions/drag/utils/calculateMouseDiff";
 import { resizeCircleContainer, relocateResizeCircleContainer } from "./utils/copyTransform";
+import textHeight from "Editor/js/shapes/textbox/textHeight";
 
 const ICON_CLASSES = '.edit-textbox-icon, .replace-icon, .image-icon';
 
@@ -132,7 +133,11 @@ export default function changeSize(event) {
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
                  
                     const newHeight = parseInt(selectedEl.size.height + mouseDiff.y / selectedEl.scale.startingA);
-                    const limitHeight = parseInt(selectedEl.shape.querySelector("foreignObject").querySelector("tr").style.height);
+    
+                    const tHeight = textHeight(selectedEl.shape.querySelector("td"))
+                    const rowHeight = parseInt(selectedEl.shape.querySelector("tr").style.height)
+                    const limitHeight = tHeight > rowHeight ? tHeight : rowHeight; 
+
                     if (newHeight < limitHeight) return;
 
                     selectedEl.shape.setAttribute("height", newHeight + "px");
