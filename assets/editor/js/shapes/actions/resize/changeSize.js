@@ -130,8 +130,12 @@ export default function changeSize(event) {
                 break;
             case "b":
                 if (selectedEl.shapeType == constants.SHAPE_TYPES.TEXTBOX) {
+                 
                     const newHeight = parseInt(selectedEl.size.height + mouseDiff.y / selectedEl.scale.startingA);
-                    if (newHeight < 1000) return;
+                    console.log("NEW HEIGHT", newHeight);
+                    const limitHeight = parseInt(selectedEl.shape.querySelector("foreignObject").querySelector("tr").style.height);
+                    if (newHeight < limitHeight) return;
+
                     selectedEl.shape.setAttribute("height", newHeight + "px");
                     selectedEl.shape.querySelector("foreignObject").setAttribute("height", newHeight + "px");
 
