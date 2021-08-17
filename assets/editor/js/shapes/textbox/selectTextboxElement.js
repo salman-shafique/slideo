@@ -3,10 +3,10 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
+import hideResizeCircles from "Editor/js/shapes/actions/resize/hideResizeCircles";
 
 import React from "react";
 import Events from "../../Events";
-
 
 /**
  *
@@ -18,26 +18,28 @@ export const createTextNode = (td) => {
     const tableParent = td.closest("table");
     const tableFont = parseInt(tableParent.style.fontSize, 10);
     const editorWidth = gParentAttributes.width / fontScale;
+    const editorHeight = gParentAttributes.height / fontScale;
+
 
     const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
-    const valign = td.getAttribute("valign");
-    let editing_style = {caretColor: 'black', border: 'none', outline: 'none', width: editorWidth};
+    // const valign = td.getAttribute("valign");
+    td.setAttribute("valign", "top");
+    let editing_style = {caretColor: 'black', border: 'none', outline: '3px solid cyan', width: editorWidth, minHeight:editorHeight, zIndex: "99999", padding: "0 15px"};
     const textDiv = reactToDOM(
         <div style={{
             transform: `scale(${fontScale})`,
-            transformOrigin: `${valign} center`,
+            transformOrigin: `top center`,
             fontSize: textFontSize,
             display: 'flex',
-            width: '100%',
             justifyContent: 'center',
+            justifySelf: "flex-end",
             alignItems: 'center',
         }}>
         </div>
     );
     const alt = td.closest("g").getAttribute("alt");
     if (alt.includes("h1|") || alt == "slidetitle" || alt == "subtitle" || alt == "newtextbox") {
-        editing_style["width"] = editorWidth;   
-     
+        editing_style["width"] = editorWidth;
     }
     const editing = reactToDOM(
         <editing contentEditable="true" className="highlighted" style={editing_style}></editing>
@@ -86,6 +88,8 @@ export default function selectTextboxElement(event) {
     const td = g.querySelector("td");
     createTextNode(td);
     Events.shape.textbox.edit.started({oldText: td.innerText});
+    hideResizeCircles(session.SELECTED_ELEMENTS[0].shape)
+
     session.TEXT_EDITING = true;
     Events.popup.text.open({shapeId: g.getAttribute("shape_id")});
 }
