@@ -8,13 +8,15 @@ import constants from "Editor/js/constants";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import base64 from "Editor/js/utils/base64";
 
-
 export function saveChanges(callback = null) {
     preloader.show();
-    deSelectAll();
+    
+    // Deselect commented to prevent maximum API call limit reach
+    // deSelectAll();
     const slides = session.PRESENTATION.slides;
 
-    setTimeout(() => {
+    // SetTimeout commented to prevent preloader to show up on every little changes made
+    // setTimeout(() => { 
         slides.forEach((aSlide, i) => {
 
             const slide_ = slide(aSlide.slideId);
@@ -65,7 +67,7 @@ export function saveChanges(callback = null) {
             }
         });
         preloader.hide();
-    }, 50);
+    // }, 50);
 }
 
 
