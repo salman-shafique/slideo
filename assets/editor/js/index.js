@@ -35,6 +35,9 @@ import "Editor/js/history";
 // Text Editor Popup
 import "Editor/js/popups";
 
+// Save Changes
+import "Editor/js/slides/saveChanges";
+
 // Update slide mini prev
 import "Editor/js/slides/updateMiniPrev";
 import apiService from "./utils/apiService.js";
