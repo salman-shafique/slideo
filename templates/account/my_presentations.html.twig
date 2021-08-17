@@ -25,7 +25,9 @@
 
 
             <div class="presentation-thumb-img">
-              {% if imgUrl %}
+            {% if presentation.thumbnail %}
+                <img src="{{presentation.thumbnail}}"/>
+              {% elseif imgUrl %}
                 <img src="{{last.prevFile}}"/>
               {% else %}
                 <span>
@@ -36,12 +38,12 @@
               {% endif %}
             </div>
           </a>
-         
+
           <div class="expandable-holder">
             <i class="fas fa-edit text-grey"></i>
             <input class="ppt-title" id="{{presentation.presentationId}}" type="text" value="{{presentation.title}}" placeholder="Project Name">
           </div>
-          
+
           <p class="ppt-last-modified text-secondary no-margin">{% trans %}Created{% endtrans %}:
             <span class="modified-datetime">{{presentation.created|date("F jS \\a\\t g:ia")}}</span>
           </p>

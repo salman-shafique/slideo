@@ -96,6 +96,11 @@ class Presentation
      */
     private $checkout;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $thumbnail;
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
@@ -300,6 +305,18 @@ class Presentation
         }
 
         $this->checkout = $checkout;
+
+        return $this;
+    }
+
+    public function getThumbnail(): ?string
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(?string $thumbnail): self
+    {
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }

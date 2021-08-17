@@ -2,6 +2,7 @@
 
 namespace App\Controller\Editor;
 
+use App\Repository\PresentationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +25,6 @@ class PresentationApiController extends AbstractController
     {
         $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
-
         $serializer = new SerializerService();
         return new JsonResponse($serializer->normalize($presentation));
     }
@@ -41,6 +41,19 @@ class PresentationApiController extends AbstractController
         $r = $presentationService->downloadStart($presentation, $request->request->get("isPaid") === "true");
 
         return new JsonResponse($r);
+    }
+
+    /**
+     * @Route("/generate/thumbnail/{presenationId}")
+     */
+    public function generatePresentationThumbnail(Request $request, string $presenationId, PresentationRepository $presentationRepository, PresentationService $presentationService)
+    {
+        $presentation = $presentationRepository->findOneBy(['presentationId' => $presenationId]);
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $presentationService->generateThumbnail($presentation, $request->request->get("isPaid") === "true");
+
+        return new JsonResponse(['success' => true]);
     }
 
     /**
@@ -79,6 +92,15 @@ class PresentationApiController extends AbstractController
     }
 
     /**
+     * @Route("/flask/save/thumbnail")
+     */
+    public function saveFromFlaskThumbnail(Request $request, PresentationService $presentationService)
+    {
+        $presentationService->saveFromFlaskThumbnail($request);
+        return new JsonResponse(["Thanks flask"]);
+    }
+
+    /**
      * @Route("/save/slide")
      */
     public function saveSlide(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
@@ -87,6 +109,8 @@ class PresentationApiController extends AbstractController
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
         $r = $presentationService->saveSlide($request);
+        $presentationService->generateThumbnail($presentation);
+
         return new JsonResponse($r);
     }
 
