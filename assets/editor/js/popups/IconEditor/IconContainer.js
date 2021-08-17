@@ -4,13 +4,8 @@ import apiService from "Editor/js/utils/apiService";
 import toastr from '../../components/toastr';
 
 export default function IconContainer({ icons, keyword }) {
-    console.log("KEYWORD", keyword);
-    console.log("ICONS", icons);
     const [force, setForce] = useState(0);
     const [currentIcons, setIcons] = useState(icons)
-
-    console.log("CURRENT ICONS", currentIcons);
-
     const [page, setPage] = useState(2);
 
     const forceUpdate = () => {
