@@ -294,15 +294,13 @@ export default function slide(slideId) {
         Object.assign(shape_.data, content);
         iconInit(this.slideId, shape_.data.shape_id, content.keyword);
         // Add event listener
-        shapeCls.addEvent("click", selectIconElement);
       } else if (shape_.data.alt.includes("h1image|")) {
         contentNumber = shape_.data.alt.split("|")[1];
         content = slideData.analyzedContent[contentNumber].h1Image.data;
         Object.assign(shape_.data, content);
         h1Image(this.slideId, shape_.data.shape_id, content.keyword);
         // Add event listener
-        shapeCls.addEvent("click", selectImageElement);
-      } else if (shape_.data.alt == "slidetitleimage") {
+       } else if (shape_.data.alt == "slidetitleimage") {
         content = slideData.slideTitleImage.data;
         if (!content.keyword && !content.image) {
           let slideTitleImagePlaceholderUrl = g
@@ -319,7 +317,6 @@ export default function slide(slideId) {
         Object.assign(shape_.data, content);
         h1Image(this.slideId, shape_.data.shape_id, content.keyword);
         // Add event listener
-        shapeCls.addEvent("click", selectImageElement);
       } else if (shape_.data.alt == "newimage") {
         createNewImage(shape_.data, this.slideId);
       } else if (shape_.data.alt == "newicon") {
@@ -339,7 +336,6 @@ export default function slide(slideId) {
         }
         h1Image(this.slideId, shape_.data.shape_id, shape_.data.keyword);
         // Add event listener
-        shapeCls.addEvent("click", selectImageElement);
       }
 
       g = shapeCls.el();
@@ -367,7 +363,7 @@ export default function slide(slideId) {
     // Add event listeners
     makeDraggable(this.contentDocument());
     keyboardListener(this.contentDocument());
-    this.contentDocument().addEventListener("dblclick", (e) => {
+    this.contentDocument().addEventListener("click", (e) => {
       if (session.SELECTED_ELEMENTS.length !== 1) return;
       if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.TEXTBOX) {
         //text
@@ -614,9 +610,10 @@ export default function slide(slideId) {
         }
         foreignObject.bounding_box:hover{
             outline: solid cyan 50px;
+            overflow: hidden;
         }
         g:not(.text_editing)>foreignObject.bounding_box:hover .edit-textbox-icon, g:not(.text_editing)>foreignObject.bounding_box:hover .replace-icon{
-            display: block;
+            display: none;
         }
         foreignObject { overflow: visible; }
         foreignObject table {
@@ -645,17 +642,11 @@ export default function slide(slideId) {
         .active{
           display: block
         }
-         foreignObject.bounding_box:hover .edit-textbox-icon,foreignObject.bounding_box:hover .replace-icon 
-            {
-              display: block!important;
-            }
-            foreignObject.bounding_box:hover .image-icon{
-              display: flex !important;              
-            }
+       
 
             foreignObject.bounding_box::selection .edit-textbox-icon,foreignObject.bounding_box::selection .replace-icon 
             {
-              display: block!important;
+              display: block !important;
             }
             foreignObject.bounding_box::selection .image-icon{
               display: flex !important;              

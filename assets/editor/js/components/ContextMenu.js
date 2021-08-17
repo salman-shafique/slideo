@@ -239,6 +239,8 @@ function ContextMenu() {
         Events.listen("shape.allReleasedExcept", closeContextMenu);
         Events.listen("shape.drag.started", closeContextMenu);
         Events.listen("shape.resize.started", closeContextMenu);
+        Events.listen("shape.drag.started", closeContextMenu);
+      
         Events.listen("shape.selected", closeContextMenu);
         Events.listen("contextMenu.open", openContextMenu);
     }, []);
