@@ -3,10 +3,10 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import session from "Editor/js/session";
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import getSizeAttributes from "Editor/js/shapes/actions/drag/utils/getSizeAttributes";
+import hideResizeCircles from "Editor/js/shapes/actions/resize/hideResizeCircles";
 
 import React from "react";
 import Events from "../../Events";
-
 
 /**
  *
@@ -28,16 +28,15 @@ export const createTextNode = (td) => {
             transformOrigin: `${valign} center`,
             fontSize: textFontSize,
             display: 'flex',
-            width: '100%',
             justifyContent: 'center',
+            justifySelf: "flex-end",
             alignItems: 'center',
         }}>
         </div>
     );
     const alt = td.closest("g").getAttribute("alt");
     if (alt.includes("h1|") || alt == "slidetitle" || alt == "subtitle" || alt == "newtextbox") {
-        editing_style["width"] = editorWidth;   
-     
+        editing_style["width"] = editorWidth;
     }
     const editing = reactToDOM(
         <editing contentEditable="true" className="highlighted" style={editing_style}></editing>
@@ -86,6 +85,8 @@ export default function selectTextboxElement(event) {
     const td = g.querySelector("td");
     createTextNode(td);
     Events.shape.textbox.edit.started({oldText: td.innerText});
+    hideResizeCircles(session.SELECTED_ELEMENTS[0].shape)
+
     session.TEXT_EDITING = true;
     Events.popup.text.open({shapeId: g.getAttribute("shape_id")});
 }
