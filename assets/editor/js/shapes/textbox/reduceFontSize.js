@@ -49,9 +49,8 @@ export default function reduceFontSize(gs) {
     const fontSize = getMinFontSize(g);
     if (fontSize === null) return;
 
-    
-    if (g.getAttribute("alt") !== "h1|0")
-      minFontSize = fontSize;
+    // if (g.getAttribute("alt") !== "h1|0")
+    //   minFontSize = fontSize;
     
   });
 

@@ -18,14 +18,17 @@ export const createTextNode = (td) => {
     const tableParent = td.closest("table");
     const tableFont = parseInt(tableParent.style.fontSize, 10);
     const editorWidth = gParentAttributes.width / fontScale;
+    const editorHeight = gParentAttributes.height / fontScale;
+
 
     const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
-    const valign = td.getAttribute("valign");
-    let editing_style = {caretColor: 'black', border: 'none', outline: 'none', width: editorWidth};
+    // const valign = td.getAttribute("valign");
+    td.setAttribute("valign", "top");
+    let editing_style = {caretColor: 'black', border: 'none', outline: '3px solid cyan', width: editorWidth, minHeight:editorHeight, zIndex: "99999", padding: "0 15px"};
     const textDiv = reactToDOM(
         <div style={{
             transform: `scale(${fontScale})`,
-            transformOrigin: `${valign} center`,
+            transformOrigin: `top center`,
             fontSize: textFontSize,
             display: 'flex',
             justifyContent: 'center',

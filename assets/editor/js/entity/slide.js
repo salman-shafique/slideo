@@ -640,6 +640,11 @@ export default function slide(slideId) {
         .text_editing *{
             pointer-events:all !important;
         }
+
+		.text_editing foreignObject.bounding_box:hover{
+            outline: none;
+        }
+
         /* g>foreignObject outline bug */
         .no-outline{
             outline:none !important;
@@ -668,7 +673,6 @@ export default function slide(slideId) {
             left: -1550px;
             border-top-left-radius: 300px;
             border-bottom-left-radius: 300px;
-
             width: 1600px;
             height: 1600px;
             transform-origin: bottom right;
@@ -709,6 +713,7 @@ export default function slide(slideId) {
             bottom: 0.06em;
             color: #2f53d6;
         }
+		
         .replace-icon {
             padding: 5.5% 11% 11% 11%;
             box-sizing: border-box;
@@ -766,6 +771,12 @@ export default function slide(slideId) {
         .d-none {
             display:none !important
         }
+
+		.text_editing foreignObject.bounding_box:hover .edit-textbox-icon
+            {
+              display: none!important;
+            }
+
         `}</style>,
 			null,
 			"http://www.w3.org/2000/svg"
