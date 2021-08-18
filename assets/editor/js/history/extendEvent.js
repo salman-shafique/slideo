@@ -77,6 +77,10 @@ const extendEvent = (event) => {
             textEditAction.newText = event.data.newText;
             event.historyAction = { ...textEditAction };
 
+            const g = session.SELECTED_ELEMENTS[0].shape
+            if(g.getAttribute("alt").includes("h1|"))
+                g.querySelector("td").setAttribute("valign", "bottom")
+
             textEditAction = {
                 slideId: null,
                 actionType: null,
