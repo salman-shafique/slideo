@@ -24,7 +24,7 @@ export const createTextNode = (td) => {
     const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
     // const valign = td.getAttribute("valign");
     td.setAttribute("valign", "top");
-    let editing_style = {caretColor: 'black', border: 'none', outline: '3px solid cyan', width: editorWidth, minHeight:editorHeight, zIndex: "99999", padding: "0 15px"};
+    let editing_style = {caretColor: 'black', border: 'none', outline: '3px solid cyan', width: editorWidth, zIndex: "99999", padding: "0 15px"};
     const textDiv = reactToDOM(
         <div style={{
             transform: `scale(${fontScale})`,

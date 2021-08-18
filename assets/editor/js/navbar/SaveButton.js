@@ -11,10 +11,17 @@ import base64 from "Editor/js/utils/base64";
 export function saveChanges(callback = null) {
     preloader.show();
     
-    // Deselect commented to prevent maximum API call limit reach
-    // deSelectAll();
     const slides = session.PRESENTATION.slides;
 
+    const el = session?.SELECTED_ELEMENTS[0]
+
+    if(el){
+        // Deselect Image & Icon on save
+        if(el.shapeType === constants.SHAPE_TYPES.IMAGE || el.shapeType === constants.SHAPE_TYPES.ICON){
+            deSelectAll(el.shapeId);
+        }
+    }
+  
     // SetTimeout commented to prevent preloader to show up on every little changes made
     // setTimeout(() => { 
         slides.forEach((aSlide, i) => {
@@ -38,7 +45,8 @@ export function saveChanges(callback = null) {
                 data: {
                     slide: encoded
                 },
-                async: false,
+                // Commented async false to make the call asynchronous 
+                // async: false, 
                 success: (r) => {
                     if (r.success) {
                         const slideData = slide(r.slideId).slideData();
@@ -69,7 +77,6 @@ export function saveChanges(callback = null) {
         preloader.hide();
     // }, 50);
 }
-
 
 export default function SaveButton() {
     return (
