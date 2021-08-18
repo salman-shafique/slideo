@@ -5,6 +5,7 @@ import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
+import Events from "Editor/js/Events";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import base64 from "Editor/js/utils/base64";
 
@@ -68,7 +69,7 @@ export function saveChanges(callback = null) {
             }
         });
         preloader.hide();
-    // }, 50);
+    // }, timeOut);
 }
 
 export default function SaveButton() {
