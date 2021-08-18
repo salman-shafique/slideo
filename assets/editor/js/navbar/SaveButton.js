@@ -5,6 +5,7 @@ import slide from "Editor/js/entity/slide";
 import shape from "Editor/js/entity/shape";
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
+import Events from "Editor/js/Events";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import base64 from "Editor/js/utils/base64";
 
@@ -12,15 +13,6 @@ export function saveChanges(callback = null) {
     preloader.show();
     
     const slides = session.PRESENTATION.slides;
-
-    const el = session?.SELECTED_ELEMENTS[0]
-
-    if(el){
-        // Deselect Image & Icon on save
-        if(el.shapeType === constants.SHAPE_TYPES.IMAGE || el.shapeType === constants.SHAPE_TYPES.ICON){
-            deSelectAll(el.shapeId);
-        }
-    }
   
     // SetTimeout commented to prevent preloader to show up on every little changes made
     // setTimeout(() => { 
@@ -75,7 +67,7 @@ export function saveChanges(callback = null) {
             }
         });
         preloader.hide();
-    // }, 50);
+    // }, timeOut);
 }
 
 export default function SaveButton() {
