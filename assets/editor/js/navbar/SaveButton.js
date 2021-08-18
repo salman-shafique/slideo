@@ -12,16 +12,9 @@ export function saveChanges(callback = null) {
     preloader.show();
     
     const slides = session.PRESENTATION.slides;
-
-    const el = session?.SELECTED_ELEMENTS[0]
-
-    if(el){
-        // Deselect Image & Icon on save
-        if(el.shapeType === constants.SHAPE_TYPES.IMAGE || el.shapeType === constants.SHAPE_TYPES.ICON){
-            deSelectAll(el.shapeId);
-        }
-    }
-  
+    
+    // deSelectAll();
+   
     // SetTimeout commented to prevent preloader to show up on every little changes made
     // setTimeout(() => { 
         slides.forEach((aSlide, i) => {
