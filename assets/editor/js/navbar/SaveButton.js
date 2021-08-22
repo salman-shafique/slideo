@@ -13,7 +13,9 @@ export function saveChanges(callback = null) {
     preloader.show();
     
     const slides = session.PRESENTATION.slides;
-  
+    
+    // deSelectAll();
+   
     // SetTimeout commented to prevent preloader to show up on every little changes made
     // setTimeout(() => { 
         slides.forEach((aSlide, i) => {

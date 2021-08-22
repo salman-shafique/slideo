@@ -11,9 +11,10 @@ const updateAllMiniPrev = (event) => {
     })
 }
 
-Events.listen("shape.drag.ended", updateMiniPrev);
-Events.listen("shape.resize.ended", updateMiniPrev);
-Events.listen("shape.textbox.edit.ended", updateMiniPrev);
-Events.listen("shape.icon.changed", updateMiniPrev);
-Events.listen("shape.image.changed", updateMiniPrev);
+// Events.listen("shape.drag.ended", updateMiniPrev);
+// Events.listen("shape.resize.ended", updateMiniPrev);
+// Events.listen("shape.textbox.edit.ended", updateMiniPrev);
+// Events.listen("shape.icon.changed", updateMiniPrev);
+// Events.listen("shape.image.changed", updateMiniPrev);
+Events.listen("shape.released", updateMiniPrev);
 Events.listen("slide.preview.updateAll", updateAllMiniPrev);
