@@ -22,7 +22,11 @@ export default function apiService(settings = {
     if (!settings.error)
         settings.error = (r, a, b) => {
             preloader.forceHide();
-            toastr.error("OOPS... Something went wrong on our side.");
+            if ("message" in r.responseJSON){
+                toastr.error(r.responseJSON.message);
+            }else {
+                toastr.error("OOPS... Something went wrong on our side.");
+            }
             const error = `
 ResponseText: ${r.responseText}
 <br/>
