@@ -36,8 +36,10 @@ sleep 10s;
 done
 nohup php bin/console messenger:consume mail download thumnail -vv &
 # Run supervisor
-sudo supervisorctl reread
-sudo supervisorctl update
+
+supervisord
+supervisorctl reread
+supervisorctl update
 
 symfony server:start -d;
 
