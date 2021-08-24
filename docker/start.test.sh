@@ -35,7 +35,11 @@ echo_ "Waiting for the Rabbit MQ server..."
 sleep 10s;
 done
 nohup php bin/console messenger:consume mail download thumnail -vv &
+# Run supervisor
+sudo supervisorctl reread
+sudo supervisorctl update
 
 symfony server:start -d;
 
-symfony server:log 
+symfony server:log
+
