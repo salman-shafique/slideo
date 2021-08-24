@@ -7,6 +7,7 @@ RUN apt-get update && \
 # Utils
 RUN apt install -y git nodejs npm nano procps net-tools unzip cron
 RUN npm install -g yarn
+RUN apt install supervisor
 # Start cron
 RUN service cron start
 
@@ -29,10 +30,13 @@ RUN install-php-extensions pdo_mysql zip intl opcache amqp
 
 # Certificate verify - CA file - cURL
 COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
+# Copy Supervisor Conf
+COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
 # Update
 RUN apt-get update -y
 RUN apt-get autoremove -y
+CMD ["/usr/bin/supervisord"]
 
 WORKDIR /var/www/app
