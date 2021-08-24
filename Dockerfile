@@ -5,9 +5,8 @@ RUN apt-get update && \
     apt-get upgrade -y
 
 # Utils
-RUN apt install -y git nodejs npm nano procps net-tools unzip cron
+RUN apt install -y git nodejs npm nano procps net-tools unzip cron supervisor
 RUN npm install -g yarn
-RUN apt install supervisor
 # Start cron
 RUN service cron start
 
@@ -31,7 +30,7 @@ RUN install-php-extensions pdo_mysql zip intl opcache amqp
 # Certificate verify - CA file - cURL
 COPY ./docker/cacert.pem /usr/local/etc/php/cacert.pem
 # Copy Supervisor Conf
-COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./docker/messenger.conf /etc/supervisor/conf.d/messenger.conf
 
 
 # Update
