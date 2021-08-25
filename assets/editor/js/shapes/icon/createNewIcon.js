@@ -77,4 +77,8 @@ export default function createNewIcon(iconData, slideId = session.CURRENT_SLIDE)
     Events.slide.preview.update();
 
     addedIconCounter++;
+
+    if(session.SAVED){
+        Events.shape.icon.add();
+    }
 }

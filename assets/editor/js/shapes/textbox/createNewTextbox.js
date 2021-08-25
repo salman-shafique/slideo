@@ -98,4 +98,7 @@ export default function createNewTextbox(textboxData, slideId = session.CURRENT_
 
     Events.slide.preview.update();
 
+    if(session.SAVED){
+        Events.shape.textbox.add();
+    }
 }
