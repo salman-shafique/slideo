@@ -7,7 +7,6 @@ const save = (event) => {
     if (!session.INITED) return;
     if (!session.PRESENTATION) return;
     if (!session.SAVED && event.type === "saveChange.updated") return
-    console.log(event.type);
     saveChanges()
 }
 
