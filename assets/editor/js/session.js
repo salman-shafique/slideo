@@ -82,7 +82,9 @@ let session = {
     /**
      * @type {{slideId: number}} LAST_MINIPREV_UPDATE 
      */
-    LAST_MINIPREV_UPDATE: {}
+    LAST_MINIPREV_UPDATE: {},
+
+    SAVED: false
 }
 
 window.session = session;
