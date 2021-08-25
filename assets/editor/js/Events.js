@@ -49,10 +49,12 @@ const Events = {
             edit: {
                 started: (data = {}) => dispatchEvent("shape.textbox.edit.started", data),
                 ended: (data = {}) => dispatchEvent("shape.textbox.edit.ended", data),
-            }
+            },
+            add: (data = {}) => dispatchEvent("shape.textbox.add", data),
         },
         icon: {
             changed: (data = {}) => dispatchEvent("shape.icon.changed", data),
+            add: (data = {}) => dispatchEvent("shape.icon.add", data),
         },
         image: {
             changed: (data = {}) => dispatchEvent("shape.image.changed", data),
@@ -86,6 +88,10 @@ const Events = {
     },
     contextMenu: {
         open: (data = {}) => dispatchEvent("contextMenu.open", data)
+    },
+    saveChange: {
+        inited: (data = {}) => dispatchEvent("saveChange.inited", data),
+        updated: (data = {}) => dispatchEvent("saveChange.updated", data),
     },
     /**
      * @param {String} eventName 
