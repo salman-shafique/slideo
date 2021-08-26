@@ -65,14 +65,14 @@ export default function IconEditorContent() {
 
             const keyword = shapes.filter(shape => shape.data.shape_id == selectedShape)[0].data.keyword;
             hook.setKeywords(hook.keywords.concat({keyword:keyword.toLowerCase(), active:false}))
-            hook.fetchNewData(keyword.toLowerCase())
+            // hook.fetchNewData(keyword.toLowerCase())
            
             if (hook.keywords.filter(oldKeyword => oldKeyword.keyword === keyword.toLowerCase()).length) {
                 return hook.setKeywords(hook.keywords)
             } 
             
             hook.keywords.map(k => k.keyword !== keyword ? k.active = false : null );
-            hook.fetchNewData(keyword.toLowerCase())
+            // hook.fetchNewData(keyword.toLowerCase())
             hook.setKeywords(hook.keywords = [ {keyword:keyword.toLowerCase(), active: true}, ...hook.keywords])
         });
     }, []);

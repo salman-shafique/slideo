@@ -470,10 +470,19 @@ export default function slide(slideId) {
 		// Deselect elements
 		deSelectAll();
 
+		
 		selectAll(".slide-thumbnail").forEach((e) => {
 			e.classList.remove("active-slide");
 		});
-		this.objectPrev().classList.add("active-slide");
+		
+		if(session.SAVED == false){
+			let firstSlide = select(
+				'div.slide-thumbnail[data-slide-id="' + session.PRESENTATION.slides[0].slideId + '"]'
+			);
+			firstSlide.classList.add("active-slide")
+		}else {
+			this.objectPrev().classList.add("active-slide");
+		}
 
 		selectAll("object.main-container").forEach((e) => {
 			e.style.display = "none";
@@ -488,6 +497,7 @@ export default function slide(slideId) {
 
 		return this;
 	};
+
 
 	this.cloneToMiniPrev = (force = false) => {
 		if (
