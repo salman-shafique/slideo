@@ -8,7 +8,7 @@ const updateMiniPrev = (event) => {
 }
 const updateAllMiniPrev = (event) => {
     if(event.type == "saveChange.inited"){
-        setTimeout(()=> { preloader.hide()}, 3000)  
+       preloader.hide()
     }else if(!session.SAVED){
        preloader.show()
     }
