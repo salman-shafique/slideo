@@ -1,11 +1,18 @@
 import Events from "Editor/js/Events";
 import slide from "../entity/slide";
 import session from "../session";
+import preloader from "Editor/js/components/preloader";
 
 const updateMiniPrev = (event) => {
     slide(session.CURRENT_SLIDE).cloneToMiniPrev();
 }
 const updateAllMiniPrev = (event) => {
+    if(event.type == "saveChange.inited"){
+        setTimeout(()=> { preloader.hide()}, 3000)  
+    }else if(!session.SAVED){
+       preloader.show()
+    }
+
     session.PRESENTATION.slides.forEach(slide_ => {
         slide(slide_.slideId).cloneToMiniPrev();
     })
