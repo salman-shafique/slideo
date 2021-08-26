@@ -1,5 +1,7 @@
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
+import Events from "Editor/js/Events";
+
 
 /**
  * @type {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} dragAction
@@ -64,6 +66,8 @@ const extendEvent = (event) => {
                 actionType: null,
                 shapes: {}
             };
+
+            Events.saveChange.updated()
             break;
         case 'shape.textbox.edit.started':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -88,6 +92,9 @@ const extendEvent = (event) => {
                 oldText: null,
                 newText: null
             };
+
+            setTimeout(() => { Events.saveChange.updated() },4000)
+
             break;
         case 'shape.resize.started':
             if (session.SELECTED_ELEMENTS.length == 0) return;
@@ -119,6 +126,8 @@ const extendEvent = (event) => {
                 actionType: null,
                 shapes: {}
             };
+
+            Events.saveChange.updated()
             break;
 
         case 'shape.deleted':
@@ -132,6 +141,8 @@ const extendEvent = (event) => {
                 actionType: constants.ACTION_TYPES.DELETE_SHAPE,
                 shapeIds
             };
+
+            Events.saveChange.updated()
             break;
         case 'shape.icon.changed':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -142,6 +153,8 @@ const extendEvent = (event) => {
                 oldIcon: { ...event.data.oldIcon },
                 newIcon: { ...event.data.newIcon }
             }
+
+            Events.listen("shape.icon.changed", () => setTimeout(() => { Events.saveChange.updated() },2000 )) 
             break;
         case 'shape.image.changed':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -152,6 +165,12 @@ const extendEvent = (event) => {
                 oldImage: { ...event.data.oldImage },
                 newImage: { ...event.data.newImage }
             }
+            Events.listen("shape.image.changed", () => setTimeout(() => { Events.saveChange.updated() },2000 )) 
+            break;
+        case 'shape.image.add':
+        case 'shape.textbox.add':
+        case 'shape.icon.add':   
+            Events.saveChange.updated()
             break;
         case 'slide.deleted':
             event.historyAction = {

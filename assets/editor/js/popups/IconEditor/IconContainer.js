@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Icon from './Icon';
+import Events from "Editor/js/Events";
 import apiService from "Editor/js/utils/apiService";
 import toastr from '../../components/toastr';
+import session from '../../session';
 
 export default function IconContainer({ icons, keyword }) {
     const [force, setForce] = useState(0);
@@ -32,7 +34,13 @@ export default function IconContainer({ icons, keyword }) {
 
     useEffect(() => {
        setIcons(icons)
+       if(!session.SAVED){
+         Events.saveChange.inited();
+         session.SAVED = true;
+       }
     }, [icons]);
+
+  
 
     return (
         <div className={"icon-container"} data-keyword={keyword} style={{ "filter": "invert(100%) sepia(100%) saturate(0%) hue-rotate(46deg) brightness(104%) contrast(102%)" }}>

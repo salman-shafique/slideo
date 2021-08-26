@@ -77,5 +77,8 @@ export default function createNewImage(imageData, slideId = session.CURRENT_SLID
 
     Events.slide.preview.update();
 
+    if(session.SAVED){
+        Events.shape.image.add();
+    }
 
 }

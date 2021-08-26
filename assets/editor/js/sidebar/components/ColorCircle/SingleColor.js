@@ -5,6 +5,7 @@ import getShapeType from "Editor/js/shapes/actions/drag/utils/getShapeType";
 import shape from "Editor/js/entity/shape";
 import slide from "Editor/js/entity/slide";
 import hexToRgb from "Editor/js/sidebar/colors/hexToRgb";
+import Events from "Editor/js/Events";
 import toHex from "Editor/js/sidebar/colors/toHex";
 import { getThemeColor } from "Editor/js/sidebar/colors/utils";
 
@@ -47,6 +48,11 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
                 slide_.cloneToMiniPrev(true);
             });
             slide(tmpCurrentSlide).display();
+
+            if(session.SAVED){
+                Events.saveChange.updated()
+            }
+
             return;
         }
         if (session.SELECTED_ELEMENTS.length < 1) return;
@@ -97,9 +103,8 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
 
                 }
             }
-
         });
-
+        Events.saveChange.updated()
     }
     return (
         <div
