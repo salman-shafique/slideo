@@ -10,7 +10,7 @@ const save = (event) => {
     saveChanges()
 }
 
-Events.listen("saveChange.inited", save);
-Events.listen("saveChange.updated", save);
-Events.listen("slide.deleted", save);
+// Events.listen("saveChange.inited", save);
+// Events.listen("saveChange.updated", save);
+// Events.listen("slide.deleted", save);
 
