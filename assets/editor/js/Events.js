@@ -92,6 +92,7 @@ const Events = {
     saveChange: {
         inited: (data = {}) => dispatchEvent("saveChange.inited", data),
         updated: (data = {}) => dispatchEvent("saveChange.updated", data),
+        completed: (data = {}) => dispatchEvent("saveChange.completed", data),
     },
     /**
      * @param {String} eventName 
