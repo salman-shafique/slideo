@@ -9,7 +9,7 @@ import Events from "Editor/js/Events";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import base64 from "Editor/js/utils/base64";
 
-export function saveChanges(callback = null) {
+export function saveChanges(callback = null, event) {
     preloader.show();
     
     const slides = session.PRESENTATION.slides;
@@ -19,6 +19,10 @@ export function saveChanges(callback = null) {
     // SetTimeout commented to prevent preloader to show up on every little changes made
     // setTimeout(() => { 
         slides.forEach((aSlide, i) => {
+
+            // If the event is only a single shape event, only save the current changed slide
+            // If the event is from changes that affecting all slide (e.g change background, change color theme), save each slide
+            if(event.type != "slide.preview.updateAll" && aSlide.slideId != session.CURRENT_SLIDE) return
 
             const slide_ = slide(aSlide.slideId);
             const svg = slide_.contentDocument().querySelector("svg");
@@ -48,6 +52,7 @@ export function saveChanges(callback = null) {
                         r.newShapes.forEach(newShape => {
                             slideData.shapes.push(newShape)
                         });
+                        Events.saveChange.completed()
                     }
                     if (i == slides.length - 1)
                         if (typeof callback == "function") {
