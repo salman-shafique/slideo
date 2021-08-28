@@ -50,7 +50,7 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
             slide(tmpCurrentSlide).display();
 
             if(session.SAVED){
-                Events.saveChange.updated()
+                Events.slide.preview.updateAll()
             }
 
             return;
