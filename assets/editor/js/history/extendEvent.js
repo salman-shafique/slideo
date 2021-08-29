@@ -67,7 +67,7 @@ const extendEvent = (event) => {
                 shapes: {}
             };
 
-            Events.saveChange.updated()
+            Events.saveChange.updated(event.historyAction)
             break;
         case 'shape.textbox.edit.started':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -93,7 +93,7 @@ const extendEvent = (event) => {
                 newText: null
             };
 
-            setTimeout(() => { Events.saveChange.updated() },4000)
+            setTimeout(() => { Events.saveChange.updated(event.historyAction) },4000)
 
             break;
         case 'shape.resize.started':
@@ -127,7 +127,7 @@ const extendEvent = (event) => {
                 shapes: {}
             };
 
-            Events.saveChange.updated()
+            Events.saveChange.updated(event.historyAction)
             break;
 
         case 'shape.deleted':
@@ -142,7 +142,7 @@ const extendEvent = (event) => {
                 shapeIds
             };
 
-            Events.saveChange.updated()
+            Events.saveChange.updated(event.historyAction)
             break;
         case 'shape.icon.changed':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -154,7 +154,7 @@ const extendEvent = (event) => {
                 newIcon: { ...event.data.newIcon }
             }
 
-            Events.listen("shape.icon.changed", () => setTimeout(() => { Events.saveChange.updated() },2000 )) 
+            Events.listen("shape.icon.changed", () => setTimeout(() => { Events.saveChange.updated(event.historyAction) },2000 )) 
             break;
         case 'shape.image.changed':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -165,12 +165,12 @@ const extendEvent = (event) => {
                 oldImage: { ...event.data.oldImage },
                 newImage: { ...event.data.newImage }
             }
-            Events.listen("shape.image.changed", () => setTimeout(() => { Events.saveChange.updated() },2000 )) 
+            Events.listen("shape.image.changed", () => setTimeout(() => { Events.saveChange.updated(event.historyAction) },2000 )) 
             break;
         case 'shape.image.add':
         case 'shape.textbox.add':
         case 'shape.icon.add':   
-            Events.saveChange.updated()
+            Events.saveChange.updated(event.historyAction)
             break;
         case 'slide.deleted':
             event.historyAction = {

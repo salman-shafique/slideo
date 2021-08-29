@@ -35,8 +35,8 @@ export default function IconContainer({ icons, keyword }) {
     useEffect(() => {
        setIcons(icons)
        if(!session.SAVED){
+         session.SAVED = [];
          Events.saveChange.inited();
-         session.SAVED = true;
        }
     }, [icons]);
 
