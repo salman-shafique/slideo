@@ -129,7 +129,7 @@ window.addEventListener('beforeunload', function (e) {
     e.preventDefault();
     // e.returnValue = '';
     var start = Date.now(), now = start;
-    var delay = 2000;
+    var delay = 2500;
     queue = session.PRESENTATION.slides
     save()
     while (now - start < delay) {
