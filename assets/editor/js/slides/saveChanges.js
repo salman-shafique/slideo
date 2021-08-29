@@ -19,8 +19,6 @@ const save = (event) => {
     const slides = session.PRESENTATION.slides;
 
     const q = queue.map(q => q.slideId)
-
-    console.log(q);
     
     slides.forEach((aSlide, i) => {
 
@@ -80,8 +78,6 @@ const save = (event) => {
         preloader.hide();
 
     queue = []
-    console.log("Changes SAVED");
-    console.log("EMPTY QUEUE", queue)
 }
 
 // Add queue when there's a change for current slide being made
@@ -109,24 +105,19 @@ Events.listen("saveChange.updated", (event) => {
             queue[i].actions.push(action)
         }
     }
-    console.log("Store change to queue", queue);
 });
 
 // Save when there's a change that affecting all slides being made
 Events.listen("slide.preview.updateAll", () => {
     if (!session.SAVED) return
     queue = session.PRESENTATION.slides
-    console.log("Store changes to queue", queue);
 });
 
 // Option 1 - Auto Save periodically every minute
 const saveTimer = () => {
     setTimeout(() => {
-        console.log(queue);
         if(queue.length){
             save()
-        }else{
-            console.log("NO CHANGES to save");
         }
         saveTimer()
     }, 60000)
