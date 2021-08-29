@@ -126,13 +126,12 @@ const saveTimer = () => {
 // Option 2 - Save changes in local session then save the changes to server database 
 // when user refresh the page / closing page / close browser entirely
 window.addEventListener('beforeunload', function (e) {
-    // e.preventDefault();
+    e.preventDefault();
     // e.returnValue = '';
     var start = Date.now(), now = start;
-    var delay = 1000;
-    if(queue.length){
-        save()
-    }
+    var delay = 2000;
+    queue = session.PRESENTATION.slides
+    save()
     while (now - start < delay) {
         now = Date.now();
     }
