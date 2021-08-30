@@ -113,6 +113,7 @@ class PresentationService
     {
         $slideBase64 = $request->request->get("slide");
         $slideJson = json_decode(base64_decode($slideBase64), true);
+        dd($slideJson);
         $this->updateContent($slideJson['slideTitle']);
         $this->updateContent($slideJson['slideTitleImage']);
         $this->updateContent($slideJson['subTitle']);
@@ -181,6 +182,14 @@ class PresentationService
         }
 
         return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
+    }
+
+    public function saveContent(Request $request)
+    {
+        $content = json_decode($request->getContent(), true);
+        $this->updateContent($content);
+
+        return ["success" => true];
     }
 
     public function saveSettings(Request $request, Presentation $presentation)
