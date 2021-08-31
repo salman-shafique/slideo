@@ -4,6 +4,10 @@ import Events from "Editor/js/Events";
 import apiService from "Editor/js/utils/apiService";
 import toastr from '../../components/toastr';
 import session from '../../session';
+import slide from "Editor/js/entity/slide";
+import shape from "Editor/js/entity/shape";
+
+
 
 export default function IconContainer({ icons, keyword }) {
     const [force, setForce] = useState(0);
@@ -12,6 +16,16 @@ export default function IconContainer({ icons, keyword }) {
 
     const forceUpdate = () => {
         setForce(force + 1);
+        const selectedShape = session.SELECTED_ELEMENTS[0].shapeId;
+        const slide_ = slide(session.CURRENT_SLIDE).slideData();
+        const shape_ = slide_.shapes.find(aShape => aShape.data.shape_id == selectedShape);
+        const shapeData = shape_.data
+        
+        if(shapeData.keywords){
+            shapeData.keywords[0] = (keyword)
+        }else {
+            shapeData['keywords'] = [keyword]
+        }
     }
 
     const getIcons = () => {

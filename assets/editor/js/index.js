@@ -36,7 +36,7 @@ import "Editor/js/history";
 import "Editor/js/popups";
 
 // Save Changes
-import "Editor/js/slides/saveChanges";
+// import "Editor/js/slides/saveChanges";
 
 // Save Content
 import "Editor/js/slides/saveContent";

@@ -1,6 +1,8 @@
 import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import Events from "Editor/js/Events";
+import slide from "Editor/js/entity/slide";
+
 
 
 /**
@@ -55,8 +57,11 @@ const extendEvent = (event) => {
                 const shapeId = selectedEl.shape.getAttribute('shape_id');
                 dragAction.shapes[shapeId].endingE = selectedEl.translate.transform.matrix.e;
                 dragAction.shapes[shapeId].endingF = selectedEl.translate.transform.matrix.f;
+                dragAction.shapeId = shapeId
+                dragAction.newX = selectedEl.translate.transform.matrix.e
+                dragAction.newY = selectedEl.translate.transform.matrix.f
             });
-
+            
             dragAction.slideId = session.CURRENT_SLIDE;
             dragAction.actionType = constants.ACTION_TYPES.DRAG;
 
@@ -64,9 +69,8 @@ const extendEvent = (event) => {
             dragAction = {
                 slideId: null,
                 actionType: null,
-                shapes: {}
+                shapes: {},
             };
-
             Events.saveChange.updated(event.historyAction)
             break;
         case 'shape.textbox.edit.started':
@@ -152,7 +156,7 @@ const extendEvent = (event) => {
                 shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
                 oldIcon: { ...event.data.oldIcon },
                 newIcon: { ...event.data.newIcon }
-            }
+            }            
 
             Events.listen("shape.icon.changed", () => setTimeout(() => { Events.saveChange.updated(event.historyAction) },2000 )) 
             break;

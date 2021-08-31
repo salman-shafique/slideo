@@ -105,6 +105,8 @@ Events.listen("saveChange.updated", (event) => {
             queue[i].actions.push(action)
         }
     }
+
+    save
 });
 
 // Save when there's a change that affecting all slides being made
