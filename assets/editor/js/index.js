@@ -38,6 +38,9 @@ import "Editor/js/popups";
 // Save Changes
 import "Editor/js/slides/saveChanges";
 
+// Save Content
+import "Editor/js/slides/saveContent";
+
 // Update slide mini prev
 import "Editor/js/slides/updateMiniPrev";
 import apiService from "./utils/apiService.js";
