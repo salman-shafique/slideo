@@ -4,7 +4,6 @@ import Events from "Editor/js/Events";
 import slide from "Editor/js/entity/slide";
 
 
-
 /**
  * @type {{ slideId: string, actionType: number, shapes: { shapeId:{data} } }} dragAction
  */
@@ -58,8 +57,8 @@ const extendEvent = (event) => {
                 dragAction.shapes[shapeId].endingE = selectedEl.translate.transform.matrix.e;
                 dragAction.shapes[shapeId].endingF = selectedEl.translate.transform.matrix.f;
                 dragAction.shapeId = shapeId
-                dragAction.newX = selectedEl.translate.transform.matrix.e
-                dragAction.newY = selectedEl.translate.transform.matrix.f
+                dragAction.newE = selectedEl.translate.transform.matrix.e
+                dragAction.newF = selectedEl.translate.transform.matrix.f
             });
             
             dragAction.slideId = session.CURRENT_SLIDE;
@@ -71,7 +70,7 @@ const extendEvent = (event) => {
                 actionType: null,
                 shapes: {},
             };
-            Events.saveChange.updated(event.historyAction)
+            Events.saveChange.content(event.historyAction)
             break;
         case 'shape.textbox.edit.started':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -97,7 +96,7 @@ const extendEvent = (event) => {
                 newText: null
             };
 
-            setTimeout(() => { Events.saveChange.updated(event.historyAction) },4000)
+            setTimeout(() => { Events.saveChange.content(event.historyAction) },4000)
 
             break;
         case 'shape.resize.started':
@@ -119,6 +118,7 @@ const extendEvent = (event) => {
                 resizeAction.shapes[shapeId].endingA = selectedEl.scale.transform.matrix.a;
                 resizeAction.shapes[shapeId].endingE = selectedEl.translate.transform.matrix.e;
                 resizeAction.shapes[shapeId].endingF = selectedEl.translate.transform.matrix.f;
+                resizeAction.shapeId = shapeId
             });
 
             resizeAction.slideId = session.CURRENT_SLIDE;
@@ -131,7 +131,7 @@ const extendEvent = (event) => {
                 shapes: {}
             };
 
-            Events.saveChange.updated(event.historyAction)
+            Events.saveChange.content(event.historyAction)
             break;
 
         case 'shape.deleted':
@@ -146,7 +146,7 @@ const extendEvent = (event) => {
                 shapeIds
             };
 
-            Events.saveChange.updated(event.historyAction)
+            Events.saveChange.content(event.historyAction)
             break;
         case 'shape.icon.changed':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -158,7 +158,7 @@ const extendEvent = (event) => {
                 newIcon: { ...event.data.newIcon }
             }            
 
-            Events.listen("shape.icon.changed", () => setTimeout(() => { Events.saveChange.updated(event.historyAction) },2000 )) 
+            Events.listen("shape.icon.changed", () => setTimeout(() => { Events.saveChange.content(event.historyAction) },2000 )) 
             break;
         case 'shape.image.changed':
             if (session.SELECTED_ELEMENTS.length != 1) return;
@@ -169,12 +169,16 @@ const extendEvent = (event) => {
                 oldImage: { ...event.data.oldImage },
                 newImage: { ...event.data.newImage }
             }
-            Events.listen("shape.image.changed", () => setTimeout(() => { Events.saveChange.updated(event.historyAction) },2000 )) 
+            Events.listen("shape.image.changed", () => setTimeout(() => { Events.saveChange.content(event.historyAction) },2000 )) 
             break;
         case 'shape.image.add':
         case 'shape.textbox.add':
-        case 'shape.icon.add':   
-            Events.saveChange.updated(event.historyAction)
+        case 'shape.icon.add':
+            event.historyAction = {
+                slideId: session.CURRENT_SLIDE,
+                shapeId: session.SELECTED_ELEMENTS[0].shape.getAttribute('shape_id'),
+            }
+            Events.saveChange.content(event.historyAction)
             break;
         case 'slide.deleted':
             event.historyAction = {
