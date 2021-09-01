@@ -41,6 +41,18 @@ import "Editor/js/popups";
 // Save Content
 import "Editor/js/slides/saveContent";
 
+// Save Color Template
+import "Editor/js/slides/saveColorTemplate";
+
+// Save Background
+import "Editor/js/slides/saveBackground";
+
+// Save Style
+import "Editor/js/slides/saveStyle";
+
+// Save Transform
+import "Editor/js/slides/saveTransform";
+
 // Update slide mini prev
 import "Editor/js/slides/updateMiniPrev";
 import apiService from "./utils/apiService.js";
