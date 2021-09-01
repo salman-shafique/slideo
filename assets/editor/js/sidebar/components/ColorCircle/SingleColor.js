@@ -9,8 +9,6 @@ import Events from "Editor/js/Events";
 import toHex from "Editor/js/sidebar/colors/toHex";
 import { getThemeColor } from "Editor/js/sidebar/colors/utils";
 
-
-
 export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACKGROUND }) {
     const selectColor = () => {
         setCurrentColor(color);
@@ -51,6 +49,7 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
 
             if(session.SAVED){
                 Events.slide.preview.updateAll()
+                Events.saveChange.background()
             }
 
             return;
@@ -58,6 +57,7 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
         if (session.SELECTED_ELEMENTS.length < 1) return;
         session.SELECTED_ELEMENTS.forEach(selectedEl => {
             const g = selectedEl.shape;
+            console.log(selectedEl);
             const shapeType = getShapeType(g);
             const shapeId = g.getAttribute("shape_id");
             const shape_ = shape(session.CURRENT_SLIDE, shapeId);
@@ -103,8 +103,14 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
 
                 }
             }
+            const action = {
+                shapeId,
+                slideId: session.CURRENT_SLIDE
+
+            }
+            Events.saveChange.content(action)
         });
-        Events.saveChange.updated()
+
     }
     return (
         <div
