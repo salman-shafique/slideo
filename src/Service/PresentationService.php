@@ -189,9 +189,8 @@ class PresentationService
     {
         $content = json_decode($request->getContent(), true);
         $content = $this->updateContent($content);
-        $normalized = $this->serializer->normalize($content);
 
-        return ["success" => true, 'content' => $normalized];
+        return ["success" => true];
     }
 
     public function saveColorTemplate(Request $request)

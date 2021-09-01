@@ -17,9 +17,9 @@ export const createTextNode = (td) => {
     const gParentAttributes = getSizeAttributes(td.closest('g'));
     const tableParent = td.closest("table");
     const tableFont = parseInt(tableParent.style.fontSize, 10);
-    const editorWidth = gParentAttributes.width / fontScale;
+    const editorWidth = gParentAttributes.width / fontScale - 30;
     const editorHeight = gParentAttributes.height / fontScale;
-
+    console.log("width",editorWidth)
 
     const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
     // const valign = td.getAttribute("valign");
@@ -88,7 +88,25 @@ export default function selectTextboxElement(event) {
     const td = g.querySelector("td");
     createTextNode(td);
     Events.shape.textbox.edit.started({oldText: td.innerText});
-    hideResizeCircles(session.SELECTED_ELEMENTS[0].shape)
+    // hideResizeCircles(session.SELECTED_ELEMENTS[0].shape)
+
+    session.TEXT_EDITING = true;
+    Events.popup.text.open({shapeId: g.getAttribute("shape_id")});
+}
+
+export function openTextboxElement(event) {
+    if (event.ctrlKey) return;
+    /**
+     * @type {SVGGElement} g
+     */
+    const g = event.target.parentElement;
+    if (getShapeType(g) != constants.SHAPE_TYPES.TEXTBOX) return;
+
+    // if (session.SELECTED_ELEMENTS.length != 1) return;
+    if (session.SELECTED_ELEMENTS[0].shape != g) return;
+
+    // const td = g.querySelector("td");
+    // createTextNode(td);
 
     session.TEXT_EDITING = true;
     Events.popup.text.open({shapeId: g.getAttribute("shape_id")});

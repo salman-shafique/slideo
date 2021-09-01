@@ -21,7 +21,7 @@ import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import reactToDOM from "Editor/js/utils/reactToDOM";
 import React from "react";
 import keyboardListener from "Editor/js/shapes/actions/keyboard/index";
-import selectTextboxElement from "Editor/js/shapes/textbox/selectTextboxElement";
+import selectTextboxElement, { openTextboxElement} from "Editor/js/shapes/textbox/selectTextboxElement";
 import createNewTextbox from "Editor/js/shapes/textbox/createNewTextbox";
 import createNewImage from "Editor/js/shapes/image/createNewImage";
 import createNewIcon from "Editor/js/shapes/icon/createNewIcon";
@@ -380,7 +380,7 @@ export default function slide(slideId) {
       if (session.SELECTED_ELEMENTS.length !== 1) return;
       if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.TEXTBOX) {
         //text
-        selectTextboxElement(e);
+        openTextboxElement(e);
       }
       else if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.IMAGE) {
         //image
@@ -392,6 +392,12 @@ export default function slide(slideId) {
       }
     });
 
+	this.contentDocument().addEventListener("dblclick", (e) => {
+		if (session.SELECTED_ELEMENTS[0].shapeType === constants.SHAPE_TYPES.TEXTBOX) {
+			//text
+			selectTextboxElement(e);
+		  }
+	})
 		this.contentDocument().addEventListener("contextmenu", (e) => {
 			e.preventDefault();
 
