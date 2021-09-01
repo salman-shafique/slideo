@@ -269,7 +269,7 @@ class PresentationService
             array_push($newShapes, $normalized);
         }
 
-        return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
+        return ["success" => true, "newShapes" => $newShapes];
     }
 
     public function saveSettings(Request $request, Presentation $presentation)
