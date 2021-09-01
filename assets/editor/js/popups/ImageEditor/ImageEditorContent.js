@@ -25,7 +25,7 @@ export default function ImageEditorContent(props) {
             }
             <MainSection>
                 {
-                    activeImages && !uploadImages ? <ImageContainer images={activeImages} keyword={props.keyword.toLowerCase()} /> : undefined
+                    activeImages && !uploadImages ? <ImageContainer images={activeImages} keyword={hook.getActiveKeyword()} /> : undefined
                 }
             </MainSection>
             {
