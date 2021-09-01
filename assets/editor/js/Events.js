@@ -91,7 +91,10 @@ const Events = {
     },
     saveChange: {
         inited: (data = {}) => dispatchEvent("saveChange.inited", data),
-        updated: (data = {}) => dispatchEvent("saveChange.updated", data),
+        content: (data = {}) => dispatchEvent("saveChange.content", data),
+        colorTemplate: (data = {}) => dispatchEvent("saveChange.colorTemplate", data),
+        background: (data = {}) => dispatchEvent("saveChange.background", data),
+        style: (data = {}) => dispatchEvent("saveChange.style", data),
         completed: (data = {}) => dispatchEvent("saveChange.completed", data),
     },
     /**
