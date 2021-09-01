@@ -100,13 +100,14 @@ export default function BrandingOptions() {
 
     session.PRESENTATION.slides.forEach(aSlide => {
       // if (aSlide.colorTemplate?.title === "Default") return;
-      if (colorPaletteTitle === "DEFAULT" && aSlide.slideId !== session.CURRENT_SLIDE) return;
+      // if (colorPaletteTitle == "DEFAULT" && aSlide.slideId !== session.CURRENT_SLIDE) return;
 
       updateShapeThemeColors(aSlide, colorPalettes[colorPaletteTitle]);
 
       Object.assign(aSlide.colorTemplate, colorPalettes[colorPaletteTitle]);
     });
     Events.slide.preview.updateAll();
+    Events.saveChange.colorTemplate();
   }
 
   const colorPaletteCards = [];
