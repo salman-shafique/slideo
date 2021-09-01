@@ -19,6 +19,7 @@ use App\Service\PaymentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -113,7 +114,7 @@ class PresentationService
     {
         $slideBase64 = $request->request->get("slide");
         $slideJson = json_decode(base64_decode($slideBase64), true);
-        dd($slideJson);
+
         $this->updateContent($slideJson['slideTitle']);
         $this->updateContent($slideJson['slideTitleImage']);
         $this->updateContent($slideJson['subTitle']);
@@ -187,9 +188,88 @@ class PresentationService
     public function saveContent(Request $request)
     {
         $content = json_decode($request->getContent(), true);
-        $this->updateContent($content);
+        $content = $this->updateContent($content);
+        $normalized = $this->serializer->normalize($content);
 
-        return ["success" => true];
+        return ["success" => true, 'content' => $normalized];
+    }
+
+    public function saveColorTemplate(Request $request)
+    {
+        $slideJson = json_decode($request->getContent(), true);
+
+        /**  @var SlideRepository $slideRepository */
+        $slideRepository = $this->em->getRepository(Slide::class);
+        $slide = $slideRepository->findOneBy(["id" => $slideJson['id']]);
+
+        // Color template
+        $colorTemplate = $slide->getColorTemplate();
+        $this->updateColorTemplate($slideJson['colorTemplate'], $colorTemplate);
+        $serializer = new SerializerService();
+        return ["success" => true, 'color_template' => $serializer->normalize($colorTemplate)];
+    }
+
+    public function saveBackground(Request $request)
+    {
+        $slideJson = json_decode($request->getContent(), true);
+
+        /**  @var SlideRepository $slideRepository */
+        $slideRepository = $this->em->getRepository(Slide::class);
+        $slide = $slideRepository->findOneBy(["id" => $slideJson['id']]);
+
+        // Background
+        $background = $slide->getBackground();
+        $background->setData($slideJson['background']['data']);
+        $this->em->persist($background);
+        $this->em->flush();
+
+        $serializer = new SerializerService();
+        return ["success" => true, 'color_template' => $serializer->normalize($background)];
+    }
+
+    public function saveStyle(Request $request)
+    {
+        $slideJson = json_decode($request->getContent(), true);
+
+        /**  @var SlideRepository $slideRepository */
+        $slideRepository = $this->em->getRepository(Slide::class);
+        $slide = $slideRepository->findOneBy(["id" => $slideJson['id']]);
+
+        // Background
+        if ($slideJson['style']['id'] != $slide->getStyle()->getId()) {
+            // The style is changed on the frontend
+            // Style
+            /** @var StyleRepository $styleRepository */
+            $styleRepository = $this->em->getRepository(Style::class);
+            $style = $styleRepository->findOneBy(["id" => $slideJson['style']['id']]);
+            $slide->setStyle($style);
+
+            // Rm all shapes
+            foreach ($slide->getShapes() as $shape)
+                $slide->removeShape($shape);
+
+            // Shapes
+            foreach ($slideJson['shapes'] as $shape) {
+                $newShape = new Content();
+                $shapeData = $shape['data'];
+                $newShape->setData($shapeData);
+                $slide->addShape($newShape);
+                $this->em->persist($newShape);
+            }
+        }
+
+        $this->em->persist($slide);
+        $this->em->flush();
+
+        $newShapes = [];
+        foreach ($slide->getShapes() as $shape) {
+            $normalized = $this->serializer->normalize($shape);
+            unset($normalized['slide']);
+            unset($normalized['style']);
+            array_push($newShapes, $normalized);
+        }
+
+        return ["success" => true, "newShapes" => $newShapes, "slideId" => $slideJson['slideId']];
     }
 
     public function saveSettings(Request $request, Presentation $presentation)
