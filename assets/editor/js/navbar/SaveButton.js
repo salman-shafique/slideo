@@ -38,7 +38,7 @@ export function saveChanges(callback = null) {
                 data: {
                     slide: encoded
                 },
-                async: false,
+                // async: false,
                 success: (r) => {
                     if (r.success) {
                         const slideData = slide(r.slideId).slideData();
