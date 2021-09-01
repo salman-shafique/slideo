@@ -26,4 +26,4 @@ const updateAllMiniPrev = (event) => {
 Events.listen("shape.released", updateMiniPrev);
 Events.listen("slide.preview.updateAll", updateAllMiniPrev);
 Events.listen("saveChange.inited", updateAllMiniPrev);
-Events.listen("saveChange.updated", updateMiniPrev);
+Events.listen("saveChange.content", updateMiniPrev);
