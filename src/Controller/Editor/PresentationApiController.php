@@ -126,6 +126,44 @@ class PresentationApiController extends AbstractController
 
         return new JsonResponse($r);
     }
+    /**
+     * Updates the slide color template
+     * @Route("/save/color-template")
+     */
+    public function saveColorTemplate(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+        $r = $presentationService->saveColorTemplate($request);
+
+        return new JsonResponse($r);
+    }
+
+    /**
+     * Save the slide background
+     * @Route("/save/background")
+     */
+    public function saveBackground(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+        $r = $presentationService->saveBackground($request);
+
+        return new JsonResponse($r);
+    }
+
+    /**
+     * Save the slide background
+     * @Route("/save/style")
+     */
+    public function saveStyle(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+        $r = $presentationService->saveStyle($request);
+
+        return new JsonResponse($r);
+    }
 
     /**
      * @Route("/save/settings")
