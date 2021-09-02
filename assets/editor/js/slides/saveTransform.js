@@ -23,8 +23,6 @@ const saveTransform = (event) => {
         data : shape_.data()
     }
 
-    console.log(request);
-
     const data = JSON.stringify(request)
 
     // AJAX 
