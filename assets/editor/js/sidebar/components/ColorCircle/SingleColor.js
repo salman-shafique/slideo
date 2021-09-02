@@ -57,7 +57,6 @@ export default function SingleColor({ color, setCurrentColor, SHAPE_TYPE, FILL_T
         if (session.SELECTED_ELEMENTS.length < 1) return;
         session.SELECTED_ELEMENTS.forEach(selectedEl => {
             const g = selectedEl.shape;
-            console.log(selectedEl);
             const shapeType = getShapeType(g);
             const shapeId = g.getAttribute("shape_id");
             const shape_ = shape(session.CURRENT_SLIDE, shapeId);
