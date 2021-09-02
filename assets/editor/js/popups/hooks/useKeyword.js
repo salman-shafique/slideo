@@ -14,7 +14,6 @@ export default function useKeyword(apiEndpoint) {
     const getActiveData = () => {
         const activeKeyword = getActiveKeyword();
         const found = data.filter(data => data.keyword === activeKeyword)[0];
-
         return found ? found.data : null;
     }
 
@@ -25,11 +24,12 @@ export default function useKeyword(apiEndpoint) {
         if (keywords.filter(item => item.keyword.toLowerCase() === searchKeyword.toLowerCase()).length)
             return;
 
+
         setKeywords([{
             keyword: searchKeyword,
             active: true
-        }].concat(keywords.map(keyword => { return { ...keyword, active: false } })));
-
+        }]
+        .concat(keywords.map(keyword => { return { ...keyword, active: false } })));
 
         if (data.filter(item => item.keyword.toLowerCase() === searchKeyword.toLowerCase()).length)
             return;
@@ -46,6 +46,7 @@ export default function useKeyword(apiEndpoint) {
                 }));
             }
         });
+
     }
 
     return {

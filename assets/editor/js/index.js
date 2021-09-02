@@ -36,7 +36,22 @@ import "Editor/js/history";
 import "Editor/js/popups";
 
 // Save Changes
-import "Editor/js/slides/saveChanges";
+// import "Editor/js/slides/saveChanges";
+
+// Save Content
+import "Editor/js/slides/saveContent";
+
+// Save Color Template
+import "Editor/js/slides/saveColorTemplate";
+
+// Save Background
+import "Editor/js/slides/saveBackground";
+
+// Save Style
+import "Editor/js/slides/saveStyle";
+
+// Save Transform
+import "Editor/js/slides/saveTransform";
 
 // Update slide mini prev
 import "Editor/js/slides/updateMiniPrev";

@@ -13,7 +13,7 @@ let queue = []
 const save = (event) => {
     if (!session.INITED) return;
     if (!session.PRESENTATION) return;
-    if (!session.SAVED && event.type === "saveChange.updated") return
+    if (!session.SAVED && event.type === "saveChange.content") return
     if (!session.SAVED && event.type === "slide.preview.updateAll") return
 
     const slides = session.PRESENTATION.slides;
@@ -81,7 +81,7 @@ const save = (event) => {
 }
 
 // Add queue when there's a change for current slide being made
-Events.listen("saveChange.updated", (event) => {
+Events.listen("saveChange.content", (event) => {
 
     const actions = constants.ACTION_TYPES
     let action = null
@@ -105,6 +105,8 @@ Events.listen("saveChange.updated", (event) => {
             queue[i].actions.push(action)
         }
     }
+
+    save
 });
 
 // Save when there's a change that affecting all slides being made

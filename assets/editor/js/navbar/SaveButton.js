@@ -7,6 +7,8 @@ import session from "Editor/js/session";
 import constants from "Editor/js/constants";
 import deSelectAll from "Editor/js/shapes/actions/drag/utils/deSelectAll";
 import base64 from "Editor/js/utils/base64";
+import Events from "Editor/js/Events";
+
 
 export function saveChanges(callback = null) {
     preloader.show();
@@ -36,7 +38,7 @@ export function saveChanges(callback = null) {
                 data: {
                     slide: encoded
                 },
-                async: false,
+                // async: false,
                 success: (r) => {
                     if (r.success) {
                         const slideData = slide(r.slideId).slideData();
@@ -68,6 +70,7 @@ export function saveChanges(callback = null) {
     }, 50);
 }
 
+Events.listen("saveChange.inited", saveChanges);
 
 export default function SaveButton() {
     return (

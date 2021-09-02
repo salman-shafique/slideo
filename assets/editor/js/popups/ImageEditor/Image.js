@@ -4,9 +4,10 @@ import selectH1Image from "Editor/js/shapes/image/selectH1Image";
 import createNewImage from "Editor/js/shapes/image/createNewImage";
 import highlightImage from "Editor/js/shapes/image/highlightImage";
 
-export default function Image({ imageData }) {
+export default function Image({ imageData, forceUpdate }) {
     const onClick = () => {
         highlightImage(imageData);
+        forceUpdate();
 
         if (session.SELECTED_ELEMENTS.length == 1) {
             const g = session.SELECTED_ELEMENTS[0].shape;
@@ -24,7 +25,6 @@ export default function Image({ imageData }) {
         }
         // Add new picture
         createNewImage({ image: imageData, keyword: imageData.keyword });
-
     }
 
     return (

@@ -2,7 +2,7 @@ import React from "react";
 import session from "Editor/js/session";
 import slide from "Editor/js/entity/slide";
 import preloader from "Editor/js/components/preloader";
-
+import Events from "Editor/js/Events";
 
 export default function DesignItem({ designData }) {
 
@@ -14,6 +14,8 @@ export default function DesignItem({ designData }) {
         }
         preloader.show();
         currentSlide.changeDesign(designData);
+        Events.saveChange.style({slideId: slideData.id, styleId : designData.id})
+        Events.saveChange.background()
         preloader.hide();
     }
 
