@@ -380,6 +380,36 @@ class PresentationService
         $this->bus->dispatch($presentation);
     }
 
+    public function uploadThumbnail(Presentation $presentation, $request)
+    {
+        $file = $request->files->get('thumbnail');
+        $mimeType = explode("/", $file->getMimeType())[0];
+        if ($mimeType != "image") {
+            return ['error' => true, "message" => "File is not a image"];
+        }
+        if ($file->getSize() > 5000000) {
+            return ['error' => true, "message" => "File size is greater than 5 MB"];
+        }
+        $extension = $file->guessExtension();
+        if (!in_array($extension, ["bmp", "gif", "jpg", "jpeg", "png", "tiff", "wmf"])) {
+            return ['error' => true, "message" => "Not a valid image format"];
+        }
+
+
+        $thumbnailDir = "presentations/thumbnails";
+        $thumbnailPath = "presentations/thumbnails/{$presentation->getPresentationId()}.$extension";
+        if (!is_dir($thumbnailDir))
+            mkdir($thumbnailDir, 0777, true);
+
+        $newFilename = $presentation->getPresentationId() . "." . $extension;
+        $file->move($thumbnailDir, $newFilename);
+        $presentation->setThumbnail('/' . $thumbnailPath);
+
+        $this->em->persist($presentation);
+        $this->em->flush();
+        return ['success' => true];
+    }
+
     public function getDownloadedPresentation(Presentation $presentation)
     {
         return $this->em

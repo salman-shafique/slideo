@@ -57,6 +57,22 @@ class PresentationApiController extends AbstractController
     }
 
     /**
+     * @Route("/upload/thumbnail")
+     */
+    public function uploadPresentationThumbnail(Request $request, PresentationService $presentationService, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity)
+    {
+        $presentation = $presentationSecurity->getPresentation($request->server->get("HTTP_REFERER"), $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+        $file = $request->files->get('thumbnail');
+        if (empty($file)) {
+            return new JsonResponse(['error' => true, 'message' => "Please upload an image."]);
+        }
+        $response = $presentationService->uploadThumbnail($presentation, $request);
+
+        return new JsonResponse($response);
+    }
+
+    /**
      * @Route("/download/get/{presenationId}")
      */
     public function getDownloadedPresentation(string $presenationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService)
@@ -126,6 +142,7 @@ class PresentationApiController extends AbstractController
 
         return new JsonResponse($r);
     }
+
     /**
      * Updates the slide color template
      * @Route("/save/color-template")
