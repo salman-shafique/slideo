@@ -96,6 +96,7 @@ const extendEvent = (event) => {
                 newText: null
             };
 
+            if(!event.historyAction.shapeId) return
             setTimeout(() => { Events.saveChange.content(event.historyAction) },4000)
 
             break;
