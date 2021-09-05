@@ -95,7 +95,7 @@ const Events = {
         colorTemplate: (data = {}) => dispatchEvent("saveChange.colorTemplate", data),
         background: (data = {}) => dispatchEvent("saveChange.background", data),
         style: (data = {}) => dispatchEvent("saveChange.style", data),
-        completed: (data = {}) => dispatchEvent("saveChange.completed", data),
+        thumbnail: (data = {}) => dispatchEvent("saveChange.thumbnail", data),
     },
     /**
      * @param {String} eventName 
