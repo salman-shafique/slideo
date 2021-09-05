@@ -481,25 +481,36 @@ export default function slide(slideId) {
 			e.classList.remove("active-slide");
 		});
 		
+
+		selectAll("object.main-container").forEach((e) => {
+			e.style.display = "none";
+		});
+
+
 		if(session.SAVED == false){
 			let firstSlide = select(
 				'div.slide-thumbnail[data-slide-id="' + session.PRESENTATION.slides[0].slideId + '"]'
 			);
 			firstSlide.classList.add("active-slide")
+
+			let firstDisplay = select(`object.main-container[id="${session.PRESENTATION.slides[0].slideId}"]`)
+			firstDisplay.style.display = ""
+
+			// Update the session CURRENT_SLIDE
+			session.CURRENT_SLIDE = session.PRESENTATION.slides[0].slideId;
+
+			// Dispatch the selection event
+			Events.slide.display({ slideId: session.PRESENTATION.slides[0].slideId });
+
 		}else {
 			this.objectPrev().classList.add("active-slide");
+			this.object().style.display = "";
+			// Update the session CURRENT_SLIDE
+			session.CURRENT_SLIDE = this.slideId;
+
+			// Dispatch the selection event
+			Events.slide.display({ slideId: this.slideId });
 		}
-
-		selectAll("object.main-container").forEach((e) => {
-			e.style.display = "none";
-		});
-		this.object().style.display = "";
-
-		// Update the session CURRENT_SLIDE
-		session.CURRENT_SLIDE = this.slideId;
-
-		// Dispatch the selection event
-		Events.slide.display({ slideId: this.slideId });
 
 		return this;
 	};
