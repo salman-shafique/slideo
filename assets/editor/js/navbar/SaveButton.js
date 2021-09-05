@@ -70,7 +70,7 @@ export function saveChanges(callback = null) {
     }, 50);
 }
 
-Events.listen("saveChange.inited", saveChanges);
+// Events.listen("saveChange.inited", saveChanges);
 
 export default function SaveButton() {
     return (
