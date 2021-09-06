@@ -49,7 +49,7 @@ export default function IconContainer({ icons, keyword }) {
     useEffect(() => {
        setIcons(icons)
        if(!session.SAVED){
-         session.SAVED = [];
+         session.SAVED = true;
          Events.saveChange.inited();
        }
     }, [icons]);

@@ -53,6 +53,9 @@ import "Editor/js/slides/saveStyle";
 // Save Transform
 import "Editor/js/slides/saveTransform";
 
+// Save Thumbnail
+import "Editor/js/slides/saveThumbnail";
+
 // Update slide mini prev
 import "Editor/js/slides/updateMiniPrev";
 import apiService from "./utils/apiService.js";

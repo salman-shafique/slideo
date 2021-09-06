@@ -19,7 +19,6 @@ export const createTextNode = (td) => {
     const tableFont = parseInt(tableParent.style.fontSize, 10);
     const editorWidth = gParentAttributes.width / fontScale - 30;
     const editorHeight = gParentAttributes.height / fontScale;
-    console.log("width",editorWidth)
 
     const textFontSize = `${1.8 * constants.PIXEL_TO_PT * tableFont}px`;
     // const valign = td.getAttribute("valign");

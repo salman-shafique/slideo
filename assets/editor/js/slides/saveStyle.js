@@ -26,4 +26,4 @@ const saveStyle = (event) => {
     navigator.sendBeacon("/api/presentation/save/style", data);
 }
 
-Events.listen("saveChange.style", saveStyle)
+// Events.listen("saveChange.style", saveStyle)
