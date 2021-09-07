@@ -1,48 +1,56 @@
 import shape from "Editor/js/entity/shape";
 import Events from "../../Events";
+import session from "Editor/js/session";
 import getWhiteIcon from "./getWhiteIcon";
-import createForeignObject from './createForeignObject';
+import createForeignObject from "./createForeignObject";
 
 export const updateIcon = (slideId, shapeId, icon) => {
-    const shape_ = shape(slideId, shapeId);
-    const shapeData = shape_.data();
+  const shape_ = shape(slideId, shapeId);
+  const shapeData = shape_.data();
 
-    shapeData.icon = icon;
+  shapeData.icon = icon;
 
-    if (icon.keyword)
-        shapeData.keyword = icon.keyword
+  if (icon.keyword) shapeData.keyword = icon.keyword;
 
-    shape_.setIcon(shapeData.icon);
+  shape_.setIcon(shapeData.icon);
 
-    const image = shape_.el().querySelector("image");
-    image.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", shapeData.icon.url);
+  const image = shape_.el().querySelector("image");
+  image.setAttributeNS(
+    "http://www.w3.org/1999/xlink",
+    "xlink:href",
+    shapeData.icon.url
+  );
 
-    if (shapeData.icon.rgb != "255 255 255")
-        getWhiteIcon(slideId, shapeId)
-}
+  if (session.SAVED) {
+    Events.saveChange.content({ slideId, shapeId });
+  }
 
-
+  if (shapeData.icon.rgb != "255 255 255") getWhiteIcon(slideId, shapeId);
+};
 
 /**
- * 
- * @param {string} slideId 
- * @param {string} shapeId 
+ *
+ * @param {string} slideId
+ * @param {string} shapeId
  * @param {{id:string,url:string,uploader_id:string}} icon
  */
-export default function selectIcon(slideId, shapeId, icon = null, fromUser = false) {
-    const shape_ = shape(slideId, shapeId);
-    const shapeData = shape_.data();
+export default function selectIcon(
+  slideId,
+  shapeId,
+  icon = null,
+  fromUser = false
+) {
+  const shape_ = shape(slideId, shapeId);
+  const shapeData = shape_.data();
 
-    if (!shape_.el()?.querySelector('foreignObject'))
-        createForeignObject(shape_.el());
+  if (!shape_.el()?.querySelector("foreignObject"))
+    createForeignObject(shape_.el());
 
-    if (icon) {
-        Events.shape.icon.changed({ oldIcon: shapeData.icon, newIcon: icon });
-        if (fromUser)
-            shapeData.isIconChanged = true;
-        updateIcon(slideId, shapeId, icon);
-        return;
-    }
-    updateIcon(slideId, shapeId, shapeData.icon);
+  if (icon) {
+    Events.shape.icon.changed({ oldIcon: shapeData.icon, newIcon: icon });
+    if (fromUser) shapeData.isIconChanged = true;
+    updateIcon(slideId, shapeId, icon);
+    return;
+  }
+  updateIcon(slideId, shapeId, shapeData.icon);
 }
-
