@@ -98,8 +98,7 @@ const extendEvent = (event) => {
       };
 
       if (!event.historyAction.shapeId) return;
-      Events.saveChange.content(event.historyAction);
-
+      // Events.saveChange.content(event.historyAction);
       break;
     case "shape.resize.started":
       if (session.SELECTED_ELEMENTS.length == 0) return;
