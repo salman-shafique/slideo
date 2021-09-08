@@ -152,7 +152,6 @@ export default function slide(slideId) {
         }
       });
 
-      console.log("CHANGED ORDER");
       saveSlidesOrder();
       refresh_slide_prev_numbers();
     };
