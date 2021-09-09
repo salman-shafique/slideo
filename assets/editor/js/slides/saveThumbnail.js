@@ -60,7 +60,6 @@ function svgToJpeg(originalBase64, totalImg, done) {
 }
 
 const saveThumbnail = (event) => {
-  console.log(event.type);
   const firstSlideId =
     event.type === "saveChange.slidesOrder"
       ? event.data.firstSlide
@@ -71,8 +70,6 @@ const saveThumbnail = (event) => {
     session.CURRENT_SLIDE != firstSlideId
   )
     return;
-
-  console.log("thumb firstSlide", firstSlideId);
 
   const slide_ = slide(firstSlideId);
   const slideData = slide_.slideData();
