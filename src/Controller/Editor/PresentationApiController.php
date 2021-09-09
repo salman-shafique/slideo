@@ -2,6 +2,7 @@
 
 namespace App\Controller\Editor;
 
+use App\Repository\DownloadPresentationRepository;
 use App\Repository\PresentationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,7 +82,6 @@ class PresentationApiController extends AbstractController
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
         $r = $presentationService->getDownloadedPresentation($presentation);
-
         return new JsonResponse($r);
     }
 
@@ -117,6 +117,15 @@ class PresentationApiController extends AbstractController
     }
 
     /**
+     * @Route("/flask/save/pdf")
+     */
+    public function saveFromFlaskPdf(Request $request, PresentationService $presentationService)
+    {
+        $res = $presentationService->saveFromFlaskPdf($request);
+        return new JsonResponse($res);
+    }
+
+    /**
      * @Route("/save/slide")
      */
     public function saveSlide(Request $request, PresentationSecurity $presentationSecurity, SessionInterface $sessionInterface, PresentationService $presentationService)
@@ -125,7 +134,7 @@ class PresentationApiController extends AbstractController
         if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
 
         $r = $presentationService->saveSlide($request);
-        $presentationService->generateThumbnail($presentation);
+//        $presentationService->generateThumbnail($presentation);
 
         return new JsonResponse($r);
     }
@@ -237,5 +246,19 @@ class PresentationApiController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return new JsonResponse(['success' => true]);
+    }
+
+    /**
+     * @Route("/download/pdf/{presenationId}/{downloadPresentationId}")
+     */
+    public function getOneDownloadedPresentationPDF(string $presenationId, string $downloadPresentationId, SessionInterface $sessionInterface, PresentationSecurity $presentationSecurity, PresentationService $presentationService, DownloadPresentationRepository $downloadPresentationRepository)
+    {
+        $presentation = $presentationSecurity->getPresentation($presenationId, $sessionInterface->getId(), $this->getUser());
+        if (!$presentation) throw $this->createNotFoundException('The presentation does not exist');
+
+        $downloadPresentation = $downloadPresentationRepository->findOneBy(['id' => $downloadPresentationId]);
+        $r = $presentationService->downloadPDFStart($downloadPresentation);
+
+        return new JsonResponse($r);
     }
 }

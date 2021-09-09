@@ -18,10 +18,13 @@ use App\Repository\StyleRepository;
 use App\Service\PaymentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
+use Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Stamp\SerializerStamp;
 
 class PresentationService
 {
@@ -375,6 +378,16 @@ class PresentationService
         ];
     }
 
+    public function downloadPDFStart(DownloadPresentation $downloadPresentation)
+    {
+        $downloadPresentation->setPdfFile('download');
+        $this->em->persist($downloadPresentation);
+        $this->em->flush();
+        $this->bus->dispatch($downloadPresentation);
+        return ['success' => true];
+
+    }
+
     public function generateThumbnail(Presentation $presentation, bool $isPaid = false)
     {
         $this->bus->dispatch($presentation);
@@ -417,6 +430,7 @@ class PresentationService
             ->select('d')
             ->from('App\Entity\DownloadPresentation', 'd')
             ->where("d.presentation = :presentation")
+            ->orderBy('d.id', 'DESC')
             ->setParameter("presentation", $presentation)
             ->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
@@ -462,8 +476,8 @@ class PresentationService
         $unique2 = hash('md2', uniqid());
         $unique3 = hash('md2', uniqid());
         $this->saveBase64File("presentations/$uniquefolder/$name-$unique1.pptx", $jsonFile['pptx']);
-        $this->saveBase64File("presentations/$uniquefolder/$name-$unique2.png", $jsonFile['png']);
-        $this->saveBase64File("presentations/$uniquefolder/$name-$unique3.pdf", $jsonFile['pdf']);
+//        $this->saveBase64File("presentations/$uniquefolder/$name-$unique2.png", $jsonFile['png']);
+//        $this->saveBase64File("presentations/$uniquefolder/$name-$unique3.pdf", $jsonFile['pdf']);
 
         /** @var DownloadPresentation $downloadPresentation */
         $downloadPresentation = $this->em
@@ -476,8 +490,9 @@ class PresentationService
             ->getOneOrNullResult();
 
         $downloadPresentation->setPptxFile("/presentations/$uniquefolder/$name-$unique1.pptx");
-        $downloadPresentation->setPrevFile("/presentations/$uniquefolder/$name-$unique2.png");
-        $downloadPresentation->setPdfFile("/presentations/$uniquefolder/$name-$unique3.pdf");
+//        $downloadPresentation->setPrevFile("/presentations/$uniquefolder/$name-$unique2.png");
+        $downloadPresentation->setPrevFile($downloadPresentation->getPresentation()->getThumbnail());
+//        $downloadPresentation->setPdfFile("/presentations/$uniquefolder/$name-$unique3.pdf");
         $downloadPresentation->setCompleted(true);
 
         $this->em->persist($downloadPresentation);
@@ -521,5 +536,48 @@ class PresentationService
         $this->em->flush();
 
         return ["success" => true];
+    }
+
+    public function saveFromFlaskPdf(Request $request)
+    {
+        try {
+            if (!$request->request->get("A2A3EF62A0498A46531B71DBD6969004")) return ["success" => false];
+            if ($request->request->get("A2A3EF62A0498A46531B71DBD6969004") != "D363D75DD3E229BD8BBE2759E93FDE11") return ["success" => false];
+
+            $path = $request->request->get('path');
+            $jsonFile = json_decode(file_get_contents("http://slideo_flask$path"), true);
+
+            $now = time();
+
+            $unique3 = hash('md2', uniqid());
+            $uniquefolder = hash('sha256', $now);
+            if (!is_dir("presentations/$uniquefolder"))
+                mkdir("presentations/$uniquefolder", 0777, true);
+
+            $pdfFilePath = "presentations/$uniquefolder/pdf-$unique3.pdf";
+            $this->saveBase64File($pdfFilePath, $jsonFile['pdf']);
+            $currentDownloadId = $jsonFile['current_download_id'];
+
+            /** @var DownloadPresentation $downloadPresentation */
+            $downloadPresentation = $this->em
+                ->createQueryBuilder()
+                ->select('d')
+                ->from('App\Entity\DownloadPresentation', 'd')
+                ->where("d.id = :id")
+                ->setParameter("id", $currentDownloadId)
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            $downloadPresentation->setPdfFile('/' . $pdfFilePath);
+            $downloadPresentation->setCompleted(true);
+
+            $this->em->persist($downloadPresentation);
+            $this->em->flush();
+
+            return ["success" => true];
+        } catch (Exception $exception) {
+            return ["success" => false, 'message' => $exception->getMessage()];
+        }
+
     }
 }
