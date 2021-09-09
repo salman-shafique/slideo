@@ -94,21 +94,15 @@ export default function AlignmentBtn(props) {
     }
     return (
         <>
-            <div className="col-4 p-0 text-center">
                 <button onClick={leftAlignment} className={"btn btn-" + (alignmentSelected != constants.ALIGNMENTS.LEFT ? "light" : "secondary")}>
                     <i className="fas fa-align-left"></i>
                 </button>
-            </div>
-            <div className="col-4 p-0 text-center">
                 <button onClick={centerAlignment} className={"btn btn-" + (alignmentSelected != constants.ALIGNMENTS.CENTER ? "light" : "secondary")}>
                     <i className="fas fa-align-center"></i>
                 </button>
-            </div>
-            <div className="col-4 p-0 text-center">
                 <button onClick={rightAlignment} className={"btn btn-" + (alignmentSelected != constants.ALIGNMENTS.RIGHT ? "light" : "secondary")}>
                     <i className="fas fa-align-right"></i>
                 </button>
-            </div>
         </>
     )
 }

@@ -166,14 +166,16 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
   }, []);
 
   return (
-    <div key={SHAPE_TYPE} className="color-circle-container p-0 col-12 text-center position-static">
+    <>
       <div
         className="main-circle color-circle-single"
+        key={SHAPE_TYPE}
         onClick={() => {
           setOpened(!opened);
         }}
         style={{
           backgroundColor: currentColor,
+          marginTop:"5px",
           border: "solid lightgray 1px"
         }}>
       </div>
@@ -188,6 +190,6 @@ export default function ColorCircle({ SHAPE_TYPE, FILL_TYPE, GRADIENT_STOP, BACK
           </div>
         </div>
       </div>
-    </div>
+      </>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Popup from '../Popup/Popup';
 import Events from "Editor/js/Events";
 import session from "Editor/js/session";
 
@@ -33,8 +32,11 @@ export default function TextEditor() {
     }, []);
 
     return (
-        <Popup visible={visible} shape={activeShape} parent={'TextEditorPopup'} >
+        <>
+        {visible ?
             <FontActions />
-        </Popup>
+         : null}
+            
+        </>
     );
 }

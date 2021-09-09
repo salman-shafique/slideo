@@ -897,5 +897,21 @@ object[id^="prev_"] {
   background: #484848;
 }
 
+.margin-auto{
+  margin: auto;
+}
 
+.wrapper{
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  position:absolute;
+  width:100%;
+  margin:auto;
+  margin-top:20px;
+}
 
+.full-width{
+  width:100%;
+  margin:0px;
+  padding:0px;
+}
