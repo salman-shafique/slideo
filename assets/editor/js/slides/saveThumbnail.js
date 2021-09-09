@@ -44,8 +44,8 @@ function svgToJpeg(originalBase64, totalImg, done) {
   document.body.appendChild(svgImage);
   svgImage.onload = function () {
     const canvas = document.createElement("canvas");
-    canvas.width = svgImage.clientWidth / 2.5;
-    canvas.height = svgImage.clientHeight / 2.5;
+    canvas.width = svgImage.clientWidth;
+    canvas.height = svgImage.clientHeight;
     const canvasCtx = canvas.getContext("2d");
     canvasCtx.drawImage(svgImage, 0, 0);
     const imageData = canvas.toDataURL("image/jpeg");
@@ -57,6 +57,7 @@ function svgToJpeg(originalBase64, totalImg, done) {
   };
 
   svgImage.src = originalBase64;
+  svgImage.className = "svgImage";
 }
 
 const saveThumbnail = (event) => {
@@ -118,6 +119,11 @@ Events.listen("saveChange.thumbnail", (event) => {
     // Beacon
     navigator.sendBeacon("/api/presentation/upload/thumbnail", formData);
   }
+
+  const elem = document.querySelectorAll(".svgImage");
+  elem.forEach((e) => {
+    document.body.removeChild(e);
+  });
 });
 
 // Changes Queue
