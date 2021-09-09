@@ -31,13 +31,13 @@ export default function DownloadCard({ downloadCardDetail, presentationId, check
             <span className="sr-only">Loading...</span>
         </div>
 
-    const pdfButton = downloadCardDetail.pdfFile
+    const pdfButton = downloadCardDetail.pdfFile && downloadCardDetail.pdfFile !== 'download'
         ? <a href={downloadCardDetail.pdfFile} target="_blank">
             <button className={"btn btn-info"}>הורד PDF</button>
         </a>
-        : <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-        </div>
+        : <a href={downloadCardDetail.pdfFile} target="_blank">
+            <button className={"btn btn-warning"}>הורד PDF</button>
+        </a>
 
     const imgSrc = downloadCardDetail.prevFile ?
         downloadCardDetail.prevFile :

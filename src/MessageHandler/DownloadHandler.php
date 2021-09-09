@@ -39,7 +39,9 @@ class DownloadHandler implements MessageHandlerInterface
             ->setParameter("id", $downloadPresentation->getId())
             ->getQuery()
             ->getOneOrNullResult();
-        if ($downloadPresentation->getCompleted()) return;
+
+        $downLoadPDF = $downloadPresentation->getPdfFile() == "download" ? true : false;
+        if ($downloadPresentation->getCompleted() && !$downLoadPDF) return;
 
         // invoke the flask server
         $r = $this->flaskService->call(
@@ -48,37 +50,36 @@ class DownloadHandler implements MessageHandlerInterface
             [
                 'downloadPresentationId' => $downloadPresentation->getId(),
                 'presentationId' => $downloadPresentation->getPresentation()->getId(),
-                'isPaid' => $downloadPresentation->getIsPaid()
+                'isPaid' => $downloadPresentation->getIsPaid(),
+                'pdf' => $downLoadPDF
             ]
         );
 
-        if (!$r['success'])
-            $this->mailService->sendErrorMail(json_encode($r));
-        else if ($downloadPresentation->getPresentation()->getOwner()) {
-            $presentation = $downloadPresentation->getPresentation();
-            $email = (new TemplatedEmail())
-                ->from(new Address('no-reply@slideo.co.il', 'Slideo'))
-                ->to(new Address(
-                    $presentation->getOwner()->getEmail(),
-                    $presentation->getOwner()->getFullname()
-                ))
-                ->subject('Your download is ready')
-                ->htmlTemplate('emails/base.html.twig')
-                ->context([
-                    'title' => "Your download is ready",
-                    'body' => '
-                        <div style="text-align:center">
-                            <img src="' . getenv('APP_DOMAIN') . $downloadPresentation->getPrevFile() . '"/>
-                            <br>
-                            <a href="' . getenv('APP_DOMAIN') . $downloadPresentation->getPptxFile() . '">' . $presentation->getTitle() . '.pptx</a>
-                            <br>
-                            <a href="' . getenv('APP_DOMAIN') . $downloadPresentation->getPdfFile() . '">' . $presentation->getTitle() . '.pdf</a>
-                            <br>
-                            You can go to <a href="' . getenv('APP_DOMAIN') . '/editor/' . $presentation->getPresentationId() . '/download">downloads</a> page account in order to see all downloads.
-                        </div>
-                            '
-                ]);
-            $this->mailService->sendMail($email);
-        }
+//        if (!$r['success'])
+//            $this->mailService->sendErrorMail(json_encode($r));
+//        else if ($downloadPresentation->getPresentation()->getOwner()) {
+//            $presentation = $downloadPresentation->getPresentation();
+//            $email = (new TemplatedEmail())
+//                ->from(new Address('no-reply@slideo.co.il', 'Slide.ai'))
+//                ->to(new Address(
+//                    $presentation->getOwner()->getEmail(),
+//                    $presentation->getOwner()->getFullname()
+//                ))
+//                ->subject('Your download is ready')
+//                ->htmlTemplate('emails/base.html.twig')
+//                ->context([
+//                    'title' => "Your download is ready",
+//                    'body' => '
+//                        <div style="text-align:center">
+//                            <img src="' . getenv('APP_DOMAIN') . $downloadPresentation->getPrevFile() . '"/>
+//                            <br>
+//                            <a href="' . getenv('APP_DOMAIN') . $downloadPresentation->getPptxFile() . '">' . $presentation->getTitle() . '.pptx</a>
+//                            <br>
+//                            You can go to <a href="' . getenv('APP_DOMAIN') . '/editor/' . $presentation->getPresentationId() . '/download">downloads</a> page account in order to see all downloads.
+//                        </div>
+//                            '
+//                ]);
+//            $this->mailService->sendMail($email);
+//        }
     }
 }

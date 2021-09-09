@@ -1,5 +1,6 @@
 import slide from "Editor/js/entity/slide";
 import select from "Editor/js/utils/selector/select";
+import Events from "Editor/js/Events";
 import add_event from "Editor/js/utils/add_event";
 import autosizeForeignObject from "Editor/js/shapes/textbox/autosizeForeignObject";
 import { relocateResizeCircleContainer } from "Editor/js/shapes/actions/resize/utils/copyTransform";
@@ -20,305 +21,317 @@ import getSizeAttributes from "../shapes/actions/drag/utils/getSizeAttributes";
  * @param {String} shapeId
  */
 export default function shape(slideId, shapeId) {
-	if (!(this instanceof shape)) return new shape(...arguments);
+  if (!(this instanceof shape)) return new shape(...arguments);
 
-	if (slideId.tagName == "g") {
-		this.slideId = session.CURRENT_SLIDE;
-		this.shapeId = slideId.getAttribute("shape_id");
-	} else {
-		this.slideId = slideId;
-		this.shapeId = shapeId;
-	}
+  if (slideId.tagName == "g") {
+    this.slideId = session.CURRENT_SLIDE;
+    this.shapeId = slideId.getAttribute("shape_id");
+  } else {
+    this.slideId = slideId;
+    this.shapeId = shapeId;
+  }
 
-	/**
-	 * @returns {object} shapeData
-	 */
-	this.data = () => {
-		let shapeData = {};
-		slide(this.slideId)
-			.slideData()
-			.shapes.forEach((shape) => {
-				if (shape.data.shape_id == this.shapeId) shapeData = shape.data;
-			});
-		return shapeData;
-	};
+  /**
+   * @returns {object} shapeData
+   */
+  this.data = () => {
+    let shapeData = {};
+    slide(this.slideId)
+      .slideData()
+      .shapes.forEach((shape) => {
+        if (shape.data.shape_id == this.shapeId) shapeData = shape.data;
+      });
+    return shapeData;
+  };
 
-	/**
-	 * @returns {SVGGElement}
-	 */
-	this.el = () =>
-		slide(this.slideId)
-			.documentElement()
-			.querySelector("g[shape_id='" + this.shapeId + "']");
+  /**
+   * @returns {SVGGElement}
+   */
+  this.el = () =>
+    slide(this.slideId)
+      .documentElement()
+      .querySelector("g[shape_id='" + this.shapeId + "']");
 
-	this.remove = () => {
-		if (this.el()) {
-			this.el().classList.add("d-none");
-			this.data().active = "false";
-		}
-	};
-	this.restore = () => {
-		if (this.el()) {
-			this.el().classList.remove("d-none");
-			this.data().active = "true";
-		}
-	};
+  this.remove = () => {
+    if (this.el()) {
+      this.el().classList.add("d-none");
+      this.data().active = "false";
+    }
+  };
+  this.restore = () => {
+    if (this.el()) {
+      this.el().classList.remove("d-none");
+      this.data().active = "true";
+    }
+  };
 
-	/**
-	 *
-	 * @param {Event} event
-	 * @param {Function} callback
-	 */
-	this.addEvent = (event, callback) => {
-		const selectable = select(".bounding_box", this.el());
-		add_event(selectable, event, callback);
-	};
+  /**
+   *
+   * @param {Event} event
+   * @param {Function} callback
+   */
+  this.addEvent = (event, callback) => {
+    const selectable = select(".bounding_box", this.el());
+    add_event(selectable, event, callback);
+  };
 
-	this.setIcon = (icon) => {
-		// Update the analyzed content
-		const alt = this.data().alt;
-		if (alt.includes("icon|")) {
-			const contentNumber = this.data().alt.split("|").pop();
-			const content = slide(this.slideId).slideData().analyzedContent[
-				contentNumber
-			].icon.data;
-			content.icon = icon;
-		}
-	};
-	this.setImage = (image) => {
-		// Update the analyzed content
-		const alt = this.data().alt;
-		if (alt == "slidetitleimage") {
-			const content = slide(this.slideId).slideData().slideTitleImage.data;
-			content.image = image;
-		} else if (alt.includes("h1image|")) {
-			const contentNumber = alt.split("|").pop();
-			const content = slide(this.slideId).slideData().analyzedContent[
-				contentNumber
-			].h1Image.data;
-			content.image = image;
-		}
-	};
+  this.setIcon = (icon) => {
+    // Update the analyzed content
+    const alt = this.data().alt;
+    if (alt.includes("icon|")) {
+      const contentNumber = this.data().alt.split("|").pop();
+      const content = slide(this.slideId).slideData().analyzedContent[
+        contentNumber
+      ].icon.data;
+      content.icon = icon;
+    }
+  };
+  this.setImage = (image) => {
+    // Update the analyzed content
+    const alt = this.data().alt;
+    if (alt == "slidetitleimage") {
+      const content = slide(this.slideId).slideData().slideTitleImage.data;
+      content.image = image;
+    } else if (alt.includes("h1image|")) {
+      const contentNumber = alt.split("|").pop();
+      const content = slide(this.slideId).slideData().analyzedContent[
+        contentNumber
+      ].h1Image.data;
+      content.image = image;
+    }
+  };
 
-	/**
-	 *
-	 * @param {String} newText
-	 */
-	this.setH1 = (newText) => {
-		// Update the analyzed content
-		const contentNumber = this.data().alt.split("|").pop();
-		const slide_ = slide(this.slideId);
-		const content = slide_.slideData().analyzedContent[contentNumber].h1.data;
-		if (content.text.trim() != newText.trim()) {
-			this.data().text = content.text = newText;
+  /**
+   *
+   * @param {String} newText
+   */
+  this.setH1 = (newText) => {
+    // Update the analyzed content
+    const contentNumber = this.data().alt.split("|").pop();
+    const slide_ = slide(this.slideId);
+    const content = slide_.slideData().analyzedContent[contentNumber].h1.data;
+    if (content.text.trim() != newText.trim()) {
+      this.data().text = content.text = newText;
 
-			const iconG = slide_
-				.page()
-				.querySelector("g[alt$='icon|" + contentNumber + "']");
+      const iconG = slide_
+        .page()
+        .querySelector("g[alt$='icon|" + contentNumber + "']");
 
-			if (iconG) {
-				const iconShapeId = iconG.getAttribute("shape_id");
-				const iconShape = shape(this.slideId, iconShapeId);
-				const iconShapeData = iconShape.data();
-				if (!iconShapeData.isIconChanged && iconShapeData.active != "false") {
-					// page has an icon, update it
-					iconShapeData.icon = null;
-					findKeyword(
-						newText,
-						(slideId, shapeId, keyword) => {
-							iconInit(slideId, shapeId, keyword);
-						},
-						[this.slideId, iconShapeId]
-					);
-				}
-			}
+      if (iconG) {
+        const iconShapeId = iconG.getAttribute("shape_id");
+        const iconShape = shape(this.slideId, iconShapeId);
+        const iconShapeData = iconShape.data();
+        if (!iconShapeData.isIconChanged && iconShapeData.active != "false") {
+          // page has an icon, update it
+          iconShapeData.icon = null;
+          findKeyword(
+            newText,
+            (slideId, shapeId, keyword) => {
+              iconInit(slideId, shapeId, keyword);
+            },
+            [this.slideId, iconShapeId]
+          );
+        }
+      }
 
-			const h1ImageG = slide_
-				.page()
-				.querySelector("g[alt='h1image|" + contentNumber + "']");
+      const h1ImageG = slide_
+        .page()
+        .querySelector("g[alt='h1image|" + contentNumber + "']");
 
-			if (h1ImageG) {
-				const imageShapeId = h1ImageG.getAttribute("shape_id");
-				const imageShape = shape(this.slideId, imageShapeId);
-				const imageShapeData = imageShape.data();
+      if (h1ImageG) {
+        const imageShapeId = h1ImageG.getAttribute("shape_id");
+        const imageShape = shape(this.slideId, imageShapeId);
+        const imageShapeData = imageShape.data();
 
-				if (
-					!imageShapeData.isImageChanged &&
-					imageShapeData.active != "false"
-				) {
-					imageShapeData.image = null;
-					findKeyword(
-						newText,
-						(slideId, shapeId, keyword) => {
-							h1Image(slideId, shapeId, keyword);
-						},
-						[this.slideId, imageShapeId]
-					);
-				}
-			}
+        if (
+          !imageShapeData.isImageChanged &&
+          imageShapeData.active != "false"
+        ) {
+          imageShapeData.image = null;
+          findKeyword(
+            newText,
+            (slideId, shapeId, keyword) => {
+              h1Image(slideId, shapeId, keyword);
+            },
+            [this.slideId, imageShapeId]
+          );
+        }
+      }
 
-			autosizeForeignObject(this.el().querySelector("foreignObject"));
-			relocateResizeCircleContainer(this.el());
-		}
-	};
-	/**
-	 *
-	 * @param {String} newText
-	 */
-	this.setOriginalSentence = (newText) => {
+      autosizeForeignObject(this.el().querySelector("foreignObject"));
+      relocateResizeCircleContainer(this.el());
 
-		// Update the analyzed content
-		const contentNumber = this.data().alt.split("|").pop();
-		const content = slide(this.slideId).slideData().analyzedContent[
-			contentNumber
-		].originalSentence.data;
-		if (content.text.trim() != newText.trim()) {
-			this.data().text = content.text = newText;
-			autosizeForeignObject(this.el().querySelector("foreignObject"));
-			relocateResizeCircleContainer(this.el());
-		}
-	};
-	/**
-	 *
-	 * @param {String} newText
-	 */
-	this.setSlideTitle = (newText) => {
-		// Update the slide title
-		const slide_ = slide(this.slideId);
-		const content = slide_.slideData().slideTitle.data;
+      const shapeId =
+        session.SELECTED_ELEMENTS[0].shape.getAttribute("shape_id");
+      Events.saveChange.content({ slideId: this.slideId, shapeId });
+    }
+  };
+  /**
+   *
+   * @param {String} newText
+   */
+  this.setOriginalSentence = (newText) => {
+    // Update the analyzed content
+    const contentNumber = this.data().alt.split("|").pop();
+    const content = slide(this.slideId).slideData().analyzedContent[
+      contentNumber
+    ].originalSentence.data;
+    if (content.text.trim() != newText.trim()) {
+      this.data().text = content.text = newText;
+      autosizeForeignObject(this.el().querySelector("foreignObject"));
+      relocateResizeCircleContainer(this.el());
+    }
+    const shapeId = session.SELECTED_ELEMENTS[0].shape.getAttribute("shape_id");
+    Events.saveChange.content({ slideId: this.slideId, shapeId });
+  };
+  /**
+   *
+   * @param {String} newText
+   */
+  this.setSlideTitle = (newText) => {
+    // Update the slide title
+    const slide_ = slide(this.slideId);
+    const content = slide_.slideData().slideTitle.data;
 
-		if (content.text == newText) return;
-		if (newText.trim() == constants.SLIDE_TITLE_PLACEHOLDER.trim()) return;
+    if (content.text == newText) return;
+    if (newText.trim() == constants.SLIDE_TITLE_PLACEHOLDER.trim()) return;
 
-		this.data().text = content.text = newText;
+    this.data().text = content.text = newText;
 
-		const slideTitleImageG = slide_
-			.page()
-			.querySelector("g[alt='slidetitleimage']");
-		if (slideTitleImageG) {
-			// page has the slidetitleimage
-			const slideTitleImageShapeId = slideTitleImageG.getAttribute("shape_id");
-			const slideTitleImageShape = shape(this.slideId, slideTitleImageShapeId);
-			const slideTitleImageShapeData = slideTitleImageShape.data();
+    const shapeId = session.SELECTED_ELEMENTS[0].shape.getAttribute("shape_id");
+    Events.saveChange.content({ slideId: this.slideId, shapeId });
 
-			if (
-				!slideTitleImageShapeData.isImageChanged &&
-				slideTitleImageShapeData.active != "false"
-			) {
-				slideTitleImageShapeData.image = null;
-				findKeyword(
-					newText,
-					(slideId, shapeId, keyword) => {
-						h1Image(slideId, shapeId, keyword);
-					},
-					[this.slideId, slideTitleImageShapeId]
-				);
-			}
-		}
+    const slideTitleImageG = slide_
+      .page()
+      .querySelector("g[alt='slidetitleimage']");
+    if (slideTitleImageG) {
+      // page has the slidetitleimage
+      const slideTitleImageShapeId = slideTitleImageG.getAttribute("shape_id");
+      const slideTitleImageShape = shape(this.slideId, slideTitleImageShapeId);
+      const slideTitleImageShapeData = slideTitleImageShape.data();
 
-		autosizeForeignObject(this.el().querySelector("foreignObject"));
-		relocateResizeCircleContainer(this.el());
-		slide_.slideData().slideTitle.height = this.el().getAttribute("height");
-	};
-	/**
-	 *
-	 * @param {String} newText
-	 */
-	this.setSubTitle = (newText) => {
-		// Update the slide title
-		const content = slide(this.slideId).slideData().subTitle.data;
-		if (content.text == newText) return;
-		if (newText.trim() == constants.SLIDE_SUBTITLE_PLACEHOLDER.trim()) return;
+      if (
+        !slideTitleImageShapeData.isImageChanged &&
+        slideTitleImageShapeData.active != "false"
+      ) {
+        slideTitleImageShapeData.image = null;
+        findKeyword(
+          newText,
+          (slideId, shapeId, keyword) => {
+            h1Image(slideId, shapeId, keyword);
+          },
+          [this.slideId, slideTitleImageShapeId]
+        );
+      }
+    }
 
-		this.data().text = content.text = newText;
-		autosizeForeignObject(this.el().querySelector("foreignObject"));
-		relocateResizeCircleContainer(this.el());
-	};
-	/**
-	 *
-	 * @param {String} newText
-	 */
-	this.setText = (newText) => {
-		// Update the custom textbox
+    autosizeForeignObject(this.el().querySelector("foreignObject"));
+    relocateResizeCircleContainer(this.el());
+    slide_.slideData().slideTitle.height = this.el().getAttribute("height");
+  };
+  /**
+   *
+   * @param {String} newText
+   */
+  this.setSubTitle = (newText) => {
+    // Update the slide title
+    const content = slide(this.slideId).slideData().subTitle.data;
+    if (content.text == newText) return;
+    if (newText.trim() == constants.SLIDE_SUBTITLE_PLACEHOLDER.trim()) return;
 
-		const content = this.data();
-		if (!content) return;
-		if (!content.text) return;
+    this.data().text = content.text = newText;
+    autosizeForeignObject(this.el().querySelector("foreignObject"));
+    relocateResizeCircleContainer(this.el());
+    const shapeId = session.SELECTED_ELEMENTS[0].shape.getAttribute("shape_id");
+    Events.saveChange.content({ slideId: this.slideId, shapeId });
+  };
+  /**
+   *
+   * @param {String} newText
+   */
+  this.setText = (newText) => {
+    // Update the custom textbox
 
-		if (content.text.trim() != newText.trim()) {
-			this.data().text = content.text = newText;
-			autosizeForeignObject(this.el().querySelector("foreignObject"));
-			relocateResizeCircleContainer(this.el());
-		}
-	};
+    const content = this.data();
+    if (!content) return;
+    if (!content.text) return;
 
-	this.saveTransforms = (SVG_WIDTH, SVG_HEIGHT) => {
-		const data = this.data();
-		if (data.active == "false") return;
-		data.allTransforms = getTransform(this.el());
-		if (!data.allTransforms) return;
+    if (content.text.trim() != newText.trim()) {
+      this.data().text = content.text = newText;
+      autosizeForeignObject(this.el().querySelector("foreignObject"));
+      relocateResizeCircleContainer(this.el());
+    }
+    const shapeId = session.SELECTED_ELEMENTS[0].shape.getAttribute("shape_id");
+    Events.saveChange.content({ slideId: this.slideId, shapeId });
+  };
 
-		if (data.allTransforms.translate)
-			delete data.allTransforms.translate.transform;
-		if (data.allTransforms.scale) delete data.allTransforms.scale.transform;
-		if (data.allTransforms.rotate) delete data.allTransforms.rotate.transform;
+  this.saveTransforms = (SVG_WIDTH, SVG_HEIGHT) => {
+    const data = this.data();
+    if (data.active == "false") return;
+    data.allTransforms = getTransform(this.el());
+    if (!data.allTransforms) return;
 
-		data.allTransforms.SVG_WIDTH = SVG_WIDTH;
-		data.allTransforms.SVG_HEIGHT = SVG_HEIGHT;
+    if (data.allTransforms.translate)
+      delete data.allTransforms.translate.transform;
+    if (data.allTransforms.scale) delete data.allTransforms.scale.transform;
+    if (data.allTransforms.rotate) delete data.allTransforms.rotate.transform;
 
-		const sizeAttr = getSizeAttributes(this.el());
-		data.width = sizeAttr.width;
-		data.height = sizeAttr.height;
-	};
+    data.allTransforms.SVG_WIDTH = SVG_WIDTH;
+    data.allTransforms.SVG_HEIGHT = SVG_HEIGHT;
 
-	this.moveToSavedPosition = () => {
-		const data = this.data();
-		if (!data) return;
+    const sizeAttr = getSizeAttributes(this.el());
+    data.width = sizeAttr.width;
+    data.height = sizeAttr.height;
+  };
 
-		const savedAllTransforms = data.allTransforms;
-		if (!savedAllTransforms) return;
+  this.moveToSavedPosition = () => {
+    const data = this.data();
+    if (!data) return;
 
-		const g = this.el();
-		const allTransforms = getTransform(g);
+    const savedAllTransforms = data.allTransforms;
+    if (!savedAllTransforms) return;
 
-		try {
-			allTransforms.scale.transform.setScale(
-				parseFloat(savedAllTransforms.scale.startingA),
-				parseFloat(savedAllTransforms.scale.startingA)
-			);
-		} catch (error) {}
+    const g = this.el();
+    const allTransforms = getTransform(g);
 
-		try {
-			allTransforms.translate.transform.setTranslate(
-				parseFloat(savedAllTransforms.translate.startingE),
-				parseFloat(savedAllTransforms.translate.startingF)
-			);
-		} catch (error) {}
+    try {
+      allTransforms.scale.transform.setScale(
+        parseFloat(savedAllTransforms.scale.startingA),
+        parseFloat(savedAllTransforms.scale.startingA)
+      );
+    } catch (error) {}
 
-		try {
-			// Cropped image
-			if (getShapeType(g) == constants.SHAPE_TYPES.IMAGE) {
-				if (!savedAllTransforms.crop) savedAllTransforms.crop = getClipPath();
-				g.querySelector("image").style.clipPath = `polygon(
+    try {
+      allTransforms.translate.transform.setTranslate(
+        parseFloat(savedAllTransforms.translate.startingE),
+        parseFloat(savedAllTransforms.translate.startingF)
+      );
+    } catch (error) {}
+
+    try {
+      // Cropped image
+      if (getShapeType(g) == constants.SHAPE_TYPES.IMAGE) {
+        if (!savedAllTransforms.crop) savedAllTransforms.crop = getClipPath();
+        g.querySelector("image").style.clipPath = `polygon(
                 ${savedAllTransforms.crop.lt.startingX}% ${savedAllTransforms.crop.lt.startingY}%, 
                 ${savedAllTransforms.crop.rt.startingX}% ${savedAllTransforms.crop.rt.startingY}%, 
                 ${savedAllTransforms.crop.rb.startingX}% ${savedAllTransforms.crop.rb.startingY}%, 
                 ${savedAllTransforms.crop.lb.startingX}% ${savedAllTransforms.crop.lb.startingY}%
             )`;
-			}
-		} catch (error) {}
-	};
+      }
+    } catch (error) {}
+  };
 
-	/**
-	 * Update the SVGGElement attributes according to saved data
-	 */
-	this.updateAttrs = () => {
-		const g = this.el();
-		const data = this.data();
-		// For now we only need to update color attributes
-		validColorAttributes.forEach((colorAttributeName) => {
-			if (data[colorAttributeName])
-				g.setAttribute(colorAttributeName, data[colorAttributeName]);
-		});
-	};
+  /**
+   * Update the SVGGElement attributes according to saved data
+   */
+  this.updateAttrs = () => {
+    const g = this.el();
+    const data = this.data();
+    // For now we only need to update color attributes
+    validColorAttributes.forEach((colorAttributeName) => {
+      if (data[colorAttributeName])
+        g.setAttribute(colorAttributeName, data[colorAttributeName]);
+    });
+  };
 }
