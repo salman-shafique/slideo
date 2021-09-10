@@ -7,8 +7,6 @@ export const saveSlidesOrder = () => {
     slidesOrder: session.PRESENTATION.slidesOrder,
   };
 
-  console.log("save order first", session.PRESENTATION.slidesOrder[0]);
-
   // AJAX
   apiService({
     url: "/api/presentation/save/settings",

@@ -1,7 +1,6 @@
 import React from "react";
 import apiService from "Editor/js/utils/apiService";
 import session from "Editor/js/session";
-import { saveChanges } from "./SaveButton";
 import preloader from "Editor/js/components/preloader";
 import Modal from "Editor/js/components/Modal";
 import toastr from "../components/toastr";
@@ -20,9 +19,31 @@ export default function DownloadButton() {
     });
   }, []);
 
+  const getDownload = (presentationId) => {
+    apiService({
+      url: "/api/presentation/download/get/" + presentationId,
+      success: (downloadPresentations) => {
+        if (downloadPresentations.length > 0) {
+          downloadPresentations.forEach((downloadCardDetail, i) => {
+            if (i == downloadPresentations.length - 1) {
+              var link = document.createElement("a");
+              const fileName = downloadCardDetail.pptxFile.split("/").pop();
+              link.setAttribute("href", downloadCardDetail.pptxFile);
+              link.setAttribute("download", fileName);
+              var downloadLink = $(link);
+              downloadLink.appendTo("body");
+              downloadLink[0].click();
+              downloadLink.remove();
+            }
+          });
+        }
+        preloader.hide();
+      },
+    });
+  };
+
   const saveAndDownload = (isPaid) => {
     preloader.show();
-    // saveChanges(() => {
     apiService({
       url:
         "/api/presentation/download/start/" +
@@ -30,16 +51,16 @@ export default function DownloadButton() {
       data: { isPaid },
       success: (r) => {
         if (!r.paymentRequired) {
-          $("#downloadModal").modal("show");
+          // $("#downloadModal").modal("show");
           if (r.paidBefore)
             toastr.success("You already paid for this presentation!");
-          window
-            .open(
-              `/editor/${session.PRESENTATION.presentationId}/download`,
-              "_blank"
-            )
-            .focus();
-          preloader.hide();
+          // window
+          //   .open(
+          //     `/editor/${session.PRESENTATION.presentationId}/download`,
+          //     "_blank"
+          //   )
+          //   .focus();
+          getDownload(session.PRESENTATION.presentationId);
           return;
         }
 
@@ -52,7 +73,6 @@ export default function DownloadButton() {
         }
       },
     });
-    // });
   };
 
   const download = () => {
@@ -95,6 +115,7 @@ export default function DownloadButton() {
       >
         <i className="fas fa-download mr-2"></i> הורד מצגת
       </button>
+
       <Modal id={"downloadModal"}>
         <img src="/img/party.gif" />
         <h3>הקובץ מיד יהיה זמין להורדה</h3>
