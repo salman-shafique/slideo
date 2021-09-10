@@ -6,6 +6,58 @@ import preloader from "Editor/js/components/preloader";
 import Modal from "Editor/js/components/Modal";
 import toastr from "../components/toastr";
 import Events from "../Events";
+import Download from "../download/Download";
+
+const downloadFile = () => {
+  if (check && !downloadCardDetail.completed)
+    setInterval(() => {
+      apiService({
+        url:
+          "/api/presentation/download/get/" +
+          presentationId +
+          "/" +
+          downloadCardDetail.id,
+        success: (latestDownloadCardDetail) => {
+          if (
+            latestDownloadCardDetail.pptxFile != downloadCardDetail.pptxFile ||
+            latestDownloadCardDetail.pdfFile != downloadCardDetail.pdfFile ||
+            latestDownloadCardDetail.prevFile != downloadCardDetail.prevFile
+          ) {
+            preloader.show();
+            location.reload();
+          }
+        },
+      });
+    }, 10000);
+};
+
+const getDownload = (presentationId) => {
+  apiService({
+    url: "/api/presentation/download/get/" + presentationId,
+    success: (downloadPresentations) => {
+      if (downloadPresentations.length > 0) {
+        const tmp = [];
+        let check = false;
+        downloadPresentations.forEach((downloadCardDetail, i) => {
+          console.log("downloadcard", downloadCardDetail);
+          // tmp.push(
+          //   <DownloadCard
+          //     downloadCardDetail={downloadCardDetail}
+          //     presentationId={presentationId}
+          //     key={i}
+          //     check={!downloadCardDetail.completed && !check}
+          //   />
+          // );
+          downloadFile(download);
+          if (!downloadCardDetail.completed && !check) check = true;
+        });
+        // setDownloadCards(tmp);
+        // toggleFunc();
+      }
+      preloader.hide();
+    },
+  });
+};
 
 export default function DownloadButton() {
   const [numberOfSlides, setNumberOfSlides] = React.useState(0);
@@ -29,16 +81,18 @@ export default function DownloadButton() {
         session.PRESENTATION.presentationId,
       data: { isPaid },
       success: (r) => {
+        console.log("R", r);
         if (!r.paymentRequired) {
           $("#downloadModal").modal("show");
           if (r.paidBefore)
             toastr.success("You already paid for this presentation!");
-          window
-            .open(
-              `/editor/${session.PRESENTATION.presentationId}/download`,
-              "_blank"
-            )
-            .focus();
+          // window
+          //   .open(
+          //     `/editor/${session.PRESENTATION.presentationId}/download`,
+          //     "_blank"
+          //   )
+          //   .focus();
+          getDownload(session.PRESENTATION.presentationId);
           preloader.hide();
           return;
         }
