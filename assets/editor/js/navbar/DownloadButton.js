@@ -1,63 +1,10 @@
 import React from "react";
 import apiService from "Editor/js/utils/apiService";
 import session from "Editor/js/session";
-import { saveChanges } from "./SaveButton";
 import preloader from "Editor/js/components/preloader";
 import Modal from "Editor/js/components/Modal";
 import toastr from "../components/toastr";
 import Events from "../Events";
-import Download from "../download/Download";
-
-const downloadFile = () => {
-  if (check && !downloadCardDetail.completed)
-    setInterval(() => {
-      apiService({
-        url:
-          "/api/presentation/download/get/" +
-          presentationId +
-          "/" +
-          downloadCardDetail.id,
-        success: (latestDownloadCardDetail) => {
-          if (
-            latestDownloadCardDetail.pptxFile != downloadCardDetail.pptxFile ||
-            latestDownloadCardDetail.pdfFile != downloadCardDetail.pdfFile ||
-            latestDownloadCardDetail.prevFile != downloadCardDetail.prevFile
-          ) {
-            preloader.show();
-            location.reload();
-          }
-        },
-      });
-    }, 10000);
-};
-
-const getDownload = (presentationId) => {
-  apiService({
-    url: "/api/presentation/download/get/" + presentationId,
-    success: (downloadPresentations) => {
-      if (downloadPresentations.length > 0) {
-        const tmp = [];
-        let check = false;
-        downloadPresentations.forEach((downloadCardDetail, i) => {
-          console.log("downloadcard", downloadCardDetail);
-          // tmp.push(
-          //   <DownloadCard
-          //     downloadCardDetail={downloadCardDetail}
-          //     presentationId={presentationId}
-          //     key={i}
-          //     check={!downloadCardDetail.completed && !check}
-          //   />
-          // );
-          downloadFile(download);
-          if (!downloadCardDetail.completed && !check) check = true;
-        });
-        // setDownloadCards(tmp);
-        // toggleFunc();
-      }
-      preloader.hide();
-    },
-  });
-};
 
 export default function DownloadButton() {
   const [numberOfSlides, setNumberOfSlides] = React.useState(0);
@@ -72,18 +19,39 @@ export default function DownloadButton() {
     });
   }, []);
 
+  const getDownload = (presentationId) => {
+    apiService({
+      url: "/api/presentation/download/get/" + presentationId,
+      success: (downloadPresentations) => {
+        if (downloadPresentations.length > 0) {
+          downloadPresentations.forEach((downloadCardDetail, i) => {
+            if (i == downloadPresentations.length - 1) {
+              var link = document.createElement("a");
+              const fileName = downloadCardDetail.pptxFile.split("/").pop();
+              link.setAttribute("href", downloadCardDetail.pptxFile);
+              link.setAttribute("download", fileName);
+              var downloadLink = $(link);
+              downloadLink.appendTo("body");
+              downloadLink[0].click();
+              downloadLink.remove();
+            }
+          });
+        }
+        preloader.hide();
+      },
+    });
+  };
+
   const saveAndDownload = (isPaid) => {
     preloader.show();
-    // saveChanges(() => {
     apiService({
       url:
         "/api/presentation/download/start/" +
         session.PRESENTATION.presentationId,
       data: { isPaid },
       success: (r) => {
-        console.log("R", r);
         if (!r.paymentRequired) {
-          $("#downloadModal").modal("show");
+          // $("#downloadModal").modal("show");
           if (r.paidBefore)
             toastr.success("You already paid for this presentation!");
           // window
@@ -93,7 +61,6 @@ export default function DownloadButton() {
           //   )
           //   .focus();
           getDownload(session.PRESENTATION.presentationId);
-          preloader.hide();
           return;
         }
 
@@ -106,7 +73,6 @@ export default function DownloadButton() {
         }
       },
     });
-    // });
   };
 
   const download = () => {
@@ -149,6 +115,7 @@ export default function DownloadButton() {
       >
         <i className="fas fa-download mr-2"></i> הורד מצגת
       </button>
+
       <Modal id={"downloadModal"}>
         <img src="/img/party.gif" />
         <h3>הקובץ מיד יהיה זמין להורדה</h3>
