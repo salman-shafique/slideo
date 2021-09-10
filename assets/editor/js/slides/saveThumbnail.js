@@ -147,12 +147,5 @@ Events.listen("shape.allReleased", (event) => {
   }
 });
 
-document.addEventListener("visibilitychange", function logData() {
-  if (document.visibilityState === "hidden") {
-    closePage = true;
-    saveThumbnail();
-  }
-});
-
 Events.listen("saveChange.inited", saveThumbnail);
 Events.listen("saveChange.slidesOrder", saveThumbnail);
