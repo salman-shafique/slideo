@@ -6,6 +6,20 @@ import Modal from "Editor/js/components/Modal";
 import toastr from "../components/toastr";
 import Events from "../Events";
 
+const downloadFile = (downloadCardDetail) => {
+  preloader.show();
+  var link = document.createElement("a");
+  const fileName = downloadCardDetail.pptxFile.split("/").pop();
+  link.setAttribute("href", downloadCardDetail.pptxFile);
+  link.setAttribute("download", fileName);
+  var downloadLink = $(link);
+  downloadLink.appendTo("body");
+  downloadLink[0].click();
+  downloadLink.remove();
+  document.cookie = `LATEST_DOWNLOAD=`;
+  preloader.hide();
+};
+
 export default function DownloadButton() {
   const [numberOfSlides, setNumberOfSlides] = React.useState(0);
   const [state, setState] = React.useState(false);
@@ -16,6 +30,32 @@ export default function DownloadButton() {
     Events.listen("presentation.inited", () => {
       setState(!state);
       setIsPaidBefore(session?.PRESENTATION?.checkout?.isCompleted);
+
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+
+      if (
+        session?.PRESENTATION?.presentationId &&
+        getCookie("LATEST_DOWNLOAD") != ""
+      ) {
+        preloader.show();
+        setTimeout(() => {
+          apiService({
+            url:
+              "/api/presentation/download/get/" +
+              session?.PRESENTATION?.presentationId +
+              "/" +
+              getCookie("LATEST_DOWNLOAD"),
+            success: (latestDownloadCardDetail) => {
+              downloadFile(latestDownloadCardDetail);
+              preloader.hide();
+            },
+          });
+        }, 10000);
+      }
     });
   }, []);
 
@@ -24,18 +64,8 @@ export default function DownloadButton() {
       url: "/api/presentation/download/get/" + presentationId,
       success: (downloadPresentations) => {
         if (downloadPresentations.length > 0) {
-          downloadPresentations.forEach((downloadCardDetail, i) => {
-            if (i == downloadPresentations.length - 1) {
-              var link = document.createElement("a");
-              const fileName = downloadCardDetail.pptxFile.split("/").pop();
-              link.setAttribute("href", downloadCardDetail.pptxFile);
-              link.setAttribute("download", fileName);
-              var downloadLink = $(link);
-              downloadLink.appendTo("body");
-              downloadLink[0].click();
-              downloadLink.remove();
-            }
-          });
+          document.cookie = `LATEST_DOWNLOAD=${downloadPresentations[0].id}`;
+          location.reload();
         }
         preloader.hide();
       },
@@ -60,6 +90,7 @@ export default function DownloadButton() {
           //     "_blank"
           //   )
           //   .focus();
+          // preloader.hide();
           getDownload(session.PRESENTATION.presentationId);
           return;
         }
