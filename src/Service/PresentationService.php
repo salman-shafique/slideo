@@ -238,27 +238,26 @@ class PresentationService
         $slide = $slideRepository->findOneBy(["id" => $slideJson['id']]);
 
         // Background
-        if ($slideJson['style']['id'] != $slide->getStyle()->getId()) {
-            // The style is changed on the frontend
-            // Style
-            /** @var StyleRepository $styleRepository */
-            $styleRepository = $this->em->getRepository(Style::class);
-            $style = $styleRepository->findOneBy(["id" => $slideJson['style']['id']]);
-            $slide->setStyle($style);
+        // The style is changed on the frontend
+        // Style
+        /** @var StyleRepository $styleRepository */
+        $styleRepository = $this->em->getRepository(Style::class);
+        $style = $styleRepository->findOneBy(["id" => $slideJson['style']['id']]);
+        $slide->setStyle($style);
 
-            // Rm all shapes
-            foreach ($slide->getShapes() as $shape)
-                $slide->removeShape($shape);
+        // Rm all shapes
+        foreach ($slide->getShapes() as $shape)
+            $slide->removeShape($shape);
 
-            // Shapes
-            foreach ($slideJson['shapes'] as $shape) {
-                $newShape = new Content();
-                $shapeData = $shape['data'];
-                $newShape->setData($shapeData);
-                $slide->addShape($newShape);
-                $this->em->persist($newShape);
-            }
+        // Shapes
+        foreach ($slideJson['shapes'] as $shape) {
+            $newShape = new Content();
+            $shapeData = $shape['data'];
+            $newShape->setData($shapeData);
+            $slide->addShape($newShape);
+            $this->em->persist($newShape);
         }
+
 
         $this->em->persist($slide);
         $this->em->flush();
