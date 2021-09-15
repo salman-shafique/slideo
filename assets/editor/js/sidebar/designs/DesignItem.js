@@ -27,6 +27,7 @@ export default function DesignItem({ designData }) {
     Events.saveChange.style({
       slideId: slideData.id,
       styleId: designData.id,
+      shapes: designData.shapes,
       border: "2px solid salmon",
     });
     Events.saveChange.background();
