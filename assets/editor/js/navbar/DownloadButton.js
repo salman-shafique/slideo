@@ -37,6 +37,10 @@ export default function DownloadButton() {
         if (parts.length === 2) return parts.pop().split(";").shift();
       }
 
+      if(!getCookie("LATEST_DOWNLOAD")){
+        document.cookie = `LATEST_DOWNLOAD=`;
+      }
+
       if (
         session?.PRESENTATION?.presentationId &&
         getCookie("LATEST_DOWNLOAD") != ""
@@ -63,16 +67,16 @@ export default function DownloadButton() {
     apiService({
       url: "/api/presentation/download/get/" + presentationId,
       success: (downloadPresentations) => {
-        if (downloadPresentations.length > 0) {
-          document.cookie = `LATEST_DOWNLOAD=${downloadPresentations[0].id}`;
-          location.reload();
-        }
+        const incompleteDownload = downloadPresentations.find(presentation => !presentation.completed)
+        document.cookie = `LATEST_DOWNLOAD=${incompleteDownload.id}`;
+        location.reload();
         preloader.hide();
       },
     });
   };
 
   const saveAndDownload = (isPaid) => {
+    Events.download.inited();
     preloader.show();
     apiService({
       url:
@@ -84,6 +88,7 @@ export default function DownloadButton() {
           // $("#downloadModal").modal("show");
           if (r.paidBefore)
             toastr.success("You already paid for this presentation!");
+            getDownload(session.PRESENTATION.presentationId);
           // window
           //   .open(
           //     `/editor/${session.PRESENTATION.presentationId}/download`,
@@ -91,7 +96,6 @@ export default function DownloadButton() {
           //   )
           //   .focus();
           // preloader.hide();
-          getDownload(session.PRESENTATION.presentationId);
           return;
         }
 
