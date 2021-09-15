@@ -101,6 +101,9 @@ const Events = {
     thumbnail: (data = {}) => dispatchEvent("saveChange.thumbnail", data),
     slidesOrder: (data = {}) => dispatchEvent("saveChange.slidesOrder", data),
   },
+  download: {
+    inited: (data = {}) => dispatchEvent("download.inited", data)
+  },
   /**
    * @param {String} eventName
    * @param {function} listener
