@@ -190,9 +190,10 @@ class PresentationService
 
     public function saveContent(Request $request)
     {
-        $content = json_decode($request->getContent(), true);
-        $content = $this->updateContent($content);
-
+        $contents = json_decode($request->getContent(), true);
+        foreach ($contents as $content) {
+            $content = $this->updateContent($content);
+        }
         return ["success" => true];
     }
 
