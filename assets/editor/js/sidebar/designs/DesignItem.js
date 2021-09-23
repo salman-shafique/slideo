@@ -12,22 +12,12 @@ export default function DesignItem({ designData }) {
       return;
     }
     preloader.show();
-    designData.shapes.forEach((shape) => {
-      const slideShapes = slide(session.CURRENT_SLIDE).slideData().shapes;
-      slideShapes.forEach((sShape) => {
-        if (shape.data.alt.includes("icon|")) {
-          if (!sShape.data.alt.includes("icon|")) return;
-          shape.id = sShape.id;
-        } else if (shape.data.alt == sShape.data.alt) {
-          shape.id = sShape.id;
-        }
-      });
-    });
-    currentSlide.changeDesign(designData);
+    // currentSlide.changeDesign(designData);
     Events.saveChange.style({
       slideId: slideData.id,
       styleId: designData.id,
       shapes: designData.shapes,
+      designData: designData,
       border: "2px solid salmon",
     });
     Events.saveChange.background();
