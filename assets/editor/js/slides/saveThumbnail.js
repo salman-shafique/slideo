@@ -52,7 +52,7 @@ function svgToJpeg(originalBase64, totalImg, done) {
     const file = createImageFile(imageData, "slide-thumbnail.jpg");
 
     if (totalImg == done) {
-      Events.saveChange.thumbnail(file);
+      Events.saveChange.thumbnailReady(file);
     }
   };
 
@@ -102,7 +102,7 @@ const saveThumbnail = (event) => {
 // Detect Page Close
 let closePage = false;
 
-Events.listen("saveChange.thumbnail", (event) => {
+Events.listen("saveChange.thumbnailReady", (event) => {
   const formData = new FormData();
   formData.append("thumbnail", event.data);
 
@@ -147,5 +147,5 @@ Events.listen("shape.allReleased", (event) => {
   }
 });
 
-Events.listen("saveChange.inited", saveThumbnail);
+Events.listen("saveChange.thumbnail", saveThumbnail);
 Events.listen("saveChange.slidesOrder", saveThumbnail);
