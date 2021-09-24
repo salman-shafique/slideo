@@ -30,36 +30,6 @@ export default function DownloadButton() {
     Events.listen("presentation.inited", () => {
       setState(!state);
       setIsPaidBefore(session?.PRESENTATION?.checkout?.isCompleted);
-
-      function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(";").shift();
-      }
-
-      if(!getCookie("LATEST_DOWNLOAD")){
-        document.cookie = `LATEST_DOWNLOAD=`;
-      }
-
-      if (
-        session?.PRESENTATION?.presentationId &&
-        getCookie("LATEST_DOWNLOAD") != ""
-      ) {
-        preloader.show();
-        setTimeout(() => {
-          apiService({
-            url:
-              "/api/presentation/download/get/" +
-              session?.PRESENTATION?.presentationId +
-              "/" +
-              getCookie("LATEST_DOWNLOAD"),
-            success: (latestDownloadCardDetail) => {
-              downloadFile(latestDownloadCardDetail);
-              preloader.hide();
-            },
-          });
-        }, 10000);
-      }
     });
   }, []);
 
@@ -67,10 +37,24 @@ export default function DownloadButton() {
     apiService({
       url: "/api/presentation/download/get/" + presentationId,
       success: (downloadPresentations) => {
-        const incompleteDownload = downloadPresentations.find(presentation => !presentation.completed)
-        document.cookie = `LATEST_DOWNLOAD=${incompleteDownload.id}`;
-        location.reload();
-        preloader.hide();
+        const incompleteDownload = downloadPresentations.find(
+          (presentation) => !presentation.completed
+        );
+
+        setTimeout(() => {
+          apiService({
+            url:
+              "/api/presentation/download/get/" +
+              presentationId +
+              "/" +
+              incompleteDownload.id,
+            success: (latestDownloadCardDetail) => {
+              downloadFile(latestDownloadCardDetail);
+              preloader.hide();
+            },
+          });
+        }, 5000);
+        // preloader.hide();
       },
     });
   };
@@ -88,7 +72,7 @@ export default function DownloadButton() {
           // $("#downloadModal").modal("show");
           if (r.paidBefore)
             toastr.success("You already paid for this presentation!");
-            getDownload(session.PRESENTATION.presentationId);
+          getDownload(session.PRESENTATION.presentationId);
           // window
           //   .open(
           //     `/editor/${session.PRESENTATION.presentationId}/download`,
