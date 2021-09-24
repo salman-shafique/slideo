@@ -16,18 +16,26 @@ const saveStyle = (event) => {
 
   const data = JSON.stringify(request);
 
-  // AJAX
-  apiService({
-    url: "/api/presentation/save/style",
-    data: data,
-    success: (r) => {
-      event.data.designData.shapes = r.newShapes;
-      currentSlide.changeDesign(event.data.designData);
-    },
+  const currentShapes = currentSlide.slideData().shapes;
+  const lastShapeId = currentShapes[currentShapes.length - 1].id;
+  request.shapes.forEach((shape, i) => {
+    shape.id = lastShapeId + i + 1;
   });
 
+  event.data.designData.shapes = request.shapes;
+  currentSlide.changeDesign(event.data.designData);
+
+  // AJAX
+  // apiService({
+  //   url: "/api/presentation/save/style",
+  //   data: data,
+  //   success: (r) => {
+  //     console.log("NEW SHAPES", r.newShapes);
+  //   },
+  // });
+
   // sendBeacon
-  // navigator.sendBeacon("/api/presentation/save/style", data);
+  navigator.sendBeacon("/api/presentation/save/style", data);
 };
 
 Events.listen("saveChange.style", saveStyle);
