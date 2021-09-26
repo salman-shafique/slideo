@@ -95,6 +95,29 @@ const saveAllContent = (event) => {
   });
 };
 
+const saveDefaultContent = (event) => {
+  const request = [];
+
+  const shape = {
+    id: event.data.id,
+    data: event.data.data,
+  };
+
+  request.push(shape);
+
+  const data = JSON.stringify(request);
+
+  // AJAX
+  // apiService({
+  //   url: "/api/presentation/save/content",
+  //   data: data,
+  // });
+
+  // sendBeacon
+  navigator.sendBeacon("/api/presentation/save/content", data);
+};
+
 Events.listen("saveChange.inited", saveAllContent);
 Events.listen("download.inited", saveAllContent);
+Events.listen("saveChange.resetContent", saveDefaultContent);
 Events.listen("saveChange.content", saveContent);
