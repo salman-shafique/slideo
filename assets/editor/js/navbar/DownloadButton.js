@@ -41,6 +41,10 @@ export default function DownloadButton() {
           (presentation) => !presentation.completed
         );
 
+        // const time = ;
+
+        // console.log(time);
+
         setTimeout(() => {
           apiService({
             url:
@@ -53,7 +57,7 @@ export default function DownloadButton() {
               preloader.hide();
             },
           });
-        }, 5000);
+        }, 7500 * session.PRESENTATION.slides.length);
         // preloader.hide();
       },
     });
