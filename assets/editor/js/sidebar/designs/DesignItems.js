@@ -19,27 +19,29 @@ export default function DesignItems() {
       .forEach((designData, i) => {
         designData.shapes.forEach((shape) => {
           if (shape.data.alt.includes("icon")) {
-            if (shape.data.icon) {
-              delete shape.data.icon;
-              delete shape.data.keyword;
-              delete shape.data.keywords;
-              delete shape.data.inEnglish;
-              delete shape.data.lang;
-              delete shape.data.text;
-              delete shape.data.title;
-              delete shape.data.allTransforms;
+            Events.listen("saveChange.inited", () => {
+              if (shape.data.icon) {
+                delete shape.data.icon;
+                delete shape.data.keyword;
+                delete shape.data.keywords;
+                delete shape.data.inEnglish;
+                delete shape.data.lang;
+                delete shape.data.text;
+                delete shape.data.title;
+                delete shape.data.allTransforms;
 
-              const defaultColorHex = `#${shape.data.alt.slice(0, 6)}`;
-              const defaultColor = hexToRgb(defaultColorHex);
+                const defaultColorHex = `#${shape.data.alt.slice(0, 6)}`;
+                const defaultColor = hexToRgb(defaultColorHex);
 
-              shape.data.rgb = defaultColor;
+                shape.data.rgb = defaultColor;
 
-              Events.saveChange.resetContent({
-                id: shape.id,
-                data: shape.data,
-              });
-            }
-          } else if (shape.data.alt.includes("image")) {
+                Events.saveChange.resetContent({
+                  id: shape.id,
+                  data: shape.data,
+                });
+              }
+            });
+          } else if (shape.data.alt.includes("h1image|0")) {
             Events.listen("saveChange.inited", () => {
               if (shape.data.image) {
                 delete shape.data.image;
