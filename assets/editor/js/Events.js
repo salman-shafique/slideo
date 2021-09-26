@@ -94,6 +94,7 @@ const Events = {
   saveChange: {
     inited: (data = {}) => dispatchEvent("saveChange.inited", data),
     content: (data = {}) => dispatchEvent("saveChange.content", data),
+    resetContent: (data = {}) => dispatchEvent("saveChange.resetContent", data),
     colorTemplate: (data = {}) =>
       dispatchEvent("saveChange.colorTemplate", data),
     background: (data = {}) => dispatchEvent("saveChange.background", data),
