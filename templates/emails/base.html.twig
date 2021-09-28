@@ -3,7 +3,7 @@
 <!--[if !IE]><!-->
   <html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Slide.AI</title>
+    <title>{{ app.request.server.get('APP_NAME') }}</title>
     <!--[if !mso]><!-->
     <meta
     http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -639,7 +639,7 @@
                               {% if title is defined %}
                                 {{title}}
                               {% else %}
-                                Slide.AI
+                                {{ app.request.server.get('APP_NAME') }}
                               {% endif %}
                             {% endblock %}
                           </strong>
@@ -648,7 +648,7 @@
                           {% if body is defined %}
                             {{body | raw }}
                           {% else %}
-                            Slide.AI
+                            {{ app.request.server.get('APP_NAME') }}
                           {% endif %}
                         {% endblock %}
                       </div>
@@ -687,7 +687,7 @@
                     <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 10px;Margin-bottom: 10px;">
 
                       <div style="font-size: 12px;line-height: 19px;">
-                        <div>Slide.AI</div>
+                        <div>{{ app.request.server.get('APP_NAME') }}</div>
                       </div>
                       <div style="font-size: 12px;line-height: 19px;Margin-top: 18px;"></div>
                       <!--[if mso]>&nbsp;<![endif]-->
