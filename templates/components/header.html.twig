@@ -4,7 +4,7 @@
   </span>
 </button>
 <div id="mainMenu" class="sidenav">
-    <a class="navbar-brand" href="{{ path('index') }}">{{ app.request.server.get('APP_NAME')|capitalize }}</a>
+    <a class="navbar-brand" href="{{ path('index') }}"><img class="contact-item" src="/img/logo/slide.ai-logo-blue.png" width="120"></a>
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('admin') }}">{% trans %}Dashboard{% endtrans %}</a>
     {% endif %}
@@ -20,7 +20,7 @@
 </div>
 <nav id="BrandNav" class="navbar navbar-expand-sm container">
     <a class="navbar-brand d-md-flex d-none" href="{{ path('index') }}">
-        {{ app.request.server.get('APP_NAME') | capitalize }}
+       <img class="contact-item" src="/img/logo/slide.ai-logo-blue.png" width="120">
     </a>
     <ul class="navbar-nav d-md-flex ml-auto d-none">
         {% if is_granted('ROLE_ADMIN') %}
