@@ -2,10 +2,15 @@
 
 namespace App\Service;
 
+use App\Entity\Content;
+use App\Entity\Slide;
 use App\Entity\User;
 use App\Entity\Presentation;
 use App\Entity\UploadedImage;
+use App\Repository\ContentRepository;
+use App\Repository\SlideRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -26,26 +31,27 @@ class ImageService
     public function h1Image(Presentation $presentation, Request $request)
     {
         $slide = null;
-        foreach ($presentation->getSlides() as $slide_) {
-            if ($slide_->getSlideId() == $request->request->get("slideId")) {
-                $slide = $slide_;
-                break;
-            }
+        /**  @var ContentRepository $contentRepository */
+        $contentRepository = $this->em->getRepository(Content::class);
+        $content = $contentRepository->findOneBy(["id" => $request->request->get("contentId")]);
+        if (empty($content)) {
+            return ['success' => false, "message" => "content not found"];
         }
+        $slide = $content->getSlide();
         if ($slide) {
+            if ($slide->getPresentation()->getId() !== $presentation->getId()) {
+                return ['success' => false, "message" => "Access denied"];
+            }
+
             $images = $this->flaskService->call("Pexels", "find_images", ['keyword' => $request->request->get("keyword"), "per_page" => 20]);
-
-            foreach ($slide->getShapes() as $shape)
-                if (isset($shape->getData()['shape_id']))
-                    if ($shape->getData()['shape_id'] == $request->request->get("shapeId")) {
-                        $data =  $shape->getData();
-                        $data['image'] = $images[0];
-                        $shape->setData($data);
-                        $this->em->persist($shape);
-                        break;
-                    }
-
-            $this->em->persist($slide);
+            if (isset($content->getData()['shape_id'])) {
+                if ($content->getData()['shape_id'] == $request->request->get("shapeId")) {
+                    $data = $content->getData();
+                    $data['image'] = $images[0];
+                    $content->setData($data);
+                    $this->em->persist($content);
+                }
+            }
             $this->em->flush();
             return array_merge(
                 [
@@ -61,13 +67,13 @@ class ImageService
     public function userImagesUpload(Request $request)
     {
         $images = $request->files->get('images');
-        if (!$images) return  ['success' => false, 'descr' => 'No image found'];
+        if (!$images) return ['success' => false, 'descr' => 'No image found'];
 
         /**
          * @var User $user
          */
         $user = $this->security->getUser();
-        if (!$user) return  ['success' => false, 'descr' => 'Please login first'];
+        if (!$user) return ['success' => false, 'descr' => 'Please login first'];
 
         $addedImages = [];
         /** @var UploadedFile $image */
@@ -134,7 +140,7 @@ class ImageService
             ->andWhere("image.owner = :owner")
             ->setParameter("owner", $user)
             ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->getResult(Query::HYDRATE_ARRAY);
 
         return $uploadedImages;
     }
@@ -145,7 +151,7 @@ class ImageService
          * @var User $user
          */
         $user = $this->security->getUser();
-        if (!$user) return  ['success' => false, 'descr' => 'Please login first'];
+        if (!$user) return ['success' => false, 'descr' => 'Please login first'];
 
         /**
          * @var UploadedImage $uploadedImage
